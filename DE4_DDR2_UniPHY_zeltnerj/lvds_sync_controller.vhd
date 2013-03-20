@@ -90,6 +90,7 @@ architecture behavioral of lvds_sync_controller is
   -- control signals
   -----------------------------------------------------------------------------
   signal CameraReadyxSP, CameraReadyxSN : std_logic;
+  signal AlignxDP, AlignxDN : std_logic;
 
 
   
@@ -161,10 +162,12 @@ begin  -- architecture behavioral
       StatexDP <= init_ctr;
       InitCounterxDP <= 0;
       CameraReadyxSP <= '0';
+      AlignxDP <= '0';
     elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
       StatexDP <= StatexDN;
       InitCounterxDP <= InitCounterxDN;
       CameraReadyxSP <= CameraReadyxSN;
+      AlignxDP <= AlignxDN;
     end if;
   end process memory;
 
@@ -174,7 +177,7 @@ begin  -- architecture behavioral
   -- inputs : 
   -- outputs: 
   fsm: process (AlignxS, ButtonxS, CameraReadyxSP, InitCounterxDP,
-                PixelChannelxD, StatexDP) is
+                PixelChannelxD, StatexDP, AlignxDP) is
   begin  -- process fsm
     StatexDN <= StatexDP;
     InitCounterxDN <= InitCounterxDP;
@@ -218,6 +221,13 @@ begin  -- architecture behavioral
         --if PixelValidxS = '0' then
         --  StatexDN <= align_data;
         --end if;
+        if PixelChannelxD(1)(9) = '1' and PixelChannelxD(1)(8) = '0' then
+          AlignxS(1) <= '1';
+        end if;
+
+        if PixelChannelxD(2)(9) = '1' and PixelChannelxD(2)(8) = '0' and PixelChannelxD(2)(7) = '0' and PixelChannelxD(2)(6) = '0' then
+          AlignxS(2) <= '1';
+        end if;
         
         for i in 0 to 2 loop
           if ButtonxS(i) = '0' then

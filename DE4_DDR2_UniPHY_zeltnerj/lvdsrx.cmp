@@ -16,6 +16,7 @@
 component lvdsrx
 	PORT
 	(
+		pll_areset		: IN STD_LOGIC ;
 		rx_channel_data_align		: IN STD_LOGIC_VECTOR (4 DOWNTO 0);
 		rx_in		: IN STD_LOGIC_VECTOR (4 DOWNTO 0);
 		rx_inclock		: IN STD_LOGIC ;

@@ -1,4 +1,5 @@
 lvdsrx_inst : lvdsrx PORT MAP (
+		pll_areset	 => pll_areset_sig,
 		rx_channel_data_align	 => rx_channel_data_align_sig,
 		rx_in	 => rx_in_sig,
 		rx_inclock	 => rx_inclock_sig,
