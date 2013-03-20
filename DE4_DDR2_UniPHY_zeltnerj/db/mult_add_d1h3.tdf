@@ -1,0 +1,175 @@
+--altmult_add ADDNSUB_MULTIPLIER_REGISTER1="CLOCK0" CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" DEDICATED_MULTIPLIER_CIRCUITRY="YES" DEVICE_FAMILY="Stratix IV" DSP_BLOCK_BALANCING="Auto" INPUT_ACLR_A0="ACLR0" INPUT_ACLR_B0="ACLR0" INPUT_REGISTER_A0="CLOCK0" INPUT_REGISTER_B0="CLOCK0" INPUT_SOURCE_A0="DATAA" INPUT_SOURCE_B0="DATAB" MULTIPLIER1_DIRECTION="ADD" MULTIPLIER_REGISTER0="UNREGISTERED" NUMBER_OF_MULTIPLIERS=1 OUTPUT_ACLR="ACLR1" OUTPUT_REGISTER="CLOCK1" port_addnsub1="PORT_UNUSED" port_addnsub3="PORT_UNUSED" port_signa="PORT_USED" port_signb="PORT_USED" ROTATE_OUTPUT_ACLR="ACLR1" ROTATE_OUTPUT_REGISTER="CLOCK1" ROTATE_PIPELINE_REGISTER="UNREGISTERED" ROTATE_REGISTER="UNREGISTERED" SHIFT_MODE="VARIABLE" SHIFT_RIGHT_OUTPUT_ACLR="ACLR1" SHIFT_RIGHT_OUTPUT_REGISTER="CLOCK1" SHIFT_RIGHT_PIPELINE_REGISTER="UNREGISTERED" SHIFT_RIGHT_REGISTER="UNREGISTERED" SIGNED_ACLR_A="ACLR0" SIGNED_ACLR_B="ACLR0" SIGNED_PIPELINE_REGISTER_A="UNREGISTERED" SIGNED_PIPELINE_REGISTER_B="UNREGISTERED" SIGNED_REGISTER_A="CLOCK0" SIGNED_REGISTER_B="CLOCK0" WIDTH_A=32 WIDTH_B=32 WIDTH_RESULT=32 aclr0 aclr1 clock0 clock1 dataa datab ena0 ena1 result rotate shift_right signa signb CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48
+--VERSION_BEGIN 12.1SP1 cbx_alt_ded_mult_y 2013:01:31:18:04:58:SJ cbx_altera_mult_add 2013:01:31:18:04:58:SJ cbx_altmult_add 2013:01:31:18:04:58:SJ cbx_cycloneii 2013:01:31:18:04:59:SJ cbx_lpm_add_sub 2013:01:31:18:04:59:SJ cbx_lpm_mult 2013:01:31:18:04:59:SJ cbx_mgl 2013:01:31:18:08:27:SJ cbx_padd 2013:01:31:18:04:59:SJ cbx_parallel_add 2013:01:31:18:04:59:SJ cbx_stratix 2013:01:31:18:04:59:SJ cbx_stratixii 2013:01:31:18:04:59:SJ cbx_util_mgl 2013:01:31:18:04:59:SJ  VERSION_END
+
+
+-- Copyright (C) 1991-2012 Altera Corporation
+--  Your use of Altera Corporation's design tools, logic functions 
+--  and other software and tools, and its AMPP partner logic 
+--  functions, and any output files from any of the foregoing 
+--  (including device programming or simulation files), and any 
+--  associated documentation or information are expressly subject 
+--  to the terms and conditions of the Altera Program License 
+--  Subscription Agreement, Altera MegaCore Function License 
+--  Agreement, or other applicable license agreement, including, 
+--  without limitation, that your use is for the sole purpose of 
+--  programming logic devices manufactured by Altera and sold by 
+--  Altera or its authorized distributors.  Please refer to the 
+--  applicable agreement for further details.
+
+
+FUNCTION stratixiv_mac_mult (aclr[3..0], clk[3..0], dataa[dataa_width-1..0], datab[datab_width-1..0], ena[3..0], signa, signb)
+WITH ( dataa_clear, dataa_clock, dataa_width, datab_clear, datab_clock, datab_width, scanouta_clear, scanouta_clock, signa_clear, signa_clock, signa_internally_grounded, signb_clear, signb_clock, signb_internally_grounded)
+RETURNS ( dataout[dataa_width+datab_width-1..0], scanouta[dataa_width-1..0]);
+FUNCTION stratixiv_mac_out (aclr[3..0], chainin[chainin_width-1..0], clk[3..0], dataa[dataa_width-1..0], datab[datab_width-1..0], datac[datac_width-1..0], datad[datad_width-1..0], ena[3..0], rotate, round, roundchainout, saturate, saturatechainout, shiftright, signa, signb, zeroacc, zerochainout, zeroloopback)
+WITH ( acc_adder_operation, chainin_width = 1, dataa_width = 1, datab_width = 1, datac_width = 1, datad_width = 1, dataout_width = 72, first_adder0_clear, first_adder0_clock, first_adder0_mode, first_adder1_clear, first_adder1_clock, first_adder1_mode, multa_signa_internally_grounded, multa_signb_internally_grounded, multb_signa_internally_grounded, multb_signb_internally_grounded, multc_signa_internally_grounded, multc_signb_internally_grounded, multd_signa_internally_grounded, multd_signb_internally_grounded, operation_mode, output_clear, output_clock, rotate_clear, rotate_clock, rotate_output_clear, rotate_output_clock, rotate_pipeline_clear, rotate_pipeline_clock, round_chain_out_mode, round_chain_out_width, round_clear, round_clock, round_mode, round_pipeline_clear, round_pipeline_clock, round_width, roundchainout_clear, roundchainout_clock, roundchainout_output_clear, roundchainout_output_clock, roundchainout_pipeline_clear, roundchainout_pipeline_clock, saturate_chain_out_mode, saturate_chain_out_width, saturate_clear, saturate_clock, saturate_mode, saturate_pipeline_clear, saturate_pipeline_clock, saturate_width, saturatechainout_clear, saturatechainout_clock, saturatechainout_output_clear, saturatechainout_output_clock, saturatechainout_pipeline_clear, saturatechainout_pipeline_clock, second_adder_clear, second_adder_clock, shiftright_clear, shiftright_clock, shiftright_output_clear, shiftright_output_clock, shiftright_pipeline_clear, shiftright_pipeline_clock, signa_clear, signa_clock, signa_pipeline_clear, signa_pipeline_clock, signb_clear, signb_clock, signb_pipeline_clear, signb_pipeline_clock, zeroacc_clear, zeroacc_clock, zeroacc_pipeline_clear, zeroacc_pipeline_clock, zerochainout_output_clear, zerochainout_output_clock, zeroloopback_clear, zeroloopback_clock, zeroloopback_output_clear, zeroloopback_output_clock, zeroloopback_pipeline_clear, zeroloopback_pipeline_clock)
+RETURNS ( dataout[dataout_width-1..0], dftout, loopbackout[17..0], overflow, saturatechainoutoverflow);
+
+--synthesis_resources = dsp_18bit 4 
+SUBDESIGN mult_add_d1h3
+( 
+	aclr0	:	input;
+	aclr1	:	input;
+	clock0	:	input;
+	clock1	:	input;
+	dataa[31..0]	:	input;
+	datab[31..0]	:	input;
+	ena0	:	input;
+	ena1	:	input;
+	result[31..0]	:	output;
+	rotate	:	input;
+	shift_right	:	input;
+	signa	:	input;
+	signb	:	input;
+) 
+VARIABLE 
+	mac_mult1 : stratixiv_mac_mult
+		WITH (
+			dataa_clear = "0",
+			dataa_clock = "0",
+			dataa_width = 18,
+			datab_clear = "0",
+			datab_clock = "0",
+			datab_width = 18,
+			signa_clear = "0",
+			signa_clock = "0",
+			signb_clear = "0",
+			signb_clock = "0"
+		);
+	mac_mult2 : stratixiv_mac_mult
+		WITH (
+			dataa_clear = "0",
+			dataa_clock = "0",
+			dataa_width = 18,
+			datab_clear = "0",
+			datab_clock = "0",
+			datab_width = 18,
+			signa_clear = "0",
+			signa_clock = "0",
+			signa_internally_grounded = "true",
+			signb_clear = "0",
+			signb_clock = "0"
+		);
+	mac_mult3 : stratixiv_mac_mult
+		WITH (
+			dataa_clear = "0",
+			dataa_clock = "0",
+			dataa_width = 18,
+			datab_clear = "0",
+			datab_clock = "0",
+			datab_width = 18,
+			signa_clear = "0",
+			signa_clock = "0",
+			signb_clear = "0",
+			signb_clock = "0",
+			signb_internally_grounded = "true"
+		);
+	mac_mult4 : stratixiv_mac_mult
+		WITH (
+			dataa_clear = "0",
+			dataa_clock = "0",
+			dataa_width = 18,
+			datab_clear = "0",
+			datab_clock = "0",
+			datab_width = 18,
+			signa_clear = "0",
+			signa_clock = "0",
+			signa_internally_grounded = "true",
+			signb_clear = "0",
+			signb_clock = "0",
+			signb_internally_grounded = "true"
+		);
+	mac_out5 : stratixiv_mac_out
+		WITH (
+			dataa_width = 36,
+			datab_width = 36,
+			datac_width = 36,
+			datad_width = 36,
+			dataout_width = 72,
+			operation_mode = "shift",
+			output_clear = "1",
+			output_clock = "1",
+			rotate_output_clear = "1",
+			rotate_output_clock = "1",
+			shiftright_output_clear = "1",
+			shiftright_output_clock = "1",
+			signa_clear = "0",
+			signa_clock = "0",
+			signb_clear = "0",
+			signb_clock = "0"
+		);
+	aclr2	: NODE;
+	aclr3	: NODE;
+	clock2	: NODE;
+	clock3	: NODE;
+	ena2	: NODE;
+	ena3	: NODE;
+
+BEGIN 
+	mac_mult1.aclr[] = ( aclr3, aclr2, aclr1, aclr0);
+	mac_mult1.clk[] = ( clock3, clock2, clock1, clock0);
+	mac_mult1.dataa[17..0] = dataa[31..14];
+	mac_mult1.datab[17..0] = datab[31..14];
+	mac_mult1.ena[] = ( ena3, ena2, ena1, ena0);
+	mac_mult1.signa = signa;
+	mac_mult1.signb = signb;
+	mac_mult2.aclr[] = ( aclr3, aclr2, aclr1, aclr0);
+	mac_mult2.clk[] = ( clock3, clock2, clock1, clock0);
+	mac_mult2.dataa[] = ( dataa[13..0], B"0000");
+	mac_mult2.datab[17..0] = datab[31..14];
+	mac_mult2.ena[] = ( ena3, ena2, ena1, ena0);
+	mac_mult2.signa = signa;
+	mac_mult2.signb = signb;
+	mac_mult3.aclr[] = ( aclr3, aclr2, aclr1, aclr0);
+	mac_mult3.clk[] = ( clock3, clock2, clock1, clock0);
+	mac_mult3.dataa[17..0] = dataa[31..14];
+	mac_mult3.datab[] = ( datab[13..0], B"0000");
+	mac_mult3.ena[] = ( ena3, ena2, ena1, ena0);
+	mac_mult3.signa = signa;
+	mac_mult3.signb = signb;
+	mac_mult4.aclr[] = ( aclr3, aclr2, aclr1, aclr0);
+	mac_mult4.clk[] = ( clock3, clock2, clock1, clock0);
+	mac_mult4.dataa[] = ( dataa[13..0], B"0000");
+	mac_mult4.datab[] = ( datab[13..0], B"0000");
+	mac_mult4.ena[] = ( ena3, ena2, ena1, ena0);
+	mac_mult4.signa = signa;
+	mac_mult4.signb = signb;
+	mac_out5.aclr[] = ( aclr3, aclr2, aclr1, aclr0);
+	mac_out5.clk[] = ( clock3, clock2, clock1, clock0);
+	mac_out5.dataa[] = mac_mult1.dataout[];
+	mac_out5.datab[] = mac_mult2.dataout[];
+	mac_out5.datac[] = mac_mult3.dataout[];
+	mac_out5.datad[] = mac_mult4.dataout[];
+	mac_out5.ena[] = ( ena3, ena2, ena1, ena0);
+	mac_out5.rotate = rotate;
+	mac_out5.shiftright = shift_right;
+	mac_out5.signa = signa;
+	mac_out5.signb = signb;
+	aclr2 = GND;
+	aclr3 = GND;
+	clock2 = VCC;
+	clock3 = VCC;
+	ena2 = VCC;
+	ena3 = VCC;
+	result[31..0] = mac_out5.dataout[39..8];
+END;
+--VALID FILE

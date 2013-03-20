@@ -1,0 +1,71 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2012 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 0 0 352 112)
+	(text "lvdsrx" (rect 160 -1 198 15)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 96 25 108)(font "Arial" ))
+	(port
+		(pt 0 48)
+		(input)
+		(text "rx_channel_data_align[4..0]" (rect 0 0 156 14)(font "Arial" (font_size 8)))
+		(text "rx_channel_data_align[4..0]" (rect 4 34 135 47)(font "Arial" (font_size 8)))
+		(line (pt 0 48)(pt 144 48)(line_width 3))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "rx_in[4..0]" (rect 0 0 56 14)(font "Arial" (font_size 8)))
+		(text "rx_in[4..0]" (rect 4 50 50 63)(font "Arial" (font_size 8)))
+		(line (pt 0 64)(pt 144 64)(line_width 3))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "rx_inclock" (rect 0 0 57 14)(font "Arial" (font_size 8)))
+		(text "rx_inclock" (rect 4 66 51 79)(font "Arial" (font_size 8)))
+		(line (pt 0 80)(pt 144 80))
+	)
+	(port
+		(pt 352 48)
+		(output)
+		(text "rx_out[49..0]" (rect 0 0 71 14)(font "Arial" (font_size 8)))
+		(text "rx_out[49..0]" (rect 288 34 347 47)(font "Arial" (font_size 8)))
+		(line (pt 352 48)(pt 208 48)(line_width 3))
+	)
+	(port
+		(pt 352 64)
+		(output)
+		(text "rx_outclock" (rect 0 0 66 14)(font "Arial" (font_size 8)))
+		(text "rx_outclock" (rect 293 50 347 63)(font "Arial" (font_size 8)))
+		(line (pt 352 64)(pt 208 64))
+	)
+	(drawing
+		(line (pt 144 32)(pt 208 32))
+		(line (pt 208 32)(pt 208 96))
+		(line (pt 144 96)(pt 208 96))
+		(line (pt 144 32)(pt 144 96))
+		(line (pt 0 0)(pt 352 0))
+		(line (pt 352 0)(pt 352 112))
+		(line (pt 0 112)(pt 352 112))
+		(line (pt 0 0)(pt 0 112))
+	)
+)

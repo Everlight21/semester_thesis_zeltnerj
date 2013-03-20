@@ -1,0 +1,52 @@
+	component DE4_QSYS is
+		port (
+			clk_clk                                         : in    std_logic                     := 'X';             -- clk
+			reset_reset_n                                   : in    std_logic                     := 'X';             -- reset_n
+			memory_mem_a                                    : out   std_logic_vector(13 downto 0);                    -- mem_a
+			memory_mem_ba                                   : out   std_logic_vector(2 downto 0);                     -- mem_ba
+			memory_mem_ck                                   : out   std_logic_vector(1 downto 0);                     -- mem_ck
+			memory_mem_ck_n                                 : out   std_logic_vector(1 downto 0);                     -- mem_ck_n
+			memory_mem_cke                                  : out   std_logic_vector(0 downto 0);                     -- mem_cke
+			memory_mem_cs_n                                 : out   std_logic_vector(0 downto 0);                     -- mem_cs_n
+			memory_mem_dm                                   : out   std_logic_vector(7 downto 0);                     -- mem_dm
+			memory_mem_ras_n                                : out   std_logic_vector(0 downto 0);                     -- mem_ras_n
+			memory_mem_cas_n                                : out   std_logic_vector(0 downto 0);                     -- mem_cas_n
+			memory_mem_we_n                                 : out   std_logic_vector(0 downto 0);                     -- mem_we_n
+			memory_mem_dq                                   : inout std_logic_vector(63 downto 0) := (others => 'X'); -- mem_dq
+			memory_mem_dqs                                  : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- mem_dqs
+			memory_mem_dqs_n                                : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- mem_dqs_n
+			memory_mem_odt                                  : out   std_logic_vector(0 downto 0);                     -- mem_odt
+			oct_rdn                                         : in    std_logic                     := 'X';             -- rdn
+			oct_rup                                         : in    std_logic                     := 'X';             -- rup
+			led_export                                      : out   std_logic_vector(7 downto 0);                     -- export
+			button_export                                   : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
+			spi_2_MISO                                      : in    std_logic                     := 'X';             -- MISO
+			spi_2_MOSI                                      : out   std_logic;                                        -- MOSI
+			spi_2_SCLK                                      : out   std_logic;                                        -- SCLK
+			spi_2_SS_n                                      : out   std_logic;                                        -- SS_n
+			spi_1_MISO                                      : in    std_logic                     := 'X';             -- MISO
+			spi_1_MOSI                                      : out   std_logic;                                        -- MOSI
+			spi_1_SCLK                                      : out   std_logic;                                        -- SCLK
+			spi_1_SS_n                                      : out   std_logic;                                        -- SS_n
+			camera_interface_block_0_conduit_end_cam_FV     : in    std_logic                     := 'X';             -- cam_FV
+			camera_interface_block_0_conduit_end_cam_LV     : in    std_logic                     := 'X';             -- cam_LV
+			camera_interface_block_0_conduit_end_cam_dataav : in    std_logic                     := 'X';             -- cam_dataav
+			camera_interface_block_0_conduit_end_clkcamera  : in    std_logic                     := 'X';             -- clkcamera
+			camera_interface_block_0_conduit_end_channel_1  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_1
+			camera_interface_block_0_conduit_end_channel_2  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_2
+			camera_interface_block_0_conduit_end_channel_3  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_3
+			camera_interface_block_0_conduit_end_channel_4  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_4
+			camera_interface_block_0_conduit_end_channel_5  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_5
+			camera_interface_block_0_conduit_end_channel_6  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_6
+			camera_interface_block_0_conduit_end_channel_7  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_7
+			camera_interface_block_0_conduit_end_channel_8  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_8
+			stored_interface_block_0_conduit_end_DVI_FV     : in    std_logic                     := 'X';             -- DVI_FV
+			stored_interface_block_0_conduit_end_DVI_LV     : in    std_logic                     := 'X';             -- DVI_LV
+			stored_interface_block_0_conduit_end_DVI_dataav : in    std_logic                     := 'X';             -- DVI_dataav
+			stored_interface_block_0_conduit_end_pixelb     : out   std_logic_vector(7 downto 0);                     -- pixelb
+			stored_interface_block_0_conduit_end_pixelg     : out   std_logic_vector(7 downto 0);                     -- pixelg
+			stored_interface_block_0_conduit_end_pixelr     : out   std_logic_vector(7 downto 0);                     -- pixelr
+			stored_interface_block_0_conduit_end_DVI_CLK    : in    std_logic                     := 'X'              -- DVI_CLK
+		);
+	end component DE4_QSYS;
+
