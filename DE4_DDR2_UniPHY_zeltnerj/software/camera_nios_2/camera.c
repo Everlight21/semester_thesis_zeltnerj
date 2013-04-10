@@ -80,11 +80,11 @@ void camera_init(alt_u32 SPI_BASE) {
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 
 	//	request amount of frames
-	sentwrite[1] = 1;
+	sentwrite[1] = 10;
 	sentwrite[0] = 70 | 0x80;
 
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
-
+//
 	//	training pattern 1
 	sentwrite[1] = 0x01; //0b01010101
 	sentwrite[0] = 78 | 0x80;
@@ -96,7 +96,7 @@ void camera_init(alt_u32 SPI_BASE) {
 	sentwrite[0] = 79 | 0x80;
 
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
-
+//
 	//number of lines 1 255
 	sentwrite[1] = 0x30; //0x40
 	sentwrite[0] = 1 | 0x80;
@@ -106,7 +106,7 @@ void camera_init(alt_u32 SPI_BASE) {
 	sentwrite[1] = 0x04; //0x04
 	sentwrite[0] = 2 | 0x80;
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
-
+//
 	//start row window 1
 	sentwrite[1] = 0x00; //0x00
 	sentwrite[0] = 3 | 0x80;
@@ -127,10 +127,12 @@ void camera_init(alt_u32 SPI_BASE) {
 	sentwrite[0] = 37 | 0x80;
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 
-//	//bit mode
-//	sentwrite[1] = 0x01;
-//	sentwrite[0] = 111 | 0x80;
-//	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
+
+	//bit mode
+	sentwrite[1] = 0x01;
+	sentwrite[0] = 111 | 0x80;
+	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
+
 
 	//	image flipping x/y
 	sentwrite[1] = 0x01; //0x00
@@ -138,12 +140,12 @@ void camera_init(alt_u32 SPI_BASE) {
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 
 	//	exposure time 1
-	sentwrite[1] = 0x40; //0x40
+	sentwrite[1] = 0x00; //0x40
 	sentwrite[0] = 42 | 0x80;
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 
 	//	exposure time 2
-	sentwrite[1] = 0x0F; //0x04
+	sentwrite[1] = 0x04; //0x04
 	sentwrite[0] = 43 | 0x80;
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 

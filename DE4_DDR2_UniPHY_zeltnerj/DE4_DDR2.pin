@@ -169,7 +169,7 @@ GND                          : AB2       : gnd    :                   :         
 GXB_NC                       : AB3       :        :                   :         : QR1       :                
 GXB_NC                       : AB4       :        :                   :         : QR1       :                
 VCCT_R                       : AB5       : power  :                   : 1.1V    :           :                
-OSC_50_Bank6                 : AB6       : input  : 2.5 V             :         : 6C        : Y              
+GND+                         : AB6       :        :                   :         : 6C        :                
 GND                          : AB7       : gnd    :                   :         :           :                
 VCC                          : AB8       : power  :                   : 0.9V    :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB9       :        :                   :         : 5C        :                

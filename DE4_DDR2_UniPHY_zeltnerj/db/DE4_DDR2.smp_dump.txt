@@ -136,13 +136,14 @@ scc_state_curr.STATE_SCC_LOAD 1 0 1
 scc_state_curr.STATE_SCC_DONE 1 1 0 
 
 State Machine - |cmv4000design|lvds_sync_controller:inst9|StatexDP
-Name StatexDP.alignData StatexDP.checkTrainingPattern StatexDP.streamingData StatexDP.idle StatexDP.align_data StatexDP.init_ctr 
-StatexDP.init_ctr 0 0 0 0 0 0 
-StatexDP.align_data 0 0 0 0 1 1 
-StatexDP.idle 0 0 0 1 0 1 
-StatexDP.streamingData 0 0 1 0 0 1 
-StatexDP.checkTrainingPattern 0 1 0 0 0 1 
-StatexDP.alignData 1 0 0 0 0 1 
+Name StatexDP.alignData StatexDP.checkTrainingPattern StatexDP.streamingData StatexDP.idle StatexDP.pulseChannelDataAlign StatexDP.initCtr StatexDP.resetDelay 
+StatexDP.resetDelay 0 0 0 0 0 0 0 
+StatexDP.initCtr 0 0 0 0 0 1 1 
+StatexDP.pulseChannelDataAlign 0 0 0 0 1 0 1 
+StatexDP.idle 0 0 0 1 0 0 1 
+StatexDP.streamingData 0 0 1 0 0 0 1 
+StatexDP.checkTrainingPattern 0 1 0 0 0 0 1 
+StatexDP.alignData 1 0 0 0 0 0 1 
 
 State Machine - |cmv4000design|vpg:inst8|config_state
 Name config_state.0111 config_state.0110 config_state.0101 config_state.0100 config_state.0011 config_state.0010 config_state.0000 config_state.0001 config_state.1000 
