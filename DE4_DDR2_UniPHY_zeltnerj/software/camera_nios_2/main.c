@@ -47,6 +47,7 @@ int main() {
 
 
 			/*
+			 *
 			 *  sends 8 bits (at address &sent) to spi interface of cmv4000 and stores read bits (at address &received1)
 		     *  Bit[7] = 0 -> read operation
 		     *  Bit[6..0] -> address
