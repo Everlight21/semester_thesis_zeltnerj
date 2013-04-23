@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -11,9 +11,9 @@
 // agreement for further details.
 
 
-// $Id: //acds/rel/12.1/ip/merlin/altera_merlin_router/altera_merlin_router.sv.terp#1 $
+// $Id: //acds/rel/12.1sp1/ip/merlin/altera_merlin_router/altera_merlin_router.sv.terp#1 $
 // $Revision: #1 $
-// $Date: 2012/08/12 $
+// $Date: 2012/10/10 $
 // $Author: swbranch $
 
 // -------------------------------------------------------
@@ -35,7 +35,7 @@ module DE4_QSYS_addr_router_003_default_decode
                DEFAULT_DESTID = 9 
    )
   (output [116 - 113 : 0] default_destination_id,
-   output [11-1 : 0] default_src_channel
+   output [12-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
@@ -44,7 +44,7 @@ module DE4_QSYS_addr_router_003_default_decode
     if (DEFAULT_CHANNEL == -1)
       assign default_src_channel = '0;
     else
-      assign default_src_channel = 11'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 12'b1 << DEFAULT_CHANNEL;
   end
   endgenerate
 
@@ -73,7 +73,7 @@ module DE4_QSYS_addr_router_003
     // -------------------
     output                          src_valid,
     output reg [127-1    : 0] src_data,
-    output reg [11-1 : 0] src_channel,
+    output reg [12-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -87,7 +87,7 @@ module DE4_QSYS_addr_router_003
     localparam PKT_DEST_ID_H = 116;
     localparam PKT_DEST_ID_L = 113;
     localparam ST_DATA_W = 127;
-    localparam ST_CHANNEL_W = 11;
+    localparam ST_CHANNEL_W = 12;
     localparam DECODER_TYPE = 0;
 
     localparam PKT_TRANS_WRITE = 70;
@@ -127,7 +127,7 @@ module DE4_QSYS_addr_router_003
     assign src_endofpacket   = sink_endofpacket;
 
     wire [PKT_DEST_ID_W-1:0] default_destid;
-    wire [11-1 : 0] default_src_channel;
+    wire [12-1 : 0] default_src_channel;
 
 
 
@@ -148,7 +148,7 @@ module DE4_QSYS_addr_router_003
         // --------------------------------------------------
 	
         // ( 40000000 .. 80000000 )
-        src_channel = 11'b1;
+        src_channel = 12'b1;
         src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 9;
 	
 

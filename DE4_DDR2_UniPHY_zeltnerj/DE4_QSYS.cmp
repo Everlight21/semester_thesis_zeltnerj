@@ -46,7 +46,8 @@
 			stored_interface_block_0_conduit_end_pixelb     : out   std_logic_vector(7 downto 0);                     -- pixelb
 			stored_interface_block_0_conduit_end_pixelg     : out   std_logic_vector(7 downto 0);                     -- pixelg
 			stored_interface_block_0_conduit_end_pixelr     : out   std_logic_vector(7 downto 0);                     -- pixelr
-			stored_interface_block_0_conduit_end_DVI_CLK    : in    std_logic                     := 'X'              -- DVI_CLK
+			stored_interface_block_0_conduit_end_DVI_CLK    : in    std_logic                     := 'X';             -- DVI_CLK
+			no_of_cam_channels_export                       : out   std_logic_vector(3 downto 0)                      -- export
 		);
 	end component DE4_QSYS;
 

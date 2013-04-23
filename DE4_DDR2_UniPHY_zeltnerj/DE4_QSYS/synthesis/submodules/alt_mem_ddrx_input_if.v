@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -84,6 +84,7 @@ module alt_mem_ddrx_input_if
         //side band
         local_refresh_req,
         local_refresh_chip,
+        local_zqcal_req,
         local_deep_powerdn_req,
         local_deep_powerdn_chip,
         local_self_rfsh_req,
@@ -100,6 +101,7 @@ module alt_mem_ddrx_input_if
         bg_localid,
         rfsh_req,
         rfsh_chip,
+        zqcal_req,
         deep_powerdn_req,
         deep_powerdn_chip,
         self_rfsh_req,
@@ -176,6 +178,7 @@ module alt_mem_ddrx_input_if
     //side band
     input   local_refresh_req;
     input   [CFG_MEM_IF_CHIP-1:0] local_refresh_chip;
+    input   local_zqcal_req;
     input   local_deep_powerdn_req;
     input   [CFG_MEM_IF_CHIP-1:0] local_deep_powerdn_chip;
     input   local_self_rfsh_req;
@@ -193,6 +196,7 @@ module alt_mem_ddrx_input_if
     input   [CFG_AFI_INTF_PHASE_NUM - 1 : 0] bg_do_rmw_partial;
     output  rfsh_req;
     output  [CFG_MEM_IF_CHIP-1:0] rfsh_chip;
+    output  zqcal_req;
     output  deep_powerdn_req;
     output  [CFG_MEM_IF_CHIP-1:0] deep_powerdn_chip;
     output  self_rfsh_req;
@@ -222,6 +226,7 @@ module alt_mem_ddrx_input_if
     wire   [CFG_AFI_INTF_PHASE_NUM - 1 : 0] bg_do_rmw_partial;
     wire rfsh_req;
     wire [CFG_MEM_IF_CHIP-1:0] rfsh_chip;
+    wire 					   zqcal_req;
     wire deep_powerdn_req;
     wire [CFG_MEM_IF_CHIP-1:0] deep_powerdn_chip;
     wire    self_rfsh_req;
@@ -259,6 +264,7 @@ module alt_mem_ddrx_input_if
     // side band    
     assign rfsh_req                     = local_refresh_req;
     assign rfsh_chip                    = local_refresh_chip;
+    assign zqcal_req                    = local_zqcal_req;
     assign deep_powerdn_req             = local_deep_powerdn_req;
     assign deep_powerdn_chip            = local_deep_powerdn_chip;
     assign self_rfsh_req                = local_self_rfsh_req;

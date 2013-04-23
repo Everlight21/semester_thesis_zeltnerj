@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -89,6 +89,7 @@ module alt_mem_ddrx_cmd_gen
         cmd_gen_same_shadow_chipsel_addr,
         cmd_gen_same_shadow_bank_addr,
         cmd_gen_same_shadow_row_addr,
+	cmd_gen_busy,
         
         // input interface
         cmd_gen_full,
@@ -192,6 +193,7 @@ module alt_mem_ddrx_cmd_gen
     output  [CFG_CTL_SHADOW_TBP_NUM-1:0]                        cmd_gen_same_shadow_chipsel_addr;
     output  [CFG_CTL_SHADOW_TBP_NUM-1:0]                        cmd_gen_same_shadow_bank_addr;
     output  [CFG_CTL_SHADOW_TBP_NUM-1:0]                        cmd_gen_same_shadow_row_addr;
+    output							cmd_gen_busy;
     
     output                                       cmd_gen_full;
     input                                        cmd_valid;
@@ -920,6 +922,7 @@ endgenerate
     //  [START] Burst splitting
     //
     //======================================================================================
+	assign 	cmd_gen_busy = cmd_gen_load || cmd_valid;
         assign  cmd_gen_full_postq = mux_busy | deassert_ready;
         assign  copy               = ~cmd_gen_full_postq & cmd_valid_postq; // Copy current input command info into a register
 	assign  cmd_size_plus_unaligned_size = unaligned_burst + cmd_size_postq;

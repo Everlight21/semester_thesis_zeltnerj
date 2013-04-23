@@ -87,6 +87,7 @@ extern void err_report_internal_error (const char* description, const char* modu
 #define CAL_STAGE_REFRESH		6
 #define CAL_STAGE_CAL_SKIPPED		7
 #define CAL_STAGE_CAL_ABORTED		8
+#define CAL_STAGE_VFIFO_AFTER_WRITES	9
 
 /* calibration substages */
 
@@ -324,11 +325,11 @@ extern void err_report_internal_error (const char* description, const char* modu
 #define READ_SCC_DQS_EN_DELAY(group)	(IORD_32DIRECT(SCC_MGR_DQS_EN_DELAY, (group) << 2) - IO_DQS_EN_DELAY_OFFSET)
 #define READ_SCC_DQS_EN_PHASE(group)	IORD_32DIRECT(SCC_MGR_DQS_EN_PHASE, (group) << 2) 
 #define READ_SCC_DQDQS_OUT_PHASE(group)	IORD_32DIRECT(SCC_MGR_DQDQS_OUT_PHASE, (group) << 2) 
-#define READ_SCC_OCT_OUT1_DELAY(group)	IORD_32DIRECT(SCC_MGR_OCT_OUT1_DELAY, (group) << 2)
+#define READ_SCC_OCT_OUT1_DELAY(group)	IORD_32DIRECT(SCC_MGR_OCT_OUT1_DELAY, (group * RW_MGR_MEM_IF_READ_DQS_WIDTH / RW_MGR_MEM_IF_WRITE_DQS_WIDTH) << 2)
 #if HHP_HPS
 #define READ_SCC_OCT_OUT2_DELAY(group)	0
 #else
-#define READ_SCC_OCT_OUT2_DELAY(group)	IORD_32DIRECT(SCC_MGR_OCT_OUT2_DELAY, (group) << 2)
+#define READ_SCC_OCT_OUT2_DELAY(group)	IORD_32DIRECT(SCC_MGR_OCT_OUT2_DELAY, (group * RW_MGR_MEM_IF_READ_DQS_WIDTH / RW_MGR_MEM_IF_WRITE_DQS_WIDTH) << 2)
 #endif
 #if HHP_HPS
 #define READ_SCC_DQS_BYPASS(group) 		0

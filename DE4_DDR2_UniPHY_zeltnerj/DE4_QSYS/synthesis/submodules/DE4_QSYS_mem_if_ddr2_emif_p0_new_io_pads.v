@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -355,6 +355,7 @@ endgenerate
 				.config_update (scc_upd[0]),
 				.config_clock_in (scc_clk),
 				.config_extra_io_ena (scc_dm_ena[i]),
+
 				.dll_delayctrl_in (dll_phy_delayctrl)	
 				);
 			defparam ubidir_dq_dqs.ALTERA_ALTDQ_DQS2_FAST_SIM_MODEL = FAST_SIM_MODEL;

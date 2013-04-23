@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -67,6 +67,10 @@
 //                     the output. Only applicable when
 //                     USE_CORE_LOGIC is "true".
 //
+// OUTPUT_REGISTER_STAGES - Specifies the depth of output register stage.
+//                          Only applicable when REGISTER_OUTPUT is "true"
+//                          and USE_CORE_LOGIC is "true". Defaults to 1.
+//
 // USE_EXTRA_OUTPUT_REG   - Specifies whether the soft logic structure
 //                     generated resembles the Stratix IV 3 register
 //                     structure. Only applicable when 
@@ -95,6 +99,7 @@ parameter USE_CORE_LOGIC = "";
 parameter REG_POST_RESET_HIGH = "false";
 parameter HALF_RATE_MODE = "";             // only applicable when USE_CORE_LOGIC is "false"
 parameter REGISTER_OUTPUT = "false";       // only applicable when USE_CORE_LOGIC is "true"
+parameter OUTPUT_REGISTER_STAGES = 1;      
 parameter USE_EXTRA_OUTPUT_REG = "false"; //only applicable when USE_CORE_LOGIC is "true"
 
 localparam OUTPUT_WIDTH_MULT = OUTPUT_FULL_DATA_WIDTH / DATA_WIDTH;
@@ -178,19 +183,26 @@ if (USE_CORE_LOGIC == "true") begin
 	if (REGISTER_OUTPUT == "false") begin
 		assign dataout = dataout_wire;
 	end else begin
-		reg [OUTPUT_FULL_DATA_WIDTH-1:0] dataout_r /* synthesis dont_merge syn_noprune syn_preserve = 1 */;
-		always @(posedge dr_clk or negedge dr_reset_n)
-		begin
-			if (~dr_reset_n) begin
-				if (REG_POST_RESET_HIGH == "true")
-					dataout_r <= {OUTPUT_FULL_DATA_WIDTH{1'b1}};
-				else
-					dataout_r <= {OUTPUT_FULL_DATA_WIDTH{1'b0}};
-			end else begin
-				dataout_r <= dataout_wire;
+		reg [OUTPUT_FULL_DATA_WIDTH-1:0] dataout_r [0:OUTPUT_REGISTER_STAGES-1] /* synthesis dont_merge syn_noprune syn_preserve = 1 */;
+		
+		for (i=0; i<OUTPUT_REGISTER_STAGES; i=i+1)
+		begin: oreg_stages
+			always @(posedge dr_clk or negedge dr_reset_n)
+			begin
+				if (~dr_reset_n) begin
+					if (REG_POST_RESET_HIGH == "true")
+						dataout_r[i] <= {OUTPUT_FULL_DATA_WIDTH{1'b1}};
+					else
+						dataout_r[i] <= {OUTPUT_FULL_DATA_WIDTH{1'b0}};
+				end else begin
+					if (i == 0) 
+						dataout_r[i] <= dataout_wire;
+					else
+						dataout_r[i] <= dataout_r[i-1];
+				end
 			end
 		end
-		assign dataout = dataout_r;
+		assign dataout = dataout_r[OUTPUT_REGISTER_STAGES-1];
 	end
 	
 end else begin

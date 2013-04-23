@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -112,8 +112,13 @@ module alt_mem_ddrx_sideband
         cfg_user_rfsh,
         cfg_type,
         cfg_tcl,
-        cfg_regdimm_enable
+        cfg_regdimm_enable,
+
+        // ZQ Calibration
+        zqcal_req,
         
+        // to refresh controller
+        sideband_in_refresh
     );
     
     // states for sideband state machine
@@ -207,6 +212,10 @@ module alt_mem_ddrx_sideband
     input   [CFG_PORT_WIDTH_TCL-1:0]                    cfg_tcl;
     input                                               cfg_regdimm_enable;
     
+    input                                               zqcal_req;
+
+    output  [CFG_MEM_IF_CHIP-1:0]                       sideband_in_refresh;
+
     // end of port declaration
     
     wire                                    self_rfsh_ack;
@@ -297,6 +306,7 @@ module alt_mem_ddrx_sideband
     reg                                     do_self_refresh_to_all_chip_r;
     reg                                     do_zqcal_to_all_chip;
     reg                                     do_zqcal_to_all_chip_r;
+    reg     [CFG_MEM_IF_CHIP-1:0]           sideband_in_refresh;
     
     integer i;
     
@@ -794,6 +804,7 @@ module alt_mem_ddrx_sideband
             reg                                            disable_clk_exit;
             reg                                            int_disable_clk;
             reg                                            int_disable_clk_r1;
+            reg                                            in_refresh;
             
             // assignment
             assign power_saving_enter_ready [u_cs] = int_enter_power_saving_ready;
@@ -1236,6 +1247,11 @@ module alt_mem_ddrx_sideband
                                     begin
                                         state <= PDOWN;
                                     end
+                                    else if (zqcal_req)
+                                    begin
+                                        state <= ZQCAL;
+                                        doing_zqcal[u_cs] <= 1'b1;
+                                    end
                                     else
                                     begin
                                         state <= IDLE;
@@ -1255,7 +1271,15 @@ module alt_mem_ddrx_sideband
                                 end
                                 else
                                 begin
+                                    if (zqcal_req)
+                                    begin
+                                        state <= ZQCAL;
+                                        doing_zqcal[u_cs] <= 1'b1;
+                                    end
+                                    else
+                                    begin
                                     state <= IDLE;
+                                    end
                                     stall_arbiter[u_cs] <= 1'b0;
                                 end
                             end
@@ -1480,6 +1504,7 @@ module alt_mem_ddrx_sideband
                     sideband_state               <= IDLE;
                     int_enter_power_saving_ready <= 1'b0;
                     int_zq_cal_req               <= 1'b0;
+                    sideband_in_refresh[u_cs]    <= 1'b0;
                 end
                 else
                 begin
@@ -1506,6 +1531,7 @@ module alt_mem_ddrx_sideband
                                 begin
                                     sideband_state               <= ARF;
                                     int_enter_power_saving_ready <= 1'b0;
+                                    
                                 end
                                 
                                 if (do_self_rfsh[u_cs])
@@ -1519,24 +1545,38 @@ module alt_mem_ddrx_sideband
                                     sideband_state               <= PDN;
                                     int_enter_power_saving_ready <= 1'b0;
                                 end
+                               
+                                if (do_refresh[u_cs])
+                                begin
+                                    sideband_in_refresh[u_cs]    <= 1'b1;
+                                end
+                                else
+                                begin
+                                    sideband_in_refresh[u_cs]    <= 1'b0;
+                                end
+                                          
                             end
                         ARF :
                             begin
-                                int_zq_cal_req <= 1'b0;
-                                
                                 if (power_saving_cnt >= t_param_arf_to_valid)
                                 begin
                                     sideband_state               <= IDLE;
                                     int_enter_power_saving_ready <= 1'b1;
+                                    sideband_in_refresh[u_cs]    <= 1'b0;
+                                    int_zq_cal_req               <= 1'b1;
                                 end
                                 else
                                 begin
                                     sideband_state               <= ARF;
                                     int_enter_power_saving_ready <= 1'b0;
+                                    sideband_in_refresh[u_cs]    <= 1'b1;
+                                    int_zq_cal_req               <= 1'b0;
                                 end
                             end
                         SRF :
                             begin
+                                sideband_in_refresh[u_cs]          <= 1'b0;
+										  
                                 // ZQ request to state machine
                                 if (power_saving_cnt == t_param_srf_to_zq_cal) // only one cycle
                                 begin
@@ -1561,6 +1601,7 @@ module alt_mem_ddrx_sideband
                         PDN :
                             begin
                                 int_zq_cal_req <= 1'b0;
+                                sideband_in_refresh[u_cs]          <= 1'b0;
                                 
                                 if (!do_power_down[u_cs] && power_saving_cnt >= t_param_pdn_to_valid)
                                 begin
@@ -1576,6 +1617,7 @@ module alt_mem_ddrx_sideband
                         default :
                             begin
                                 sideband_state <= IDLE;
+                                sideband_in_refresh[u_cs]          <= 1'b0;
                             end
                     endcase
                 end

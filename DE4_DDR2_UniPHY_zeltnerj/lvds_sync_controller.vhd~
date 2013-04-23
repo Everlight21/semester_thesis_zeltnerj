@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-03-20
+-- Last update: 2013-04-10
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -78,18 +78,20 @@ architecture behavioral of lvds_sync_controller is
   -----------------------------------------------------------------------------
   -- FSM type and signal declaration
   -----------------------------------------------------------------------------
-  type fsmState is (init_ctr,align_data,idle,streamingData, checkTrainingPattern, alignData);  -- states
+  type fsmState is (resetDelay,initCtr,pulseChannelDataAlign,idle,streamingData, checkTrainingPattern, alignData);  -- states
   signal StatexDP, StatexDN : fsmState;  -- state register
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
   -- counters
   -----------------------------------------------------------------------------
   signal InitCounterxDP, InitCounterxDN : integer range 0 to 64000;
+  signal DelayCounterxDP, DelayCounterxDN : integer range 0 to 64000;
 
   -----------------------------------------------------------------------------
   -- control signals
   -----------------------------------------------------------------------------
   signal CameraReadyxSP, CameraReadyxSN : std_logic;
+  signal AlignxDP, AlignxDN : std_logic;
 
 
   
@@ -141,30 +143,41 @@ begin  -- architecture behavioral
   -----------------------------------------------------------------------------
   -- LED Outputs (leds are inverted)
   -----------------------------------------------------------------------------
-  LedxS(0) <= CameraReadyxSP;
-  LedxS(1) <= PixelValidxS;
-  LedxS(2) <= RowValidxS;
-  LedxS(3) <= FrameValidxS;
-  LedxS(4) <= '1' when StatexDP = align_data else
-              '0';
-  LedxS(5) <= '1' when StatexDP = idle else
-              '0';
-  LedxS(6) <= '1' when StatexDP = init_ctr else
-              '0';
-  LedxS(7) <= RstxRB;
+  --LedxS(0) <= CameraReadyxSP;
+  --LedxS(1) <= FrameReqInxS;
+  --LedxS(2) <= PixelValidxS;
+  --LedxS(3) <= FrameValidxS;
+  --LedxS(4) <= '1' when StatexDP = idle else
+  --            '0';
+  --LedxS(5) <= '1' when StatexDP = pulseChannelDataAlign else
+  --            '0';
+  --LedxS(6) <= '1' when StatexDP = initCtr else
+  --            '0';
+  --LedxS(7) <= AlignxS(0);
 
-  
+  LedxS(0) <= PixelChannelxD(0)(0);
+  LedxS(1) <= PixelChannelxD(0)(1);
+  LedxS(2) <= PixelChannelxD(0)(2);
+  LedxS(3) <= PixelChannelxD(0)(3);
+  LedxS(4) <= PixelChannelxD(0)(4);
+  LedxS(5) <= PixelChannelxD(0)(5);
+  LedxS(6) <= PixelChannelxD(0)(8);
+  LedxS(7) <= PixelChannelxD(0)(9);
 
   memory: process (ClkxC, RstxRB) is
   begin  -- process memory
     if RstxRB = '0' then                -- asynchronous reset (active low)
-      StatexDP <= init_ctr;
+      StatexDP <= resetDelay;
       InitCounterxDP <= 0;
+      DelayCounterxDP <= 0;
       CameraReadyxSP <= '0';
+      AlignxDP <= '0';
     elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
       StatexDP <= StatexDN;
       InitCounterxDP <= InitCounterxDN;
+      DelayCounterxDP <= DelayCounterxDN;
       CameraReadyxSP <= CameraReadyxSN;
+      AlignxDP <= AlignxDN;
     end if;
   end process memory;
 
@@ -173,51 +186,66 @@ begin  -- architecture behavioral
   -- type   : combinational
   -- inputs : 
   -- outputs: 
-  fsm: process (AlignxS, ButtonxS, CameraReadyxSP, InitCounterxDP,
-                PixelChannelxD, StatexDP) is
+  fsm: process (AlignxS, ButtonxS, CameraReadyxSP, InitCounterxDP, DelayCounterxDP,
+                PixelChannelxD, StatexDP, AlignxDP) is
   begin  -- process fsm
     StatexDN <= StatexDP;
     InitCounterxDN <= InitCounterxDP;
+    DelayCounterxDN <= DelayCounterxDP;
     CameraReadyxSN <= CameraReadyxSP;
     AlignxS <= (others => '0');
+
+    
     
     case StatexDP is
-      when init_ctr =>
-      
-        if InitCounterxDP /= 10 then
+
+      when resetDelay =>
+        if FrameReqInxS = '1' then
+          StatexDN <= initCtr;
+        end if;
+        
+      when initCtr =>
+        if InitCounterxDP < 10 then
           -- if PixelChannelxD(0)(9) = trainingPattern(15) and PixelChannelxD(0)(8) = trainingPattern(14) then
           if PixelChannelxD(0)(9) = '1' and PixelChannelxD(0)(8) = '0' then
-              AlignxS(0) <= '0';
-          else
-              AlignxS(0) <= '1';
-          end if;
-          if AlignxS(0) = '0' then
-            InitCounterxDN <= InitCounterxDP + 1;
+            InitCounterxDN <= InitCounterxDP + 1;  
           else
             InitCounterxDN <= 0;
+            AlignxS(0) <= '1';
+            StatexDN <= pulseChannelDataAlign;
           end if;
         else
           CameraReadyxSN <= '1';
           StatexDN <= idle;
         end if;
 
-      when align_data =>
-        if PixelValidxS = '1' then
+      when pulseChannelDataAlign =>
+        if CameraReadyxSP = '0' then
+          StatexDN <= initCtr;
+        else
           StatexDN <= idle;
         end if;
-        for i in 1 to noOfDataChannels loop
-          --if PixelChannelxD(i)(9) = trainingPattern(15) and PixelChannelxD(i)(8) = trainingPattern(14) then
-          if PixelChannelxD(i)(9) = '1' and PixelChannelxD(i)(8) = '0' then
-              AlignxS(i) <= '0';
-          else
-              AlignxS(i) <= '1';
-          end if;
-        end loop;  -- i
+
+      --when pulseChannelDataAlign =>
+      --  if PixelValidxS = '1' then
+      --    StatexDN <= idle;
+      --  end if;
+      --  for i in 1 to noOfDataChannels loop
+      --    --if PixelChannelxD(i)(9) = trainingPattern(15) and PixelChannelxD(i)(8) = trainingPattern(14) then
+      --    if PixelChannelxD(i)(9) = '1' and PixelChannelxD(i)(8) = '0' then
+      --        AlignxS(i) <= '0';
+      --    else
+      --        AlignxS(i) <= '1';
+      --    end if;
+      --  end loop;  -- i
         
       when idle =>
-        if PixelValidxS = '0' then
-          StatexDN <= align_data;
-        end if;
+
+        for i in 1 to noOfDataChannels loop
+          if PixelChannelxD(i)(9) = '1' and PixelChannelxD(i)(8) = '0' then
+            AlignxS(i) <= '1';
+          end if;
+        end loop;  -- i
         
         --for i in 0 to 2 loop
         --  if ButtonxS(i) = '0' then

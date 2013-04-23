@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -45,7 +45,7 @@ module altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_bank_
 ;
 
   parameter lpm_file = "UNUSED";
-
+  parameter intended_device_family = "Stratix V";  
 
   output  [ 31: 0] q;
   input            clock;
@@ -79,7 +79,8 @@ module altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_bank_
            the_altsyncram.width_a = 32,
            the_altsyncram.width_b = 32,
            the_altsyncram.widthad_a = 5,
-           the_altsyncram.widthad_b = 5;
+           the_altsyncram.widthad_b = 5,
+           the_altsyncram.intended_device_family = intended_device_family;
 
 
 endmodule
@@ -107,7 +108,7 @@ module altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_bank_
 ;
 
   parameter lpm_file = "UNUSED";
-
+  parameter intended_device_family = "Stratix V";
 
   output  [ 31: 0] q;
   input            clock;
@@ -141,8 +142,8 @@ module altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_bank_
            the_altsyncram.width_a = 32,
            the_altsyncram.width_b = 32,
            the_altsyncram.widthad_a = 5,
-           the_altsyncram.widthad_b = 5;
-
+           the_altsyncram.widthad_b = 5,
+           the_altsyncram.intended_device_family = intended_device_family;
 
 endmodule
 
@@ -755,6 +756,7 @@ module altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst (
   wire             no_ci_readra;
   wire    [ 31: 0] oci_ienable;
   wire             test_has_ended;
+	parameter DEVICE_FAMILY = "Stratix V";
   //the_altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_test_bench, which is an e_instance
   altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_test_bench the_altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_test_bench
     (
@@ -1273,6 +1275,7 @@ defparam altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_ban
 //synthesis read_comments_as_HDL on
 //defparam altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_bank_a.lpm_file = "altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_rf_ram_a.mif";
 //synthesis read_comments_as_HDL off
+defparam altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_bank_a.intended_device_family = DEVICE_FAMILY;
 //altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_bank_b, which is an nios_sdp_ram
 altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_bank_b_module altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_bank_b
   (
@@ -1294,6 +1297,7 @@ defparam altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_ban
 //synthesis read_comments_as_HDL on
 //defparam altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_bank_b.lpm_file = "altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_rf_ram_b.mif";
 //synthesis read_comments_as_HDL off
+defparam altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_register_bank_b.intended_device_family = DEVICE_FAMILY;
   assign R_src1 = (((R_ctrl_br & E_valid) | (R_ctrl_retaddr & R_valid)))? {F_pc_plus_one, 2'b00} :
     ((R_ctrl_jmp_direct & E_valid))? {D_jmp_direct_target_waddr, 2'b00} :
     R_rf_a;

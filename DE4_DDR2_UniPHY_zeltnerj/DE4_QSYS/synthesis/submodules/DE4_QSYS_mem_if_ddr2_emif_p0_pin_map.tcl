@@ -1,4 +1,4 @@
-# (C) 2001-2012 Altera Corporation. All rights reserved.
+# (C) 2001-2013 Altera Corporation. All rights reserved.
 # Your use of Altera Corporation's design tools, logic functions and other 
 # software and tools, and its AMPP partner logic functions, and any output 
 # files any of the foregoing (including device programming or simulation 
@@ -1102,6 +1102,8 @@ proc DE4_QSYS_mem_if_ddr2_emif_p0_get_io_standard {target_pin} {
 		"Differential 1.5-V HSTL Class II" {set result "DIFF_HSTL_II"}
 		"1.2-V HSTL Class I" {set result "SSTL_125"}
 		"Differential 1.2-V HSTL Class I" {set result "DIFF_SSTL_125"}
+		"1.2-V HSTL Class II" {set result "SSTL_125"}
+		"Differential 1.2-V HSTL Class II" {set result "DIFF_SSTL_125"}
 		"SSTL-15" {set result "SSTL_15"}
 		"Differential 1.5-V SSTL" {set result "DIFF_SSTL_15"}
 		"SSTL-135" {set result "SSTL_135"}
@@ -1117,7 +1119,7 @@ proc DE4_QSYS_mem_if_ddr2_emif_p0_get_io_standard {target_pin} {
 	}
 	return $result
 }
-# (C) 2001-2012 Altera Corporation. All rights reserved.
+# (C) 2001-2013 Altera Corporation. All rights reserved.
 # Your use of Altera Corporation's design tools, logic functions and other 
 # software and tools, and its AMPP partner logic functions, and any output 
 # files any of the foregoing (including device programming or simulation 

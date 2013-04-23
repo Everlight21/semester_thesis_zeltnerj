@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -90,6 +90,8 @@ module alt_mem_ddrx_controller_st_top(
     local_self_rfsh_chip,
 	local_deep_powerdn_req,
 	local_deep_powerdn_chip,
+    local_zqcal_req,
+    local_zqcal_chip,
     local_multicast,
     local_priority,
     ecc_interrupt,
@@ -102,7 +104,10 @@ module alt_mem_ddrx_controller_st_top(
     csr_rdata,
     csr_be,
     csr_rdata_valid,
-    csr_waitrequest
+    csr_waitrequest,
+    tbp_empty,
+    cmd_gen_busy,
+    sideband_in_refresh
 );
 
 //////////////////////////////////////////////////////////////////////////////
@@ -121,6 +126,8 @@ parameter CTL_OUTPUT_REGD                           = "";
 parameter CTL_TBP_NUM                               = "";
 parameter WRBUFFER_ADDR_WIDTH                       = "";
 parameter RDBUFFER_ADDR_WIDTH                       = "";
+parameter MAX_PENDING_RD_CMD                        = 16;
+parameter MAX_PENDING_WR_CMD                        = 8;
 parameter MEM_IF_CS_WIDTH                           = "";
 parameter MEM_IF_CHIP                               = "";
 parameter MEM_IF_BANKADDR_WIDTH                     = "";
@@ -203,6 +210,8 @@ parameter CFG_USE_SHADOW_REGS                       = 0;
 parameter MEM_IF_RD_TO_WR_TURNAROUND_OCT            = "";
 parameter MEM_IF_WR_TO_RD_TURNAROUND_OCT            = "";
 parameter CTL_RD_TO_PCH_EXTRA_CLK                   = 0;
+parameter CTL_RD_TO_RD_EXTRA_CLK                    = 0;
+parameter CTL_WR_TO_WR_EXTRA_CLK                    = 0;
 parameter CTL_RD_TO_RD_DIFF_CHIP_EXTRA_CLK          = 0;
 parameter CTL_WR_TO_WR_DIFF_CHIP_EXTRA_CLK          = 0;
 
@@ -227,6 +236,8 @@ localparam CFG_ODT_ENABLED                                      = CTL_ODT_ENABLE
 localparam CFG_CTL_TBP_NUM                                      = CTL_TBP_NUM;
 localparam CFG_WRBUFFER_ADDR_WIDTH                              = WRBUFFER_ADDR_WIDTH;
 localparam CFG_RDBUFFER_ADDR_WIDTH                              = RDBUFFER_ADDR_WIDTH;
+localparam CFG_MAX_PENDING_RD_CMD                               = MAX_PENDING_RD_CMD;
+localparam CFG_MAX_PENDING_WR_CMD                               = MAX_PENDING_WR_CMD;
 localparam CFG_MEM_IF_CS_WIDTH                                  = MEM_IF_CS_WIDTH;
 localparam CFG_MEM_IF_CHIP                                      = MEM_IF_CHIP;
 localparam CFG_MEM_IF_BA_WIDTH                                  = MEM_IF_BANKADDR_WIDTH;
@@ -265,14 +276,14 @@ localparam CFG_CAL_REQ                                          = 0;
 localparam CFG_EXTRA_CTL_CLK_ACT_TO_RDWR                        = 0;
 localparam CFG_EXTRA_CTL_CLK_ACT_TO_PCH                         = 0;
 localparam CFG_EXTRA_CTL_CLK_ACT_TO_ACT                         = 0;
-localparam CFG_EXTRA_CTL_CLK_RD_TO_RD                           = 0;
+localparam CFG_EXTRA_CTL_CLK_RD_TO_RD                           = 0 + CTL_RD_TO_RD_EXTRA_CLK;
 localparam CFG_EXTRA_CTL_CLK_RD_TO_RD_DIFF_CHIP                 = 0 + CTL_RD_TO_RD_DIFF_CHIP_EXTRA_CLK;
 localparam CFG_EXTRA_CTL_CLK_RD_TO_WR                           = 0 + ((MEM_IF_RD_TO_WR_TURNAROUND_OCT / (DWIDTH_RATIO / 2)) + ((MEM_IF_RD_TO_WR_TURNAROUND_OCT % (DWIDTH_RATIO / 2)) > 0 ? 1 : 0)); // Please do not remove the latter calculation
 localparam CFG_EXTRA_CTL_CLK_RD_TO_WR_BC                        = 0 + ((MEM_IF_RD_TO_WR_TURNAROUND_OCT / (DWIDTH_RATIO / 2)) + ((MEM_IF_RD_TO_WR_TURNAROUND_OCT % (DWIDTH_RATIO / 2)) > 0 ? 1 : 0)); // Please do not remove the latter calculation
 localparam CFG_EXTRA_CTL_CLK_RD_TO_WR_DIFF_CHIP                 = 0 + ((MEM_IF_RD_TO_WR_TURNAROUND_OCT / (DWIDTH_RATIO / 2)) + ((MEM_IF_RD_TO_WR_TURNAROUND_OCT % (DWIDTH_RATIO / 2)) > 0 ? 1 : 0)); // Please do not remove the latter calculation
 localparam CFG_EXTRA_CTL_CLK_RD_TO_PCH                          = 0 + CTL_RD_TO_PCH_EXTRA_CLK;
 localparam CFG_EXTRA_CTL_CLK_RD_AP_TO_VALID                     = 0;
-localparam CFG_EXTRA_CTL_CLK_WR_TO_WR                           = 0;
+localparam CFG_EXTRA_CTL_CLK_WR_TO_WR                           = 0 + CTL_WR_TO_WR_EXTRA_CLK;
 localparam CFG_EXTRA_CTL_CLK_WR_TO_WR_DIFF_CHIP                 = 0 + CTL_WR_TO_WR_DIFF_CHIP_EXTRA_CLK;
 localparam CFG_EXTRA_CTL_CLK_WR_TO_RD                           = 0 + ((MEM_IF_WR_TO_RD_TURNAROUND_OCT / (DWIDTH_RATIO / 2)) + ((MEM_IF_WR_TO_RD_TURNAROUND_OCT % (DWIDTH_RATIO / 2)) > 0 ? 1 : 0)); // Please do not remove the latter calculation
 localparam CFG_EXTRA_CTL_CLK_WR_TO_RD_BC                        = 0 + ((MEM_IF_WR_TO_RD_TURNAROUND_OCT / (DWIDTH_RATIO / 2)) + ((MEM_IF_WR_TO_RD_TURNAROUND_OCT % (DWIDTH_RATIO / 2)) > 0 ? 1 : 0)); // Please do not remove the latter calculation
@@ -496,6 +507,8 @@ input                                                                  local_sel
 input   [CFG_MEM_IF_CHIP                                   - 1 : 0]    local_self_rfsh_chip;
 input																   local_deep_powerdn_req;
 input   [CFG_MEM_IF_CHIP                                   - 1 : 0]    local_deep_powerdn_chip;
+input																   local_zqcal_req;
+input   [CFG_MEM_IF_CHIP                                   - 1 : 0]    local_zqcal_chip;
 input                                                                  local_multicast;
 input                                                                  local_priority;
 
@@ -511,6 +524,11 @@ output  [CSR_DATA_WIDTH                                    - 1 : 0]    csr_rdata
 input   [CSR_BE_WIDTH                                      - 1 : 0]    csr_be;
 output                                                                 csr_rdata_valid;
 output                                                                 csr_waitrequest;
+
+// Refresh controller signals
+	output 															   tbp_empty;
+	output 															   cmd_gen_busy;
+	output 															   sideband_in_refresh;
 
 // END PORT SECTION
 //////////////////////////////////////////////////////////////////////////////
@@ -910,6 +928,8 @@ alt_mem_ddrx_controller # (
     .CFG_DATA_REORDERING_TYPE                           ( CFG_DATA_REORDERING_TYPE                           ),
     .CFG_WRBUFFER_ADDR_WIDTH                            ( CFG_WRBUFFER_ADDR_WIDTH                            ),
     .CFG_RDBUFFER_ADDR_WIDTH                            ( CFG_RDBUFFER_ADDR_WIDTH                            ),
+    .CFG_MAX_PENDING_RD_CMD                             ( CFG_MAX_PENDING_RD_CMD                             ),
+    .CFG_MAX_PENDING_WR_CMD                             ( CFG_MAX_PENDING_WR_CMD                             ),
     .CFG_ECC_MULTIPLES_16_24_40_72                      ( CFG_ECC_MULTIPLES_16_24_40_72                      ),
     .CFG_MEM_IF_CS_WIDTH                                ( CFG_MEM_IF_CS_WIDTH                                ),
     .CFG_MEM_IF_CHIP                                    ( CFG_MEM_IF_CHIP                                    ),
@@ -1042,6 +1062,8 @@ alt_mem_ddrx_controller # (
 	.local_deep_powerdn_chip                            ( local_deep_powerdn_chip                            ),
     .local_self_rfsh_req                                ( local_self_rfsh_req                                ),
     .local_self_rfsh_chip                               ( local_self_rfsh_chip                               ),
+    .local_zqcal_req                                    ( local_zqcal_req                                    ),
+    .local_zqcal_chip                                   ( local_zqcal_chip                                   ),
     .local_refresh_ack                                  ( local_refresh_ack                                  ),
     .local_deep_powerdn_ack                             ( local_deep_powerdn_ack	                         ),
     .local_power_down_ack                               ( local_powerdn_ack                                  ),
@@ -1173,7 +1195,11 @@ alt_mem_ddrx_controller # (
     .itf_rd_data_id_early                               (                                                    ),
     .itf_rd_data_id_early_valid                         (                                                    ),
     .sts_cal_fail                                       (                                                    ),
-    .sts_cal_success                                    (                                                    )
+    .sts_cal_success                                    (                                                    ),
+
+    .tbp_empty                                          ( tbp_empty                                          ),
+    .cmd_gen_busy                                       ( cmd_gen_busy                                       ),
+    .sideband_in_refresh                                ( sideband_in_refresh                                )
 );
 
 endmodule

@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -49,6 +49,8 @@ module alt_mem_ddrx_controller #
         // Data path buffer & fifo parameters
         CFG_WRBUFFER_ADDR_WIDTH                             =   6,
         CFG_RDBUFFER_ADDR_WIDTH                             =   10,
+        CFG_MAX_PENDING_RD_CMD                              =   16,
+        CFG_MAX_PENDING_WR_CMD                              =   8,
         
         // MMR port width
         // cfg: general
@@ -205,6 +207,8 @@ module alt_mem_ddrx_controller #
         // Sideband signals
         local_refresh_req,
         local_refresh_chip,
+        local_zqcal_req,
+        local_zqcal_chip,
         local_deep_powerdn_chip,
         local_deep_powerdn_req,
         local_self_rfsh_req,
@@ -358,7 +362,12 @@ module alt_mem_ddrx_controller #
 	    cfg_enable_dqs_tracking,  //enable DQS enable tracking support in controller
 	    afi_ctl_refresh_done, // Controller asserts this after tRFC is done, also acts as stall ack to phy
 	    afi_seq_busy, // Sequencer busy signal to controller, also acts as stall request to ctlr
-	    afi_ctl_long_idle // Controller asserts this after long period of no refresh, protocol is the same as rfsh_done
+	    afi_ctl_long_idle, // Controller asserts this after long period of no refresh, protocol is the same as rfsh_done
+
+        // Refresh controller
+        tbp_empty,
+        cmd_gen_busy,
+        sideband_in_refresh
 	
     );
 
@@ -390,8 +399,6 @@ localparam CFG_ENABLE_SHADOW_TBP                           = 0;
 localparam CFG_CTL_SHADOW_TBP_NUM                          = CFG_CTL_TBP_NUM;    // similar to TBP number
 
 // Datapath buffer & fifo size calculation
-localparam CFG_MAX_PENDING_RD_CMD                          = 16;                // temporary
-localparam CFG_MAX_PENDING_WR_CMD                          = 8;                 // temporary
 localparam CFG_MAX_PENDING_ERR_CMD                         = 8;                 // temporary
 
 localparam CFG_MAX_PENDING_RD_CMD_WIDTH                    = log2(CFG_MAX_PENDING_RD_CMD);
@@ -480,6 +487,8 @@ output                                itf_rd_data_id_early_valid;
 // Sideband signals
 input                            local_refresh_req;
 input  [CFG_MEM_IF_CHIP - 1 : 0] local_refresh_chip;
+input                            local_zqcal_req;
+input  [CFG_MEM_IF_CHIP - 1 : 0] local_zqcal_chip;
 input                            local_deep_powerdn_req;
 input  [CFG_MEM_IF_CHIP-1:0]     local_deep_powerdn_chip;
 input                            local_self_rfsh_req;
@@ -635,6 +644,10 @@ output  [CFG_MEM_IF_CHIP - 1 : 0] afi_ctl_refresh_done;
 input   [CFG_MEM_IF_CHIP - 1 : 0] afi_seq_busy;
 output  [CFG_MEM_IF_CHIP - 1 : 0] afi_ctl_long_idle;
 
+output  tbp_empty;
+output  cmd_gen_busy;
+output  sideband_in_refresh;
+
 //==============================================================================
 //
 //  Wires
@@ -671,6 +684,7 @@ output  [CFG_MEM_IF_CHIP - 1 : 0] afi_ctl_long_idle;
     wire                                    local_init_done;
     wire                                    rfsh_req;
     wire [CFG_MEM_IF_CHIP          - 1 : 0] rfsh_chip;
+    wire                                    zqcal_req;
     wire                                    deep_powerdn_req;
     wire [CFG_MEM_IF_CHIP          - 1 : 0] deep_powerdn_chip;
     wire                                    self_rfsh_req;
@@ -1106,6 +1120,8 @@ output  [CFG_MEM_IF_CHIP - 1 : 0] afi_ctl_long_idle;
         .bg_do_rmw_partial         (bg_do_rmw_partial          ),
         .local_refresh_req         (local_refresh_req          ),
         .local_refresh_chip        (local_refresh_chip         ),
+        .local_zqcal_req           (local_zqcal_req            ),
+//        .local_zqcal_chip          (local_zqcal_chip           ),
         .local_deep_powerdn_req    (local_deep_powerdn_req     ),
         .local_deep_powerdn_chip   (local_deep_powerdn_chip    ),
         .local_self_rfsh_req       (local_self_rfsh_req        ),
@@ -1117,6 +1133,7 @@ output  [CFG_MEM_IF_CHIP - 1 : 0] afi_ctl_long_idle;
         .local_init_done           (local_init_done            ),
         .rfsh_req                  (rfsh_req                   ),
         .rfsh_chip                 (rfsh_chip                  ),
+        .zqcal_req                 (zqcal_req                  ),
         .deep_powerdn_req          (deep_powerdn_req           ),
         .deep_powerdn_chip         (deep_powerdn_chip          ),
         .self_rfsh_req             (self_rfsh_req              ),
@@ -1207,6 +1224,7 @@ output  [CFG_MEM_IF_CHIP - 1 : 0] afi_ctl_long_idle;
         .cmd_gen_same_shadow_chipsel_addr   (cmd_gen_same_shadow_chipsel_addr   ),
         .cmd_gen_same_shadow_bank_addr      (cmd_gen_same_shadow_bank_addr      ),
         .cmd_gen_same_shadow_row_addr       (cmd_gen_same_shadow_row_addr       ),
+        .cmd_gen_busy                       (cmd_gen_busy                       ),
         .cmd_gen_full                       (cmd_gen_full                       ),
         .cmd_valid                          (cmd_valid                          ),
         .cmd_address                        (cmd_address                        ),
@@ -2185,6 +2203,7 @@ output  [CFG_MEM_IF_CHIP - 1 : 0] afi_ctl_long_idle;
         .rfsh_req                               (rfsh_req                               ),
         .rfsh_chip                              (rfsh_chip                              ),
         .rfsh_ack                               (rfsh_ack                               ),
+        .zqcal_req                              (zqcal_req                              ),
         .self_rfsh_req                          (self_rfsh_req                          ),
         .self_rfsh_chip                         (self_rfsh_chip                         ),
         .self_rfsh_ack                          (self_rfsh_ack                          ),
@@ -2231,7 +2250,8 @@ output  [CFG_MEM_IF_CHIP - 1 : 0] afi_ctl_long_idle;
         .cfg_user_rfsh                          (cfg_user_rfsh                          ),
         .cfg_type                               (cfg_type                               ),
         .cfg_tcl                                (cfg_tcl                                ),
-        .cfg_regdimm_enable                     (cfg_regdimm_enable                     )
+        .cfg_regdimm_enable                     (cfg_regdimm_enable                     ),
+        .sideband_in_refresh                    (sideband_in_refresh                    )
     );
     
 //==============================================================================

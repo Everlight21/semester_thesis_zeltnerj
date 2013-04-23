@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -11,9 +11,9 @@
 // agreement for further details.
 
 
-// $Id: //acds/rel/12.1/ip/merlin/altera_merlin_router/altera_merlin_router.sv.terp#1 $
+// $Id: //acds/rel/12.1sp1/ip/merlin/altera_merlin_router/altera_merlin_router.sv.terp#1 $
 // $Revision: #1 $
-// $Date: 2012/08/12 $
+// $Date: 2012/10/10 $
 // $Author: swbranch $
 
 // -------------------------------------------------------
@@ -35,7 +35,7 @@ module DE4_QSYS_addr_router_002_default_decode
                DEFAULT_DESTID = 10 
    )
   (output [116 - 113 : 0] default_destination_id,
-   output [11-1 : 0] default_src_channel
+   output [12-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
@@ -44,7 +44,7 @@ module DE4_QSYS_addr_router_002_default_decode
     if (DEFAULT_CHANNEL == -1)
       assign default_src_channel = '0;
     else
-      assign default_src_channel = 11'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 12'b1 << DEFAULT_CHANNEL;
   end
   endgenerate
 
@@ -73,7 +73,7 @@ module DE4_QSYS_addr_router_002
     // -------------------
     output                          src_valid,
     output reg [127-1    : 0] src_data,
-    output reg [11-1 : 0] src_channel,
+    output reg [12-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -87,7 +87,7 @@ module DE4_QSYS_addr_router_002
     localparam PKT_DEST_ID_H = 116;
     localparam PKT_DEST_ID_L = 113;
     localparam ST_DATA_W = 127;
-    localparam ST_CHANNEL_W = 11;
+    localparam ST_CHANNEL_W = 12;
     localparam DECODER_TYPE = 0;
 
     localparam PKT_TRANS_WRITE = 70;
@@ -108,13 +108,14 @@ module DE4_QSYS_addr_router_002
     localparam PAD2 = log2ceil(64'h60 - 64'h40);
     localparam PAD3 = log2ceil(64'h70 - 64'h60);
     localparam PAD4 = log2ceil(64'h80 - 64'h70);
-    localparam PAD5 = log2ceil(64'h88 - 64'h80);
+    localparam PAD5 = log2ceil(64'h90 - 64'h80);
+    localparam PAD6 = log2ceil(64'h98 - 64'h90);
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
     // address range of the slaves. If the required width is too
     // large or too small, we use the address field width instead.
     // -------------------------------------------------------
-    localparam ADDR_RANGE = 64'h88;
+    localparam ADDR_RANGE = 64'h98;
     localparam RANGE_ADDR_WIDTH = log2ceil(ADDR_RANGE);
     localparam OPTIMIZED_ADDR_H = (RANGE_ADDR_WIDTH > PKT_ADDR_W) ||
                                   (RANGE_ADDR_WIDTH == 0) ?
@@ -133,7 +134,7 @@ module DE4_QSYS_addr_router_002
     assign src_endofpacket   = sink_endofpacket;
 
     wire [PKT_DEST_ID_W-1:0] default_destid;
-    wire [11-1 : 0] default_src_channel;
+    wire [12-1 : 0] default_src_channel;
 
 
 
@@ -155,37 +156,43 @@ module DE4_QSYS_addr_router_002
 
         // ( 0x0 .. 0x20 )
         if ( {address[RG:PAD0],{PAD0{1'b0}}} == 8'h0 ) begin
-            src_channel = 11'b100000;
+            src_channel = 12'b0100000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 10;
         end
 
         // ( 0x20 .. 0x40 )
         if ( {address[RG:PAD1],{PAD1{1'b0}}} == 8'h20 ) begin
-            src_channel = 11'b001000;
+            src_channel = 12'b0001000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 7;
         end
 
         // ( 0x40 .. 0x60 )
         if ( {address[RG:PAD2],{PAD2{1'b0}}} == 8'h40 ) begin
-            src_channel = 11'b000100;
+            src_channel = 12'b0000100;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 6;
         end
 
         // ( 0x60 .. 0x70 )
         if ( {address[RG:PAD3],{PAD3{1'b0}}} == 8'h60 ) begin
-            src_channel = 11'b000010;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 5;
+            src_channel = 12'b1000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 11;
         end
 
         // ( 0x70 .. 0x80 )
         if ( {address[RG:PAD4],{PAD4{1'b0}}} == 8'h70 ) begin
-            src_channel = 11'b000001;
+            src_channel = 12'b0000010;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 5;
+        end
+
+        // ( 0x80 .. 0x90 )
+        if ( {address[RG:PAD5],{PAD5{1'b0}}} == 8'h80 ) begin
+            src_channel = 12'b0000001;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
         end
 
-        // ( 0x80 .. 0x88 )
-        if ( {address[RG:PAD5],{PAD5{1'b0}}} == 8'h80 ) begin
-            src_channel = 11'b010000;
+        // ( 0x90 .. 0x98 )
+        if ( {address[RG:PAD6],{PAD6{1'b0}}} == 8'h90 ) begin
+            src_channel = 12'b0010000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 8;
         end
 

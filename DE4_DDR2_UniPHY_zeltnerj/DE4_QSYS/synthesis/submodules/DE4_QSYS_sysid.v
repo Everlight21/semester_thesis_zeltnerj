@@ -36,7 +36,7 @@ module DE4_QSYS_sysid (
 
   wire    [ 31: 0] readdata;
   //control_slave, which is an e_avalon_slave
-  assign readdata = address ? 1361364706 : 0;
+  assign readdata = address ? 1366720735 : 0;
 
 endmodule
 

@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -122,7 +122,7 @@ begin
 		.datain (afi_wdata_valid),
 		.dataout (phy_ddio_wrdata_en_pre_shift)
 	);
-	defparam afi_wdata_valid_extender.DATA_WIDTH = MEM_WRITE_DQS_WIDTH;	
+	defparam afi_wdata_valid_extender.DATA_WIDTH = MEM_WRITE_DQS_WIDTH;
 
 	DE4_QSYS_mem_if_ddr2_emif_p0_fr_cycle_shifter afi_dm_shifter(
 		.clk (pll_afi_clk),

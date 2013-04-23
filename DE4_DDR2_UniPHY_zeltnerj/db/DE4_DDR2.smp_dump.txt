@@ -1,4 +1,11 @@
 
+State Machine - |cmv4000design|DE4_QSYS:inst|altera_merlin_burst_adapter:burst_adapter_010|altera_merlin_burst_adapter_full:altera_merlin_burst_adapter_full.the_ba|state
+Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
+state.ST_IDLE 0 0 0 0 
+state.ST_COMP_TRANS 1 0 0 1 
+state.ST_UNCOMP_TRANS 1 0 1 0 
+state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
+
 State Machine - |cmv4000design|DE4_QSYS:inst|altera_merlin_burst_adapter:burst_adapter_009|altera_merlin_burst_adapter_full:altera_merlin_burst_adapter_full.the_ba|state
 Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
 state.ST_IDLE 0 0 0 0 
