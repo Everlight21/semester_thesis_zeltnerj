@@ -1,0 +1,99 @@
+/* Example with the camera, the LCD and the resizer. Must add the c library of the 3 module to compile correctly. See project Z:\CDROM\Examples\FPGACAM\software\SimpleSoft for complete code
+**
+ */
+
+#include <stdio.h>
+#include "system.h"
+#include "MT9V032/MT9V032.h"
+#include "LCD_HITX07CAB/LCD.h"
+#include "ImageResizer/Image_Resizer.h"
+#include "IO.h"
+
+int fotoDone;
+int resizeDone;
+
+
+void Cam_interrupt(void* context, alt_u32 id)
+{
+    fotoDone=1;
+
+    MT9V032_ackInterrupt(MT9V032_BASE);
+}
+void Resize_interrupt(void* context, alt_u32 id)
+{
+    resizeDone=1;
+ 
+    MT9V032_ackInterrupt(RESEIZER_BASE);
+}
+
+
+
+int main()
+{
+
+  int* imageBuffer=(int*)malloc(752*480*sizeof(int));//32 bits per pixel
+  int* lcdBuffer1 =(int*)malloc(240*320*sizeof(int));//16 bit per pixel
+  int* lcdBuffer2 =(int*)malloc(240*320*sizeof(int));//16 bit per pixel
+  
+  int* selectedLCDbuffer=lcdBuffer1;
+  
+  printf("Init:%X\n",LCD_BASE);
+  
+  //register interrupt methods
+  alt_irq_register(MT9V032_IRQ,NULL,&Cam_interrupt);
+  alt_irq_register(RESEIZER_IRQ,NULL,&Resize_interrupt);
+  
+  //init LCD display
+  LCD_TS_init(LCD_BASE,LCD_IRQ,3,10000,0);//16 bits per pixel
+  //LCD_enable();
+  //LCD_setBacklight(100);
+  TS_setCursorNormal(LCD_BASE);
+  
+  fotoDone=0;
+  resizeDone=0;
+
+  LCD_showCursor();
+
+  IOWR(LCD_BASE,1,1);
+  
+  
+  while(1)
+  {
+        MT9V032_startFoto(MT9V032_BASE,imageBuffer,MTV_MODE8Bits);
+        while(fotoDone==0);
+        fotoDone=0;
+        
+         
+        startResize(RESEIZER_BASE,imageBuffer,752,480,selectedLCDbuffer,240,320,2.35,0,0,0,0);
+        while(resizeDone==0);
+        
+
+        resizeDone=0;
+        LCD_showImage(selectedLCDbuffer);
+        
+        if(selectedLCDbuffer==lcdBuffer1)selectedLCDbuffer=lcdBuffer2;
+        else selectedLCDbuffer=lcdBuffer1;
+        
+        TS_Event event;
+       
+        while ( TS_PollEvent(&event)!=0) {
+            switch (event.type) {
+                case TS_MOTION:
+                        printf("Move on position (%u,%u)\n",event.motion.x,event.motion.y);
+                    
+                    break;
+                case TS_DOWN:
+                         printf("Pressed (%u,%u)\n",event.button.x,event.button.y);
+
+                    break;
+                case TS_UP:
+                         printf("Release (%u,%u)\n",event.button.x,event.button.y);
+                    
+                    break;
+            }
+        }
+        
+  }
+
+  return 0;
+}

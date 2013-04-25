@@ -1,5 +1,5 @@
 Flow report for DE4_DDR2
-Tue Apr 23 15:38:21 2013
+Thu Apr 25 14:12:11 2013
 Quartus II 32-bit Version 12.1 Build 243 01/31/2013 Service Pack 1 SJ Full Version
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +------------------------------------------------------------------------------------+
 ; Flow Summary                                                                       ;
 +-----------------------------------+------------------------------------------------+
-; Flow Status                       ; Successful - Tue Apr 23 15:37:10 2013          ;
+; Flow Status                       ; Successful - Thu Apr 25 14:10:58 2013          ;
 ; Quartus II 32-bit Version         ; 12.1 Build 243 01/31/2013 SP 1 SJ Full Version ;
 ; Revision Name                     ; DE4_DDR2                                       ;
 ; Top-level Entity Name             ; cmv4000design                                  ;
@@ -68,7 +68,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/23/2013 15:24:07 ;
+; Start date & time ; 04/25/2013 13:57:41 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE4_DDR2            ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ applicable agreement for further details.
 +-------------------------------------+------------------------------------------------------------+---------------+------------------------------------------+------------+
 ; Assignment Name                     ; Value                                                      ; Default Value ; Entity Name                              ; Section Id ;
 +-------------------------------------+------------------------------------------------------------+---------------+------------------------------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 116526678098.136672344607232                               ; --            ; --                                       ; --         ;
+; COMPILER_SIGNATURE_ID               ; 116526678098.136689106104624                               ; --            ; --                                       ; --         ;
 ; ECO_REGENERATE_REPORT               ; On                                                         ; Off           ; --                                       ; --         ;
 ; FITTER_EFFORT                       ; Fast Fit                                                   ; Auto Fit      ; --                                       ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS                                 ; --         ;
@@ -282,11 +282,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:03:38     ; 1.0                     ; 897 MB              ; 00:03:36                           ;
-; Fitter                    ; 00:08:10     ; 2.0                     ; 1198 MB             ; 00:09:29                           ;
-; Assembler                 ; 00:00:42     ; 1.0                     ; 608 MB              ; 00:00:39                           ;
-; TimeQuest Timing Analyzer ; 00:01:08     ; 1.6                     ; 826 MB              ; 00:01:19                           ;
-; Total                     ; 00:13:38     ; --                      ; --                  ; 00:15:03                           ;
+; Analysis & Synthesis      ; 00:03:43     ; 1.0                     ; 897 MB              ; 00:03:38                           ;
+; Fitter                    ; 00:08:19     ; 1.9                     ; 1206 MB             ; 00:09:35                           ;
+; Assembler                 ; 00:00:41     ; 1.0                     ; 612 MB              ; 00:00:39                           ;
+; TimeQuest Timing Analyzer ; 00:01:09     ; 1.9                     ; 827 MB              ; 00:01:19                           ;
+; Total                     ; 00:13:52     ; --                      ; --                  ; 00:15:11                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

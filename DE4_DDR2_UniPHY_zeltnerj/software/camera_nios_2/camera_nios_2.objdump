@@ -1393,10 +1393,10 @@ int main() {
    408d0:	0100fa04 	movi	r4,1000
    408d4:	0043b780 	call	43b78 <usleep>
 
-	IOWR_ALTERA_AVALON_PIO_DATA(NO_OF_CAM_CHANNELS_BASE, 0x7);
+	IOWR_ALTERA_AVALON_PIO_DATA(NO_OF_CAM_CHANNELS_BASE, 0x5);
    408d8:	00c04034 	movhi	r3,256
    408dc:	18c01804 	addi	r3,r3,96
-   408e0:	008001c4 	movi	r2,7
+   408e0:	00800144 	movi	r2,5
    408e4:	18800035 	stwio	r2,0(r3)
 
 	while(1) {
