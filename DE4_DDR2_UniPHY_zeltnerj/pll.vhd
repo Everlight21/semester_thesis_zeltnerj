@@ -182,7 +182,7 @@ BEGIN
 		clk3_duty_cycle => 50,
 		clk3_multiply_by => 1,
 		clk3_phase_shift => "0",
-		compensate_clock => "CLK0",
+		compensate_clock => "CLK3",
 		inclk0_input_frequency => 20000,
 		intended_device_family => "Stratix IV",
 		lpm_hint => "CBX_MODULE_PREFIX=pll",
@@ -262,8 +262,8 @@ END SYN;
 -- Retrieval info: PRIVATE: CNX_NO_COMPENSATE_RADIO STRING "0"
 -- Retrieval info: PRIVATE: CREATE_CLKBAD_CHECK STRING "0"
 -- Retrieval info: PRIVATE: CREATE_INCLK1_CHECK STRING "0"
--- Retrieval info: PRIVATE: CUR_DEDICATED_CLK STRING "c0"
--- Retrieval info: PRIVATE: CUR_FBIN_CLK STRING "c0"
+-- Retrieval info: PRIVATE: CUR_DEDICATED_CLK STRING "c3"
+-- Retrieval info: PRIVATE: CUR_FBIN_CLK STRING "c3"
 -- Retrieval info: PRIVATE: DEVICE_SPEED_GRADE STRING "2"
 -- Retrieval info: PRIVATE: DIV_FACTOR0 NUMERIC "1"
 -- Retrieval info: PRIVATE: DIV_FACTOR1 NUMERIC "1"
@@ -381,7 +381,7 @@ END SYN;
 -- Retrieval info: CONSTANT: CLK3_DUTY_CYCLE NUMERIC "50"
 -- Retrieval info: CONSTANT: CLK3_MULTIPLY_BY NUMERIC "1"
 -- Retrieval info: CONSTANT: CLK3_PHASE_SHIFT STRING "0"
--- Retrieval info: CONSTANT: COMPENSATE_CLOCK STRING "CLK0"
+-- Retrieval info: CONSTANT: COMPENSATE_CLOCK STRING "CLK3"
 -- Retrieval info: CONSTANT: INCLK0_INPUT_FREQUENCY NUMERIC "20000"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altpll"
