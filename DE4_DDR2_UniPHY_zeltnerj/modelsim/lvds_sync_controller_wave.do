@@ -13,14 +13,6 @@ add wave -noupdate -expand -group {testbench
 add wave -noupdate -expand -group {testbench
 } /lvds_sync_controller_tb/AlignxS
 add wave -noupdate -expand -group {testbench
-} /lvds_sync_controller_tb/PixelChannel1xD
-add wave -noupdate -expand -group {testbench
-} /lvds_sync_controller_tb/PixelChannel5xD
-add wave -noupdate -expand -group {testbench
-} /lvds_sync_controller_tb/PixelChannel9xD
-add wave -noupdate -expand -group {testbench
-} /lvds_sync_controller_tb/PixelChannel13xD
-add wave -noupdate -expand -group {testbench
 } /lvds_sync_controller_tb/FrameReqOutxS
 add wave -noupdate -expand -group {testbench
 } /lvds_sync_controller_tb/PixelValidxS
@@ -46,14 +38,6 @@ add wave -noupdate -expand -group {lvds_sync_controller
 } /lvds_sync_controller_tb/lvds_sync_controller_1/FrameReqInxSI
 add wave -noupdate -expand -group {lvds_sync_controller
 } /lvds_sync_controller_tb/lvds_sync_controller_1/AlignxSO
-add wave -noupdate -expand -group {lvds_sync_controller
-} /lvds_sync_controller_tb/lvds_sync_controller_1/PixelChannel1xDO
-add wave -noupdate -expand -group {lvds_sync_controller
-} /lvds_sync_controller_tb/lvds_sync_controller_1/PixelChannel5xDO
-add wave -noupdate -expand -group {lvds_sync_controller
-} /lvds_sync_controller_tb/lvds_sync_controller_1/PixelChannel9xDO
-add wave -noupdate -expand -group {lvds_sync_controller
-} /lvds_sync_controller_tb/lvds_sync_controller_1/PixelChannel13xDO
 add wave -noupdate -expand -group {lvds_sync_controller
 } /lvds_sync_controller_tb/lvds_sync_controller_1/FrameReqOutxSO
 add wave -noupdate -expand -group {lvds_sync_controller
@@ -87,7 +71,11 @@ add wave -noupdate -expand -group {lvds_sync_controller
 add wave -noupdate -expand -group {lvds_sync_controller
 } /lvds_sync_controller_tb/lvds_sync_controller_1/LedxS
 add wave -noupdate -expand -group {lvds_sync_controller
-} /lvds_sync_controller_tb/lvds_sync_controller_1/PixelChannelxD
+} -expand /lvds_sync_controller_tb/lvds_sync_controller_1/PixelChannelxD
+add wave -noupdate -expand -group {lvds_sync_controller
+} /lvds_sync_controller_tb/lvds_sync_controller_1/PixelDataxD
+add wave -noupdate -expand -group {lvds_sync_controller
+} /lvds_sync_controller_tb/lvds_sync_controller_1/PixelDataxDO
 add wave -noupdate -expand -group {lvds_sync_controller
 } /lvds_sync_controller_tb/lvds_sync_controller_1/StatexDP
 add wave -noupdate -expand -group {lvds_sync_controller
@@ -102,10 +90,10 @@ add wave -noupdate -expand -group {lvds_sync_controller
 } /lvds_sync_controller_tb/lvds_sync_controller_1/CameraReadyxSN
 add wave -noupdate /lvds_sync_controller_tb/TogglexSP
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {0 ps} 0}
-quietly wave cursor active 0
+WaveRestoreCursors {{Cursor 1} {192202 ps} 0}
+quietly wave cursor active 1
 configure wave -namecolwidth 164
-configure wave -valuecolwidth 115
+configure wave -valuecolwidth 121
 configure wave -justifyvalue left
 configure wave -signalnamewidth 1
 configure wave -snapdistance 10
@@ -118,4 +106,5 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {23600 ps}
+WaveRestoreZoom {274122 ps} {297482 ps}
+bookmark add wave {bookmark0} {{10169190 ps} {10357990 ps}} 4

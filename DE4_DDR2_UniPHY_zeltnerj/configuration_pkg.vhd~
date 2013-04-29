@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-03-18
+-- Last update: 2013-03-26
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -31,6 +31,9 @@ package configuration_pkg is
   constant channelWidth : integer;  
   constant lvdsDataWidth : integer;
   constant trainingPattern : std_logic_vector;
+  constant frequency : integer;         -- in [MHz]
+  constant period : integer;            -- in [ns]
+  constant delay : integer;             -- in [us]
 
   function reverseBitOrder (
     signal input : std_logic_vector)
@@ -45,12 +48,12 @@ package body configuration_pkg is
   -----------------------------------------------------------------------------
   constant noOfDataChannels : integer := 4;  -- no. of data channels, 2,4,8,16
   constant channelWidth : integer := 10;  -- no. of bits per pixel,  10, 12
-  constant lvdsDataWidth : integer := (noOfDataChannels+1)*channelWidth;  -- data
-                                                                        --
-                                                                        --channels
-                                                                        --+
-                                                                        --control channel
+  -- noOfDataChannels+1 = DataChannels + Ctrl Channel
+  constant lvdsDataWidth : integer := (noOfDataChannels+1)*channelWidth;
   constant trainingPattern : std_logic_vector(0 to 15) := x"ff01";
+  constant frequency : integer := 5;
+  constant period : integer := 200;
+  constant delay : integer := 10*frequency;
 
   -- purpose: reverses order of bits in std_logic_vector
   function reverseBitOrder (
