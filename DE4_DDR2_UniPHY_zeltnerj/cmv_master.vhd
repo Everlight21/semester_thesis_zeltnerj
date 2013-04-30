@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-03-26
+-- Last update: 2013-04-30
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -25,6 +25,7 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 use ieee.std_logic_arith.all;
 use ieee.numeric_bit.all;
+use ieee.numeric_std.all;
 
 library work;
 use work.all;
@@ -40,7 +41,7 @@ entity cmv_master is
     PixelValidxSI : in std_logic;
     RowValidxSI : in std_logic;
     FrameValidxSI : in std_logic;
-    DataInxDI : in std_logic_vector(noOfDataChannels*channelWidth-1 downto 0);
+    DataInxDI : in std_logic_vector(camDataWidth-1 downto 0);
     -- avalon mm master interface
     AMWaitReqxSI : in std_logic;
     AMAddressxDO : out std_logic_vector(31 downto 0);
@@ -62,12 +63,12 @@ architecture behavioral of cmv_master is
   signal PixelValidxS   : std_logic;
   signal RowValidxS     : std_logic;
   signal FrameValidxS   : std_logic;
-  signal DataInxD       : std_logic_vector(noOfDataChannels*channelWidth-1 downto 0);
+  signal DataInxD       : std_logic_vector(DataInxDI'high downto 0);
   signal AMWaitReqxS    : std_logic;
-  signal AMAddressxD    : std_logic_vector(31 downto 0);
-  signal AMWriteDataxD : std_logic_vector(31 downto 0);
+  signal AMAddressxD    : std_logic_vector(AMAddressxDO'high downto 0);
+  signal AMWriteDataxD : std_logic_vector(AMWriteDataxDO'high downto 0);
   signal AMWritexS      : std_logic;
-  signal AMBurstCountxS : std_logic_vector(7 downto 0);
+  signal AMBurstCountxS : std_logic_vector(AMBurstCountxSO'high downto 0);
 
   
   -----------------------------------------------------------------------------
@@ -106,7 +107,7 @@ architecture behavioral of cmv_master is
   type bufferFull is array (1 to noOfDataChannels) of std_logic;
   signal BufFullxS : bufferFull;
 
-  signal BufWriteEnxS : std_logic;
+  signal BufWriteReqxS : std_logic;
 
   signal BufClearxS : std_logic;
 
@@ -130,6 +131,8 @@ architecture behavioral of cmv_master is
   signal StatexDP, StatexDN : fsmState;
   
 
+
+  
   begin
 
     ---------------------------------------------------------------------------
@@ -157,9 +160,26 @@ architecture behavioral of cmv_master is
         end if;
       end loop;  -- i
     end process buf_output;
+
+    ---------------------------------------------------------------------------
+    -- Processes driven by ClkLvdsRxxCI
+    ---------------------------------------------------------------------------
+    -- purpose: writes into buffers when according buffer isnt full and input changes
+    -- type   : combinational
+    -- inputs : DataInxD
+    -- outputs: BufDataInxD(i)
+    write_into_buffers: process (DataInxD) is
+    begin  -- process write_into_buffers
+      for i in 1 to noOfDataChannels loop
+        if PixelValidxS = '1' and BufFullxS(i) = '0' then
+          BufWriteReqxS <= '1';
+          BufDataInxD(i) <= (BufDataInxD'high downto channelWidth => '0') & DataInxD(channelWidth*i-1 downto channelWidth*(i-1));
+        end if;
+      end loop;  -- i
+    end process write_into_buffers;
     
     ---------------------------------------------------------------------------
-    -- memory update
+    -- Processes driven by ClkxCI
     ---------------------------------------------------------------------------
     memory: process (ClkxC, RstxRB) is
     begin  -- process memory
@@ -178,6 +198,10 @@ architecture behavioral of cmv_master is
       end if;
     end process memory;
 
+    
+
+
+    
     ---------------------------------------------------------------------------
     -- FSM
     ---------------------------------------------------------------------------
@@ -189,7 +213,7 @@ architecture behavioral of cmv_master is
       BurstWordCountxDN <= BurstWordCountxDP;
       NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP;
       ChannelSelectxSN <= ChannelSelectxSP;
-      AMBurstCountxS <= "00100000";  -- 32
+      AMBurstCountxS <= std_logic_vector(to_unsigned(fifoBurstCountxC,8));  -- 1
       AMWritexS <= '0';
       
       if BufClearxS = '1' then
@@ -209,7 +233,7 @@ architecture behavioral of cmv_master is
           StatexDN <= burst;
           
           for i in 1 to noOfDataChannels loop
-            if BufNoOfWordsxS(i) < 32 then
+            if BufNoOfWordsxS(i) < 1 then
               StatexDN <= fifoWait;
             end if;
           end loop;  -- i
@@ -226,7 +250,7 @@ architecture behavioral of cmv_master is
           end loop;  -- i
           
           if AMWaitReqxS /= '1' then
-            if BurstWordCountxDP = 31 then
+            if BurstWordCountxDP = fifoBurstCountxC then
               BurstWordCountxDN <= 0;
               case NoOfPacketsInRowxDP is
                 when 15 =>
@@ -270,7 +294,7 @@ architecture behavioral of cmv_master is
           rdclk   => ClkxC,
           rdreq   => BufReadReqxS(i),
           wrclk   => ClkLvdsRxxC,
-          wrreq   => BufWriteEnxS,
+          wrreq   => BufWriteReqxS,
           q       => BufDataOutxD(i),
           rdusedw => BufNoOfWordsxS(i),
           wrfull  => BufFullxS(i));

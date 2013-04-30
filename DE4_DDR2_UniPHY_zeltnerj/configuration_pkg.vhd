@@ -36,6 +36,8 @@ package configuration_pkg is
   constant period : integer;            -- in [ns]
   constant delay : integer;             -- in [us]
 
+  constant fifoBurstCountxC : integer range 1 to 32;
+
   function reverseBitOrder (
     signal input : std_logic_vector)
     return std_logic_vector;
@@ -56,6 +58,8 @@ package body configuration_pkg is
   constant frequency : integer := 5;
   constant period : integer := 200;
   constant delay : integer := 10*frequency;
+
+  constant fifoBurstCountxC : integer range 1 to 32 := 1;
 
   -- purpose: reverses order of bits in std_logic_vector
   function reverseBitOrder (

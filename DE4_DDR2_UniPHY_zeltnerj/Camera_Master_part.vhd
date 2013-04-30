@@ -96,9 +96,9 @@ begin
 				if(camInt_newData='1' and camInt_newFrame='1' and camInt_newLine='1' )then
 					if(wrfull1='0')then
 						wen <='1';
-						fifoBuffer1<="00000000"&camInt_data1(7 downto 0)&camInt_data1(7 downto 0)&camInt_data1(7 downto 0);
-						fifoBuffer3<="00000000"&camInt_data3(7 downto 0)&camInt_data3(7 downto 0)&camInt_data3(7 downto 0);
-						fifoBuffer5<="00000000"&camInt_data5(7 downto 0)&camInt_data5(7 downto 0)&camInt_data5(7 downto 0);						
+						fifoBuffer1<= (fifoBuffer1'high downto 8 => '0')& camInt_data1(7 downto 0);
+						fifoBuffer3<=(fifoBuffer3'high downto 8 => '0')& camInt_data3(7 downto 0);
+						fifoBuffer5<=(fifoBuffer5'high downto 8 => '0')& camInt_data5(7 downto 0);						
 					end if;
 				end if;				
 				
