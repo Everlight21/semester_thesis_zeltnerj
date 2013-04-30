@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-18
--- Last update: 2013-03-20
+-- Last update: 2013-04-29
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -39,42 +39,37 @@ architecture Behavioral of lvds_sync_controller_tb is
   -- declaration of model under test (MUT) and functional
   -- reference (expected response pickup)
 
-
   component lvds_sync_controller is
     port (
-      ClkxCI            : in  std_logic;
-      RstxRBI           : in  std_logic;
-      LVDSDataxDI       : in  std_logic_vector(lvdsDataWidth-1 downto 0);
-      ButtonxSI         : in  std_logic_vector (3 downto 0);
-      FrameReqInxS      : in  std_logic;
-      AlignxSO          : out std_logic_vector(noOfDataChannels downto 0);
-      PixelChannel1xDO  : out std_logic_vector(channelWidth-1 downto 0);
-      PixelChannel5xDO  : out std_logic_vector(channelWidth-1 downto 0);
-      PixelChannel9xDO  : out std_logic_vector(channelWidth-1 downto 0);
-      PixelChannel13xDO : out std_logic_vector(channelWidth-1 downto 0);
-      FrameReqOutxSO       : out std_logic;
-      PixelValidxSO     : out std_logic;
-      RowValidxSO       : out std_logic;
-      FrameValidxSO     : out std_logic;
-      LedxSO            : out std_logic_vector(7 downto 0));
+      ClkxCI              : in  std_logic;
+      RstxRBI             : in  std_logic;
+      LVDSDataxDI         : in  std_logic_vector(lvdsDataWidth-1 downto 0);
+      ButtonxSI           : in  std_logic_vector (3 downto 0);
+      FrameReqInxSI       : in  std_logic;
+      AlignxSO            : out std_logic_vector(noOfDataChannels downto 0);
+      PixelDataxDO        : out std_logic_vector(camDataWidth-1 downto 0);
+      FrameReqOutxSO      : out std_logic;
+      PixelValidxSO       : out std_logic;
+      RowValidxSO         : out std_logic;
+      FrameValidxSO       : out std_logic;
+      LedxSO              : out std_logic_vector(7 downto 0);
+      NoOfDataChannelsxDI : in  std_logic_vector(3 downto 0));
   end component lvds_sync_controller;
+
+  signal ClkxC              : std_logic;
+  signal RstxRB             : std_logic;
+  signal LVDSDataxD         : std_logic_vector(lvdsDataWidth-1 downto 0);
+  signal ButtonxS           : std_logic_vector (3 downto 0);
+  signal FrameReqInxS       : std_logic;
+  signal AlignxS            : std_logic_vector(noOfDataChannels downto 0);
+  signal PixelDataxD        : std_logic_vector(camDataWidth-1 downto 0);
+  signal FrameReqOutxS      : std_logic;
+  signal PixelValidxS       : std_logic;
+  signal RowValidxS         : std_logic;
+  signal FrameValidxS       : std_logic;
+  signal LedxS              : std_logic_vector(7 downto 0);
+  signal NoOfDataChannelsxD : std_logic_vector(3 downto 0);
   
- 
-  signal ClkxC            : std_logic;
-  signal RstxRB           : std_logic;
-  signal LVDSDataxD       : std_logic_vector(lvdsDataWidth-1 downto 0);
-  signal ButtonxS         : std_logic_vector (3 downto 0);
-  signal FrameReqInxS     : std_logic;
-  signal AlignxS          : std_logic_vector(noOfDataChannels downto 0);
-  signal PixelChannel1xD  : std_logic_vector(channelWidth-1 downto 0);
-  signal PixelChannel5xD  : std_logic_vector(channelWidth-1 downto 0);
-  signal PixelChannel9xD  : std_logic_vector(channelWidth-1 downto 0);
-  signal PixelChannel13xD : std_logic_vector(channelWidth-1 downto 0);
-  signal FrameReqOutxS    : std_logic;
-  signal PixelValidxS     : std_logic;
-  signal RowValidxS       : std_logic;
-  signal FrameValidxS     : std_logic;
-  signal LedxS            : std_logic_vector(7 downto 0);
 
 
   -- reverse order because of parallel to serial converter block
@@ -116,24 +111,22 @@ architecture Behavioral of lvds_sync_controller_tb is
   -----------------------------------------------------------------------------
 
 
-
     lvds_sync_controller_1: entity work.lvds_sync_controller
       port map (
-        ClkxCI            => ClkxC,
-        RstxRBI           => RstxRB,
-        LVDSDataxDI       => LVDSDataxD,
-        ButtonxSI         => ButtonxS,
-        FrameReqInxSI     => FrameReqInxS,
-        AlignxSO          => AlignxS,
-        PixelChannel1xDO  => PixelChannel1xD,
-        PixelChannel5xDO  => PixelChannel5xD,
-        PixelChannel9xDO  => PixelChannel9xD,
-        PixelChannel13xDO => PixelChannel13xD,
-        FrameReqOutxSO    => FrameReqOutxS,
-        PixelValidxSO     => PixelValidxS,
-        RowValidxSO       => RowValidxS,
-        FrameValidxSO     => FrameValidxS,
-        LedxSO            => LedxS);
+        ClkxCI              => ClkxC,
+        RstxRBI             => RstxRB,
+        LVDSDataxDI         => LVDSDataxD,
+        ButtonxSI           => ButtonxS,
+        FrameReqInxSI       => FrameReqInxS,
+        AlignxSO            => AlignxS,
+        PixelDataxDO        => PixelDataxD,
+        FrameReqOutxSO      => FrameReqOutxS,
+        PixelValidxSO       => PixelValidxS,
+        RowValidxSO         => RowValidxS,
+        FrameValidxSO       => FrameValidxS,
+        LedxSO              => LedxS,
+        NoOfDataChannelsxDI => NoOfDataChannelsxD);
+
   
   -- pausable clock generator with programmable mark and space widths
   -----------------------------------------------------------------------------
@@ -175,7 +168,7 @@ architecture Behavioral of lvds_sync_controller_tb is
     end if;
   end process memory;
 
-  LVDSDataxD <= DataInxDP(4)&DataInxDP(3)&DataInxDP(2)&DataInxDP(1)&DataInxDP(0);
+  LVDSDataxD <= (LVDSDataxD'high downto 50 => '0')&DataInxDP(4)&DataInxDP(3)&DataInxDP(2)&DataInxDP(1)&DataInxDP(0);
 
   process (AlignxS, DataInxDP,TogglexSP) is
   begin  -- process

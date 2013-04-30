@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-18
--- Last update: 2013-04-29
+-- Last update: 2013-04-30
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -80,6 +80,7 @@ architecture Behavioral of lvds_sync_controller_tb is
   -- counters
   -----------------------------------------------------------------------------
   signal TogglexSP, TogglexSN : std_logic := '0';
+  signal PixelValidCounterxDP,PixelValidCounterxDN : integer := 0;
   
 
   -- timing of clock and simulation events
@@ -155,16 +156,19 @@ architecture Behavioral of lvds_sync_controller_tb is
     if RstxRB = '0' then                -- asynchronous reset (active low)
       ButtonxS <= (others => '1');
       FrameReqInxS <= '1';
+      NoOfDataChannelsxD <= (others => '1');
       DataInxDP(0) <= b"00_0000_1000";
       DataInxDP(1) <= b"00_0000_1000";
       DataInxDP(2) <= b"00_0000_0100";
       DataInxDP(3) <= b"00_0000_0010";
       DataInxDP(4) <= b"00_0000_0001";
+      PixelValidCounterxDP <= 0;
 
       TogglexSP <= '0';
     elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
       DataInxDP <= DataInxDN;
       TogglexSP <= TogglexSN;
+      PixelValidCounterxDP <= PixelValidCounterxDN;
     end if;
   end process memory;
 
@@ -183,10 +187,12 @@ architecture Behavioral of lvds_sync_controller_tb is
       end if;
     end loop;  -- i
 
-    if TogglexSP = '1' then
-      DataInxDN(0)(9) <= '1';
-    else
+    if PixelValidCounterxDP = 10 then
       DataInxDN(0)(9) <= '0';
+      PixelValidCounterxDN <= 0;
+    else
+      DataInxDN(0)(9) <= '1';
+      PixelValidCounterxDN <= PixelValidCounterxDP+1;
     end if;
     
     TogglexSN <= not TogglexSP;

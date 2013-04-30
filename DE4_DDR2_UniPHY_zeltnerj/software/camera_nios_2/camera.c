@@ -86,13 +86,13 @@ void camera_init(alt_u32 SPI_BASE) {
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 //
 	//	training pattern 1
-	sentwrite[1] = 0x01; //0b01010101
+	sentwrite[1] = 0x00; //0b01010101
 	sentwrite[0] = 78 | 0x80;
 
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 
 	//	training pattern 2
-	sentwrite[1] = 0x00;
+	sentwrite[1] = 0x02;
 	sentwrite[0] = 79 | 0x80;
 
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);

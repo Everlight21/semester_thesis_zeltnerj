@@ -92,6 +92,7 @@ architecture behavioral of lvds_sync_controller is
   -----------------------------------------------------------------------------
   -- control signals
   -----------------------------------------------------------------------------
+  signal InitReadyxS : std_logic;
   signal CameraReadyxSP, CameraReadyxSN : std_logic;
   signal AlignxDP, AlignxDN             : std_logic;
 
@@ -116,7 +117,12 @@ begin  -- architecture behavioral
   FrameValidxSO     <= FrameValidxS;
   LedxSO            <= LedxS;
   -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
+  -- control signals
+  -----------------------------------------------------------------------------
+  InitReadyxS <= NoOfDataChannelsxDI(0);
 
+  
   -----------------------------------------------------------------------------
   -- lvds data channel signals
   -----------------------------------------------------------------------------
@@ -236,7 +242,7 @@ begin  -- architecture behavioral
     case StatexDP is
 
       when resetDelay =>
-        if FrameReqInxS = '1' then
+        if InitReadyxS = '1' then
           StatexDN <= initCtr;
         end if;
 
@@ -264,12 +270,15 @@ begin  -- architecture behavioral
 
       when idle =>
 
-        --for i in 1 to noOfDataChannels loop
-        --  if PixelChannelxD(i)(9) /= '1' or PixelChannelxD(i)(8) /= '0' then
-        --    AlignxS(i) <= '1';
-        --    StatexDN <= pulseChannelDataAlign;
-        --  end if;
-        --end loop;  -- i
+        if PixelChannelxD(0)(0) = '0' then
+          for i in 1 to noOfDataChannels loop
+            if PixelChannelxD(i)(9) /= '1' or PixelChannelxD(i)(8) /= '0' then
+              AlignxS(i) <= '1';
+              StatexDN <= pulseChannelDataAlign;
+            end if;
+          end loop;  -- i
+        end if;
+        
 
         for i in 0 to 3 loop
           if ButtonxS(i) = '0' then
