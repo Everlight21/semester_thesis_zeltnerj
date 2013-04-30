@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>11.04.2013 20:20:34</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1365704434202</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>30.04.2013 16:52:45</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1367333565034</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\semester_thesis_zeltnerj\DE4_DDR2_UniPHY_zeltnerj\software\camera_nios_2_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\semester_thesis_zeltnerj\DE4_DDR2_UniPHY_zeltnerj\DE4_QSYS.sopcinfo</SopcDesignFile>
@@ -852,7 +852,7 @@
         </Setting>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart</slaveDescriptor>
-                <addressRange>0x00000088 - 0x0000008F</addressRange>
+                <addressRange>0x00000098 - 0x0000009F</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
@@ -881,20 +881,26 @@
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>led</slaveDescriptor>
+                <slaveDescriptor>no_of_cam_channels</slaveDescriptor>
                 <addressRange>0x01000060 - 0x0100006F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>button</slaveDescriptor>
+                <slaveDescriptor>led</slaveDescriptor>
                 <addressRange>0x01000070 - 0x0100007F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>button</slaveDescriptor>
+                <addressRange>0x01000080 - 0x0100008F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>sysid</slaveDescriptor>
-                <addressRange>0x01000080 - 0x01000087</addressRange>
+                <addressRange>0x01000090 - 0x01000097</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>

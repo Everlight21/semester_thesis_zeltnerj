@@ -18,4 +18,4 @@ vsim -voptargs=+acc work.lvds_sync_controller_tb
 do lvds_sync_controller_wave.do
 
 #run
-run 20us
+run 1us

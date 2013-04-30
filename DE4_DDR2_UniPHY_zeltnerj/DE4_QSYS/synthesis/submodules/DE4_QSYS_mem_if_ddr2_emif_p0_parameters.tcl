@@ -11,7 +11,7 @@ set ::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_dqs_group_size 8
 set ::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_number_of_ck_pins 2
 set ::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_number_of_dm_pins 8
 set ::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_dqs_delay_chain_length 2
-set ::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_uniphy_temp_ver_code 1805208054
+set ::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_uniphy_temp_ver_code 1745730216
 # PLL Parameters
 
 #USER W A R N I N G !
@@ -99,3 +99,5 @@ set IP(num_shadow_registers) 1
 set IP(tracking_enabled) 0
 
 set IP(num_report_paths) 10
+set IP(epr) 0.0
+set IP(epw) 0.0

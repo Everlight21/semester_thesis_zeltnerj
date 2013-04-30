@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -11,9 +11,9 @@
 // agreement for further details.
 
 
-// $Id: //acds/rel/12.1/ip/merlin/altera_merlin_multiplexer/altera_merlin_multiplexer.sv.terp#1 $
+// $Id: //acds/rel/12.1sp1/ip/merlin/altera_merlin_multiplexer/altera_merlin_multiplexer.sv.terp#1 $
 // $Revision: #1 $
-// $Date: 2012/08/12 $
+// $Date: 2012/10/10 $
 // $Author: swbranch $
 
 // ------------------------------------------
@@ -32,7 +32,7 @@
 //   PIPELINE_ARB:        1
 //   PKT_TRANS_LOCK:      72 (arbitration locking enabled)
 //   ST_DATA_W:           127
-//   ST_CHANNEL_W:        11
+//   ST_CHANNEL_W:        12
 // ------------------------------------------
 
 module DE4_QSYS_cmd_xbar_mux_009
@@ -42,21 +42,21 @@ module DE4_QSYS_cmd_xbar_mux_009
     // ----------------------
     input                       sink0_valid,
     input [127-1   : 0]  sink0_data,
-    input [11-1: 0]  sink0_channel,
+    input [12-1: 0]  sink0_channel,
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
 
     input                       sink1_valid,
     input [127-1   : 0]  sink1_data,
-    input [11-1: 0]  sink1_channel,
+    input [12-1: 0]  sink1_channel,
     input                       sink1_startofpacket,
     input                       sink1_endofpacket,
     output                      sink1_ready,
 
     input                       sink2_valid,
     input [127-1   : 0]  sink2_data,
-    input [11-1: 0]  sink2_channel,
+    input [12-1: 0]  sink2_channel,
     input                       sink2_startofpacket,
     input                       sink2_endofpacket,
     output                      sink2_ready,
@@ -67,7 +67,7 @@ module DE4_QSYS_cmd_xbar_mux_009
     // ----------------------
     output                      src_valid,
     output [127-1    : 0] src_data,
-    output [11-1 : 0] src_channel,
+    output [12-1 : 0] src_channel,
     output                      src_startofpacket,
     output                      src_endofpacket,
     input                       src_ready,
@@ -78,12 +78,12 @@ module DE4_QSYS_cmd_xbar_mux_009
     input clk,
     input reset
 );
-    localparam PAYLOAD_W        = 127 + 11 + 2;
+    localparam PAYLOAD_W        = 127 + 12 + 2;
     localparam NUM_INPUTS       = 3;
     localparam SHARE_COUNTER_W  = 7;
     localparam PIPELINE_ARB     = 1;
     localparam ST_DATA_W        = 127;
-    localparam ST_CHANNEL_W     = 11;
+    localparam ST_CHANNEL_W     = 12;
     localparam PKT_TRANS_LOCK   = 72;
 
     // ------------------------------------------

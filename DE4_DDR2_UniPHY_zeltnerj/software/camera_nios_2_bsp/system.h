@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys' in SOPC Builder design 'DE4_QSYS'
  * SOPC Builder design path: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.sopcinfo
  *
- * Generated: Wed Mar 20 14:28:43 CET 2013
+ * Generated: Tue Apr 30 16:52:45 CEST 2013
  */
 
 /*
@@ -153,19 +153,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart"
-#define ALT_STDERR_BASE 0x88
+#define ALT_STDERR_BASE 0x98
 #define ALT_STDERR_DEV jtag_uart
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart"
-#define ALT_STDIN_BASE 0x88
+#define ALT_STDIN_BASE 0x98
 #define ALT_STDIN_DEV jtag_uart
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart"
-#define ALT_STDOUT_BASE 0x88
+#define ALT_STDOUT_BASE 0x98
 #define ALT_STDOUT_DEV jtag_uart
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -179,7 +179,7 @@
  */
 
 #define ALT_MODULE_CLASS_button altera_avalon_pio
-#define BUTTON_BASE 0x1000070
+#define BUTTON_BASE 0x1000080
 #define BUTTON_BIT_CLEARING_EDGE_REGISTER 0
 #define BUTTON_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define BUTTON_CAPTURE 0
@@ -216,7 +216,7 @@
  */
 
 #define ALT_MODULE_CLASS_jtag_uart altera_avalon_jtag_uart
-#define JTAG_UART_BASE 0x88
+#define JTAG_UART_BASE 0x98
 #define JTAG_UART_IRQ 0
 #define JTAG_UART_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_NAME "/dev/jtag_uart"
@@ -234,7 +234,7 @@
  */
 
 #define ALT_MODULE_CLASS_led altera_avalon_pio
-#define LED_BASE 0x1000060
+#define LED_BASE 0x1000070
 #define LED_BIT_CLEARING_EDGE_REGISTER 0
 #define LED_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LED_CAPTURE 0
@@ -267,6 +267,33 @@
 #define MEM_IF_DDR2_EMIF_NAME "/dev/mem_if_ddr2_emif"
 #define MEM_IF_DDR2_EMIF_SPAN 1073741824
 #define MEM_IF_DDR2_EMIF_TYPE "altera_mem_if_ddr2_emif"
+
+
+/*
+ * no_of_cam_channels configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_no_of_cam_channels altera_avalon_pio
+#define NO_OF_CAM_CHANNELS_BASE 0x1000060
+#define NO_OF_CAM_CHANNELS_BIT_CLEARING_EDGE_REGISTER 0
+#define NO_OF_CAM_CHANNELS_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define NO_OF_CAM_CHANNELS_CAPTURE 0
+#define NO_OF_CAM_CHANNELS_DATA_WIDTH 4
+#define NO_OF_CAM_CHANNELS_DO_TEST_BENCH_WIRING 0
+#define NO_OF_CAM_CHANNELS_DRIVEN_SIM_VALUE 0x0
+#define NO_OF_CAM_CHANNELS_EDGE_TYPE "NONE"
+#define NO_OF_CAM_CHANNELS_FREQ 50000000u
+#define NO_OF_CAM_CHANNELS_HAS_IN 0
+#define NO_OF_CAM_CHANNELS_HAS_OUT 1
+#define NO_OF_CAM_CHANNELS_HAS_TRI 0
+#define NO_OF_CAM_CHANNELS_IRQ -1
+#define NO_OF_CAM_CHANNELS_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define NO_OF_CAM_CHANNELS_IRQ_TYPE "NONE"
+#define NO_OF_CAM_CHANNELS_NAME "/dev/no_of_cam_channels"
+#define NO_OF_CAM_CHANNELS_RESET_VALUE 0x0
+#define NO_OF_CAM_CHANNELS_SPAN 16
+#define NO_OF_CAM_CHANNELS_TYPE "altera_avalon_pio"
 
 
 /*
@@ -366,13 +393,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid altera_avalon_sysid_qsys
-#define SYSID_BASE 0x1000080
+#define SYSID_BASE 0x1000090
 #define SYSID_ID 0
 #define SYSID_IRQ -1
 #define SYSID_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_NAME "/dev/sysid"
 #define SYSID_SPAN 8
-#define SYSID_TIMESTAMP 1361364706
+#define SYSID_TIMESTAMP 1366720735
 #define SYSID_TYPE "altera_avalon_sysid_qsys"
 
 

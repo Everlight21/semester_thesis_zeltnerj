@@ -35,11 +35,13 @@ int main() {
 	//camera_init(SPI_1_BASE);
 	camera_init(SPI_2_BASE);
 	usleep(1000);
-	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x40); //sets pio[6] which is connected to cmv frameRequest
-	usleep(1000);
-	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x00); //resets pio[6] which is connected to cmv frameRequest
-	usleep(1000);
+//	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x40); //sets pio[6] which is connected to cmv frameRequest
+//	usleep(1000);
+//	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x00); //resets pio[6] which is connected to cmv frameRequest
+//	usleep(1000);
 
+	IOWR_ALTERA_AVALON_PIO_DATA(NO_OF_CAM_CHANNELS_BASE, 0x1);
+	usleep(1000);
 
 	while(1) {
 		IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x40); //sets pio[6] which is connected to cmv frameRequest
@@ -47,6 +49,7 @@ int main() {
 
 
 			/*
+			 *
 			 *  sends 8 bits (at address &sent) to spi interface of cmv4000 and stores read bits (at address &received1)
 		     *  Bit[7] = 0 -> read operation
 		     *  Bit[6..0] -> address

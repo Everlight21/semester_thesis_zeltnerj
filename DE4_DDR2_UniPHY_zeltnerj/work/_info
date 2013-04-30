@@ -17,15 +17,15 @@ Z9 Fcmv_master.vhd
 l0
 L33
 VFUQ:`La=_FOPe[HLZkRCb0
-!s100 MSBT_9=D3GiJ<=JMd_P?]0
 Z10 OV;C;10.1b;51
 31
-!i10b 1
 Z11 !s108 1364313343.836000
 Z12 !s90 -93|-work|work|cmv_master.vhd|
 Z13 !s107 cmv_master.vhd|
 Z14 o-93 -work work -O0
 Z15 tExplicit 1
+!s100 MSBT_9=D3GiJ<=JMd_P?]0
+!i10b 1
 Abehavioral
 R1
 R2
@@ -33,73 +33,146 @@ R3
 R4
 R5
 R6
-Z16 DEx4 work 10 cmv_master 0 22 FUQ:`La=_FOPe[HLZkRCb0
+DEx4 work 10 cmv_master 0 22 FUQ:`La=_FOPe[HLZkRCb0
 l133
 L53
 V;EO=h14<>_?^P4=X;N`ig3
-!s100 WJRn`OXHmo1Y]3XAnF5RT0
 R10
 31
-!i10b 1
 R11
 R12
 R13
 R14
 R15
+!s100 WJRn`OXHmo1Y]3XAnF5RT0
+!i10b 1
 Pconfiguration_pkg
 R2
 R3
 R4
 R5
 R6
-Z17 w1364305892
+Z16 w1367332188
 R7
-Z18 8configuration_pkg.vhd
-Z19 Fconfiguration_pkg.vhd
+Z17 8configuration_pkg.vhd
+Z18 Fconfiguration_pkg.vhd
 l0
 L28
-VgA_E:2bhDRMI[U0U=c7mX2
+V5QM9zkEaJkkRPV?zi[hTR3
 R10
 31
 b1
-Z20 !s108 1364306096.383000
-Z21 !s90 -93|-work|work|configuration_pkg.vhd|
-Z22 !s107 configuration_pkg.vhd|
+Z19 !s108 1367336631.138000
+Z20 !s90 -93|-work|work|configuration_pkg.vhd|
+Z21 !s107 configuration_pkg.vhd|
 R14
 R15
-!s100 Io36h4fNA@:Hf7AFl6ISk2
+!s100 R=j<O1?b]FhnjTX@d]On61
 !i10b 1
 Bbody
-R1
+Z22 DPx4 work 17 configuration_pkg 0 22 5QM9zkEaJkkRPV?zi[hTR3
 R2
 R3
 R4
 R5
 R6
 l0
-L44
-VnaH8b98D?<bKQBYHiDDJU3
+L45
+Va8g:B<I[JhSD[LfaU:dOo1
 R10
 31
+R19
 R20
 R21
-R22
 R14
 R15
 nbody
-!s100 WSlBKHDL^PI`4K51WnMSV2
+!s100 1gU@2i43Q^4_^Q>L_KZTQ1
+!i10b 1
+Econtrol_registers
+Z23 w1366642964
+R5
+R6
+R7
+Z24 8control_registers.vhd
+Z25 Fcontrol_registers.vhd
+l0
+L28
+V2;F0CGeT6Y?2>M[n[Nl<^0
+R10
+31
+Z26 !s108 1366642965.080000
+Z27 !s90 -93|-work|work|control_registers.vhd|
+Z28 !s107 control_registers.vhd|
+R14
+R15
+!s100 mU:QCTK?:i?7;>cLk1BUa1
+!i10b 1
+Abehavioral
+R5
+R6
+Z29 DEx4 work 17 control_registers 0 22 2;F0CGeT6Y?2>M[n[Nl<^0
+l42
+L38
+Vl1WYFJ>6YGhIKHUOU:5gP2
+R10
+31
+R26
+R27
+R28
+R14
+R15
+!s100 E^eC80J:d`K1@m[d[W?d?2
+!i10b 1
+Econtrol_registers_interface
+Z30 w1366643125
+Z31 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+R5
+R6
+R7
+Z32 8control_registers_interface.vhd
+Z33 Fcontrol_registers_interface.vhd
+l0
+L15
+VlP`c0Jd[U8nCY5?GUN5o=1
+R10
+31
+Z34 !s108 1366643126.337000
+Z35 !s90 -93|-work|work|control_registers_interface.vhd|
+Z36 !s107 control_registers_interface.vhd|
+R14
+R15
+!s100 c7VbEh^7BzUfb:80Rg3lm0
+!i10b 1
+Artl
+R29
+R31
+R5
+R6
+DEx4 work 27 control_registers_interface 0 22 lP`c0Jd[U8nCY5?GUN5o=1
+l34
+L26
+VdBS=712F5n6[E7UUO]afG1
+R10
+31
+R34
+R35
+R36
+R14
+R15
+!s100 aIV20FW;]^0VJfR`7LdV32
 !i10b 1
 Egf2m_arithm_tb
 w1363615853
-Z23 DPx4 ieee 9 math_real 0 22 :iME`dTX54_U49lJNF5JI3
-Z24 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
-Z25 DPx4 work 7 tb_util 0 22 W=kjWMkHfFiiV:B=Z5?f61
+Z37 DPx4 ieee 9 math_real 0 22 :iME`dTX54_U49lJNF5JI3
+R31
+Z38 DPx4 work 7 tb_util 0 22 W=kjWMkHfFiiV:B=Z5?f61
 R6
-Z26 DPx4 ieee 16 std_logic_textio 0 22 ?Il0a149GV276[?[UMDWh2
+Z39 DPx4 ieee 16 std_logic_textio 0 22 ?Il0a149GV276[?[UMDWh2
 R5
-Z27 dc:\sem13f2\DE4_DDR2_UniPHY_zeltnerj
-Z28 8modelsim/testbenches/lvds_sync_controller_tb.vhd
-Z29 Fmodelsim/testbenches/lvds_sync_controller_tb.vhd
+Z40 dc:\sem13f2\DE4_DDR2_UniPHY_zeltnerj
+Z41 8modelsim/testbenches/lvds_sync_controller_tb.vhd
+Z42 Fmodelsim/testbenches/lvds_sync_controller_tb.vhd
 l0
 L30
 VFWkD2Jd_9FKRGfIXzR2o51
@@ -107,144 +180,144 @@ R10
 31
 R14
 R15
-Z30 !s90 -93|-work|work|modelsim/testbenches/lvds_sync_controller_tb.vhd|
-Z31 !s107 modelsim/testbenches/lvds_sync_controller_tb.vhd|
+Z43 !s90 -93|-work|work|modelsim/testbenches/lvds_sync_controller_tb.vhd|
+Z44 !s107 modelsim/testbenches/lvds_sync_controller_tb.vhd|
 !s100 =aZ<b:TRJdIhNM:ejHH191
 !i10b 1
 !s108 1363615896.223000
 Elvds_sync_controller
-Z32 w1364310984
-R1
+Z45 w1367338900
+R22
 R2
 R3
 R4
 R5
 R6
 R7
-Z33 8lvds_sync_controller.vhd
-Z34 Flvds_sync_controller.vhd
+Z46 8lvds_sync_controller.vhd
+Z47 Flvds_sync_controller.vhd
 l0
 L33
-VB=:M]6@z5YWnjV:]0jhg@0
+VkjOJRRVg:YzSK^h^n4CHf3
+!s100 zSzPI=0YeaR]P<bP=UgRK2
 R10
 31
-Z35 !s108 1364310987.416000
-Z36 !s90 -93|-work|work|lvds_sync_controller.vhd|
-Z37 !s107 lvds_sync_controller.vhd|
+!i10b 1
+Z48 !s108 1367338902.405000
+Z49 !s90 -93|-work|work|lvds_sync_controller.vhd|
+Z50 !s107 lvds_sync_controller.vhd|
 R14
 R15
-!s100 cD7d8R8f6_dDEeUWf]AYn0
-!i10b 1
 Abehavioral
-R1
+R22
 R2
 R3
 R4
 R5
 R6
-Z38 DEx4 work 20 lvds_sync_controller 0 22 B=:M]6@z5YWnjV:]0jhg@0
-l99
-L56
-V<O?iIhW8Yc9R5aRlU[=@k0
+Z51 DEx4 work 20 lvds_sync_controller 0 22 kjOJRRVg:YzSK^h^n4CHf3
+l103
+L54
+V;>zDNHX>m]mCe>=363=6R0
+!s100 VMC`GNf150[Pg?:9VX1Af3
 R10
 31
-R35
-R36
-R37
+!i10b 1
+R48
+R49
+R50
 R14
 R15
-!s100 ?loA3NS5i[LKmUiLIPS_63
-!i10b 1
 Elvds_sync_controller_tb
-Z39 w1363770783
+Z52 w1367338663
 R2
 R3
 R4
-Z40 DPx4 work 17 configuration_pkg 0 22 f@R>F4>E>8]O?M2;KS9AJ3
-R23
-R24
-R25
+R22
+R37
+R31
+R38
 R6
-R26
+R39
 R5
-R27
-R28
-R29
+R7
+R41
+R42
 l0
 L31
 Vd2L<d80X?6Se;UF=He:M30
 R10
 31
-Z41 !s108 1363770786.030000
-R30
-R31
+Z53 !s108 1367338664.768000
+R43
+R44
 R14
 R15
 !s100 Fl]Sz0J1`S3B@<nN9W>>33
 !i10b 1
 Abehavioral
-R38
+R51
 R2
 R3
 R4
-R40
-R23
-R24
-R25
+R22
+R37
+R31
+R38
 R6
-R26
+R39
 R5
 DEx4 work 23 lvds_sync_controller_tb 0 22 d2L<d80X?6Se;UF=He:M30
-l110
+l106
 L37
-V1zG^iK_d?:U5K4GCYNIbT3
+VGhzgYETf[<Loij^;Cj]m92
 R10
 31
-R41
-R30
-R31
+R53
+R43
+R44
 R14
 R15
-!s100 2ED6aHE64Xl7iEARH6if32
+!s100 63baD:?<71gN?5kCOYJV`0
 !i10b 1
 Ptb_util
-R23
-R24
+R37
+R31
 R6
-R26
+R39
 R5
-Z42 w1338353450
-R27
-Z43 8modelsim/testbenches/tb_util.vhd
-Z44 Fmodelsim/testbenches/tb_util.vhd
+Z54 w1338353450
+R40
+Z55 8modelsim/testbenches/tb_util.vhd
+Z56 Fmodelsim/testbenches/tb_util.vhd
 l0
 L36
 VW=kjWMkHfFiiV:B=Z5?f61
 R10
 31
 b1
-Z45 !s108 1363615891.850000
-Z46 !s90 -93|-work|work|modelsim/testbenches/tb_util.vhd|
-Z47 !s107 modelsim/testbenches/tb_util.vhd|
+Z57 !s108 1363615891.850000
+Z58 !s90 -93|-work|work|modelsim/testbenches/tb_util.vhd|
+Z59 !s107 modelsim/testbenches/tb_util.vhd|
 R14
 R15
 !s100 G6iT]f;gSY@Ba:z@YEGVU3
 !i10b 1
 Bbody
-R25
-R23
-R24
+R38
+R37
+R31
 R6
-R26
+R39
 R5
 l0
 L200
 VE9BY[4JMaNDkA6KjL9GSA2
 R10
 31
-R45
-R46
-R47
+R57
+R58
+R59
 R14
 R15
 nbody

@@ -1,4 +1,4 @@
-# (C) 2001-2012 Altera Corporation. All rights reserved.
+# (C) 2001-2013 Altera Corporation. All rights reserved.
 # Your use of Altera Corporation's design tools, logic functions and other 
 # software and tools, and its AMPP partner logic functions, and any output 
 # files any of the foregoing (including device programming or simulation 
@@ -252,7 +252,24 @@ foreach inst $instances {
 		set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG $delay_chain_config -to $dqs_pin -tag __$::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_corename
 	}
 
+	# Disable package skew compensation for data pins in timing analysis
+	foreach dq_pin $pins(all_dq_pins) {
+		set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to $dq_pin -tag __$::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_corename
+	}
+	foreach dm_pin $pins(dm_pins) {
+		set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to $dm_pin -tag __$::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_corename
+	}
+	foreach dqs_pin [ concat $pins(dqs_pins) $pins(dqsn_pins) ] {
+		set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to $dqs_pin -tag __$::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_corename
+	}
 
+	# Disable package skew compensation for address/command pins in timing analysis
+	foreach ac_pin $pins(ac_pins) {
+		set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to $ac_pin -tag __$::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_corename
+	}
+	foreach ck_pin [ concat $pins(ck_pins) $pins(ckn_pins) ] {
+		set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to $ck_pin -tag __$::GLOBAL_DE4_QSYS_mem_if_ddr2_emif_p0_corename
+	}
 
 	set seq_clks 2
 

@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -84,6 +84,7 @@ parameter MEM_T_RL                         = "";
 parameter QVLD_EXTRA_FLOP_STAGES           = "";
 parameter QVLD_WR_ADDRESS_OFFSET           = "";
 parameter REGISTER_C2P                     = "";
+parameter VFIFO_C2P_PIPELINE_DEPTH         = 1;
 
 // Width of the calibration status register used to control calibration skipping.
 parameter CALIB_REG_WIDTH                  = "";
@@ -379,7 +380,7 @@ genvar dqsgroup, vfifo_i;
 			assign qvld[dqsgroup+(vfifo_i*MEM_READ_DQS_WIDTH)] = qvld_per_dqs[vfifo_i];
 		end
 	end
-	end
+end
 endgenerate
 
 assign dqs_enable_ctrl = qvld;

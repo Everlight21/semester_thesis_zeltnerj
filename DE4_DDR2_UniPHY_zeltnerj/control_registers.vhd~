@@ -1,0 +1,59 @@
+-------------------------------------------------------------------------------
+-- Title      : Control Registers
+-- Project    : 
+-------------------------------------------------------------------------------
+-- File       : control_registers.vhd
+-- Author     : Joscha Zeltner
+-- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
+-- Created    : 2013-04-22
+-- Last update: 2013-04-22
+-- Platform   : Quartus II, NIOS II 12.1sp1
+-- Standard   : VHDL'93/02
+-------------------------------------------------------------------------------
+-- Description: This entity provides shared register between Nios II and
+--              VHDL blocks
+-------------------------------------------------------------------------------
+-- Copyright (c) 2013 Computer Vision and Geometry Group, Pixhawk, ETH Zurich
+-------------------------------------------------------------------------------
+-- Revisions  :
+-- Date        Version  Author  Description
+-- 2013-04-22  1.0      zeltnerj	Created
+-------------------------------------------------------------------------------
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.all; 
+
+LIBRARY work;
+
+entity control_registers is
+  
+  port (
+    ClkxCI                  : in  std_logic;
+    RstxRBI                 : in  std_logic;
+    TestxDI : in std_logic;
+    ResolutionHorizontalxDO : out integer range 0 to 2047);
+
+end entity control_registers;
+
+architecture behavioral of control_registers is
+
+  signal ResolutionHorizontalxDP, ResolutionHorizontalxDN : integer range 0 to 2047;
+  signal TestxDP, TestxDN : std_logic;
+  
+begin  -- architecture behavioral
+
+  TestxDN <= TestxDI;
+  ResolutionHorizontalxDO <= ResolutionHorizontalxDP;
+
+  memory: process (ClkxCI, RstxRBI) is
+  begin  -- process memory
+    if RstxRBI = '0' then               -- asynchronous reset (active low)
+      TestxDP <= '0';
+      ResolutionHorizontalxDP <= 21;
+    elsif ClkxCI'event and ClkxCI = '1' then  -- rising clock edge
+      TestxDP <= TestxDN;
+      ResolutionHorizontalxDP <= ResolutionHorizontalxDN;
+    end if;
+  end process memory;
+
+end architecture behavioral;

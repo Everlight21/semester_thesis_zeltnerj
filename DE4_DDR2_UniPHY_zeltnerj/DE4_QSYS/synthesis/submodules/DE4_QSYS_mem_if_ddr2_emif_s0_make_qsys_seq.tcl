@@ -66,6 +66,7 @@ lappend arg_list "--component-param=HCX_COMPAT_MODE=false"
 lappend arg_list "--component-param=NUM_WRITE_FR_CYCLE_SHIFTS=0"
 lappend arg_list "--component-param=SEQUENCER_VERSION=12.1"
 lappend arg_list "--component-param=ENABLE_NON_DESTRUCTIVE_CALIB=false"
+lappend arg_list "--component-param=MRS_MIRROR_PING_PONG_ATSO=false"
 lappend arg_list "--component-param=ENABLE_NIOS_OCI=false"
 lappend arg_list "--component-param=ENABLE_DEBUG_BRIDGE=false"
 lappend arg_list "--component-param=MAKE_INTERNAL_NIOS_VISIBLE=false"
@@ -86,5 +87,5 @@ lappend arg_list "--system-info=DEVICE_FAMILY=STRATIXIV"
 lappend arg_list "--report-file=sopcinfo:DE4_QSYS_mem_if_ddr2_emif_s0.sopcinfo"
 lappend arg_list "--report-file=txt:DE4_QSYS_mem_if_ddr2_emif_s0_seq_ipd_report.txt"
 lappend arg_list "--file-set=QUARTUS_SYNTH"
-catch { eval [concat [list exec "C:/altera/12.1/quartus/sopc_builder/bin/ip-generate" --component-name=qsys_sequencer_110] $arg_list] } temp
+catch { eval [concat [list exec "C:/altera/12.1sp1/quartus/sopc_builder/bin/ip-generate" --component-name=qsys_sequencer_110] $arg_list] } temp
 puts $temp
