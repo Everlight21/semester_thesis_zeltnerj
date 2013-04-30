@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys' in SOPC Builder design 'DE4_QSYS'
  * SOPC Builder design path: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.sopcinfo
  *
- * Generated: Thu Apr 25 14:51:26 CEST 2013
+ * Generated: Tue Apr 30 16:52:45 CEST 2013
  */
 
 /*

@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-04-29
+-- Last update: 2013-04-30
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -182,20 +182,20 @@ begin  -- architecture behavioral
   --            '0';
   --LedxS(7) <= AlignxS(0);
 
-  --LedxS(0) <= PixelChannelxD(0)(0);
-  --LedxS(1) <= PixelChannelxD(0)(1);
-  --LedxS(2) <= PixelChannelxD(0)(2);
-  --LedxS(3) <= PixelChannelxD(0)(3);
-  --LedxS(4) <= PixelChannelxD(0)(4);
-  --LedxS(5) <= PixelChannelxD(0)(5);
-  --LedxS(6) <= PixelChannelxD(0)(8);
-  --LedxS(7) <= PixelChannelxD(0)(9);
+  LedxS(0) <= PixelChannelxD(0)(0);
+  LedxS(1) <= PixelChannelxD(0)(1);
+  LedxS(2) <= PixelChannelxD(0)(2);
+  LedxS(3) <= PixelChannelxD(0)(3);
+  LedxS(4) <= PixelChannelxD(0)(4);
+  LedxS(5) <= PixelChannelxD(0)(5);
+  LedxS(6) <= PixelChannelxD(0)(8);
+  LedxS(7) <= PixelChannelxD(0)(9);
 
-  LedxS(3 downto 0) <= NoOfDataChannelsxDI;
-  LedxS(4)          <= '0';
-  LedxS(5)          <= '0';
-  LedxS(6)          <= '0';
-  LedxS(7)          <= '0';
+  --LedxS(3 downto 0) <= NoOfDataChannelsxDI;
+  --LedxS(4)          <= '0';
+  --LedxS(5)          <= '0';
+  --LedxS(6)          <= '0';
+  --LedxS(7)          <= '0';
 
   -----------------------------------------------------------------------------
   -- Register update process
@@ -264,10 +264,16 @@ begin  -- architecture behavioral
 
       when idle =>
 
-        for i in 1 to noOfDataChannels loop
-          if PixelChannelxD(i)(9) /= '1' or PixelChannelxD(i)(8) /= '0' then
-            AlignxS(i) <= '1';
-            StatexDN <= pulseChannelDataAlign;
+        --for i in 1 to noOfDataChannels loop
+        --  if PixelChannelxD(i)(9) /= '1' or PixelChannelxD(i)(8) /= '0' then
+        --    AlignxS(i) <= '1';
+        --    StatexDN <= pulseChannelDataAlign;
+        --  end if;
+        --end loop;  -- i
+
+        for i in 0 to 3 loop
+          if ButtonxS(i) = '0' then
+            AlignxS(i+1) <= '1';
           end if;
         end loop;  -- i
         
