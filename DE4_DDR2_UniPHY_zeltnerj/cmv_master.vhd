@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-03-26
+-- Last update: 2013-05-02
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -73,18 +73,18 @@ architecture behavioral of cmv_master is
   -----------------------------------------------------------------------------
   -- components
   -----------------------------------------------------------------------------
-  component fifocamera is
+  component cmv_ram_fifo is
     port (
       aclr    : IN  STD_LOGIC := '0';
-      data    : IN  STD_LOGIC_VECTOR (31 DOWNTO 0);
+      data    : IN  STD_LOGIC_VECTOR (15 DOWNTO 0);
       rdclk   : IN  STD_LOGIC;
       rdreq   : IN  STD_LOGIC;
       wrclk   : IN  STD_LOGIC;
       wrreq   : IN  STD_LOGIC;
       q       : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
-      rdusedw : OUT STD_LOGIC_VECTOR (9 DOWNTO 0);
+      rdusedw : OUT STD_LOGIC_VECTOR (8 DOWNTO 0);
       wrfull  : OUT STD_LOGIC);
-  end component fifocamera;
+  end component cmv_ram_fifo;
 
   -----------------------------------------------------------------------------
   -- signals
@@ -93,20 +93,22 @@ architecture behavioral of cmv_master is
   -----------------------------------------------------------------------------
   -- buffer
   -----------------------------------------------------------------------------
-  type bufferData is array (1 to noOfDataChannels) of std_logic_vector(31 downto 0);
-  signal BufDataInxD : bufferData;
-  signal BufDataOutxD : bufferData;
+  type bufferDataIn is array (1 to 16) of std_logic_vector(15 downto 0);
+  signal BufDataInxD : bufferDataIn;
   
-  type bufferReadRequest is array (1 to noOfDataChannels) of std_logic;
-  signal BufReadReqxS : bufferReadRequest := (others => '0');
+  type bufferDataOut is array (1 to noOfDataChannels) of std_logic_vector(31 downto 0);
+  signal BufDataOutxD : bufferDataOut;
+  
+  type bufferControlSignals is array (1 to noOfDataChannels) of std_logic;
+  signal BufReadReqxS : bufferControlSignals := (others => '0');
+  signal BufWriteEnxS : bufferControlSignals := (others => '0');
 
-  type bufferNoOfWords is array (1 to noOfDataChannels) of std_logic_vector(9 downto 0);
+  type bufferNoOfWords is array (1 to noOfDataChannels) of std_logic_vector(8 downto 0);
   signal BufNoOfWordsxS : bufferNoOfWords;
 
   type bufferFull is array (1 to noOfDataChannels) of std_logic;
   signal BufFullxS : bufferFull;
 
-  signal BufWriteEnxS : std_logic;
 
   signal BufClearxS : std_logic;
 
@@ -149,6 +151,7 @@ architecture behavioral of cmv_master is
     -- output
     ---------------------------------------------------------------------------
     AMAddressxD <= AMWriteAddressxDP;
+    
     buf_output: process (ChannelSelectxSP, BufDataOutxD) is
     begin  -- process buf_output
       for i in 1 to noOfDataChannels loop
@@ -157,9 +160,36 @@ architecture behavioral of cmv_master is
         end if;
       end loop;  -- i
     end process buf_output;
+
+    ---------------------------------------------------------------------------
+    -- input
+    ---------------------------------------------------------------------------
+    buffer_input: process (DataInxD) is
+    begin  -- process buffer_input
+      
+      for i in 1 to noOfDataChannels loop
+        BufWriteEnxS(i) <= '0';
+      end loop;  -- i
+      
+      for i in 1 to 16 loop
+        BufDataInxD(i) <= (others => '0');
+      end loop;  -- i
+      
+      if PixelValidxS = '1' and RowValidxS = '1' and FrameValidxS = '1' then
+        
+          for i in 1 to noOfDataChannels loop
+            if BufFullxS(i) /= '1' then
+              BufWriteEnxS(i) <= '1';
+              BufDataInxD(i) <= (15 downto 10 => '0') & DataInxD(i*channelWidth-1 downto (i-1)*channelWidth); 
+            end if;
+          end loop;  -- i
+          
+      end if;
+      
+    end process buffer_input;
     
     ---------------------------------------------------------------------------
-    -- memory update
+    -- memory processes
     ---------------------------------------------------------------------------
     memory: process (ClkxC, RstxRB) is
     begin  -- process memory
@@ -178,6 +208,15 @@ architecture behavioral of cmv_master is
       end if;
     end process memory;
 
+    memory_ClkLvdsRxxD: process (ClkLvdsRxxC, RstxRB) is
+    begin  -- process memory_ClkLvdsRxxD
+      if RstxRB = '0' then              -- asynchronous reset (active low)
+        BufClearxS <= '1';
+      elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
+        
+      end if;
+    end process memory_ClkLvdsRxxD;
+
     ---------------------------------------------------------------------------
     -- FSM
     ---------------------------------------------------------------------------
@@ -189,7 +228,7 @@ architecture behavioral of cmv_master is
       BurstWordCountxDN <= BurstWordCountxDP;
       NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP;
       ChannelSelectxSN <= ChannelSelectxSP;
-      AMBurstCountxS <= "00100000";  -- 32
+      AMBurstCountxS <= "00000010";  -- 2
       AMWritexS <= '0';
       
       if BufClearxS = '1' then
@@ -262,22 +301,23 @@ architecture behavioral of cmv_master is
     ---------------------------------------------------------------------------
     -- instances
     ---------------------------------------------------------------------------
-    fifo_instances: for i in 1 to noOfDataChannels generate
-      fifocamera_i: fifocamera
-        port map (
-          aclr    => BufClearxS,
-          data    => BufDataInxD(i),
-          rdclk   => ClkxC,
-          rdreq   => BufReadReqxS(i),
-          wrclk   => ClkLvdsRxxC,
-          wrreq   => BufWriteEnxS,
-          q       => BufDataOutxD(i),
-          rdusedw => BufNoOfWordsxS(i),
-          wrfull  => BufFullxS(i));
-    end generate fifo_instances;
-
     
 
+    fifo_instances : for i in 1 to noOfDataChannels generate
+    cmv_ram_fifo_1: cmv_ram_fifo
+      port map (
+        aclr    => BufClearxS,
+        data    => BufDataInxD(i),
+        rdclk   => ClkxC,
+        rdreq   => BufReadReqxS(i),
+        wrclk   => ClkLvdsRxxC,
+        wrreq   => BufWriteEnxS(i),
+        q       => BufDataOutxD(i),
+        rdusedw => BufNoOfWordsxS(i),
+        wrfull  => BufFullxS(i));
+    end generate fifo_instances;
+    
+    
 end architecture behavioral;
 
 
