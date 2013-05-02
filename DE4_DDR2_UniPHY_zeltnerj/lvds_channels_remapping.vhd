@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-04-30
--- Last update: 2013-04-30
+-- Last update: 2013-05-02
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -45,16 +45,32 @@ use work.configuration_pkg.all;
 entity lvds_channels_remapping is
   
   port (
-    DataInxDI  : in  std_logic_vector(lvdsDataWidth-1 downto 0);
-    DataOutxDO : out std_logic_vector(lvdsDataWidth-1 downto 0));
+    Cam1ChannelCtrlxDI : in std_logic;
+    Cam1Channel1xDI : in std_logic;
+    Cam1Channel3xDI : in std_logic;
+    Cam1Channel5xDI : in std_logic;
+    Cam1Channel7xDI : in std_logic;
+    Cam1Channel9xDI : in std_logic;
+    Cam1Channel11xDI : in std_logic;
+    Cam1Channel13xDI : in std_logic;
+    Cam1Channel15xDI : in std_logic;
+    DataOutxDO : out std_logic_vector((noOfDataChannels+1)-1 downto 0));
 
 end entity lvds_channels_remapping;
 
 
 architecture remapping of lvds_channels_remapping is
 
+  
+  
 begin  -- architecture remapping
 
-  
+
+      DataOutxDO <= Cam1Channel13xDI &
+                    Cam1Channel9xDI &
+                    Cam1Channel5xDI &
+                    Cam1Channel1xDI &
+                    Cam1ChannelCtrlxDI;
+    
 
 end architecture remapping;

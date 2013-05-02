@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-03-26
+-- Last update: 2013-04-29
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -30,6 +30,7 @@ package configuration_pkg is
   constant noOfDataChannels : integer;  
   constant channelWidth : integer;  
   constant lvdsDataWidth : integer;
+  constant camDataWidth : integer;
   constant trainingPattern : std_logic_vector;
   constant frequency : integer;         -- in [MHz]
   constant period : integer;            -- in [ns]
@@ -50,6 +51,7 @@ package body configuration_pkg is
   constant channelWidth : integer := 10;  -- no. of bits per pixel,  10, 12
   -- noOfDataChannels+1 = DataChannels + Ctrl Channel
   constant lvdsDataWidth : integer := (noOfDataChannels+1)*channelWidth;
+  constant camDataWidth : integer := noOfDataChannels*channelWidth;
   constant trainingPattern : std_logic_vector(0 to 15) := x"ff01";
   constant frequency : integer := 5;
   constant period : integer := 200;

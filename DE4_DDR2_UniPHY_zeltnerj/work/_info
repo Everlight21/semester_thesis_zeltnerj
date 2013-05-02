@@ -52,7 +52,7 @@ R3
 R4
 R5
 R6
-Z16 w1367332188
+Z16 w1367497161
 R7
 Z17 8configuration_pkg.vhd
 Z18 Fconfiguration_pkg.vhd
@@ -62,7 +62,7 @@ V5QM9zkEaJkkRPV?zi[hTR3
 R10
 31
 b1
-Z19 !s108 1367336631.138000
+Z19 !s108 1367497162.957000
 Z20 !s90 -93|-work|work|configuration_pkg.vhd|
 Z21 !s107 configuration_pkg.vhd|
 R14
@@ -78,7 +78,7 @@ R5
 R6
 l0
 L45
-Va8g:B<I[JhSD[LfaU:dOo1
+VM8m8=[z:m?a`@EXj`4EkA2
 R10
 31
 R19
@@ -87,7 +87,7 @@ R21
 R14
 R15
 nbody
-!s100 1gU@2i43Q^4_^Q>L_KZTQ1
+!s100 Ah1;1ogc773H4X;Q>h7A22
 !i10b 1
 Econtrol_registers
 Z23 w1366642964
@@ -185,8 +185,8 @@ Z44 !s107 modelsim/testbenches/lvds_sync_controller_tb.vhd|
 !s100 =aZ<b:TRJdIhNM:ejHH191
 !i10b 1
 !s108 1363615896.223000
-Elvds_sync_controller
-Z45 w1367338900
+Elvds_channels_remapping
+Z45 w1367497311
 R22
 R2
 R3
@@ -194,32 +194,32 @@ R4
 R5
 R6
 R7
-Z46 8lvds_sync_controller.vhd
-Z47 Flvds_sync_controller.vhd
+Z46 8lvds_channels_remapping.vhd
+Z47 Flvds_channels_remapping.vhd
 l0
-L33
-VkjOJRRVg:YzSK^h^n4CHf3
-!s100 zSzPI=0YeaR]P<bP=UgRK2
+L45
+Vcc`4?mGNMXJ6X6d9=>JK82
+!s100 SQBNf3VVNSzlC>GG]5[ae1
 R10
 31
 !i10b 1
-Z48 !s108 1367338902.405000
-Z49 !s90 -93|-work|work|lvds_sync_controller.vhd|
-Z50 !s107 lvds_sync_controller.vhd|
+Z48 !s108 1367497320.025000
+Z49 !s90 -93|-work|work|lvds_channels_remapping.vhd|
+Z50 !s107 lvds_channels_remapping.vhd|
 R14
 R15
-Abehavioral
+Aremapping
 R22
 R2
 R3
 R4
 R5
 R6
-Z51 DEx4 work 20 lvds_sync_controller 0 22 kjOJRRVg:YzSK^h^n4CHf3
-l103
-L54
-V;>zDNHX>m]mCe>=363=6R0
-!s100 VMC`GNf150[Pg?:9VX1Af3
+Z51 DEx4 work 23 lvds_channels_remapping 0 22 cc`4?mGNMXJ6X6d9=>JK82
+l66
+L62
+ViId=mHzoAbSP[7agJC?9A3
+!s100 8?mi;Cel61lSidWd4N;QV0
 R10
 31
 !i10b 1
@@ -228,8 +228,51 @@ R49
 R50
 R14
 R15
+Elvds_sync_controller
+Z52 w1367338900
+R22
+R2
+R3
+R4
+R5
+R6
+R7
+Z53 8lvds_sync_controller.vhd
+Z54 Flvds_sync_controller.vhd
+l0
+L33
+VkjOJRRVg:YzSK^h^n4CHf3
+R10
+31
+Z55 !s108 1367338902.405000
+Z56 !s90 -93|-work|work|lvds_sync_controller.vhd|
+Z57 !s107 lvds_sync_controller.vhd|
+R14
+R15
+!s100 zSzPI=0YeaR]P<bP=UgRK2
+!i10b 1
+Abehavioral
+R22
+R2
+R3
+R4
+R5
+R6
+Z58 DEx4 work 20 lvds_sync_controller 0 22 kjOJRRVg:YzSK^h^n4CHf3
+l103
+L54
+V;>zDNHX>m]mCe>=363=6R0
+R10
+31
+R55
+R56
+R57
+R14
+R15
+!s100 VMC`GNf150[Pg?:9VX1Af3
+!i10b 1
 Elvds_sync_controller_tb
-Z52 w1367338663
+Z59 w1367338663
 R2
 R3
 R4
@@ -248,7 +291,7 @@ L31
 Vd2L<d80X?6Se;UF=He:M30
 R10
 31
-Z53 !s108 1367338664.768000
+Z60 !s108 1367338664.768000
 R43
 R44
 R14
@@ -256,7 +299,7 @@ R15
 !s100 Fl]Sz0J1`S3B@<nN9W>>33
 !i10b 1
 Abehavioral
-R51
+R58
 R2
 R3
 R4
@@ -273,7 +316,7 @@ L37
 VGhzgYETf[<Loij^;Cj]m92
 R10
 31
-R53
+R60
 R43
 R44
 R14
@@ -286,19 +329,19 @@ R31
 R6
 R39
 R5
-Z54 w1338353450
+Z61 w1338353450
 R40
-Z55 8modelsim/testbenches/tb_util.vhd
-Z56 Fmodelsim/testbenches/tb_util.vhd
+Z62 8modelsim/testbenches/tb_util.vhd
+Z63 Fmodelsim/testbenches/tb_util.vhd
 l0
 L36
 VW=kjWMkHfFiiV:B=Z5?f61
 R10
 31
 b1
-Z57 !s108 1363615891.850000
-Z58 !s90 -93|-work|work|modelsim/testbenches/tb_util.vhd|
-Z59 !s107 modelsim/testbenches/tb_util.vhd|
+Z64 !s108 1363615891.850000
+Z65 !s90 -93|-work|work|modelsim/testbenches/tb_util.vhd|
+Z66 !s107 modelsim/testbenches/tb_util.vhd|
 R14
 R15
 !s100 G6iT]f;gSY@Ba:z@YEGVU3
@@ -315,9 +358,9 @@ L200
 VE9BY[4JMaNDkA6KjL9GSA2
 R10
 31
-R57
-R58
-R59
+R64
+R65
+R66
 R14
 R15
 nbody
