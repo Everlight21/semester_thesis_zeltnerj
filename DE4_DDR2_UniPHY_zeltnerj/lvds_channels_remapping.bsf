@@ -89,8 +89,8 @@ applicable agreement for further details.
 	(port
 		(pt 256 32)
 		(output)
-		(text "DataOutxDO[4..0]" (rect 0 0 73 12)(font "Arial" ))
-		(text "DataOutxDO[4..0]" (rect 162 27 235 39)(font "Arial" ))
+		(text "DataOutxDO[8..0]" (rect 0 0 71 12)(font "Arial" ))
+		(text "DataOutxDO[8..0]" (rect 164 27 235 39)(font "Arial" ))
 		(line (pt 256 32)(pt 240 32)(line_width 3))
 	)
 	(drawing

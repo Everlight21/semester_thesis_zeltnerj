@@ -33,15 +33,15 @@ applicable agreement for further details.
 	(port
 		(pt 0 64)
 		(input)
-		(text "rx_channel_data_align[4..0]" (rect 0 0 156 14)(font "Arial" (font_size 8)))
-		(text "rx_channel_data_align[4..0]" (rect 4 50 135 63)(font "Arial" (font_size 8)))
+		(text "rx_channel_data_align[8..0]" (rect 0 0 156 14)(font "Arial" (font_size 8)))
+		(text "rx_channel_data_align[8..0]" (rect 4 50 135 63)(font "Arial" (font_size 8)))
 		(line (pt 0 64)(pt 144 64)(line_width 3))
 	)
 	(port
 		(pt 0 80)
 		(input)
-		(text "rx_in[4..0]" (rect 0 0 56 14)(font "Arial" (font_size 8)))
-		(text "rx_in[4..0]" (rect 4 66 50 79)(font "Arial" (font_size 8)))
+		(text "rx_in[8..0]" (rect 0 0 56 14)(font "Arial" (font_size 8)))
+		(text "rx_in[8..0]" (rect 4 66 50 79)(font "Arial" (font_size 8)))
 		(line (pt 0 80)(pt 144 80)(line_width 3))
 	)
 	(port
@@ -54,8 +54,8 @@ applicable agreement for further details.
 	(port
 		(pt 352 48)
 		(output)
-		(text "rx_out[49..0]" (rect 0 0 71 14)(font "Arial" (font_size 8)))
-		(text "rx_out[49..0]" (rect 288 34 347 47)(font "Arial" (font_size 8)))
+		(text "rx_out[89..0]" (rect 0 0 71 14)(font "Arial" (font_size 8)))
+		(text "rx_out[89..0]" (rect 288 34 347 47)(font "Arial" (font_size 8)))
 		(line (pt 352 48)(pt 208 48)(line_width 3))
 	)
 	(port

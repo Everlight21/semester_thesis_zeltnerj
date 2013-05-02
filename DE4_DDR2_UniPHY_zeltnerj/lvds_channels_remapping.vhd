@@ -54,7 +54,7 @@ entity lvds_channels_remapping is
     Cam1Channel11xDI : in std_logic;
     Cam1Channel13xDI : in std_logic;
     Cam1Channel15xDI : in std_logic;
-    DataOutxDO : out std_logic_vector((noOfDataChannels+1)-1 downto 0));
+    DataOutxDO : out std_logic_vector((8+1)-1 downto 0));
 
 end entity lvds_channels_remapping;
 
@@ -65,12 +65,22 @@ architecture remapping of lvds_channels_remapping is
   
 begin  -- architecture remapping
 
-
-      DataOutxDO <= Cam1Channel13xDI &
+      DataOutxDO <= (DataOutxDO'high downto 4+1 => '0') &
+                    Cam1Channel13xDI &
                     Cam1Channel9xDI &
                     Cam1Channel5xDI &
                     Cam1Channel1xDI &
+                    Cam1ChannelCtrlxDI when noOfDataChannels = 4 else
+                    Cam1Channel15xDI &
+                    Cam1Channel13xDI &
+                    Cam1Channel11xDI &
+                    Cam1Channel9xDI &
+                    Cam1Channel7xDI &
+                    Cam1Channel5xDI &
+                    Cam1Channel3xDI &
+                    Cam1Channel1xDI &
                     Cam1ChannelCtrlxDI;
+                  
     
 
 end architecture remapping;

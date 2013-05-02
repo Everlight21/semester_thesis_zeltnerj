@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-04-30
+-- Last update: 2013-05-02
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -36,10 +36,11 @@ entity lvds_sync_controller is
     ClkxCI              : in  std_logic;
     RstxRBI             : in  std_logic;
     -- lvds signal enter in reversed order, e.g. DVAL bit is Bit [9] not Bit [0]
-    LVDSDataxDI         : in  std_logic_vector(lvdsDataWidth-1 downto 0);
+    --LVDSDataxDI         : in  std_logic_vector(lvdsDataWidth-1 downto 0);
+    LVDSDataxDI         : in  std_logic_vector((8+1)*channelWidth-1 downto 0);
     ButtonxSI           : in  std_logic_vector (3 downto 0);
     FrameReqInxSI       : in  std_logic;
-    AlignxSO            : out std_logic_vector(noOfDataChannels downto 0);
+    AlignxSO            : out std_logic_vector(9-1 downto 0);
     PixelDataxDO        : out std_logic_vector(camDataWidth-1 downto 0);
     FrameReqOutxSO      : out std_logic;
     PixelValidxSO       : out std_logic;

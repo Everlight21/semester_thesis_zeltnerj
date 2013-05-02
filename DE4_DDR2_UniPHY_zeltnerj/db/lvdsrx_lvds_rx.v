@@ -1,4 +1,4 @@
-//altlvds_rx BUFFER_IMPLEMENTATION="RAM" CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" COMMON_RX_TX_PLL="OFF" CYCLONEII_M4K_COMPATIBILITY="ON" DATA_ALIGN_ROLLOVER=10 DATA_RATE="400.0 Mbps" DESERIALIZATION_FACTOR=10 DEVICE_FAMILY="Stratix IV" DPA_INITIAL_PHASE_VALUE=0 DPLL_LOCK_COUNT=0 DPLL_LOCK_WINDOW=0 ENABLE_DPA_ALIGN_TO_RISING_EDGE_ONLY="OFF" ENABLE_DPA_CALIBRATION="ON" ENABLE_DPA_INITIAL_PHASE_SELECTION="OFF" ENABLE_DPA_MODE="OFF" ENABLE_DPA_PLL_CALIBRATION="OFF" ENABLE_SOFT_CDR_MODE="OFF" IMPLEMENT_IN_LES="OFF" INCLOCK_BOOST=0 INCLOCK_DATA_ALIGNMENT="EDGE_ALIGNED" INCLOCK_PERIOD=5000 INCLOCK_PHASE_SHIFT=0 INPUT_DATA_RATE=400 NUMBER_OF_CHANNELS=5 OUTCLOCK_RESOURCE="AUTO" PORT_RX_CHANNEL_DATA_ALIGN="PORT_USED" PORT_RX_DATA_ALIGN="PORT_UNUSED" REGISTERED_OUTPUT="ON" RX_ALIGN_DATA_REG="RISING_EDGE" SIM_DPA_IS_NEGATIVE_PPM_DRIFT="OFF" SIM_DPA_NET_PPM_VARIATION=0 SIM_DPA_OUTPUT_CLOCK_PHASE_SHIFT=0 STRATIXIV_DPA_COMPATIBILITY="OFF" USE_CORECLOCK_INPUT="OFF" USE_DPLL_RAWPERROR="OFF" USE_EXTERNAL_PLL="OFF" USE_NO_PHASE_SHIFT="ON" X_ON_BITSLIP="ON" pll_areset rx_channel_data_align rx_in rx_inclock rx_out rx_outclock ACF_BLOCK_RAM_AND_MLAB_EQUIVALENT_PAUSED_READ_CAPABILITIES="CARE" CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48 LOW_POWER_MODE="AUTO" ALTERA_INTERNAL_OPTIONS=AUTO_SHIFT_REGISTER_RECOGNITION=OFF
+//altlvds_rx BUFFER_IMPLEMENTATION="RAM" CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" COMMON_RX_TX_PLL="OFF" CYCLONEII_M4K_COMPATIBILITY="ON" DATA_ALIGN_ROLLOVER=10 DATA_RATE="400.0 Mbps" DESERIALIZATION_FACTOR=10 DEVICE_FAMILY="Stratix IV" DPA_INITIAL_PHASE_VALUE=0 DPLL_LOCK_COUNT=0 DPLL_LOCK_WINDOW=0 ENABLE_DPA_ALIGN_TO_RISING_EDGE_ONLY="OFF" ENABLE_DPA_CALIBRATION="ON" ENABLE_DPA_INITIAL_PHASE_SELECTION="OFF" ENABLE_DPA_MODE="OFF" ENABLE_DPA_PLL_CALIBRATION="OFF" ENABLE_SOFT_CDR_MODE="OFF" IMPLEMENT_IN_LES="OFF" INCLOCK_BOOST=0 INCLOCK_DATA_ALIGNMENT="EDGE_ALIGNED" INCLOCK_PERIOD=5000 INCLOCK_PHASE_SHIFT=0 INPUT_DATA_RATE=400 NUMBER_OF_CHANNELS=9 OUTCLOCK_RESOURCE="AUTO" PORT_RX_CHANNEL_DATA_ALIGN="PORT_USED" PORT_RX_DATA_ALIGN="PORT_UNUSED" REGISTERED_OUTPUT="ON" RX_ALIGN_DATA_REG="RISING_EDGE" SIM_DPA_IS_NEGATIVE_PPM_DRIFT="OFF" SIM_DPA_NET_PPM_VARIATION=0 SIM_DPA_OUTPUT_CLOCK_PHASE_SHIFT=0 STRATIXIV_DPA_COMPATIBILITY="OFF" USE_CORECLOCK_INPUT="OFF" USE_DPLL_RAWPERROR="OFF" USE_EXTERNAL_PLL="OFF" USE_NO_PHASE_SHIFT="ON" X_ON_BITSLIP="ON" pll_areset rx_channel_data_align rx_in rx_inclock rx_out rx_outclock ACF_BLOCK_RAM_AND_MLAB_EQUIVALENT_PAUSED_READ_CAPABILITIES="CARE" CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48 LOW_POWER_MODE="AUTO" ALTERA_INTERNAL_OPTIONS=AUTO_SHIFT_REGISTER_RECOGNITION=OFF
 //VERSION_BEGIN 12.1SP1 cbx_altaccumulate 2013:01:31:18:04:58:SJ cbx_altclkbuf 2013:01:31:18:04:58:SJ cbx_altddio_in 2013:01:31:18:04:58:SJ cbx_altddio_out 2013:01:31:18:04:58:SJ cbx_altiobuf_bidir 2013:01:31:18:04:58:SJ cbx_altiobuf_in 2013:01:31:18:04:58:SJ cbx_altiobuf_out 2013:01:31:18:04:58:SJ cbx_altlvds_rx 2013:01:31:18:04:58:SJ cbx_altpll 2013:01:31:18:04:59:SJ cbx_altsyncram 2013:01:31:18:04:59:SJ cbx_arriav 2013:01:31:18:04:59:SJ cbx_cyclone 2013:01:31:18:04:59:SJ cbx_cycloneii 2013:01:31:18:04:59:SJ cbx_lpm_add_sub 2013:01:31:18:04:59:SJ cbx_lpm_compare 2013:01:31:18:04:59:SJ cbx_lpm_counter 2013:01:31:18:04:59:SJ cbx_lpm_decode 2013:01:31:18:04:59:SJ cbx_lpm_mux 2013:01:31:18:04:59:SJ cbx_lpm_shiftreg 2013:01:31:18:04:59:SJ cbx_maxii 2013:01:31:18:04:59:SJ cbx_mgl 2013:01:31:18:08:27:SJ cbx_stratix 2013:01:31:18:04:59:SJ cbx_stratixii 2013:01:31:18:04:59:SJ cbx_stratixiii 2013:01:31:18:05:00:SJ cbx_stratixv 2013:01:31:18:05:00:SJ cbx_util_mgl 2013:01:31:18:04:59:SJ  VERSION_END
 //CBXI_INSTANCE_NAME="cmv4000design_lvdsrx_inst7_altlvds_rx_ALTLVDS_RX_component"
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
@@ -70,7 +70,7 @@ module  lvdsrx_altclkctrl
 		outclk = wire_sd4_outclk;
 endmodule //lvdsrx_altclkctrl
 
-//synthesis_resources = clkctrl 1 lut 1 reg 51 stratixiv_lvds_receiver 5 stratixiv_pll 1 
+//synthesis_resources = clkctrl 1 lut 1 reg 91 stratixiv_lvds_receiver 9 stratixiv_pll 1 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -84,16 +84,16 @@ module  lvdsrx_lvds_rx
 	rx_out,
 	rx_outclock) /* synthesis synthesis_clearbox=1 */;
 	input   pll_areset;
-	input   [4:0]  rx_channel_data_align;
-	input   [4:0]  rx_in;
+	input   [8:0]  rx_channel_data_align;
+	input   [8:0]  rx_in;
 	input   rx_inclock;
-	output   [49:0]  rx_out;
+	output   [89:0]  rx_out;
 	output   rx_outclock;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
 	tri0   pll_areset;
-	tri0   [4:0]  rx_channel_data_align;
+	tri0   [8:0]  rx_channel_data_align;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_on
 `endif
@@ -101,13 +101,13 @@ module  lvdsrx_lvds_rx
 	wire  wire_rx_outclock_buf_outclk;
 	reg	pll_lock_sync;
 	(* ALTERA_ATTRIBUTE = {"PRESERVE_REGISTER=ON"} *)
-	reg	[49:0]	rxreg;
+	reg	[89:0]	rxreg;
 	wire  wire_ground_lcell1_out;
-	wire  [4:0]   wire_rx_bitslip;
-	wire  [4:0]   wire_rx_clk0;
-	wire  [4:0]   wire_rx_datain;
-	wire  [49:0]   wire_rx_dataout;
-	wire  [4:0]   wire_rx_enable0;
+	wire  [8:0]   wire_rx_bitslip;
+	wire  [8:0]   wire_rx_clk0;
+	wire  [8:0]   wire_rx_datain;
+	wire  [89:0]   wire_rx_dataout;
+	wire  [8:0]   wire_rx_enable0;
 	wire  [9:0]   wire_pll_clk;
 	wire  wire_pll_fbout;
 	wire  wire_pll_locked;
@@ -329,11 +329,167 @@ module  lvdsrx_lvds_rx
 		rx_4.enable_dpa = "off",
 		rx_4.x_on_bitslip = "on",
 		rx_4.lpm_type = "stratixiv_lvds_receiver";
+	stratixiv_lvds_receiver   rx_5
+	( 
+	.bitslip(wire_rx_bitslip[5:5]),
+	.bitslipmax(),
+	.clk0(wire_rx_clk0[5:5]),
+	.datain(wire_rx_datain[5:5]),
+	.dataout(wire_rx_dataout[59:50]),
+	.divfwdclk(),
+	.dpaclkout(),
+	.dpalock(),
+	.dpaswitch(wire_ground_lcell1_out),
+	.enable0(wire_rx_enable0[5:5]),
+	.postdpaserialdataout(),
+	.serialdataout()
+	`ifndef FORMAL_VERIFICATION
+	// synopsys translate_off
+	`endif
+	,
+	.bitslipreset(1'b0),
+	.dpahold(1'b0),
+	.dpareset(1'b0),
+	.fiforeset(1'b0),
+	.serialfbk(1'b0)
+	`ifndef FORMAL_VERIFICATION
+	// synopsys translate_on
+	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
+	);
+	defparam
+		rx_5.align_to_rising_edge_only = "on",
+		rx_5.channel_width = 10,
+		rx_5.data_align_rollover = 10,
+		rx_5.enable_dpa = "off",
+		rx_5.x_on_bitslip = "on",
+		rx_5.lpm_type = "stratixiv_lvds_receiver";
+	stratixiv_lvds_receiver   rx_6
+	( 
+	.bitslip(wire_rx_bitslip[6:6]),
+	.bitslipmax(),
+	.clk0(wire_rx_clk0[6:6]),
+	.datain(wire_rx_datain[6:6]),
+	.dataout(wire_rx_dataout[69:60]),
+	.divfwdclk(),
+	.dpaclkout(),
+	.dpalock(),
+	.dpaswitch(wire_ground_lcell1_out),
+	.enable0(wire_rx_enable0[6:6]),
+	.postdpaserialdataout(),
+	.serialdataout()
+	`ifndef FORMAL_VERIFICATION
+	// synopsys translate_off
+	`endif
+	,
+	.bitslipreset(1'b0),
+	.dpahold(1'b0),
+	.dpareset(1'b0),
+	.fiforeset(1'b0),
+	.serialfbk(1'b0)
+	`ifndef FORMAL_VERIFICATION
+	// synopsys translate_on
+	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
+	);
+	defparam
+		rx_6.align_to_rising_edge_only = "on",
+		rx_6.channel_width = 10,
+		rx_6.data_align_rollover = 10,
+		rx_6.enable_dpa = "off",
+		rx_6.x_on_bitslip = "on",
+		rx_6.lpm_type = "stratixiv_lvds_receiver";
+	stratixiv_lvds_receiver   rx_7
+	( 
+	.bitslip(wire_rx_bitslip[7:7]),
+	.bitslipmax(),
+	.clk0(wire_rx_clk0[7:7]),
+	.datain(wire_rx_datain[7:7]),
+	.dataout(wire_rx_dataout[79:70]),
+	.divfwdclk(),
+	.dpaclkout(),
+	.dpalock(),
+	.dpaswitch(wire_ground_lcell1_out),
+	.enable0(wire_rx_enable0[7:7]),
+	.postdpaserialdataout(),
+	.serialdataout()
+	`ifndef FORMAL_VERIFICATION
+	// synopsys translate_off
+	`endif
+	,
+	.bitslipreset(1'b0),
+	.dpahold(1'b0),
+	.dpareset(1'b0),
+	.fiforeset(1'b0),
+	.serialfbk(1'b0)
+	`ifndef FORMAL_VERIFICATION
+	// synopsys translate_on
+	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
+	);
+	defparam
+		rx_7.align_to_rising_edge_only = "on",
+		rx_7.channel_width = 10,
+		rx_7.data_align_rollover = 10,
+		rx_7.enable_dpa = "off",
+		rx_7.x_on_bitslip = "on",
+		rx_7.lpm_type = "stratixiv_lvds_receiver";
+	stratixiv_lvds_receiver   rx_8
+	( 
+	.bitslip(wire_rx_bitslip[8:8]),
+	.bitslipmax(),
+	.clk0(wire_rx_clk0[8:8]),
+	.datain(wire_rx_datain[8:8]),
+	.dataout(wire_rx_dataout[89:80]),
+	.divfwdclk(),
+	.dpaclkout(),
+	.dpalock(),
+	.dpaswitch(wire_ground_lcell1_out),
+	.enable0(wire_rx_enable0[8:8]),
+	.postdpaserialdataout(),
+	.serialdataout()
+	`ifndef FORMAL_VERIFICATION
+	// synopsys translate_off
+	`endif
+	,
+	.bitslipreset(1'b0),
+	.dpahold(1'b0),
+	.dpareset(1'b0),
+	.fiforeset(1'b0),
+	.serialfbk(1'b0)
+	`ifndef FORMAL_VERIFICATION
+	// synopsys translate_on
+	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
+	);
+	defparam
+		rx_8.align_to_rising_edge_only = "on",
+		rx_8.channel_width = 10,
+		rx_8.data_align_rollover = 10,
+		rx_8.enable_dpa = "off",
+		rx_8.x_on_bitslip = "on",
+		rx_8.lpm_type = "stratixiv_lvds_receiver";
 	assign
 		wire_rx_bitslip = rx_channel_data_align,
-		wire_rx_clk0 = {5{wire_pll_clk[0]}},
+		wire_rx_clk0 = {9{wire_pll_clk[0]}},
 		wire_rx_datain = rx_in,
-		wire_rx_enable0 = {5{wire_pll_clk[1]}};
+		wire_rx_enable0 = {9{wire_pll_clk[1]}};
 	stratixiv_pll   pll
 	( 
 	.activeclock(),
