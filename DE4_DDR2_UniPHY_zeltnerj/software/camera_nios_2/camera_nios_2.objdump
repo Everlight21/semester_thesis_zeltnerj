@@ -391,7 +391,7 @@ Disassembly of section .entry:
    40014:	08406d14 	ori	at,at,436
     jmp r1
    40018:	0800683a 	jmp	at
-   4001c:	00000000 	call	0 <__reset-0x40000>
+   4001c:	00000000 	call	0 <__alt_mem_onchip_memory-0x40000>
 
 Disassembly of section .exceptions:
 
@@ -9150,7 +9150,7 @@ void alt_icache_flush (void* start, alt_u32 len)
    45fa0:	20000726 	beq	r4,zero,45fc0 <__call_exitprocs+0x1a0>
    45fa4:	b9000015 	stw	r4,0(r23)
    45fa8:	8809883a 	mov	r4,r17
-   45fac:	00000000 	call	0 <__reset-0x40000>
+   45fac:	00000000 	call	0 <__alt_mem_onchip_memory-0x40000>
    45fb0:	bc400017 	ldw	r17,0(r23)
    45fb4:	883fb71e 	bne	r17,zero,45e94 <__call_exitprocs+0x74>
    45fb8:	003fc506 	br	45ed0 <__call_exitprocs+0xb0>
