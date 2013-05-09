@@ -3,7 +3,7 @@
  <debug showDebugMenu="0" />
  <systemtable>
   <columns>
-   <connections preferredWidth="223" />
+   <connections preferredWidth="239" />
    <irq preferredWidth="34" />
    <name preferredWidth="264" />
    <inputclock preferredWidth="165" />
@@ -16,8 +16,7 @@
    <frequency preferredWidth="517" />
   </columns>
  </clocktable>
- <library
-   expandedCategories="Library,Library/Peripherals,Library/Peripherals/Microcontroller Peripherals,Project" />
+ <library expandedCategories="Project,Library" />
  <window width="1874" height="1216" x="54" y="-8" />
  <hdlexample language="VHDL" />
 </preferences>

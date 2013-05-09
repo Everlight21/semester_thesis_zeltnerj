@@ -73,6 +73,14 @@
          type = "int";
       }
    }
+   element cmv_master_interface_0
+   {
+      datum _sortIndex
+      {
+         value = "19";
+         type = "int";
+      }
+   }
    element sysid.control_slave
    {
       datum baseAddress
@@ -177,12 +185,20 @@
          type = "String";
       }
    }
-   element timer.s1
+   element button.s1
    {
       datum baseAddress
       {
-         value = "64";
+         value = "128";
          type = "String";
+      }
+   }
+   element ddr2_i2c_sda.s1
+   {
+      datum baseAddress
+      {
+         value = "80";
+         type = "long";
       }
    }
    element no_of_cam_channels.s1
@@ -190,30 +206,6 @@
       datum baseAddress
       {
          value = "96";
-         type = "String";
-      }
-   }
-   element led.s1
-   {
-      datum baseAddress
-      {
-         value = "112";
-         type = "String";
-      }
-   }
-   element ddr2_i2c_scl.s1
-   {
-      datum baseAddress
-      {
-         value = "64";
-         type = "long";
-      }
-   }
-   element button.s1
-   {
-      datum baseAddress
-      {
-         value = "128";
          type = "String";
       }
    }
@@ -225,12 +217,28 @@
          type = "String";
       }
    }
-   element ddr2_i2c_sda.s1
+   element ddr2_i2c_scl.s1
    {
       datum baseAddress
       {
-         value = "80";
+         value = "64";
          type = "long";
+      }
+   }
+   element timer.s1
+   {
+      datum baseAddress
+      {
+         value = "64";
+         type = "String";
+      }
+   }
+   element led.s1
+   {
+      datum baseAddress
+      {
+         value = "112";
+         type = "String";
       }
    }
    element spi_1
@@ -304,7 +312,7 @@
  <parameter name="projectName" value="DE4_DDR2.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1366720321284" />
+ <parameter name="timeStamp" value="1368107996064" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_50_bank3.clk_in" type="clock" dir="end" />
@@ -1289,6 +1297,11 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="4" />
  </module>
+ <module
+   kind="cmv_master_interface"
+   version="1.0"
+   enabled="1"
+   name="cmv_master_interface_0" />
  <connection
    kind="avalon"
    version="12.1"
@@ -1682,5 +1695,23 @@
    end="no_of_cam_channels.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0060" />
+ </connection>
+ <connection
+   kind="clock"
+   version="12.1"
+   start="mem_if_ddr2_emif.afi_clk"
+   end="cmv_master_interface_0.clock_main" />
+ <connection
+   kind="reset"
+   version="12.1"
+   start="clk_50_bank3.clk_reset"
+   end="cmv_master_interface_0.reset_n" />
+ <connection
+   kind="avalon"
+   version="12.1"
+   start="cmv_master_interface_0.avalon_master"
+   end="mem_if_ddr2_emif.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x40000000" />
  </connection>
 </system>

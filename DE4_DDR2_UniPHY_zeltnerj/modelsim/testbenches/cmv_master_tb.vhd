@@ -48,7 +48,7 @@ architecture Behavioral of cmv_master_tb is
       PixelValidxSI   : in  std_logic;
       RowValidxSI     : in  std_logic;
       FrameValidxSI   : in  std_logic;
-      DataInxDI       : in  std_logic_vector(noOfDataChannels*channelWidth-1 downto 0);
+      DataInxDI       : in  std_logic_vector(79 downto 0);
       AMWaitReqxSI    : in  std_logic;
       AMAddressxDO    : out std_logic_vector(31 downto 0);
       AMWriteDataxDO  : out std_logic_vector(31 downto 0);
@@ -62,7 +62,7 @@ architecture Behavioral of cmv_master_tb is
   signal PixelValidxS   : std_logic;
   signal RowValidxS     : std_logic;
   signal FrameValidxS   : std_logic;
-  signal DataInxD       : std_logic_vector(noOfDataChannels*channelWidth-1 downto 0);
+  signal DataInxD       : std_logic_vector(79 downto 0);
   signal AMWaitReqxS    : std_logic;
   signal AMAddressxD    : std_logic_vector(31 downto 0);
   signal AMWriteDataxD  : std_logic_vector(31 downto 0);
