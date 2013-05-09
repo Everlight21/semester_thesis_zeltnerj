@@ -185,11 +185,11 @@
          type = "String";
       }
    }
-   element button.s1
+   element timer.s1
    {
       datum baseAddress
       {
-         value = "128";
+         value = "64";
          type = "String";
       }
    }
@@ -199,14 +199,6 @@
       {
          value = "80";
          type = "long";
-      }
-   }
-   element no_of_cam_channels.s1
-   {
-      datum baseAddress
-      {
-         value = "96";
-         type = "String";
       }
    }
    element onchip_memory.s1
@@ -225,11 +217,11 @@
          type = "long";
       }
    }
-   element timer.s1
+   element no_of_cam_channels.s1
    {
       datum baseAddress
       {
-         value = "64";
+         value = "96";
          type = "String";
       }
    }
@@ -238,6 +230,14 @@
       datum baseAddress
       {
          value = "112";
+         type = "String";
+      }
+   }
+   element button.s1
+   {
+      datum baseAddress
+      {
+         value = "128";
          type = "String";
       }
    }
@@ -257,19 +257,19 @@
          type = "int";
       }
    }
-   element spi_2.spi_control_port
-   {
-      datum baseAddress
-      {
-         value = "32";
-         type = "String";
-      }
-   }
    element spi_1.spi_control_port
    {
       datum baseAddress
       {
          value = "0";
+         type = "String";
+      }
+   }
+   element spi_2.spi_control_port
+   {
+      datum baseAddress
+      {
+         value = "32";
          type = "String";
       }
    }
@@ -312,7 +312,7 @@
  <parameter name="projectName" value="DE4_DDR2.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1368107996064" />
+ <parameter name="timeStamp" value="1368112344740" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_50_bank3.clk_in" type="clock" dir="end" />
@@ -363,6 +363,7 @@
    internal="no_of_cam_channels.external_connection"
    type="conduit"
    dir="end" />
+ <interface name="cmv_master" internal="cmv_master_interface_0.conduit_end" />
  <module kind="clock_source" version="12.1" enabled="1" name="clk_50_bank3">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -1300,7 +1301,7 @@
  <module
    kind="cmv_master_interface"
    version="1.0"
-   enabled="1"
+   enabled="0"
    name="cmv_master_interface_0" />
  <connection
    kind="avalon"
@@ -1645,14 +1646,6 @@
    start="clk_50_bank3.clk_reset"
    end="camera_interface_block_0.reset" />
  <connection
-   kind="avalon"
-   version="12.1"
-   start="camera_interface_block_0.avalon_master"
-   end="mem_if_ddr2_emif.avl">
-  <parameter name="arbitrationPriority" value="32" />
-  <parameter name="baseAddress" value="0x40000000" />
- </connection>
- <connection
    kind="clock"
    version="12.1"
    start="mem_if_ddr2_emif.afi_clk"
@@ -1712,6 +1705,14 @@
    start="cmv_master_interface_0.avalon_master"
    end="mem_if_ddr2_emif.avl">
   <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x40000000" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="12.1"
+   start="camera_interface_block_0.avalon_master"
+   end="mem_if_ddr2_emif.avl">
+  <parameter name="arbitrationPriority" value="32" />
   <parameter name="baseAddress" value="0x40000000" />
  </connection>
 </system>

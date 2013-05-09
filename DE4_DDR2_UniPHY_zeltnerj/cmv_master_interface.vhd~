@@ -15,17 +15,17 @@ use IEEE.numeric_std.all;
 entity cmv_master_interface is
 	port (
 		ClkxCI          : in  std_logic                     := '0';             --           clock_main.clk
-		ClkLvdsRxxCI    : in  std_logic                     := '0';             --         clock_lvdsrx.export
 		RstxRBI         : in  std_logic                     := '0';             --              reset_n.reset_n
 		AMWritexSO      : out std_logic;                                        --        avalon_master.write
 		AMWriteDataxDO  : out std_logic_vector(31 downto 0);                    --                     .writedata
 		AMAddressxDO    : out std_logic_vector(31 downto 0);                    --                     .address
 		AMBurstCountxSO : out std_logic_vector(7 downto 0);                     --                     .burstcount
 		AMWaitReqxSI    : in  std_logic                     := '0';             --                     .waitrequest
-		PixelValidxSI   : in  std_logic                     := '0';             -- conduit_ctrl_signals.export
+		ClkLvdsRxxCI    : in  std_logic                     := '0';             --          conduit_end.export
+		PixelValidxSI   : in  std_logic                     := '0';             --                     .export
 		RowValidxSI     : in  std_logic                     := '0';             --                     .export
 		FrameValidxSI   : in  std_logic                     := '0';             --                     .export
-		DataInxDI       : in  std_logic_vector(79 downto 0) := (others => '0')  --         conduit_data.export
+		DataInxDI       : in  std_logic_vector(79 downto 0) := (others => '0')  --                     .export
 	);
 end entity cmv_master_interface;
 

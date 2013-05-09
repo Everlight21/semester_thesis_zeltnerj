@@ -27,7 +27,7 @@
 // Generation parameters:
 //   output_name:         DE4_QSYS_cmd_xbar_mux_009
 //   NUM_INPUTS:          3
-//   ARBITRATION_SHARES:  1 32 128
+//   ARBITRATION_SHARES:  1 128 32
 //   ARBITRATION_SCHEME   "round-robin"
 //   PIPELINE_ARB:        1
 //   PKT_TRANS_LOCK:      72 (arbitration locking enabled)
@@ -162,11 +162,11 @@ module DE4_QSYS_cmd_xbar_mux_009
     // ------------------------------------------
     // Input  |  arb shares  |  counter load value
     // 0      |      1       |  0
-    // 1      |      32       |  31
-    // 2      |      128       |  127
+    // 1      |      128       |  127
+    // 2      |      32       |  31
     wire [SHARE_COUNTER_W - 1 : 0] share_0 = 7'd0;
-    wire [SHARE_COUNTER_W - 1 : 0] share_1 = 7'd31;
-    wire [SHARE_COUNTER_W - 1 : 0] share_2 = 7'd127;
+    wire [SHARE_COUNTER_W - 1 : 0] share_1 = 7'd127;
+    wire [SHARE_COUNTER_W - 1 : 0] share_2 = 7'd31;
 
     // ------------------------------------------
     // Choose the share value corresponding to the grant.

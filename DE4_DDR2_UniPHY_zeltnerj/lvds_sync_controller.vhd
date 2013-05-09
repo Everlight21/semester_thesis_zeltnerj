@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-05-02
+-- Last update: 2013-05-09
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ entity lvds_sync_controller is
     ButtonxSI           : in  std_logic_vector (3 downto 0);
     FrameReqInxSI       : in  std_logic;
     AlignxSO            : out std_logic_vector(9-1 downto 0);
-    PixelDataxDO        : out std_logic_vector(camDataWidth-1 downto 0);
+    PixelDataxDO        : out std_logic_vector(79 downto 0);
     FrameReqOutxSO      : out std_logic;
     PixelValidxSO       : out std_logic;
     RowValidxSO         : out std_logic;
@@ -75,7 +75,7 @@ architecture behavioral of lvds_sync_controller is
   -----------------------------------------------------------------------------
   -- Pixel Channel type and signal declaration
   -----------------------------------------------------------------------------
-  type channelArray is array (0 to noOfDataChannels) of std_logic_vector(channelWidth-1 downto 0);
+  type channelArray is array (0 to 8) of std_logic_vector(channelWidth-1 downto 0);
   signal PixelChannelxD                   : channelArray;
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
@@ -131,6 +131,7 @@ begin  -- architecture behavioral
   -- reverse bit order to match bit order described in datasheet
   -- see CMV2000/4000 datasheet for reference
 
+ 
   -- control channel
   PixelChannelxD(0) <= reverseBitOrder(LVDSDataxD(channelWidth*1-1 downto 0));
   -- data channels
@@ -138,10 +139,10 @@ begin  -- architecture behavioral
   PixelChannelxD(2) <= reverseBitOrder(LVDSDataxD(channelWidth*3-1 downto channelWidth*2));
   PixelChannelxD(3) <= reverseBitOrder(LVDSDataxD(channelWidth*4-1 downto channelWidth*3));
   PixelChannelxD(4) <= reverseBitOrder(LVDSDataxD(channelWidth*5-1 downto channelWidth*4));
-  --PixelChannelxD(5) <= reverseBitOrder(LVDSDataxD(channelWidth*6-1 downto channelWidth*5));
-  --PixelChannelxD(6) <= reverseBitOrder(LVDSDataxD(channelWidth*7-1 downto channelWidth*6));
-  --PixelChannelxD(7) <= reverseBitOrder(LVDSDataxD(channelWidth*8-1 downto channelWidth*7));
-  --PixelChannelxD(8) <= reverseBitOrder(LVDSDataxD(channelWidth*9-1 downto channelWidth*8));
+  PixelChannelxD(5) <= reverseBitOrder(LVDSDataxD(channelWidth*6-1 downto channelWidth*5));
+  PixelChannelxD(6) <= reverseBitOrder(LVDSDataxD(channelWidth*7-1 downto channelWidth*6));
+  PixelChannelxD(7) <= reverseBitOrder(LVDSDataxD(channelWidth*8-1 downto channelWidth*7));
+  PixelChannelxD(8) <= reverseBitOrder(LVDSDataxD(channelWidth*9-1 downto channelWidth*8));
   --PixelChannelxD(9) <= reverseBitOrder(LVDSDataxD(channelWidth*10-1 downto channelWidth*9));
   --PixelChannelxD(10) <= reverseBitOrder(LVDSDataxD(channelWidth*11-1 downto channelWidth*10));
   --PixelChannelxD(11) <= reverseBitOrder(LVDSDataxD(channelWidth*12-1 downto channelWidth*11));
@@ -160,8 +161,13 @@ begin  -- architecture behavioral
   -- outputs: PixelDataxD
   output_signal_mapping: process (PixelChannelxD) is
   begin  -- process output_signal_mapping
-    for i in 1 to noOfDataChannels loop
-      PixelDataxD(channelWidth*i-1 downto channelWidth*(i-1)) <= PixelChannelxD(i);
+    for i in 1 to 8 loop
+      if i <= noOfDataChannels then
+        PixelDataxD(channelWidth*i-1 downto channelWidth*(i-1)) <= PixelChannelxD(i);
+      else
+        PixelDataxD(channelWidth*i-1 downto channelWidth*(i-1)) <= (others => '0');
+      end if;
+      
     end loop;  -- i
   end process output_signal_mapping;
   

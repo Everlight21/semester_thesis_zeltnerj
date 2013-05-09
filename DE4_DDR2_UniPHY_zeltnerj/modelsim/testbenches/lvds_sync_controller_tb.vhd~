@@ -1,12 +1,12 @@
 -------------------------------------------------------------------------------
--- Title      : Testbench for LVDS Synchroiyation Controller
+-- Title      : Testbench for LVDS Synchronisation Controller
 -- Project    : 
 -------------------------------------------------------------------------------
 -- File       : lvds_sync_controller_tb.vhd
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-18
--- Last update: 2013-04-30
+-- Last update: 2013-05-03
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------

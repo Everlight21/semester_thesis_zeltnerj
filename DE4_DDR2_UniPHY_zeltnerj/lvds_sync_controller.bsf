@@ -75,8 +75,8 @@ applicable agreement for further details.
 	(port
 		(pt 296 48)
 		(output)
-		(text "PixelDataxDO[39..0]" (rect 0 0 80 12)(font "Arial" ))
-		(text "PixelDataxDO[39..0]" (rect 195 43 275 55)(font "Arial" ))
+		(text "PixelDataxDO[79..0]" (rect 0 0 80 12)(font "Arial" ))
+		(text "PixelDataxDO[79..0]" (rect 195 43 275 55)(font "Arial" ))
 		(line (pt 296 48)(pt 280 48)(line_width 3))
 	)
 	(port
