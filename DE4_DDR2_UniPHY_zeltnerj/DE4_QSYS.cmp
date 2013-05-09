@@ -28,18 +28,6 @@
 			spi_1_MOSI                                      : out   std_logic;                                        -- MOSI
 			spi_1_SCLK                                      : out   std_logic;                                        -- SCLK
 			spi_1_SS_n                                      : out   std_logic;                                        -- SS_n
-			camera_interface_block_0_conduit_end_cam_FV     : in    std_logic                     := 'X';             -- cam_FV
-			camera_interface_block_0_conduit_end_cam_LV     : in    std_logic                     := 'X';             -- cam_LV
-			camera_interface_block_0_conduit_end_cam_dataav : in    std_logic                     := 'X';             -- cam_dataav
-			camera_interface_block_0_conduit_end_clkcamera  : in    std_logic                     := 'X';             -- clkcamera
-			camera_interface_block_0_conduit_end_channel_1  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_1
-			camera_interface_block_0_conduit_end_channel_2  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_2
-			camera_interface_block_0_conduit_end_channel_3  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_3
-			camera_interface_block_0_conduit_end_channel_4  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_4
-			camera_interface_block_0_conduit_end_channel_5  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_5
-			camera_interface_block_0_conduit_end_channel_6  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_6
-			camera_interface_block_0_conduit_end_channel_7  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_7
-			camera_interface_block_0_conduit_end_channel_8  : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- channel_8
 			stored_interface_block_0_conduit_end_DVI_FV     : in    std_logic                     := 'X';             -- DVI_FV
 			stored_interface_block_0_conduit_end_DVI_LV     : in    std_logic                     := 'X';             -- DVI_LV
 			stored_interface_block_0_conduit_end_DVI_dataav : in    std_logic                     := 'X';             -- DVI_dataav
@@ -47,7 +35,12 @@
 			stored_interface_block_0_conduit_end_pixelg     : out   std_logic_vector(7 downto 0);                     -- pixelg
 			stored_interface_block_0_conduit_end_pixelr     : out   std_logic_vector(7 downto 0);                     -- pixelr
 			stored_interface_block_0_conduit_end_DVI_CLK    : in    std_logic                     := 'X';             -- DVI_CLK
-			no_of_cam_channels_export                       : out   std_logic_vector(3 downto 0)                      -- export
+			no_of_cam_channels_export                       : out   std_logic_vector(3 downto 0);                     -- export
+			cmv_master_PixelValidxSI                        : in    std_logic                     := 'X';             -- PixelValidxSI
+			cmv_master_RowValidxSI                          : in    std_logic                     := 'X';             -- RowValidxSI
+			cmv_master_FrameValidxSI                        : in    std_logic                     := 'X';             -- FrameValidxSI
+			cmv_master_DataInxDI                            : in    std_logic_vector(79 downto 0) := (others => 'X'); -- DataInxDI
+			cmv_master_ClkLvdsRxxCI                         : in    std_logic                     := 'X'              -- ClkLvdsRxxCI
 		);
 	end component DE4_QSYS;
 

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys' in SOPC Builder design 'DE4_QSYS'
  * SOPC Builder design path: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.sopcinfo
  *
- * Generated: Thu May 09 18:21:47 CEST 2013
+ * Generated: Thu May 09 18:55:07 CEST 2013
  */
 
 /*
@@ -399,7 +399,7 @@
 #define SYSID_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_NAME "/dev/sysid"
 #define SYSID_SPAN 8
-#define SYSID_TIMESTAMP 1368115309
+#define SYSID_TIMESTAMP 1368116942
 #define SYSID_TYPE "altera_avalon_sysid_qsys"
 
 

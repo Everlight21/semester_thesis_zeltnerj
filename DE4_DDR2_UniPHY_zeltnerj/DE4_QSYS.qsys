@@ -20,6 +20,14 @@
          type = "String";
       }
    }
+   element mem_if_ddr2_emif_0.avl
+   {
+      datum baseAddress
+      {
+         value = "1073741824";
+         type = "String";
+      }
+   }
    element mem_if_ddr2_emif.avl
    {
       datum _lockedAddress
@@ -27,14 +35,6 @@
          value = "0";
          type = "boolean";
       }
-      datum baseAddress
-      {
-         value = "1073741824";
-         type = "String";
-      }
-   }
-   element mem_if_ddr2_emif_0.avl
-   {
       datum baseAddress
       {
          value = "1073741824";
@@ -185,20 +185,12 @@
          type = "String";
       }
    }
-   element timer.s1
+   element button.s1
    {
       datum baseAddress
       {
-         value = "64";
+         value = "128";
          type = "String";
-      }
-   }
-   element ddr2_i2c_sda.s1
-   {
-      datum baseAddress
-      {
-         value = "80";
-         type = "long";
       }
    }
    element onchip_memory.s1
@@ -233,11 +225,19 @@
          type = "String";
       }
    }
-   element button.s1
+   element ddr2_i2c_sda.s1
    {
       datum baseAddress
       {
-         value = "128";
+         value = "80";
+         type = "long";
+      }
+   }
+   element timer.s1
+   {
+      datum baseAddress
+      {
+         value = "64";
          type = "String";
       }
    }
@@ -257,19 +257,19 @@
          type = "int";
       }
    }
-   element spi_1.spi_control_port
-   {
-      datum baseAddress
-      {
-         value = "0";
-         type = "String";
-      }
-   }
    element spi_2.spi_control_port
    {
       datum baseAddress
       {
          value = "32";
+         type = "String";
+      }
+   }
+   element spi_1.spi_control_port
+   {
+      datum baseAddress
+      {
+         value = "0";
          type = "String";
       }
    }
@@ -312,7 +312,7 @@
  <parameter name="projectName" value="DE4_DDR2.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1368112344740" />
+ <parameter name="timeStamp" value="1368116826485" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_50_bank3.clk_in" type="clock" dir="end" />
@@ -350,9 +350,7 @@
  <interface name="spi_1" internal="spi_1.external" type="conduit" dir="end" />
  <interface
    name="camera_interface_block_0_conduit_end"
-   internal="camera_interface_block_0.conduit_end"
-   type="conduit"
-   dir="end" />
+   internal="camera_interface_block_0.conduit_end" />
  <interface
    name="stored_interface_block_0_conduit_end"
    internal="stored_interface_block_0.conduit_end"
@@ -363,7 +361,11 @@
    internal="no_of_cam_channels.external_connection"
    type="conduit"
    dir="end" />
- <interface name="cmv_master" internal="cmv_master_interface_0.conduit_end" />
+ <interface
+   name="cmv_master"
+   internal="cmv_master_interface_0.conduit_end"
+   type="conduit"
+   dir="end" />
  <module kind="clock_source" version="12.1" enabled="1" name="clk_50_bank3">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -1269,7 +1271,7 @@
  <module
    kind="camera_interface_block"
    version="1.0"
-   enabled="1"
+   enabled="0"
    name="camera_interface_block_0">
   <parameter name="AUTO_CLOCK_CLOCK_RATE" value="200000000" />
  </module>
@@ -1301,8 +1303,10 @@
  <module
    kind="cmv_master_interface"
    version="1.0"
-   enabled="0"
-   name="cmv_master_interface_0" />
+   enabled="1"
+   name="cmv_master_interface_0">
+  <parameter name="AUTO_CLOCK_MAIN_CLOCK_RATE" value="200000000" />
+ </module>
  <connection
    kind="avalon"
    version="12.1"

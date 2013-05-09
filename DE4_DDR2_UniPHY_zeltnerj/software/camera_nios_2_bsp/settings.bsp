@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>09.05.2013 18:21:46</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1368116506986</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>09.05.2013 18:55:07</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1368118507443</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\semester_thesis_zeltnerj\DE4_DDR2_UniPHY_zeltnerj\software\camera_nios_2_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\semester_thesis_zeltnerj\DE4_DDR2_UniPHY_zeltnerj\DE4_QSYS.sopcinfo</SopcDesignFile>
