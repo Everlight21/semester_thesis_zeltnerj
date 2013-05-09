@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-03
--- Last update: 2013-05-03
+-- Last update: 2013-05-09
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -98,7 +98,11 @@ architecture Behavioral of cmv_master_tb is
 -------------------------------------------------------------------------------
 
   signal PixelValidCounterxDP, PixelValidCounterxDN : integer range 0 to 1024;
+  signal DataCounterxDP, DataCounterxDN : integer;
   signal TogglexDP, TogglexDN : integer range 0 to 2;
+  signal Zeros : std_logic_vector(DataInxD'high downto 0) := (others => '0');
+  signal DataRegxDP, DataRegxDN : std_logic_vector(DataInxD'high downto 0) := (others => '0');
+  
   
 
   begin                                 --behavoural
@@ -167,9 +171,13 @@ architecture Behavioral of cmv_master_tb is
     if RstxRB = '0' then                -- asynchronous reset (active low)
       TogglexDP <= 0;
       PixelValidCounterxDP <= 0;
+      DataCounterxDP <= 0;
+      DataRegxDP <= (others => '0');
     elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
       TogglexDP <= TogglexDN;
       PixelValidCounterxDP <= PixelValidCounterxDN;
+      DataCounterxDP <= DataCounterxDN;
+      DataRegxDP <= DataRegxDN;
     end if;
   end process memory_clk_lvds;
 
@@ -188,19 +196,23 @@ architecture Behavioral of cmv_master_tb is
     RowValidxS <= '1';
     FrameValidxS <= '1';
     AMWaitReqxS <= '0';
+    DataRegxDN <= (others => '0');
     if TogglexDP = 2 then
       TogglexDN <= 0;
     else
       TogglexDN <= TogglexDN + 1;
     end if;
 
-    if TogglexDP = 0 then
-      DataInxD <= (others => '0');
-    elsif TogglexDP = 1 then
-      DataInxD <= (others => '1');
-    else
-      DataInxD <= (DataInxD'high downto 2 => '1') & "00";
-    end if;
+    DataRegxDN <= DataRegxDP(DataRegxDP'high-1 downto 0) & '1';
+    DataInxD <= DataRegxDP; 
+
+    --if TogglexDP = 0 then
+    --  DataInxD <= (others => '0');
+    --elsif TogglexDP = 1 then
+    --  DataInxD <= (others => '1');
+    --else
+    --  DataInxD <= (DataInxD'high downto 2 => '1') & "00";
+    --end if;
     
     
   end process;

@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-05-02
+-- Last update: 2013-05-03
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -130,7 +130,11 @@ architecture behavioral of cmv_master is
   -----------------------------------------------------------------------------
   type fsmState is (idle, fifoWait, burst);
   signal StatexDP, StatexDN : fsmState;
-  
+
+  -----------------------------------------------------------------------------
+  -- counter
+  -----------------------------------------------------------------------------
+  signal CounterxDP, CounterxDN : integer range 0 to 20;
 
   begin
 
@@ -145,6 +149,11 @@ architecture behavioral of cmv_master is
     FrameValidxS <= FrameValidxSI;
     DataInxD     <= DataInxDI;
     AMWaitReqxS  <= AMWaitReqxSI;
+
+    AMAddressxDO <= AMAddressxD;
+    AMWriteDataxDO <= AMWriteDataxD;
+    AMWritexSO <= AMWritexS;
+    AMBurstCountxSO <= AMBurstCountxS;
 
 
     ---------------------------------------------------------------------------
@@ -164,8 +173,14 @@ architecture behavioral of cmv_master is
     ---------------------------------------------------------------------------
     -- input
     ---------------------------------------------------------------------------
-    buffer_input: process (DataInxD) is
+    buffer_input: process (DataInxD, CounterxDP) is
     begin  -- process buffer_input
+
+      if CounterxDP = 20 then
+        CounterxDN <= 0;
+      else
+        CounterxDN <= CounterxDP + 1;
+      end if;
       
       for i in 1 to noOfDataChannels loop
         BufWriteEnxS(i) <= '0';
@@ -212,8 +227,10 @@ architecture behavioral of cmv_master is
     begin  -- process memory_ClkLvdsRxxD
       if RstxRB = '0' then              -- asynchronous reset (active low)
         BufClearxS <= '1';
+        CounterxDP <= 0;
       elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
-        
+        BufClearxS <= '0';
+        CounterxDP <= CounterxDN;
       end if;
     end process memory_ClkLvdsRxxD;
 
@@ -221,15 +238,18 @@ architecture behavioral of cmv_master is
     -- FSM
     ---------------------------------------------------------------------------
     fsm: process (StatexDP,AMWriteAddressxDP,BurstWordCountxDP,NoOfPacketsInRowxDP,
-             ChannelSelectxSP,BufClearxS,AMWaitReqxS) is
+             ChannelSelectxSP,BufClearxS,AMWaitReqxS, CounterxDP) is
     begin  -- process fsm
        StatexDN <= StatexDP;
       AMWriteAddressxDN <= AMWriteAddressxDP;
       BurstWordCountxDN <= BurstWordCountxDP;
       NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP;
       ChannelSelectxSN <= ChannelSelectxSP;
-      AMBurstCountxS <= "00000010";  -- 2
+      AMBurstCountxS <= "00100000";  -- 32
       AMWritexS <= '0';
+      for i in 1 to noOfDataChannels loop
+           BufReadReqxS(i) <= '0';
+          end loop;  -- i
       
       if BufClearxS = '1' then
         AMWriteAddressxDN <= (others => '0');
@@ -244,19 +264,30 @@ architecture behavioral of cmv_master is
           BurstWordCountxDN <= 0;
 
         when fifoWait =>
+
+          --if CounterxDP = 20 then
+          --  StatexDN <= burst;
+          --else
+          --  StatexDN <= fifoWait;
+          --end if;
           
           StatexDN <= burst;
           
           for i in 1 to noOfDataChannels loop
-            if BufNoOfWordsxS(i) < 32 then
+            if BufNoOfWordsxS(i) < 4 then
               StatexDN <= fifoWait;
+            --else
+            --  StatexDN <= burst;
             end if;
           end loop;  -- i
+          
 
         when burst =>
 
           AMWritexS <= '1';
+          
           for i in 1 to noOfDataChannels loop
+            
             if AMWaitReqxS = '0' and ChannelSelectxSP = i then
               BufReadReqxS(i) <= '1';
             else
@@ -265,23 +296,28 @@ architecture behavioral of cmv_master is
           end loop;  -- i
           
           if AMWaitReqxS /= '1' then
-            if BurstWordCountxDP = 31 then
+            if BurstWordCountxDP = 15 then  -- 32/2 -> 16bit/pixel in, 32bit out
               BurstWordCountxDN <= 0;
               case NoOfPacketsInRowxDP is
+                when 7 =>
+                  ChannelSelectxSN <= 2;
+                  AMWriteAddressxDN <= AMWriteAddressxDP + 128;
+                  NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
                 when 15 =>
-                  ChannelSelectxSN <= 5;
+                  ChannelSelectxSN <= 3;
                   AMWriteAddressxDN <= AMWriteAddressxDP + 128;
+                  NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
+                when 23 =>
+                  ChannelSelectxSN <= 4;
+                  AMWriteAddressxDN <= AMWriteAddressxDP + 128;
+                  NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
                 when 31 =>
-                  ChannelSelectxSN <= 9;
-                  AMWriteAddressxDN <= AMWriteAddressxDP + 128;
-                when 47 =>
-                  ChannelSelectxSN <= 13;
-                  AMWriteAddressxDN <= AMWriteAddressxDP + 128;
-                when 63 =>
                   ChannelSelectxSN <= 1;
-                  AMWriteAddressxDN <= AMWriteAddressxDP + 1664;  --128*47+1664=1920
-                  BurstWordCountxDN <= 0;
-                when others => null;
+                  AMWriteAddressxDN <= AMWriteAddressxDP + 1664;  --128*47+1664=1920*4
+                  NoOfPacketsInRowxDN <= 0;
+                when others =>
+                  AMWriteAddressxDN <= AMWriteAddressxDP + 128;  -- 32*32bit/8=128byte
+                  NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
               end case;
               StatexDN <= idle;
             else

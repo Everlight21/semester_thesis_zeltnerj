@@ -59,6 +59,8 @@ add wave -noupdate /cmv_master_tb/cmv_master_1/CounterxDP
 add wave -noupdate /cmv_master_tb/cmv_master_1/CounterxDN
 add wave -noupdate /cmv_master_tb/cmv_master_1/StatexDP
 add wave -noupdate /cmv_master_tb/cmv_master_1/StatexDN
+add wave -noupdate /cmv_master_tb/DataRegxDP
+add wave -noupdate /cmv_master_tb/DataRegxDN
 add wave -noupdate -divider {cmv_ram_fifo 1}
 add wave -noupdate -expand -group {cmv_ram_fifo
 } /cmv_master_tb/cmv_master_1/fifo_instances(1)/cmv_ram_fifo_1/aclr
@@ -101,5 +103,5 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {663360 ps}
+WaveRestoreZoom {0 ps} {1057320 ps}
 bookmark add wave {bookmark0} {{10169190 ps} {10357990 ps}} 4

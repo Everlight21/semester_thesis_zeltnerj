@@ -1,5 +1,5 @@
 #change directory to working directory
-#cd ../../../sem13f2/DE4_DDR2_UniPHY_zeltnerj/modelsim
+#cd ../../../semester_thesis_zeltnerj/de4_DDR2_UniPHY_zeltnerj/modelsim
 
 vlib work
 
