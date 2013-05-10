@@ -20,14 +20,6 @@
          type = "String";
       }
    }
-   element mem_if_ddr2_emif_0.avl
-   {
-      datum baseAddress
-      {
-         value = "1073741824";
-         type = "String";
-      }
-   }
    element mem_if_ddr2_emif.avl
    {
       datum _lockedAddress
@@ -35,6 +27,14 @@
          value = "0";
          type = "boolean";
       }
+      datum baseAddress
+      {
+         value = "1073741824";
+         type = "String";
+      }
+   }
+   element mem_if_ddr2_emif_0.avl
+   {
       datum baseAddress
       {
          value = "1073741824";
@@ -102,6 +102,14 @@
       datum _sortIndex
       {
          value = "17";
+         type = "int";
+      }
+   }
+   element dvi_master_interface_0
+   {
+      datum _sortIndex
+      {
+         value = "20";
          type = "int";
       }
    }
@@ -185,19 +193,19 @@
          type = "String";
       }
    }
-   element button.s1
-   {
-      datum baseAddress
-      {
-         value = "128";
-         type = "String";
-      }
-   }
    element onchip_memory.s1
    {
       datum baseAddress
       {
          value = "262144";
+         type = "String";
+      }
+   }
+   element button.s1
+   {
+      datum baseAddress
+      {
+         value = "128";
          type = "String";
       }
    }
@@ -209,12 +217,12 @@
          type = "long";
       }
    }
-   element no_of_cam_channels.s1
+   element ddr2_i2c_sda.s1
    {
       datum baseAddress
       {
-         value = "96";
-         type = "String";
+         value = "80";
+         type = "long";
       }
    }
    element led.s1
@@ -225,19 +233,19 @@
          type = "String";
       }
    }
-   element ddr2_i2c_sda.s1
-   {
-      datum baseAddress
-      {
-         value = "80";
-         type = "long";
-      }
-   }
    element timer.s1
    {
       datum baseAddress
       {
          value = "64";
+         type = "String";
+      }
+   }
+   element no_of_cam_channels.s1
+   {
+      datum baseAddress
+      {
+         value = "96";
          type = "String";
       }
    }
@@ -312,7 +320,7 @@
  <parameter name="projectName" value="DE4_DDR2.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1368116826485" />
+ <parameter name="timeStamp" value="1368202149632" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_50_bank3.clk_in" type="clock" dir="end" />
@@ -353,9 +361,7 @@
    internal="camera_interface_block_0.conduit_end" />
  <interface
    name="stored_interface_block_0_conduit_end"
-   internal="stored_interface_block_0.conduit_end"
-   type="conduit"
-   dir="end" />
+   internal="stored_interface_block_0.conduit_end" />
  <interface
    name="no_of_cam_channels"
    internal="no_of_cam_channels.external_connection"
@@ -364,6 +370,11 @@
  <interface
    name="cmv_master"
    internal="cmv_master_interface_0.conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="dvi_master_interface"
+   internal="dvi_master_interface_0.conduit_end"
    type="conduit"
    dir="end" />
  <module kind="clock_source" version="12.1" enabled="1" name="clk_50_bank3">
@@ -1278,7 +1289,7 @@
  <module
    kind="stored_interface_block"
    version="1.0"
-   enabled="1"
+   enabled="0"
    name="stored_interface_block_0">
   <parameter name="AUTO_CLOCK_CLOCK_RATE" value="200000000" />
  </module>
@@ -1307,6 +1318,11 @@
    name="cmv_master_interface_0">
   <parameter name="AUTO_CLOCK_MAIN_CLOCK_RATE" value="200000000" />
  </module>
+ <module
+   kind="dvi_master_interface"
+   version="1.0"
+   enabled="1"
+   name="dvi_master_interface_0" />
  <connection
    kind="avalon"
    version="12.1"
@@ -1717,6 +1733,24 @@
    start="camera_interface_block_0.avalon_master"
    end="mem_if_ddr2_emif.avl">
   <parameter name="arbitrationPriority" value="32" />
+  <parameter name="baseAddress" value="0x40000000" />
+ </connection>
+ <connection
+   kind="clock"
+   version="12.1"
+   start="mem_if_ddr2_emif.afi_clk"
+   end="dvi_master_interface_0.clock_main" />
+ <connection
+   kind="reset"
+   version="12.1"
+   start="clk_50_bank3.clk_reset"
+   end="dvi_master_interface_0.reset_n" />
+ <connection
+   kind="avalon"
+   version="12.1"
+   start="dvi_master_interface_0.avalon_master"
+   end="mem_if_ddr2_emif.avl">
+  <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x40000000" />
  </connection>
 </system>

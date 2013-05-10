@@ -1,0 +1,46 @@
+-- dvi_master_interface.vhd
+
+-- This file was auto-generated as a prototype implementation of a module
+-- created in component editor.  It ties off all outputs to ground and
+-- ignores all inputs.  It needs to be edited to make it do something
+-- useful.
+-- 
+-- This file will not be automatically regenerated.  You should check it in
+-- to your version control system if you want to keep it.
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
+entity dvi_master_interface is
+	port (
+		ClkxCI             : in  std_logic                     := '0';             --    clock_main.clk
+		RstxRBI            : in  std_logic                     := '0';             --       reset_n.reset_n
+		AmWaitReqxSI       : in  std_logic                     := '0';             -- avalon_master.waitrequest
+		AmAddressxDO       : out std_logic_vector(31 downto 0);                    --              .address
+		AmReadDataxDI      : in  std_logic_vector(15 downto 0) := (others => '0'); --              .readdata
+		AmReadxSO          : out std_logic;                                        --              .read
+		AmReadDataValidxSI : in  std_logic                     := '0';             --              .readdatavalid
+		AmBurstCountxDO    : out std_logic_vector(7 downto 0);                     --              .burstcount
+		ClkDvixCI          : in  std_logic                     := '0';             --   conduit_end.export
+		DviNewLinexDI      : in  std_logic                     := '0';             --              .export
+		DviNewFramexDI     : in  std_logic                     := '0';             --              .export
+		DviPixelAvxSI      : in  std_logic                     := '0';             --              .export
+		DviDataOutxDO      : out std_logic_vector(15 downto 0)                     --              .export
+	);
+end entity dvi_master_interface;
+
+architecture rtl of dvi_master_interface is
+begin
+
+	-- TODO: Auto-generated HDL template
+
+	AmBurstCountxDO <= "00000000";
+
+	AmAddressxDO <= "00000000000000000000000000000000";
+
+	AmReadxSO <= '0';
+
+	DviDataOutxDO <= "0000000000000000";
+
+end architecture rtl; -- of dvi_master_interface

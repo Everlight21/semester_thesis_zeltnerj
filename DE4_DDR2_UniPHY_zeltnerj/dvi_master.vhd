@@ -97,8 +97,7 @@ architecture behavioral of dvi_master is
   -- control signals
   -----------------------------------------------------------------------------
   signal PendingReadOutsxDP, PendingReadOutsxDN : integer range 0 to 32;
-  signal ReadAddressxDP, ReadAddressxDN : std_logic_vector(AmAddressxDO'high downto 0);
-  signal BurstWordcountxDP, BurstWordcountxDN : integer;
+  signal ReadAddressxDP, ReadAddressxDN : std_logic_vector(31 downto 0);
 
   -----------------------------------------------------------------------------
   -- fsm signals
@@ -137,7 +136,6 @@ begin  -- architecture behavioral
   -----------------------------------------------------------------------------
   -- control
   -----------------------------------------------------------------------------
-  BufWriteEnxS <= AmReadDataValidxS;
 
   
   -----------------------------------------------------------------------------
@@ -149,7 +147,7 @@ begin  -- architecture behavioral
       ReadAddressxDP <= (others => '0');
       StatexDP <= idle;
       PendingReadOutsxDP <= 0;
-      BufClearxS <= '1';
+      --BufClearxS <= '1';
     elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
       ReadAddressxDP <= ReadAddressxDN;
       StatexDP <= StatexDN;
@@ -161,13 +159,16 @@ begin  -- architecture behavioral
   -----------------------------------------------------------------------------
   -- combinational processes
   -----------------------------------------------------------------------------
-  fsm: process (StatexDP) is
+  fsm: process (AmReadDataValidxS, AmWaitReqxS, BufNoOfWordsxS, DviNewFramexD,
+                PendingReadOutsxDP, ReadAddressxDP, StatexDP) is
   begin  -- process fsm
     StatexDN <= StatexDP;
     ReadAddressxDN <= ReadAddressxDP;
     PendingReadOutsxDN <= PendingReadOutsxDP;
     BufClearxS <= '0';
     AmReadxS <= '0';
+    BufWriteEnxS <= AmReadDataValidxS;
+    
 
     if DviNewFramexD = '0' then
       ReadAddressxDN <= (others => '0');
@@ -218,7 +219,8 @@ begin  -- architecture behavioral
   -- type   : combinational
   -- inputs : BufDataOutxD
   -- outputs: DviDataOutxD
-  DVI: process (BufDataOutxD) is
+  DVI: process (BufDataOutxD, BufEmptyxS, DviNewFramexD, DviNewLinexD,
+                DviPixelAvxS) is
   begin  -- process DVI
     DviDataOutxD <= (others => '0');
     BufWriteEnxS <= '0';
@@ -228,7 +230,7 @@ begin  -- architecture behavioral
         BufReadReqxS <= '1';
         DviDataOutxD <= BufDataOutxD;
       else
-        DviDataOutxD <= "00000000111111111111111111111111";  -- orange
+        DviDataOutxD <= (others => '0');  -- orange
       end if;
     end if;
   end process DVI;
