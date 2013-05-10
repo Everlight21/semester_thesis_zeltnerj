@@ -1,0 +1,22 @@
+-------------------------------------------------------------------------------
+-- Title      : DVI Master
+-- Project    : 
+-------------------------------------------------------------------------------
+-- File       : dvi_master.vhd
+-- Author     : Joscha Zeltner
+-- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
+-- Created    : 2013-05-10
+-- Last update: 2013-05-10
+-- Platform   : Quartus II, NIOS II 12.1sp1
+-- Standard   : VHDL'93/02
+-------------------------------------------------------------------------------
+-- Description: Reads out data from RAM and streams it to the DVI module via a
+-- fifo buffer (ram_dvi_fifo).
+-------------------------------------------------------------------------------
+-- Copyright (c) 2013 Computer Vision and Geometry Group, Pixhawk, ETH Zurich
+-------------------------------------------------------------------------------
+-- Revisions  :
+-- Date        Version  Author  Description
+-- 2013-05-10  1.0      zeltnerj	Created
+-------------------------------------------------------------------------------
+
