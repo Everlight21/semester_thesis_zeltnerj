@@ -40,8 +40,8 @@ applicable agreement for further details.
 	(port
 		(pt 0 64)
 		(input)
-		(text "LVDSDataxDI[89..0]" (rect 0 0 84 12)(font "Arial" ))
-		(text "LVDSDataxDI[89..0]" (rect 21 59 105 71)(font "Arial" ))
+		(text "LVDSDataxDI[179..0]" (rect 0 0 88 12)(font "Arial" ))
+		(text "LVDSDataxDI[179..0]" (rect 21 59 109 71)(font "Arial" ))
 		(line (pt 0 64)(pt 16 64)(line_width 3))
 	)
 	(port
@@ -68,15 +68,15 @@ applicable agreement for further details.
 	(port
 		(pt 296 32)
 		(output)
-		(text "AlignxSO[8..0]" (rect 0 0 57 12)(font "Arial" ))
-		(text "AlignxSO[8..0]" (rect 218 27 275 39)(font "Arial" ))
+		(text "AlignxSO[17..0]" (rect 0 0 61 12)(font "Arial" ))
+		(text "AlignxSO[17..0]" (rect 214 27 275 39)(font "Arial" ))
 		(line (pt 296 32)(pt 280 32)(line_width 3))
 	)
 	(port
 		(pt 296 48)
 		(output)
-		(text "PixelDataxDO[79..0]" (rect 0 0 80 12)(font "Arial" ))
-		(text "PixelDataxDO[79..0]" (rect 195 43 275 55)(font "Arial" ))
+		(text "PixelDataxDO[159..0]" (rect 0 0 83 12)(font "Arial" ))
+		(text "PixelDataxDO[159..0]" (rect 192 43 275 55)(font "Arial" ))
 		(line (pt 296 48)(pt 280 48)(line_width 3))
 	)
 	(port

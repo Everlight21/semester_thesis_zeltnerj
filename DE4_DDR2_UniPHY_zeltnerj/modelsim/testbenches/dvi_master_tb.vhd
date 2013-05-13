@@ -1,11 +1,11 @@
 -------------------------------------------------------------------------------
--- Title      : Testbench for LVDS Synchronisation Controller
+-- Title      : DVI Master Testbench
 -- Project    : 
 -------------------------------------------------------------------------------
--- File       : lvds_sync_controller_tb.vhd
+-- File       : dvi_master_tb.vhd
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
--- Created    : 2013-03-18
+-- Created    : 2013-05-13
 -- Last update: 2013-05-13
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
@@ -16,7 +16,7 @@
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date        Version  Author  Description
--- 2013-03-18  1.0      zeltnerj	Created
+-- 2013-05-13  1.0      zeltnerj	Created
 -------------------------------------------------------------------------------
 
 use std.textio.all;
@@ -28,47 +28,47 @@ use work.configuration_pkg.all;
 use work.all;
 -----------------------------------------------------------------------------
 
-entity lvds_sync_controller_tb is
-  -- a testbench does not connect to any higher level of hierarchy
-end lvds_sync_controller_tb;
+entity dvi_master_tb is
+  
+end entity dvi_master_tb;
 
 -------------------------------------------------------------------------------
 
-architecture Behavioral of lvds_sync_controller_tb is
+architecture Behavioral of dvi_master_tb is
 
   -- declaration of model under test (MUT) and functional
   -- reference (expected response pickup)
 
-  component lvds_sync_controller is
+  component dvi_master is
     port (
-      ClkxCI              : in  std_logic;
-      RstxRBI             : in  std_logic;
-      LVDSDataxDI         : in  std_logic_vector(18*channelWidth-1 downto 0);
-      ButtonxSI           : in  std_logic_vector (3 downto 0);
-      FrameReqInxSI       : in  std_logic;
-      AlignxSO            : out std_logic_vector(18-1 downto 0);
-      PixelDataxDO        : out std_logic_vector(16*channelWidth-1 downto 0);
-      FrameReqOutxSO      : out std_logic;
-      PixelValidxSO       : out std_logic;
-      RowValidxSO         : out std_logic;
-      FrameValidxSO       : out std_logic;
-      LedxSO              : out std_logic_vector(7 downto 0);
-      NoOfDataChannelsxDI : in  std_logic_vector(3 downto 0));
-  end component lvds_sync_controller;
+      ClkxCI             : in  std_logic;
+      ClkDvixCI          : in  std_logic;
+      RstxRBI            : in  std_logic;
+      DviDataOutxDO      : out std_logic_vector(15 downto 0);
+      DviNewLinexDI      : in  std_logic;
+      DviNewFramexDI     : in  std_logic;
+      DviPixelAvxSI      : in  std_logic;
+      AmWaitReqxSI       : in  std_logic;
+      AmAddressxDO       : out std_logic_vector(31 downto 0);
+      AmReadDataxDI      : in  std_logic_vector(15 downto 0);
+      AmReadxSO          : out std_logic;
+      AmReadDataValidxSI : in  std_logic;
+      AmBurstCountxDO    : out std_logic_vector(7 downto 0));
+  end component dvi_master;
 
-  signal ClkxC              : std_logic;
-  signal RstxRB             : std_logic;
-  signal LVDSDataxD         : std_logic_vector(18*channelWidth-1 downto 0);
-  signal ButtonxS           : std_logic_vector (3 downto 0);
-  signal FrameReqInxS       : std_logic;
-  signal AlignxS            : std_logic_vector(18-1 downto 0);
-  signal PixelDataxD        : std_logic_vector(16*channelWidth-1 downto 0);
-  signal FrameReqOutxS      : std_logic;
-  signal PixelValidxS       : std_logic;
-  signal RowValidxS         : std_logic;
-  signal FrameValidxS       : std_logic;
-  signal LedxS              : std_logic_vector(7 downto 0);
-  signal NoOfDataChannelsxD : std_logic_vector(3 downto 0);
+  signal ClkxC             : std_logic;
+  signal ClkDvixC          : std_logic;
+  signal RstxRB            : std_logic;
+  signal DviDataOutxD      : std_logic_vector(15 downto 0);
+  signal DviNewLinexD      : std_logic;
+  signal DviNewFramexD     : std_logic;
+  signal DviPixelAvxS      : std_logic;
+  signal AmWaitReqxS       : std_logic;
+  signal AmAddressxD       : std_logic_vector(31 downto 0);
+  signal AmReadDataxD      : std_logic_vector(15 downto 0);
+  signal AmReadxS          : std_logic;
+  signal AmReadDataValidxS : std_logic;
+  signal AmBurstCountxD    : std_logic_vector(7 downto 0);
   
 
 
@@ -205,4 +205,4 @@ architecture Behavioral of lvds_sync_controller_tb is
  
                
 
-end architecture Behavioral;  
+end architecture Behavioral; 

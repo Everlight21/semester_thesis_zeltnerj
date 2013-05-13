@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-04-30
--- Last update: 2013-05-02
+-- Last update: 2013-05-13
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -54,7 +54,16 @@ entity lvds_channels_remapping is
     Cam1Channel11xDI : in std_logic;
     Cam1Channel13xDI : in std_logic;
     Cam1Channel15xDI : in std_logic;
-    DataOutxDO : out std_logic_vector((8+1)-1 downto 0));
+    Cam2ChannelCtrlxDI : in std_logic;
+    Cam2Channel1xDI : in std_logic;
+    Cam2Channel3xDI : in std_logic;
+    Cam2Channel5xDI : in std_logic;
+    Cam2Channel7xDI : in std_logic;
+    Cam2Channel9xDI : in std_logic;
+    Cam2Channel11xDI : in std_logic;
+    Cam2Channel13xDI : in std_logic;
+    Cam2Channel15xDI : in std_logic;
+    DataOutxDO : out std_logic_vector((2*(8+1))-1 downto 0));
 
 end entity lvds_channels_remapping;
 
@@ -80,6 +89,8 @@ begin  -- architecture remapping
                     Cam1Channel3xDI &
                     Cam1Channel1xDI &
                     Cam1ChannelCtrlxDI;
+                    -- add here new 'when' branches for different
+                    -- number of channels.
                   
     
 

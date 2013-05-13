@@ -43,10 +43,10 @@ ENTITY lvdsrx IS
 	PORT
 	(
 		pll_areset		: IN STD_LOGIC ;
-		rx_channel_data_align		: IN STD_LOGIC_VECTOR (8 DOWNTO 0);
-		rx_in		: IN STD_LOGIC_VECTOR (8 DOWNTO 0);
+		rx_channel_data_align		: IN STD_LOGIC_VECTOR (17 DOWNTO 0);
+		rx_in		: IN STD_LOGIC_VECTOR (17 DOWNTO 0);
 		rx_inclock		: IN STD_LOGIC ;
-		rx_out		: OUT STD_LOGIC_VECTOR (89 DOWNTO 0);
+		rx_out		: OUT STD_LOGIC_VECTOR (179 DOWNTO 0);
 		rx_outclock		: OUT STD_LOGIC 
 	);
 END lvdsrx;
@@ -54,7 +54,7 @@ END lvdsrx;
 
 ARCHITECTURE SYN OF lvdsrx IS
 
-	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (89 DOWNTO 0);
+	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (179 DOWNTO 0);
 	SIGNAL sub_wire1	: STD_LOGIC ;
 
 
@@ -110,17 +110,17 @@ ARCHITECTURE SYN OF lvdsrx IS
 		clk_src_is_pll		: STRING
 	);
 	PORT (
-			rx_in	: IN STD_LOGIC_VECTOR (8 DOWNTO 0);
+			rx_in	: IN STD_LOGIC_VECTOR (17 DOWNTO 0);
 			rx_inclock	: IN STD_LOGIC ;
 			pll_areset	: IN STD_LOGIC ;
-			rx_channel_data_align	: IN STD_LOGIC_VECTOR (8 DOWNTO 0);
-			rx_out	: OUT STD_LOGIC_VECTOR (89 DOWNTO 0);
+			rx_channel_data_align	: IN STD_LOGIC_VECTOR (17 DOWNTO 0);
+			rx_out	: OUT STD_LOGIC_VECTOR (179 DOWNTO 0);
 			rx_outclock	: OUT STD_LOGIC 
 	);
 	END COMPONENT;
 
 BEGIN
-	rx_out    <= sub_wire0(89 DOWNTO 0);
+	rx_out    <= sub_wire0(179 DOWNTO 0);
 	rx_outclock    <= sub_wire1;
 
 	ALTLVDS_RX_component : ALTLVDS_RX
@@ -152,7 +152,7 @@ BEGIN
 		lose_lock_on_one_change => "UNUSED",
 		lpm_hint => "CBX_MODULE_PREFIX=lvdsrx",
 		lpm_type => "altlvds_rx",
-		number_of_channels => 9,
+		number_of_channels => 18,
 		outclock_resource => "AUTO",
 		pll_operation_mode => "UNUSED",
 		pll_self_reset_on_loss_lock => "UNUSED",
@@ -202,7 +202,7 @@ END SYN;
 -- Retrieval info: PRIVATE: Ext_PLL STRING "OFF"
 -- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: PRIVATE: Le_Serdes STRING "OFF"
--- Retrieval info: PRIVATE: Num_Channel NUMERIC "9"
+-- Retrieval info: PRIVATE: Num_Channel NUMERIC "18"
 -- Retrieval info: PRIVATE: Outclock_Divide_By NUMERIC "0"
 -- Retrieval info: PRIVATE: pCNX_OUTCLK_ALIGN NUMERIC "0"
 -- Retrieval info: PRIVATE: pINCLOCK_PHASE_SHIFT STRING "0.00"
@@ -247,7 +247,7 @@ END SYN;
 -- Retrieval info: CONSTANT: LOSE_LOCK_ON_ONE_CHANGE STRING "UNUSED"
 -- Retrieval info: CONSTANT: LPM_HINT STRING "UNUSED"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altlvds_rx"
--- Retrieval info: CONSTANT: NUMBER_OF_CHANNELS NUMERIC "9"
+-- Retrieval info: CONSTANT: NUMBER_OF_CHANNELS NUMERIC "18"
 -- Retrieval info: CONSTANT: OUTCLOCK_RESOURCE STRING "AUTO"
 -- Retrieval info: CONSTANT: PLL_OPERATION_MODE STRING "UNUSED"
 -- Retrieval info: CONSTANT: PLL_SELF_RESET_ON_LOSS_LOCK STRING "UNUSED"
@@ -268,14 +268,14 @@ END SYN;
 -- Retrieval info: CONSTANT: X_ON_BITSLIP STRING "ON"
 -- Retrieval info: USED_PORT: pll_areset 0 0 0 0 INPUT NODEFVAL "pll_areset"
 -- Retrieval info: CONNECT: @pll_areset 0 0 0 0 pll_areset 0 0 0 0
--- Retrieval info: USED_PORT: rx_channel_data_align 0 0 9 0 INPUT NODEFVAL "rx_channel_data_align[8..0]"
--- Retrieval info: CONNECT: @rx_channel_data_align 0 0 9 0 rx_channel_data_align 0 0 9 0
--- Retrieval info: USED_PORT: rx_in 0 0 9 0 INPUT NODEFVAL "rx_in[8..0]"
--- Retrieval info: CONNECT: @rx_in 0 0 9 0 rx_in 0 0 9 0
+-- Retrieval info: USED_PORT: rx_channel_data_align 0 0 18 0 INPUT NODEFVAL "rx_channel_data_align[17..0]"
+-- Retrieval info: CONNECT: @rx_channel_data_align 0 0 18 0 rx_channel_data_align 0 0 18 0
+-- Retrieval info: USED_PORT: rx_in 0 0 18 0 INPUT NODEFVAL "rx_in[17..0]"
+-- Retrieval info: CONNECT: @rx_in 0 0 18 0 rx_in 0 0 18 0
 -- Retrieval info: USED_PORT: rx_inclock 0 0 0 0 INPUT NODEFVAL "rx_inclock"
 -- Retrieval info: CONNECT: @rx_inclock 0 0 0 0 rx_inclock 0 0 0 0
--- Retrieval info: USED_PORT: rx_out 0 0 90 0 OUTPUT NODEFVAL "rx_out[89..0]"
--- Retrieval info: CONNECT: rx_out 0 0 90 0 @rx_out 0 0 90 0
+-- Retrieval info: USED_PORT: rx_out 0 0 180 0 OUTPUT NODEFVAL "rx_out[179..0]"
+-- Retrieval info: CONNECT: rx_out 0 0 180 0 @rx_out 0 0 180 0
 -- Retrieval info: USED_PORT: rx_outclock 0 0 0 0 OUTPUT NODEFVAL "rx_outclock"
 -- Retrieval info: CONNECT: rx_outclock 0 0 0 0 @rx_outclock 0 0 0 0
 -- Retrieval info: GEN_FILE: TYPE_NORMAL lvdsrx.vhd TRUE FALSE
