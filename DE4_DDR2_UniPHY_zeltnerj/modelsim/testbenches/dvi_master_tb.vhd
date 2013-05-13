@@ -71,24 +71,19 @@ architecture Behavioral of dvi_master_tb is
   signal AmBurstCountxD    : std_logic_vector(7 downto 0);
   
 
-
-  -- reverse order because of parallel to serial converter block
-  type parallelInType is array (0 to noOfDataChannels) of std_logic_vector(channelWidth-1 downto 0);
-  signal DataInxDP, DataInxDN : parallelInType;
-
-  -----------------------------------------------------------------------------
-  -- counters
-  -----------------------------------------------------------------------------
-  signal TogglexSP, TogglexSN : std_logic := '0';
-  signal PixelValidCounterxDP,PixelValidCounterxDN : integer := 0;
-  
-
-  -- timing of clock and simulation events
+ -- timing of clock and simulation events
   constant clk_phase_high            : time := 5 ns;
   constant clk_phase_low             : time := 5 ns;
   constant stimuli_application_time  : time := 1 ns;
   constant response_acquisition_time : time := 9 ns;
-  constant resetactive_time          : time := 5 ns;
+  constant resetactive_time          : time := 100 ns;
+
+  constant clk_dvi_phase_high : time := 25 ns;
+  constant clk_dvi_phase_low : time := 25 ns;
+  constant lvds_stimuli_application_time  : time := 1 ns;
+  constant lvds_response_acquisition_time : time := 24 ns;
+
+  
 -------------------------------------------------------------------------------
 --
 --            clk_period
@@ -102,8 +97,10 @@ architecture Behavioral of dvi_master_tb is
 --        response_acquisition_time
 -------------------------------------------------------------------------------
 
+  
+  
 
-  begin                                 --behavoural
+  begin                                 --behavioural
 
 
   -- instantiate MUT and functional reference and connect them to the
@@ -111,23 +108,23 @@ architecture Behavioral of dvi_master_tb is
   -- note: any bidirectional must connect to both stimuli and responses
   -----------------------------------------------------------------------------
 
-
-    lvds_sync_controller_1: entity work.lvds_sync_controller
+    dvi_master_1: dvi_master
       port map (
-        ClkxCI              => ClkxC,
-        RstxRBI             => RstxRB,
-        LVDSDataxDI         => LVDSDataxD,
-        ButtonxSI           => ButtonxS,
-        FrameReqInxSI       => FrameReqInxS,
-        AlignxSO            => AlignxS,
-        PixelDataxDO        => PixelDataxD,
-        FrameReqOutxSO      => FrameReqOutxS,
-        PixelValidxSO       => PixelValidxS,
-        RowValidxSO         => RowValidxS,
-        FrameValidxSO       => FrameValidxS,
-        LedxSO              => LedxS,
-        NoOfDataChannelsxDI => NoOfDataChannelsxD);
+        ClkxCI             => ClkxC,
+        ClkDvixCI          => ClkDvixC,
+        RstxRBI            => RstxRB,
+        DviDataOutxDO      => DviDataOutxD,
+        DviNewLinexDI      => DviNewLinexD,
+        DviNewFramexDI     => DviNewFramexD,
+        DviPixelAvxSI      => DviPixelAvxS,
+        AmWaitReqxSI       => AmWaitReqxS,
+        AmAddressxDO       => AmAddressxD,
+        AmReadDataxDI      => AmReadDataxD,
+        AmReadxSO          => AmReadxS,
+        AmReadDataValidxSI => AmReadDataValidxS,
+        AmBurstCountxDO    => AmBurstCountxD);
 
+    
   
   -- pausable clock generator with programmable mark and space widths
   -----------------------------------------------------------------------------
@@ -139,9 +136,15 @@ architecture Behavioral of dvi_master_tb is
      ClkxC        => ClkxC,	       
      clkphaselow  => clk_phase_low,     
      clkphasehigh => clk_phase_high );
-  
-  -- reset geerashen
-  -----------------------------------------------------------------------------
+
+  LvdsClkGen : ClockGenerator(
+    ClkxC => ClkDvixC,
+    clkphaselow => clk_dvi_phase_low,
+    clkphasehigh => clk_dvi_phase_high);
+
+ ------------------------------------------------------------------------------
+ -- Reset generator
+ ------------------------------------------------------------------------------
   ResetGen : process
   begin
     RstxRB      <= '0';
@@ -151,58 +154,8 @@ architecture Behavioral of dvi_master_tb is
 
   end process ResetGen;
 
-  memory: process (ClkxC, RstxRB) is
-  begin  -- process memory
-    if RstxRB = '0' then                -- asynchronous reset (active low)
-      ButtonxS <= (others => '1');
-      FrameReqInxS <= '1';
-      NoOfDataChannelsxD <= (others => '1');
-      DataInxDP(0) <= b"00_0000_1000";
-      DataInxDP(1) <= b"00_0000_1000";
-      DataInxDP(2) <= b"00_0000_0100";
-      DataInxDP(3) <= b"00_0000_0010";
-      DataInxDP(4) <= b"00_0000_0001";
-      PixelValidCounterxDP <= 0;
-
-      TogglexSP <= '0';
-    elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
-      DataInxDP <= DataInxDN;
-      TogglexSP <= TogglexSN;
-      PixelValidCounterxDP <= PixelValidCounterxDN;
-    end if;
-  end process memory;
-
-  LVDSDataxD <= (LVDSDataxD'high downto 50 => '0')&DataInxDP(4)&DataInxDP(3)&DataInxDP(2)&DataInxDP(1)&DataInxDP(0);
-
-  process (AlignxS, DataInxDP,TogglexSP) is
-  begin  -- process
-
-    DataInxDN <= DataInxDP;
-    
-    for i in 0 to noOfDataChannels loop
-      if AlignxS(i) = '1' then
-        DataInxDN(i) <= DataInxDP(i)(0) & DataInxDP(i)(channelWidth-1 downto 1);
-      else
-        DataInxDN(i) <= DataInxDP(i);
-      end if;
-    end loop;  -- i
-
-    if PixelValidCounterxDP = 10 then
-      DataInxDN(0)(9) <= '0';
-      PixelValidCounterxDN <= 0;
-    else
-      DataInxDN(0)(9) <= '1';
-      PixelValidCounterxDN <= PixelValidCounterxDP+1;
-    end if;
-    
-    TogglexSN <= not TogglexSP;
-    
-  end process;
-
- 
-
   
- 
-               
+  
+       
 
-end architecture Behavioral; 
+end architecture Behavioral;  
