@@ -1,16 +1,30 @@
--- cmv_master_interface.vhd
+-------------------------------------------------------------------------------
+-- Title      : CMV Master Interface
+-- Project    : 
+-------------------------------------------------------------------------------
+-- File       : cmv_master_interface_2.vhd
+-- Author     : Joscha Zeltner
+-- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
+-- Created    : 2013-05-09
+-- Last update: 2013-05-09
+-- Platform   : Quartus II, NIOS II 12.1sp1
+-- Standard   : VHDL'93/02
+-------------------------------------------------------------------------------
+-- Description: Interface for using cmv_master.vhd in QSYS
+-------------------------------------------------------------------------------
+-- Copyright (c) 2013 Computer Vision and Geometry Group, Pixhawk, ETH Zurich
+-------------------------------------------------------------------------------
+-- Revisions  :
+-- Date        Version  Author  Description
+-- 2013-05-09  1.0      zeltnerj	Created
+-------------------------------------------------------------------------------
 
--- This file was auto-generated as a prototype implementation of a module
--- created in component editor.  It ties off all outputs to ground and
--- ignores all inputs.  It needs to be edited to make it do something
--- useful.
--- 
--- This file will not be automatically regenerated.  You should check it in
--- to your version control system if you want to keep it.
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+use ieee.std_logic_arith.all;
+use ieee.numeric_bit.all;
 
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
 
 entity cmv_master_interface is
 	port (
@@ -29,17 +43,40 @@ entity cmv_master_interface is
 	);
 end entity cmv_master_interface;
 
+
 architecture rtl of cmv_master_interface is
-begin
 
-	-- TODO: Auto-generated HDL template
+  component cmv_master is
+    port (
+      ClkxCI          : in  std_logic;
+      ClkLvdsRxxCI    : in  std_logic;
+      RstxRBI         : in  std_logic;
+      PixelValidxSI   : in  std_logic;
+      RowValidxSI     : in  std_logic;
+      FrameValidxSI   : in  std_logic;
+      DataInxDI       : in  std_logic_vector(79 downto 0);
+      AMWaitReqxSI    : in  std_logic;
+      AMAddressxDO    : out std_logic_vector(31 downto 0);
+      AMWriteDataxDO  : out std_logic_vector(31 downto 0);
+      AMWritexSO      : out std_logic;
+      AMBurstCountxSO : out std_logic_vector(7 downto 0));
+  end component cmv_master;
+  
+begin  -- architecture rtl
 
-	AMBurstCountxSO <= "00000000";
+  cmv_master_1: cmv_master
+    port map (
+      ClkxCI          => ClkxCI,
+      ClkLvdsRxxCI    => ClkLvdsRxxCI,
+      RstxRBI         => RstxRBI,
+      PixelValidxSI   => PixelValidxSI,
+      RowValidxSI     => RowValidxSI,
+      FrameValidxSI   => FrameValidxSI,
+      DataInxDI       => DataInxDI(79 downto 0),
+      AMWaitReqxSI    => AMWaitReqxSI,
+      AMAddressxDO    => AMAddressxDO,
+      AMWriteDataxDO  => AMWriteDataxDO,
+      AMWritexSO      => AMWritexSO,
+      AMBurstCountxSO => AMBurstCountxSO);
 
-	AMAddressxDO <= "00000000000000000000000000000000";
-
-	AMWriteDataxDO <= "00000000000000000000000000000000";
-
-	AMWritexSO <= '0';
-
-end architecture rtl; -- of cmv_master_interface
+end architecture rtl;

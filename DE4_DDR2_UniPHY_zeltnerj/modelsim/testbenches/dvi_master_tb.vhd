@@ -44,13 +44,13 @@ architecture Behavioral of dvi_master_tb is
       ClkxCI             : in  std_logic;
       ClkDvixCI          : in  std_logic;
       RstxRBI            : in  std_logic;
-      DviDataOutxDO      : out std_logic_vector(15 downto 0);
+      DviDataOutxDO      : out std_logic_vector(31 downto 0);
       DviNewLinexDI      : in  std_logic;
       DviNewFramexDI     : in  std_logic;
       DviPixelAvxSI      : in  std_logic;
       AmWaitReqxSI       : in  std_logic;
       AmAddressxDO       : out std_logic_vector(31 downto 0);
-      AmReadDataxDI      : in  std_logic_vector(15 downto 0);
+      AmReadDataxDI      : in  std_logic_vector(31 downto 0);
       AmReadxSO          : out std_logic;
       AmReadDataValidxSI : in  std_logic;
       AmBurstCountxDO    : out std_logic_vector(7 downto 0));
@@ -59,13 +59,13 @@ architecture Behavioral of dvi_master_tb is
   signal ClkxC             : std_logic;
   signal ClkDvixC          : std_logic;
   signal RstxRB            : std_logic;
-  signal DviDataOutxD      : std_logic_vector(15 downto 0);
+  signal DviDataOutxD      : std_logic_vector(31 downto 0);
   signal DviNewLinexD      : std_logic;
   signal DviNewFramexD     : std_logic;
   signal DviPixelAvxS      : std_logic;
   signal AmWaitReqxS       : std_logic;
   signal AmAddressxD       : std_logic_vector(31 downto 0);
-  signal AmReadDataxD      : std_logic_vector(15 downto 0);
+  signal AmReadDataxD      : std_logic_vector(31 downto 0);
   signal AmReadxS          : std_logic;
   signal AmReadDataValidxS : std_logic;
   signal AmBurstCountxD    : std_logic_vector(7 downto 0);
@@ -153,6 +153,18 @@ architecture Behavioral of dvi_master_tb is
     wait;
 
   end process ResetGen;
+
+
+  process (AmReadDataxD, AmReadDataValidxS, AmWaitReqxS, DviNewLinexD, DviNewFramexD, DviPixelAvxS) is
+  begin  -- process
+
+    AmReadDataValidxS <= '1';
+    AmWaitReqxS <= '0';
+    DviNewLinexD <= '1';
+    DviNewFramexD <= '1';
+    DviPixelAvxS <= '1';
+    
+  end process;
 
   
   

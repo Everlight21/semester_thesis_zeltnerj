@@ -28,7 +28,7 @@
 // ------------------------------------------
 // Generation parameters:
 //   output_name:         DE4_QSYS_cmd_xbar_demux_004
-//   ST_DATA_W:           109
+//   ST_DATA_W:           235
 //   ST_CHANNEL_W:        12
 //   NUM_OUTPUTS:         1
 //   VALID_WIDTH:         1
@@ -46,7 +46,7 @@ module DE4_QSYS_cmd_xbar_demux_004
     // Sink
     // -------------------
     input  [1-1      : 0]   sink_valid,
-    input  [109-1    : 0]   sink_data, // ST_DATA_W=109
+    input  [235-1    : 0]   sink_data, // ST_DATA_W=235
     input  [12-1 : 0]   sink_channel, // ST_CHANNEL_W=12
     input                         sink_startofpacket,
     input                         sink_endofpacket,
@@ -56,7 +56,7 @@ module DE4_QSYS_cmd_xbar_demux_004
     // Sources 
     // -------------------
     output reg                      src0_valid,
-    output reg [109-1    : 0] src0_data, // ST_DATA_W=109
+    output reg [235-1    : 0] src0_data, // ST_DATA_W=235
     output reg [12-1 : 0] src0_channel, // ST_CHANNEL_W=12
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,

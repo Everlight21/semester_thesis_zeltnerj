@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-10
--- Last update: 2013-05-10
+-- Last update: 2013-05-13
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -35,13 +35,13 @@ entity dvi_master is
     ClkxCI             : in  std_logic;
     ClkDvixCI          : in  std_logic;
     RstxRBI            : in  std_logic;
-    DviDataOutxDO      : out  std_logic_vector(15 downto 0);
+    DviDataOutxDO      : out  std_logic_vector(31 downto 0);
     DviNewLinexDI      : in  std_logic;
     DviNewFramexDI     : in  std_logic;
     DviPixelAvxSI      : in  std_logic;
     AmWaitReqxSI       : in  std_logic;
     AmAddressxDO       : out std_logic_vector(31 downto 0);
-    AmReadDataxDI      : in  std_logic_vector(15 downto 0);
+    AmReadDataxDI      : in  std_logic_vector(31 downto 0);
     AmReadxSO          : out std_logic;
     AmReadDataValidxSI : in  std_logic;
     AmBurstCountxDO    : out std_logic_vector(7 downto 0));
@@ -53,12 +53,12 @@ architecture behavioral of dvi_master is
   component ram_dvi_fifo is
     port (
       aclr    : IN  STD_LOGIC := '0';
-      data    : IN  STD_LOGIC_VECTOR (15 DOWNTO 0);
+      data    : IN  STD_LOGIC_VECTOR (31 DOWNTO 0);
       rdclk   : IN  STD_LOGIC;
       rdreq   : IN  STD_LOGIC;
       wrclk   : IN  STD_LOGIC;
       wrreq   : IN  STD_LOGIC;
-      q       : OUT STD_LOGIC_VECTOR (15 DOWNTO 0);
+      q       : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
       rdempty : OUT STD_LOGIC;
       wrusedw : OUT STD_LOGIC_VECTOR (11 DOWNTO 0));
   end component ram_dvi_fifo;
@@ -70,13 +70,13 @@ architecture behavioral of dvi_master is
   signal ClkxC             : std_logic;
   signal ClkDvixC          : std_logic;
   signal RstxRB            : std_logic;
-  signal DviDataOutxD      : std_logic_vector(15 downto 0);
+  signal DviDataOutxD      : std_logic_vector(31 downto 0);
   signal DviNewLinexD      : std_logic;
   signal DviNewFramexD     : std_logic;
   signal DviPixelAvxS      : std_logic;
   signal AmWaitReqxS       : std_logic;
   signal AmAddressxD       : std_logic_vector(31 downto 0);
-  signal AmReadDataxD      : std_logic_vector(15 downto 0);
+  signal AmReadDataxD      : std_logic_vector(31 downto 0);
   signal AmReadxS          : std_logic;
   signal AmReadDataValidxS : std_logic;
   signal AmBurstCountxD    : std_logic_vector(7 downto 0);
@@ -85,8 +85,8 @@ architecture behavioral of dvi_master is
   -----------------------------------------------------------------------------
   -- buffer signals
   -----------------------------------------------------------------------------
-  signal BufDataInxD : std_logic_vector(15 downto 0);
-  signal BufDataOutxD : std_logic_vector(15 downto 0);
+  signal BufDataInxD : std_logic_vector(31 downto 0);
+  signal BufDataOutxD : std_logic_vector(31 downto 0);
   signal BufReadReqxS : std_logic;
   signal BufWriteEnxS : std_logic;
   signal BufNoOfWordsxS : std_logic_vector(11 downto 0);

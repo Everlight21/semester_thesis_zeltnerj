@@ -16,7 +16,15 @@
    {
       datum baseAddress
       {
-         value = "152";
+         value = "608";
+         type = "String";
+      }
+   }
+   element mem_if_ddr2_emif_0.avl
+   {
+      datum baseAddress
+      {
+         value = "1073741824";
          type = "String";
       }
    }
@@ -27,14 +35,6 @@
          value = "0";
          type = "boolean";
       }
-      datum baseAddress
-      {
-         value = "1073741824";
-         type = "String";
-      }
-   }
-   element mem_if_ddr2_emif_0.avl
-   {
       datum baseAddress
       {
          value = "1073741824";
@@ -85,7 +85,7 @@
    {
       datum baseAddress
       {
-         value = "144";
+         value = "576";
          type = "String";
       }
    }
@@ -193,6 +193,14 @@
          type = "String";
       }
    }
+   element ddr2_i2c_scl.s1
+   {
+      datum baseAddress
+      {
+         value = "64";
+         type = "long";
+      }
+   }
    element onchip_memory.s1
    {
       datum baseAddress
@@ -205,16 +213,24 @@
    {
       datum baseAddress
       {
-         value = "128";
+         value = "512";
          type = "String";
       }
    }
-   element ddr2_i2c_scl.s1
+   element led.s1
    {
       datum baseAddress
       {
-         value = "64";
-         type = "long";
+         value = "448";
+         type = "String";
+      }
+   }
+   element no_of_cam_channels.s1
+   {
+      datum baseAddress
+      {
+         value = "384";
+         type = "String";
       }
    }
    element ddr2_i2c_sda.s1
@@ -225,27 +241,11 @@
          type = "long";
       }
    }
-   element led.s1
-   {
-      datum baseAddress
-      {
-         value = "112";
-         type = "String";
-      }
-   }
    element timer.s1
    {
       datum baseAddress
       {
-         value = "64";
-         type = "String";
-      }
-   }
-   element no_of_cam_channels.s1
-   {
-      datum baseAddress
-      {
-         value = "96";
+         value = "256";
          type = "String";
       }
    }
@@ -269,7 +269,7 @@
    {
       datum baseAddress
       {
-         value = "32";
+         value = "128";
          type = "String";
       }
    }
@@ -320,7 +320,7 @@
  <parameter name="projectName" value="DE4_DDR2.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1368202149632" />
+ <parameter name="timeStamp" value="1368456450942" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_50_bank3.clk_in" type="clock" dir="end" />
@@ -368,7 +368,7 @@
    type="conduit"
    dir="end" />
  <interface
-   name="cmv_master"
+   name="cmv_master_interface"
    internal="cmv_master_interface_0.conduit_end"
    type="conduit"
    dir="end" />
@@ -804,7 +804,7 @@
   <parameter name="tightlyCoupledInstructionMaster2AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster3AddrWidth" value="1" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='nios2_qsys.jtag_debug_module' start='0x1000' end='0x1800' /><slave name='onchip_memory.s1' start='0x40000' end='0x5F400' /></address-map>]]></parameter>
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='spi_1.spi_control_port' start='0x0' end='0x20' /><slave name='spi_2.spi_control_port' start='0x20' end='0x40' /><slave name='timer.s1' start='0x40' end='0x60' /><slave name='no_of_cam_channels.s1' start='0x60' end='0x70' /><slave name='led.s1' start='0x70' end='0x80' /><slave name='button.s1' start='0x80' end='0x90' /><slave name='sysid.control_slave' start='0x90' end='0x98' /><slave name='jtag_uart.avalon_jtag_slave' start='0x98' end='0xA0' /><slave name='nios2_qsys.jtag_debug_module' start='0x1000' end='0x1800' /><slave name='onchip_memory.s1' start='0x40000' end='0x5F400' /><slave name='spi_1.spi_control_port' start='0x1000000' end='0x1000020' /><slave name='spi_2.spi_control_port' start='0x1000020' end='0x1000040' /><slave name='timer.s1' start='0x1000040' end='0x1000060' /><slave name='no_of_cam_channels.s1' start='0x1000060' end='0x1000070' /><slave name='led.s1' start='0x1000070' end='0x1000080' /><slave name='button.s1' start='0x1000080' end='0x1000090' /><slave name='sysid.control_slave' start='0x1000090' end='0x1000098' /><slave name='mem_if_ddr2_emif.avl' start='0x40000000' end='0x80000000' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='spi_1.spi_control_port' start='0x0' end='0x80' /><slave name='spi_2.spi_control_port' start='0x80' end='0x100' /><slave name='timer.s1' start='0x100' end='0x180' /><slave name='no_of_cam_channels.s1' start='0x180' end='0x1C0' /><slave name='led.s1' start='0x1C0' end='0x200' /><slave name='button.s1' start='0x200' end='0x240' /><slave name='sysid.control_slave' start='0x240' end='0x248' /><slave name='jtag_uart.avalon_jtag_slave' start='0x260' end='0x280' /><slave name='nios2_qsys.jtag_debug_module' start='0x1000' end='0x1800' /><slave name='onchip_memory.s1' start='0x40000' end='0x5F400' /><slave name='spi_1.spi_control_port' start='0x1000000' end='0x1000080' /><slave name='spi_2.spi_control_port' start='0x1000080' end='0x1000100' /><slave name='timer.s1' start='0x1000100' end='0x1000180' /><slave name='no_of_cam_channels.s1' start='0x1000180' end='0x10001C0' /><slave name='led.s1' start='0x10001C0' end='0x1000200' /><slave name='button.s1' start='0x1000200' end='0x1000240' /><slave name='sysid.control_slave' start='0x1000240' end='0x1000248' /><slave name='mem_if_ddr2_emif.avl' start='0x40000000' end='0x80000000' /></address-map>]]></parameter>
   <parameter name="clockFrequency" value="200000000" />
   <parameter name="deviceFamilyName" value="Stratix IV" />
   <parameter name="internalIrqMaskSystemInfo" value="15" />
@@ -1315,9 +1315,7 @@
    kind="cmv_master_interface"
    version="1.0"
    enabled="1"
-   name="cmv_master_interface_0">
-  <parameter name="AUTO_CLOCK_MAIN_CLOCK_RATE" value="200000000" />
- </module>
+   name="cmv_master_interface_0" />
  <module
    kind="dvi_master_interface"
    version="1.0"
@@ -1425,7 +1423,7 @@
    start="nios2_qsys.data_master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0098" />
+  <parameter name="baseAddress" value="0x0260" />
  </connection>
  <connection
    kind="reset"
@@ -1456,7 +1454,7 @@
    start="mm_clock_crossing_bridge_io.m0"
    end="button.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0080" />
+  <parameter name="baseAddress" value="0x0200" />
  </connection>
  <connection
    kind="avalon"
@@ -1464,7 +1462,7 @@
    start="mm_clock_crossing_bridge_io.m0"
    end="led.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0070" />
+  <parameter name="baseAddress" value="0x01c0" />
  </connection>
  <connection
    kind="avalon"
@@ -1472,7 +1470,7 @@
    start="mm_clock_crossing_bridge_io.m0"
    end="timer.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="baseAddress" value="0x0100" />
  </connection>
  <connection
    kind="avalon"
@@ -1480,7 +1478,7 @@
    start="mm_clock_crossing_bridge_io.m0"
    end="sysid.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0090" />
+  <parameter name="baseAddress" value="0x0240" />
  </connection>
  <connection kind="clock" version="12.1" start="clk_50_bank3.clk" end="button.clk" />
  <connection kind="clock" version="12.1" start="clk_50_bank3.clk" end="led.clk" />
@@ -1533,7 +1531,7 @@
    start="mm_clock_crossing_bridge_io.m0"
    end="spi_2.spi_control_port">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x0080" />
  </connection>
  <connection
    kind="reset"
@@ -1569,7 +1567,7 @@
    start="nios2_qsys.data_master"
    end="button.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0080" />
+  <parameter name="baseAddress" value="0x0200" />
  </connection>
  <connection
    kind="avalon"
@@ -1577,7 +1575,7 @@
    start="nios2_qsys.data_master"
    end="led.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0070" />
+  <parameter name="baseAddress" value="0x01c0" />
  </connection>
  <connection
    kind="avalon"
@@ -1585,7 +1583,7 @@
    start="nios2_qsys.data_master"
    end="timer.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="baseAddress" value="0x0100" />
  </connection>
  <connection
    kind="avalon"
@@ -1593,7 +1591,7 @@
    start="nios2_qsys.data_master"
    end="spi_2.spi_control_port">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x0080" />
  </connection>
  <connection
    kind="avalon"
@@ -1601,7 +1599,7 @@
    start="nios2_qsys.data_master"
    end="sysid.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0090" />
+  <parameter name="baseAddress" value="0x0240" />
  </connection>
  <connection
    kind="clock"
@@ -1699,7 +1697,7 @@
    start="nios2_qsys.data_master"
    end="no_of_cam_channels.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0060" />
+  <parameter name="baseAddress" value="0x0180" />
  </connection>
  <connection
    kind="avalon"
@@ -1707,25 +1705,7 @@
    start="mm_clock_crossing_bridge_io.m0"
    end="no_of_cam_channels.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0060" />
- </connection>
- <connection
-   kind="clock"
-   version="12.1"
-   start="mem_if_ddr2_emif.afi_clk"
-   end="cmv_master_interface_0.clock_main" />
- <connection
-   kind="reset"
-   version="12.1"
-   start="clk_50_bank3.clk_reset"
-   end="cmv_master_interface_0.reset_n" />
- <connection
-   kind="avalon"
-   version="12.1"
-   start="cmv_master_interface_0.avalon_master"
-   end="mem_if_ddr2_emif.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x40000000" />
+  <parameter name="baseAddress" value="0x0180" />
  </connection>
  <connection
    kind="avalon"
@@ -1741,14 +1721,32 @@
    start="mem_if_ddr2_emif.afi_clk"
    end="dvi_master_interface_0.clock_main" />
  <connection
+   kind="clock"
+   version="12.1"
+   start="mem_if_ddr2_emif.afi_clk"
+   end="cmv_master_interface_0.clock_main" />
+ <connection
    kind="reset"
    version="12.1"
    start="clk_50_bank3.clk_reset"
    end="dvi_master_interface_0.reset_n" />
  <connection
+   kind="reset"
+   version="12.1"
+   start="clk_50_bank3.clk_reset"
+   end="cmv_master_interface_0.reset_n" />
+ <connection
    kind="avalon"
    version="12.1"
    start="dvi_master_interface_0.avalon_master"
+   end="mem_if_ddr2_emif.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x40000000" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="12.1"
+   start="cmv_master_interface_0.avalon_master"
    end="mem_if_ddr2_emif.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x40000000" />

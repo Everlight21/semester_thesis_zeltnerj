@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-10
--- Last update: 2013-05-10
+-- Last update: 2013-05-13
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ entity dvi_master_interface is
 		RstxRBI            : in  std_logic                     := '0';             --       reset_n.reset_n
 		AmWaitReqxSI       : in  std_logic                     := '0';             -- avalon_master.waitrequest
 		AmAddressxDO       : out std_logic_vector(31 downto 0);                    --              .address
-		AmReadDataxDI      : in  std_logic_vector(15 downto 0) := (others => '0'); --              .readdata
+		AmReadDataxDI      : in  std_logic_vector(31 downto 0) := (others => '0'); --              .readdata
 		AmReadxSO          : out std_logic;                                        --              .read
 		AmReadDataValidxSI : in  std_logic                     := '0';             --              .readdatavalid
 		AmBurstCountxDO    : out std_logic_vector(7 downto 0);                     --              .burstcount
@@ -40,7 +40,7 @@ entity dvi_master_interface is
 		DviNewLinexDI      : in  std_logic                     := '0';             --              .export
 		DviNewFramexDI     : in  std_logic                     := '0';             --              .export
 		DviPixelAvxSI      : in  std_logic                     := '0';             --              .export
-		DviDataOutxDO      : out std_logic_vector(15 downto 0)                     --              .export
+		DviDataOutxDO      : out std_logic_vector(31 downto 0)                     --              .export
 	);
 end entity dvi_master_interface;
 
@@ -51,13 +51,13 @@ architecture rtl of dvi_master_interface is
       ClkxCI             : in  std_logic;
       ClkDvixCI          : in  std_logic;
       RstxRBI            : in  std_logic;
-      DviDataOutxDO      : out std_logic_vector(15 downto 0);
+      DviDataOutxDO      : out std_logic_vector(31 downto 0);
       DviNewLinexDI      : in  std_logic;
       DviNewFramexDI     : in  std_logic;
       DviPixelAvxSI      : in  std_logic;
       AmWaitReqxSI       : in  std_logic;
       AmAddressxDO       : out std_logic_vector(31 downto 0);
-      AmReadDataxDI      : in  std_logic_vector(15 downto 0);
+      AmReadDataxDI      : in  std_logic_vector(31 downto 0);
       AmReadxSO          : out std_logic;
       AmReadDataValidxSI : in  std_logic;
       AmBurstCountxDO    : out std_logic_vector(7 downto 0));

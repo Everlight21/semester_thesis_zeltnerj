@@ -136,8 +136,13 @@ architecture behavioral of cmv_master is
   -----------------------------------------------------------------------------
   -- counter
   -----------------------------------------------------------------------------
-  signal CounterxDP, CounterxDN : integer range 0 to 20;
-
+  signal CounterxDP, CounterxDN : integer range 0 to 20;  -- just for debugging
+                                                          -- reasons
+  -----------------------------------------------------------------------------
+  -- control
+  -----------------------------------------------------------------------------
+  signal FrameRunningxSP, FrameRunningxSN : std_logic;
+  
   begin
 
     ---------------------------------------------------------------------------
@@ -175,7 +180,7 @@ architecture behavioral of cmv_master is
     ---------------------------------------------------------------------------
     -- input
     ---------------------------------------------------------------------------
-    buffer_input: process (DataInxD, CounterxDP) is
+    buffer_input: process (DataInxD, CounterxDP, PixelValidxS, RowValidxS, FrameValidxS, FrameRunningxSP) is
     begin  -- process buffer_input
 
       if CounterxDP = 20 then
@@ -191,6 +196,8 @@ architecture behavioral of cmv_master is
       for i in 1 to 16 loop
         BufDataInxD(i) <= (others => '0');
       end loop;  -- i
+
+      
       
       if PixelValidxS = '1' and RowValidxS = '1' and FrameValidxS = '1' then
         
@@ -206,6 +213,11 @@ architecture behavioral of cmv_master is
             end if;
           end loop;  -- i
           
+      end if;
+
+      FrameRunningxSN <= FrameValidxS;
+      if FrameRunningxSN = '0' and FrameRunningxSP = '1' then
+        BufClearxS <= '1';
       end if;
       
     end process buffer_input;
@@ -235,9 +247,11 @@ architecture behavioral of cmv_master is
       if RstxRB = '0' then              -- asynchronous reset (active low)
         BufClearxS <= '1';
         CounterxDP <= 0;
+        FrameRunningxSP <= '0';
       elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
         BufClearxS <= '0';
         CounterxDP <= CounterxDN;
+        FrameRunningxSP <= FrameRunningxSN;
       end if;
     end process memory_ClkLvdsRxxD;
 

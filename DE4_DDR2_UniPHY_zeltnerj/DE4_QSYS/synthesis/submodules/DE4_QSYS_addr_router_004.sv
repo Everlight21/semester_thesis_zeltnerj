@@ -34,12 +34,12 @@ module DE4_QSYS_addr_router_004_default_decode
      parameter DEFAULT_CHANNEL = 0,
                DEFAULT_DESTID = 9 
    )
-  (output [98 - 95 : 0] default_destination_id,
+  (output [224 - 221 : 0] default_destination_id,
    output [12-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[98 - 95 : 0];
+    DEFAULT_DESTID[224 - 221 : 0];
   generate begin : default_decode
     if (DEFAULT_CHANNEL == -1)
       assign default_src_channel = '0;
@@ -63,7 +63,7 @@ module DE4_QSYS_addr_router_004
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [109-1 : 0]    sink_data,
+    input  [235-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -72,7 +72,7 @@ module DE4_QSYS_addr_router_004
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [109-1    : 0] src_data,
+    output reg [235-1    : 0] src_data,
     output reg [12-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
@@ -82,16 +82,16 @@ module DE4_QSYS_addr_router_004
     // -------------------------------------------------------
     // Local parameters and variables
     // -------------------------------------------------------
-    localparam PKT_ADDR_H = 49;
-    localparam PKT_ADDR_L = 18;
-    localparam PKT_DEST_ID_H = 98;
-    localparam PKT_DEST_ID_L = 95;
-    localparam ST_DATA_W = 109;
+    localparam PKT_ADDR_H = 175;
+    localparam PKT_ADDR_L = 144;
+    localparam PKT_DEST_ID_H = 224;
+    localparam PKT_DEST_ID_L = 221;
+    localparam ST_DATA_W = 235;
     localparam ST_CHANNEL_W = 12;
     localparam DECODER_TYPE = 0;
 
-    localparam PKT_TRANS_WRITE = 52;
-    localparam PKT_TRANS_READ  = 53;
+    localparam PKT_TRANS_WRITE = 178;
+    localparam PKT_TRANS_READ  = 179;
 
     localparam PKT_ADDR_W = PKT_ADDR_H-PKT_ADDR_L + 1;
     localparam PKT_DEST_ID_W = PKT_DEST_ID_H-PKT_DEST_ID_L + 1;
