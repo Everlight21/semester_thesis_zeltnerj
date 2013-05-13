@@ -1,5 +1,5 @@
 --a_graycounter DEVICE_FAMILY="Stratix IV" PVALUE=1 WIDTH=9 aclr clock cnt_en q
---VERSION_BEGIN 12.1 cbx_a_gray2bin 2012:11:07:18:03:59:SJ cbx_a_graycounter 2012:11:07:18:03:59:SJ cbx_cycloneii 2012:11:07:18:03:59:SJ cbx_mgl 2012:11:07:18:06:30:SJ cbx_stratix 2012:11:07:18:03:59:SJ cbx_stratixii 2012:11:07:18:03:59:SJ  VERSION_END
+--VERSION_BEGIN 12.1SP1 cbx_a_gray2bin 2013:01:31:18:04:57:SJ cbx_a_graycounter 2013:01:31:18:04:57:SJ cbx_cycloneii 2013:01:31:18:04:59:SJ cbx_mgl 2013:01:31:18:08:27:SJ cbx_stratix 2013:01:31:18:04:59:SJ cbx_stratixii 2013:01:31:18:04:59:SJ  VERSION_END
 
 
 -- Copyright (C) 1991-2012 Altera Corporation

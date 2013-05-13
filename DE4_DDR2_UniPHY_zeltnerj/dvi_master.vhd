@@ -132,6 +132,7 @@ begin  -- architecture behavioral
   AmAddressxD <= ReadAddressxDP;
   AmBurstCountxD <= "10000000";         -- 128d (each channel has 128 pixels
                                         -- per row
+  
 
   -----------------------------------------------------------------------------
   -- control
@@ -147,13 +148,21 @@ begin  -- architecture behavioral
       ReadAddressxDP <= (others => '0');
       StatexDP <= idle;
       PendingReadOutsxDP <= 0;
-      --BufClearxS <= '1';
     elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
       ReadAddressxDP <= ReadAddressxDN;
       StatexDP <= StatexDN;
       PendingReadOutsxDP <= PendingReadOutsxDN;
     end if;
   end process memory;
+
+  memory_ClkDvi: process (ClkDvixC, RstxRB) is
+  begin  -- process memory_ClkDvi
+    if RstxRB = '0' then                -- asynchronous reset (active low)
+      
+    elsif ClkDvixC'event and ClkDvixC = '1' then  -- rising clock edge
+      
+    end if;
+  end process memory_ClkDvi;
   
 
   -----------------------------------------------------------------------------
@@ -168,7 +177,6 @@ begin  -- architecture behavioral
     BufClearxS <= '0';
     AmReadxS <= '0';
     BufWriteEnxS <= AmReadDataValidxS;
-    
 
     if DviNewFramexD = '0' then
       ReadAddressxDN <= (others => '0');
@@ -224,6 +232,7 @@ begin  -- architecture behavioral
   begin  -- process DVI
     DviDataOutxD <= (others => '0');
     BufWriteEnxS <= '0';
+    BufReadReqxS <= '0';
 
     if DviPixelAvxS = '1' and DviNewLinexD = '1' and DviNewFramexD = '1' then
       if BufEmptyxS = '0' then

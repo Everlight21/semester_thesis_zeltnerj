@@ -180,8 +180,15 @@ architecture behavioral of cmv_master is
     ---------------------------------------------------------------------------
     -- input
     ---------------------------------------------------------------------------
-    buffer_input: process (DataInxD, CounterxDP, PixelValidxS, RowValidxS, FrameValidxS, FrameRunningxSP) is
+    buffer_input: process (DataInxD, CounterxDP, PixelValidxS, RowValidxS, FrameValidxS) is
     begin  -- process buffer_input
+
+      BufClearxS <= '0';                --BufClearxS is deasserted by default
+      -- compares the current value of FrameValidxS with the previous one
+      FrameRunningxSN <= FrameValidxS;
+      if FrameRunningxSN = '0' and FrameRunningxSP = '1' then
+        BufClearxS <= '1';
+      end if;
 
       if CounterxDP = 20 then
         CounterxDN <= 0;
@@ -215,10 +222,9 @@ architecture behavioral of cmv_master is
           
       end if;
 
-      FrameRunningxSN <= FrameValidxS;
-      if FrameRunningxSN = '0' and FrameRunningxSP = '1' then
-        BufClearxS <= '1';
-      end if;
+      
+      
+      
       
     end process buffer_input;
     
@@ -245,11 +251,9 @@ architecture behavioral of cmv_master is
     memory_ClkLvdsRxxD: process (ClkLvdsRxxC, RstxRB) is
     begin  -- process memory_ClkLvdsRxxD
       if RstxRB = '0' then              -- asynchronous reset (active low)
-        BufClearxS <= '1';
         CounterxDP <= 0;
         FrameRunningxSP <= '0';
       elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
-        BufClearxS <= '0';
         CounterxDP <= CounterxDN;
         FrameRunningxSP <= FrameRunningxSN;
       end if;
@@ -268,9 +272,12 @@ architecture behavioral of cmv_master is
       ChannelSelectxSN <= ChannelSelectxSP;
       AMBurstCountxS <= "00100000";  -- 32
       AMWritexS <= '0';
+      
+       
       for i in 1 to noOfDataChannels loop
            BufReadReqxS(i) <= '0';
           end loop;  -- i
+
       
       if BufClearxS = '1' then
         AMWriteAddressxDN <= (others => '0');
