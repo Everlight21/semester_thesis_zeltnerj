@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-03
--- Last update: 2013-05-09
+-- Last update: 2013-05-13
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -48,10 +48,10 @@ architecture Behavioral of cmv_master_tb is
       PixelValidxSI   : in  std_logic;
       RowValidxSI     : in  std_logic;
       FrameValidxSI   : in  std_logic;
-      DataInxDI       : in  std_logic_vector(79 downto 0);
+      DataInxDI       : in  std_logic_vector(159 downto 0);
       AMWaitReqxSI    : in  std_logic;
       AMAddressxDO    : out std_logic_vector(31 downto 0);
-      AMWriteDataxDO  : out std_logic_vector(31 downto 0);
+      AMWriteDataxDO  : out std_logic_vector(127 downto 0);
       AMWritexSO      : out std_logic;
       AMBurstCountxSO : out std_logic_vector(7 downto 0));
   end component cmv_master;
@@ -62,10 +62,10 @@ architecture Behavioral of cmv_master_tb is
   signal PixelValidxS   : std_logic;
   signal RowValidxS     : std_logic;
   signal FrameValidxS   : std_logic;
-  signal DataInxD       : std_logic_vector(79 downto 0);
+  signal DataInxD       : std_logic_vector(159 downto 0);
   signal AMWaitReqxS    : std_logic;
   signal AMAddressxD    : std_logic_vector(31 downto 0);
-  signal AMWriteDataxD  : std_logic_vector(31 downto 0);
+  signal AMWriteDataxD  : std_logic_vector(127 downto 0);
   signal AMWritexS      : std_logic;
   signal AMBurstCountxS : std_logic_vector(7 downto 0);
   

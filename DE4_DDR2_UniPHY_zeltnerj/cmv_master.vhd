@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-05-09
+-- Last update: 2013-05-13
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -40,11 +40,11 @@ entity cmv_master is
     PixelValidxSI : in std_logic;
     RowValidxSI : in std_logic;
     FrameValidxSI : in std_logic;
-    DataInxDI : in std_logic_vector(79 downto 0);
+    DataInxDI : in std_logic_vector(159 downto 0);
     -- avalon mm master interface
     AMWaitReqxSI : in std_logic;
     AMAddressxDO : out std_logic_vector(31 downto 0);
-    AMWriteDataxDO : out std_logic_vector(31 downto 0);
+    AMWriteDataxDO : out std_logic_vector(127 downto 0);
     AMWritexSO : out std_logic;
     AMBurstCountxSO : out std_logic_vector(7 downto 0));
 
@@ -62,10 +62,10 @@ architecture behavioral of cmv_master is
   signal PixelValidxS   : std_logic;
   signal RowValidxS     : std_logic;
   signal FrameValidxS   : std_logic;
-  signal DataInxD       : std_logic_vector(79 downto 0);
+  signal DataInxD       : std_logic_vector(159 downto 0);
   signal AMWaitReqxS    : std_logic;
   signal AMAddressxD    : std_logic_vector(31 downto 0);
-  signal AMWriteDataxD : std_logic_vector(31 downto 0);
+  signal AMWriteDataxD : std_logic_vector(127 downto 0);
   signal AMWritexS      : std_logic;
   signal AMBurstCountxS : std_logic_vector(7 downto 0);
 
@@ -73,16 +73,18 @@ architecture behavioral of cmv_master is
   -----------------------------------------------------------------------------
   -- components
   -----------------------------------------------------------------------------
+  
+
   component cmv_ram_fifo is
     port (
       aclr    : IN  STD_LOGIC := '0';
-      data    : IN  STD_LOGIC_VECTOR (15 DOWNTO 0);
+      data    : IN  STD_LOGIC_VECTOR (31 DOWNTO 0);
       rdclk   : IN  STD_LOGIC;
       rdreq   : IN  STD_LOGIC;
       wrclk   : IN  STD_LOGIC;
       wrreq   : IN  STD_LOGIC;
-      q       : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
-      rdusedw : OUT STD_LOGIC_VECTOR (8 DOWNTO 0);
+      q       : OUT STD_LOGIC_VECTOR (127 DOWNTO 0);
+      rdusedw : OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
       wrfull  : OUT STD_LOGIC);
   end component cmv_ram_fifo;
 
@@ -93,17 +95,17 @@ architecture behavioral of cmv_master is
   -----------------------------------------------------------------------------
   -- buffer
   -----------------------------------------------------------------------------
-  type bufferDataIn is array (1 to 16) of std_logic_vector(15 downto 0);
+  type bufferDataIn is array (1 to 16) of std_logic_vector(31 downto 0);
   signal BufDataInxD : bufferDataIn;
   
-  type bufferDataOut is array (1 to noOfDataChannels) of std_logic_vector(31 downto 0);
+  type bufferDataOut is array (1 to noOfDataChannels) of std_logic_vector(127 downto 0);
   signal BufDataOutxD : bufferDataOut;
   
   type bufferControlSignals is array (1 to noOfDataChannels) of std_logic;
   signal BufReadReqxS : bufferControlSignals := (others => '0');
   signal BufWriteEnxS : bufferControlSignals := (others => '0');
 
-  type bufferNoOfWords is array (1 to noOfDataChannels) of std_logic_vector(8 downto 0);
+  type bufferNoOfWords is array (1 to noOfDataChannels) of std_logic_vector(7 downto 0);
   signal BufNoOfWordsxS : bufferNoOfWords;
 
   type bufferFull is array (1 to noOfDataChannels) of std_logic;
@@ -195,7 +197,12 @@ architecture behavioral of cmv_master is
           for i in 1 to noOfDataChannels loop
             if BufFullxS(i) /= '1' then
               BufWriteEnxS(i) <= '1';
-              BufDataInxD(i) <= (15 downto 10 => '0') & DataInxD(i*channelWidth-1 downto (i-1)*channelWidth); 
+              -- this is only the raw pixel data
+              -- if a rgb camera is used, the buffer input has to be changed accordingly
+              BufDataInxD(i) <= (31 downto 24 => '0') &
+                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
+                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
+                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2); 
             end if;
           end loop;  -- i
           
