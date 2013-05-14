@@ -76,18 +76,18 @@ state.ST_COMP_TRANS 1 0 0 1
 state.ST_UNCOMP_TRANS 1 0 1 0 
 state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
 
+State Machine - |cmv4000design|DE4_QSYS:inst|dvi_master_interface:dvi_master_interface_0|dvi_master:dvi_master_1|StatexDP
+Name StatexDP.finishBurst StatexDP.burst StatexDP.fifoWait StatexDP.idle 
+StatexDP.idle 0 0 0 0 
+StatexDP.fifoWait 0 0 1 1 
+StatexDP.burst 0 1 0 1 
+StatexDP.finishBurst 1 0 0 1 
+
 State Machine - |cmv4000design|DE4_QSYS:inst|cmv_master_interface:cmv_master_interface_0|cmv_master:cmv_master_1|StatexDP
 Name StatexDP.burst StatexDP.fifoWait StatexDP.idle 
 StatexDP.idle 0 0 0 
 StatexDP.fifoWait 0 1 1 
 StatexDP.burst 1 0 1 
-
-State Machine - |cmv4000design|DE4_QSYS:inst|Stored_Pixel_Interface_block:stored_interface_block_0|Stored_Master:b2v_inst|read_state
-Name read_state.finish_reads read_state.mid_burst read_state.fifo_wait read_state.idle 
-read_state.idle 0 0 0 0 
-read_state.fifo_wait 0 0 1 1 
-read_state.mid_burst 0 1 0 1 
-read_state.finish_reads 1 0 0 1 
 
 State Machine - |cmv4000design|DE4_QSYS:inst|DE4_QSYS_nios2_qsys:nios2_qsys|DE4_QSYS_nios2_qsys_nios2_oci:the_DE4_QSYS_nios2_qsys_nios2_oci|DE4_QSYS_nios2_qsys_jtag_debug_module_wrapper:the_DE4_QSYS_nios2_qsys_jtag_debug_module_wrapper|DE4_QSYS_nios2_qsys_jtag_debug_module_tck:the_DE4_QSYS_nios2_qsys_jtag_debug_module_tck|DRsize
 Name DRsize.101 DRsize.100 DRsize.011 DRsize.010 DRsize.001 DRsize.000 

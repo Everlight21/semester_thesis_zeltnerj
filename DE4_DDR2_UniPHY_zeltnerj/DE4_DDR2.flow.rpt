@@ -1,5 +1,5 @@
 Flow report for DE4_DDR2
-Mon May 13 18:05:46 2013
+Tue May 14 17:07:43 2013
 Quartus II 32-bit Version 12.1 Build 243 01/31/2013 Service Pack 1 SJ Full Version
 
 
@@ -38,28 +38,28 @@ applicable agreement for further details.
 +------------------------------------------------------------------------------------+
 ; Flow Summary                                                                       ;
 +-----------------------------------+------------------------------------------------+
-; Flow Status                       ; Flow Failed - Mon May 13 18:05:45 2013         ;
+; Flow Status                       ; Successful - Tue May 14 17:06:28 2013          ;
 ; Quartus II 32-bit Version         ; 12.1 Build 243 01/31/2013 SP 1 SJ Full Version ;
 ; Revision Name                     ; DE4_DDR2                                       ;
 ; Top-level Entity Name             ; cmv4000design                                  ;
 ; Family                            ; Stratix IV                                     ;
 ; Device                            ; EP4SGX230KF40C2                                ;
 ; Timing Models                     ; Final                                          ;
-; Logic utilization                 ; N/A until Partition Merge                      ;
-;     Combinational ALUTs           ; N/A until Partition Merge                      ;
-;     Memory ALUTs                  ; N/A until Partition Merge                      ;
-;     Dedicated logic registers     ; N/A until Partition Merge                      ;
-; Total registers                   ; N/A until Partition Merge                      ;
-; Total pins                        ; N/A until Partition Merge                      ;
-; Total virtual pins                ; N/A until Partition Merge                      ;
-; Total block memory bits           ; N/A until Partition Merge                      ;
-; DSP block 18-bit elements         ; N/A until Partition Merge                      ;
-; Total GXB Receiver Channel PCS    ; N/A until Partition Merge                      ;
-; Total GXB Receiver Channel PMA    ; N/A until Partition Merge                      ;
-; Total GXB Transmitter Channel PCS ; N/A until Partition Merge                      ;
-; Total GXB Transmitter Channel PMA ; N/A until Partition Merge                      ;
-; Total PLLs                        ; N/A until Partition Merge                      ;
-; Total DLLs                        ; N/A until Partition Merge                      ;
+; Logic utilization                 ; 11 %                                           ;
+;     Combinational ALUTs           ; 12,366 / 182,400 ( 7 % )                       ;
+;     Memory ALUTs                  ; 183 / 91,200 ( < 1 % )                         ;
+;     Dedicated logic registers     ; 13,654 / 182,400 ( 7 % )                       ;
+; Total registers                   ; 14292                                          ;
+; Total pins                        ; 302 / 888 ( 34 % )                             ;
+; Total virtual pins                ; 0                                              ;
+; Total block memory bits           ; 2,526,600 / 14,625,792 ( 17 % )                ;
+; DSP block 18-bit elements         ; 4 / 1,288 ( < 1 % )                            ;
+; Total GXB Receiver Channel PCS    ; 0 / 24 ( 0 % )                                 ;
+; Total GXB Receiver Channel PMA    ; 0 / 36 ( 0 % )                                 ;
+; Total GXB Transmitter Channel PCS ; 0 / 24 ( 0 % )                                 ;
+; Total GXB Transmitter Channel PMA ; 0 / 36 ( 0 % )                                 ;
+; Total PLLs                        ; 4 / 8 ( 50 % )                                 ;
+; Total DLLs                        ; 1 / 4 ( 25 % )                                 ;
 +-----------------------------------+------------------------------------------------+
 
 
@@ -68,7 +68,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/13/2013 18:05:17 ;
+; Start date & time ; 05/14/2013 16:52:28 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE4_DDR2            ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ applicable agreement for further details.
 +-------------------------------------+------------------------------------------------------------+---------------+------------------------------------------+------------+
 ; Assignment Name                     ; Value                                                      ; Default Value ; Entity Name                              ; Section Id ;
 +-------------------------------------+------------------------------------------------------------+---------------+------------------------------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 116526678098.136846111603780                               ; --            ; --                                       ; --         ;
+; COMPILER_SIGNATURE_ID               ; 116526678098.136854314704316                               ; --            ; --                                       ; --         ;
 ; ECO_REGENERATE_REPORT               ; On                                                         ; Off           ; --                                       ; --         ;
 ; FITTER_EFFORT                       ; Fast Fit                                                   ; Auto Fit      ; --                                       ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS                                 ; --         ;
@@ -289,29 +289,38 @@ applicable agreement for further details.
 +-------------------------------------+------------------------------------------------------------+---------------+------------------------------------------+------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------+
-; Flow Elapsed Time                                                                                                        ;
-+----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
-+----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:30     ; 1.0                     ; 673 MB              ; 00:00:28                           ;
-; Total                ; 00:00:30     ; --                      ; --                  ; 00:00:28                           ;
-+----------------------+--------------+-------------------------+---------------------+------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                             ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis      ; 00:03:59     ; 1.0                     ; 903 MB              ; 00:03:55                           ;
+; Fitter                    ; 00:08:45     ; 1.9                     ; 1244 MB             ; 00:10:15                           ;
+; Assembler                 ; 00:00:42     ; 1.0                     ; 620 MB              ; 00:00:40                           ;
+; TimeQuest Timing Analyzer ; 00:01:11     ; 1.6                     ; 861 MB              ; 00:01:24                           ;
+; Total                     ; 00:14:37     ; --                      ; --                  ; 00:16:14                           ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+-----------------------------------------------------------------------------------+
-; Flow OS Summary                                                                   ;
-+----------------------+------------------+-----------+------------+----------------+
-; Module Name          ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
-+----------------------+------------------+-----------+------------+----------------+
-; Analysis & Synthesis ; SANS-LAB-49      ; Windows 7 ; 6.1        ; x86_64         ;
-+----------------------+------------------+-----------+------------+----------------+
++----------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                        ;
++---------------------------+------------------+-----------+------------+----------------+
+; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
++---------------------------+------------------+-----------+------------+----------------+
+; Analysis & Synthesis      ; SANS-LAB-49      ; Windows 7 ; 6.1        ; x86_64         ;
+; Fitter                    ; SANS-LAB-49      ; Windows 7 ; 6.1        ; x86_64         ;
+; Assembler                 ; SANS-LAB-49      ; Windows 7 ; 6.1        ; x86_64         ;
+; TimeQuest Timing Analyzer ; SANS-LAB-49      ; Windows 7 ; 6.1        ; x86_64         ;
++---------------------------+------------------+-----------+------------+----------------+
 
 
 ------------
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off DE4_DDR2 -c DE4_DDR2
+quartus_fit --read_settings_files=off --write_settings_files=off DE4_DDR2 -c DE4_DDR2
+quartus_asm --read_settings_files=off --write_settings_files=off DE4_DDR2 -c DE4_DDR2
+quartus_sta DE4_DDR2 -c DE4_DDR2
 
 
 

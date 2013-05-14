@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-05-13
+-- Last update: 2013-05-14
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -180,21 +180,21 @@ architecture behavioral of cmv_master is
     ---------------------------------------------------------------------------
     -- input
     ---------------------------------------------------------------------------
-    buffer_input: process (DataInxD, CounterxDP, PixelValidxS, RowValidxS, FrameValidxS) is
+    buffer_input: process (RstxRB, DataInxD, CounterxDP, PixelValidxS, RowValidxS, FrameValidxS) is
     begin  -- process buffer_input
 
       BufClearxS <= '0';                --BufClearxS is deasserted by default
       -- compares the current value of FrameValidxS with the previous one
       FrameRunningxSN <= FrameValidxS;
-      if FrameRunningxSN = '0' and FrameRunningxSP = '1' then
+      if RstxRB = '0' or (FrameRunningxSN = '0' and FrameRunningxSP = '1') then
         BufClearxS <= '1';
       end if;
 
-      if CounterxDP = 20 then
-        CounterxDN <= 0;
-      else
-        CounterxDN <= CounterxDP + 1;
-      end if;
+      --if CounterxDP = 20 then
+      --  CounterxDN <= 0;
+      --else
+      --  CounterxDN <= CounterxDP + 1;
+      --end if;
       
       for i in 1 to noOfDataChannels loop
         BufWriteEnxS(i) <= '0';
@@ -270,7 +270,7 @@ architecture behavioral of cmv_master is
       BurstWordCountxDN <= BurstWordCountxDP;
       NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP;
       ChannelSelectxSN <= ChannelSelectxSP;
-      AMBurstCountxS <= "00100000";  -- 32
+      AMBurstCountxS <= "00001000";  -- 8 (8*128bit = 8*4pixel = 32pixel)
       AMWritexS <= '0';
       
        
@@ -302,7 +302,7 @@ architecture behavioral of cmv_master is
           StatexDN <= burst;
           
           for i in 1 to noOfDataChannels loop
-            if BufNoOfWordsxS(i) < 4 then
+            if BufNoOfWordsxS(i) < 32 then
               StatexDN <= fifoWait;
             --else
             --  StatexDN <= burst;
@@ -324,22 +324,22 @@ architecture behavioral of cmv_master is
           end loop;  -- i
           
           if AMWaitReqxS /= '1' then
-            if BurstWordCountxDP = 15 then  -- 32/2 -> 16bit/pixel in, 32bit out
+            if BurstWordCountxDP = 7 then  -- 32/4 -> 32bit/pixel in, 128bit out
               BurstWordCountxDN <= 0;
               case NoOfPacketsInRowxDP is
-                when 7 =>
+                when 15 =>
                   ChannelSelectxSN <= 2;
                   AMWriteAddressxDN <= AMWriteAddressxDP + 128;
                   NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
-                when 15 =>
+                when 31 =>
                   ChannelSelectxSN <= 3;
                   AMWriteAddressxDN <= AMWriteAddressxDP + 128;
                   NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
-                when 23 =>
+                when 47 =>
                   ChannelSelectxSN <= 4;
                   AMWriteAddressxDN <= AMWriteAddressxDP + 128;
                   NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
-                when 31 =>
+                when 63 =>
                   ChannelSelectxSN <= 1;
                   AMWriteAddressxDN <= AMWriteAddressxDP + 1664;  --128*47+1664=1920*4
                   NoOfPacketsInRowxDN <= 0;

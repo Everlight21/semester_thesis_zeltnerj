@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>09.05.2013 18:55:07</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1368118507443</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>14.05.2013 17:10:20</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1368544220319</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\semester_thesis_zeltnerj\DE4_DDR2_UniPHY_zeltnerj\software\camera_nios_2_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\semester_thesis_zeltnerj\DE4_DDR2_UniPHY_zeltnerj\DE4_QSYS.sopcinfo</SopcDesignFile>
@@ -852,8 +852,8 @@
         </Setting>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart</slaveDescriptor>
-                <addressRange>0x00000098 - 0x0000009F</addressRange>
-                <addressSpan>8</addressSpan>
+                <addressRange>0x00000260 - 0x0000027F</addressRange>
+                <addressSpan>32</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
@@ -864,43 +864,43 @@
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>spi_1</slaveDescriptor>
-                <addressRange>0x01000000 - 0x0100001F</addressRange>
-                <addressSpan>32</addressSpan>
+                <addressRange>0x01000000 - 0x0100007F</addressRange>
+                <addressSpan>128</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>spi_2</slaveDescriptor>
-                <addressRange>0x01000020 - 0x0100003F</addressRange>
-                <addressSpan>32</addressSpan>
+                <addressRange>0x01000080 - 0x010000FF</addressRange>
+                <addressSpan>128</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>timer</slaveDescriptor>
-                <addressRange>0x01000040 - 0x0100005F</addressRange>
-                <addressSpan>32</addressSpan>
+                <addressRange>0x01000100 - 0x0100017F</addressRange>
+                <addressSpan>128</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>no_of_cam_channels</slaveDescriptor>
-                <addressRange>0x01000060 - 0x0100006F</addressRange>
-                <addressSpan>16</addressSpan>
+                <addressRange>0x01000180 - 0x010001BF</addressRange>
+                <addressSpan>64</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>led</slaveDescriptor>
-                <addressRange>0x01000070 - 0x0100007F</addressRange>
-                <addressSpan>16</addressSpan>
+                <addressRange>0x010001C0 - 0x010001FF</addressRange>
+                <addressSpan>64</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>button</slaveDescriptor>
-                <addressRange>0x01000080 - 0x0100008F</addressRange>
-                <addressSpan>16</addressSpan>
+                <addressRange>0x01000200 - 0x0100023F</addressRange>
+                <addressSpan>64</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid</slaveDescriptor>
-                <addressRange>0x01000090 - 0x01000097</addressRange>
+                <addressRange>0x01000240 - 0x01000247</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>

@@ -80,6 +80,7 @@ begin  -- architecture remapping
                     Cam1Channel5xDI &
                     Cam1Channel1xDI &
                     Cam1ChannelCtrlxDI when noOfDataChannels = 4 else
+						  (DataOutxDO'high downto 8+1 => '0') &
                     Cam1Channel15xDI &
                     Cam1Channel13xDI &
                     Cam1Channel11xDI &

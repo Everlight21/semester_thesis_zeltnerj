@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys' in SOPC Builder design 'DE4_QSYS'
  * SOPC Builder design path: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.sopcinfo
  *
- * Generated: Thu May 09 18:55:07 CEST 2013
+ * Generated: Tue May 14 15:07:15 CEST 2013
  */
 
 /*
@@ -153,19 +153,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart"
-#define ALT_STDERR_BASE 0x98
+#define ALT_STDERR_BASE 0x260
 #define ALT_STDERR_DEV jtag_uart
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart"
-#define ALT_STDIN_BASE 0x98
+#define ALT_STDIN_BASE 0x260
 #define ALT_STDIN_DEV jtag_uart
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart"
-#define ALT_STDOUT_BASE 0x98
+#define ALT_STDOUT_BASE 0x260
 #define ALT_STDOUT_DEV jtag_uart
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -179,7 +179,7 @@
  */
 
 #define ALT_MODULE_CLASS_button altera_avalon_pio
-#define BUTTON_BASE 0x1000080
+#define BUTTON_BASE 0x1000200
 #define BUTTON_BIT_CLEARING_EDGE_REGISTER 0
 #define BUTTON_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define BUTTON_CAPTURE 0
@@ -196,7 +196,7 @@
 #define BUTTON_IRQ_TYPE "NONE"
 #define BUTTON_NAME "/dev/button"
 #define BUTTON_RESET_VALUE 0x0
-#define BUTTON_SPAN 16
+#define BUTTON_SPAN 64
 #define BUTTON_TYPE "altera_avalon_pio"
 
 
@@ -216,13 +216,13 @@
  */
 
 #define ALT_MODULE_CLASS_jtag_uart altera_avalon_jtag_uart
-#define JTAG_UART_BASE 0x98
+#define JTAG_UART_BASE 0x260
 #define JTAG_UART_IRQ 0
 #define JTAG_UART_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_NAME "/dev/jtag_uart"
 #define JTAG_UART_READ_DEPTH 64
 #define JTAG_UART_READ_THRESHOLD 8
-#define JTAG_UART_SPAN 8
+#define JTAG_UART_SPAN 32
 #define JTAG_UART_TYPE "altera_avalon_jtag_uart"
 #define JTAG_UART_WRITE_DEPTH 64
 #define JTAG_UART_WRITE_THRESHOLD 8
@@ -234,7 +234,7 @@
  */
 
 #define ALT_MODULE_CLASS_led altera_avalon_pio
-#define LED_BASE 0x1000070
+#define LED_BASE 0x10001c0
 #define LED_BIT_CLEARING_EDGE_REGISTER 0
 #define LED_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LED_CAPTURE 0
@@ -251,7 +251,7 @@
 #define LED_IRQ_TYPE "NONE"
 #define LED_NAME "/dev/led"
 #define LED_RESET_VALUE 0x0
-#define LED_SPAN 16
+#define LED_SPAN 64
 #define LED_TYPE "altera_avalon_pio"
 
 
@@ -275,7 +275,7 @@
  */
 
 #define ALT_MODULE_CLASS_no_of_cam_channels altera_avalon_pio
-#define NO_OF_CAM_CHANNELS_BASE 0x1000060
+#define NO_OF_CAM_CHANNELS_BASE 0x1000180
 #define NO_OF_CAM_CHANNELS_BIT_CLEARING_EDGE_REGISTER 0
 #define NO_OF_CAM_CHANNELS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define NO_OF_CAM_CHANNELS_CAPTURE 0
@@ -292,7 +292,7 @@
 #define NO_OF_CAM_CHANNELS_IRQ_TYPE "NONE"
 #define NO_OF_CAM_CHANNELS_NAME "/dev/no_of_cam_channels"
 #define NO_OF_CAM_CHANNELS_RESET_VALUE 0x0
-#define NO_OF_CAM_CHANNELS_SPAN 16
+#define NO_OF_CAM_CHANNELS_SPAN 64
 #define NO_OF_CAM_CHANNELS_TYPE "altera_avalon_pio"
 
 
@@ -349,7 +349,7 @@
 #define SPI_1_NAME "/dev/spi_1"
 #define SPI_1_NUMSLAVES 1
 #define SPI_1_PREFIX "spi_"
-#define SPI_1_SPAN 32
+#define SPI_1_SPAN 128
 #define SPI_1_SYNC_REG_DEPTH 2
 #define SPI_1_TARGETCLOCK 128000u
 #define SPI_1_TARGETSSDELAY "0.0"
@@ -362,7 +362,7 @@
  */
 
 #define ALT_MODULE_CLASS_spi_2 altera_avalon_spi
-#define SPI_2_BASE 0x1000020
+#define SPI_2_BASE 0x1000080
 #define SPI_2_CLOCKMULT 1
 #define SPI_2_CLOCKPHASE 0
 #define SPI_2_CLOCKPOLARITY 0
@@ -380,7 +380,7 @@
 #define SPI_2_NAME "/dev/spi_2"
 #define SPI_2_NUMSLAVES 1
 #define SPI_2_PREFIX "spi_"
-#define SPI_2_SPAN 32
+#define SPI_2_SPAN 128
 #define SPI_2_SYNC_REG_DEPTH 2
 #define SPI_2_TARGETCLOCK 128000u
 #define SPI_2_TARGETSSDELAY "0.0"
@@ -393,13 +393,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid altera_avalon_sysid_qsys
-#define SYSID_BASE 0x1000090
+#define SYSID_BASE 0x1000240
 #define SYSID_ID 0
 #define SYSID_IRQ -1
 #define SYSID_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_NAME "/dev/sysid"
 #define SYSID_SPAN 8
-#define SYSID_TIMESTAMP 1368116942
+#define SYSID_TIMESTAMP 1368456739
 #define SYSID_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -410,7 +410,7 @@
 
 #define ALT_MODULE_CLASS_timer altera_avalon_timer
 #define TIMER_ALWAYS_RUN 0
-#define TIMER_BASE 0x1000040
+#define TIMER_BASE 0x1000100
 #define TIMER_COUNTER_SIZE 32
 #define TIMER_FIXED_PERIOD 0
 #define TIMER_FREQ 50000000u
@@ -423,7 +423,7 @@
 #define TIMER_PERIOD_UNITS "ms"
 #define TIMER_RESET_OUTPUT 0
 #define TIMER_SNAPSHOT 1
-#define TIMER_SPAN 32
+#define TIMER_SPAN 128
 #define TIMER_TICKS_PER_SEC 1000u
 #define TIMER_TIMEOUT_PULSE_OUTPUT 0
 #define TIMER_TYPE "altera_avalon_timer"
