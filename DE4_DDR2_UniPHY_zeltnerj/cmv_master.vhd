@@ -170,6 +170,7 @@ architecture behavioral of cmv_master is
     
     buf_output: process (ChannelSelectxSP, BufDataOutxD) is
     begin  -- process buf_output
+      AMWriteDataxD <= (others => '0');
       for i in 1 to noOfDataChannels loop
         if ChannelSelectxSP = i then
           AMWriteDataxD <= BufDataOutxD(i);
@@ -180,7 +181,7 @@ architecture behavioral of cmv_master is
     ---------------------------------------------------------------------------
     -- input
     ---------------------------------------------------------------------------
-    buffer_input: process (RstxRB, DataInxD, CounterxDP, PixelValidxS, RowValidxS, FrameValidxS) is
+    buffer_input: process (RstxRB, DataInxD, CounterxDP, PixelValidxS, RowValidxS, FrameValidxS, FrameRunningxSN, FrameRunningxSP, BufFullxS, BufNoOfWordsxS) is
     begin  -- process buffer_input
 
       BufClearxS <= '0';                --BufClearxS is deasserted by default

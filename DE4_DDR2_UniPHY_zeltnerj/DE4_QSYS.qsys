@@ -20,14 +20,6 @@
          type = "String";
       }
    }
-   element mem_if_ddr2_emif_0.avl
-   {
-      datum baseAddress
-      {
-         value = "1073741824";
-         type = "String";
-      }
-   }
    element mem_if_ddr2_emif.avl
    {
       datum _lockedAddress
@@ -35,6 +27,14 @@
          value = "0";
          type = "boolean";
       }
+      datum baseAddress
+      {
+         value = "1073741824";
+         type = "String";
+      }
+   }
+   element mem_if_ddr2_emif_0.avl
+   {
       datum baseAddress
       {
          value = "1073741824";
@@ -193,27 +193,19 @@
          type = "String";
       }
    }
-   element ddr2_i2c_scl.s1
+   element ddr2_i2c_sda.s1
    {
       datum baseAddress
       {
-         value = "64";
+         value = "80";
          type = "long";
       }
    }
-   element onchip_memory.s1
+   element no_of_cam_channels.s1
    {
       datum baseAddress
       {
-         value = "262144";
-         type = "String";
-      }
-   }
-   element button.s1
-   {
-      datum baseAddress
-      {
-         value = "512";
+         value = "384";
          type = "String";
       }
    }
@@ -225,20 +217,12 @@
          type = "String";
       }
    }
-   element no_of_cam_channels.s1
+   element button.s1
    {
       datum baseAddress
       {
-         value = "384";
+         value = "512";
          type = "String";
-      }
-   }
-   element ddr2_i2c_sda.s1
-   {
-      datum baseAddress
-      {
-         value = "80";
-         type = "long";
       }
    }
    element timer.s1
@@ -247,6 +231,22 @@
       {
          value = "256";
          type = "String";
+      }
+   }
+   element onchip_memory.s1
+   {
+      datum baseAddress
+      {
+         value = "262144";
+         type = "String";
+      }
+   }
+   element ddr2_i2c_scl.s1
+   {
+      datum baseAddress
+      {
+         value = "64";
+         type = "long";
       }
    }
    element spi_1
@@ -320,7 +320,7 @@
  <parameter name="projectName" value="DE4_DDR2.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1368456450942" />
+ <parameter name="timeStamp" value="1368545420851" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_50_bank3.clk_in" type="clock" dir="end" />
@@ -1315,12 +1315,16 @@
    kind="cmv_master_interface"
    version="1.0"
    enabled="1"
-   name="cmv_master_interface_0" />
+   name="cmv_master_interface_0">
+  <parameter name="AUTO_CLOCK_MAIN_CLOCK_RATE" value="200000000" />
+ </module>
  <module
    kind="dvi_master_interface"
    version="1.0"
    enabled="1"
-   name="dvi_master_interface_0" />
+   name="dvi_master_interface_0">
+  <parameter name="AUTO_CLOCK_MAIN_CLOCK_RATE" value="200000000" />
+ </module>
  <connection
    kind="avalon"
    version="12.1"

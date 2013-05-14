@@ -1,16 +1,16 @@
-Analysis & Synthesis Status : Successful - Tue May 14 16:56:41 2013
+Analysis & Synthesis Status : Successful - Tue May 14 17:46:23 2013
 Quartus II 32-bit Version : 12.1 Build 243 01/31/2013 SP 1 SJ Full Version
 Revision Name : DE4_DDR2
 Top-level Entity Name : cmv4000design
 Family : Stratix IV
 Logic utilization : N/A
-    Combinational ALUTs : 12,259
+    Combinational ALUTs : 12,263
     Memory ALUTs : 165
-    Dedicated logic registers : 14,220
-Total registers : 14858
+    Dedicated logic registers : 14,216
+Total registers : 14854
 Total pins : 290
 Total virtual pins : 0
-Total block memory bits : 2,527,272
+Total block memory bits : 2,527,292
 DSP block 18-bit elements : 4
 Total GXB Receiver Channel PCS : 0
 Total GXB Receiver Channel PMA : 0

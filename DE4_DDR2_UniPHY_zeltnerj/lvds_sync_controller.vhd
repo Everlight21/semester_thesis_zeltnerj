@@ -240,7 +240,7 @@ begin  -- architecture behavioral
   -- inputs : 
   -- outputs: 
   fsm : process (AlignxS, ButtonxS, CameraReadyxSP, InitCounterxDP, DelayCounterxDP,
-                 PixelChannelxD, StatexDP, AlignxDP) is
+                 PixelChannelxD, StatexDP, AlignxDP, InitReadyxS) is
   begin  -- process fsm
     StatexDN        <= StatexDP;
     InitCounterxDN  <= InitCounterxDP;

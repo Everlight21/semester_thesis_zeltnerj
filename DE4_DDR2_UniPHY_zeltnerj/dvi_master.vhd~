@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-10
--- Last update: 2013-05-13
+-- Last update: 2013-05-14
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -96,7 +96,7 @@ architecture behavioral of dvi_master is
   -----------------------------------------------------------------------------
   -- control signals
   -----------------------------------------------------------------------------
-  signal PendingReadOutsxDP, PendingReadOutsxDN : integer range 0 to 32;
+  signal PendingReadOutsxDP, PendingReadOutsxDN : integer range 0 to 4096;
   signal ReadAddressxDP, ReadAddressxDN : std_logic_vector(31 downto 0);
 
   -----------------------------------------------------------------------------
@@ -126,6 +126,10 @@ begin  -- architecture behavioral
   AmReadxSO <= AmReadxS;
   AmBurstCountxDO <= AmBurstCountxD;
 
+  -----------------------------------------------------------------------------
+  -- inputs
+  -----------------------------------------------------------------------------
+  BufDataInxD <= AmReadDataxD;
   -----------------------------------------------------------------------------
   -- outputs
   -----------------------------------------------------------------------------
@@ -174,16 +178,24 @@ begin  -- architecture behavioral
     StatexDN <= StatexDP;
     ReadAddressxDN <= ReadAddressxDP;
     PendingReadOutsxDN <= PendingReadOutsxDP;
-    BufClearxS <= '0';
     AmReadxS <= '0';
     BufWriteEnxS <= AmReadDataValidxS;
+
+    if RstxRB = '0' then
+      BufClearxS <= '1';
+    else
+      BufClearxS <= '0';
+    end if;
 
     if DviNewFramexD = '0' then
       ReadAddressxDN <= (others => '0');
     end if;
 
     if AmReadDataValidxS = '1' then
-      PendingReadOutsxDN <= PendingReadOutsxDP - 1;
+      if PendingReadOutsxDP > 0 then
+        PendingReadOutsxDN <= PendingReadOutsxDP - 1;
+      end if;
+      
     end if;
 
     case StatexDP is
@@ -205,7 +217,7 @@ begin  -- architecture behavioral
 
       when burst =>
         AmReadxS <= '1';
-        ReadAddressxDN <= ReadAddressxDP + 256;  -- 128*2byte
+        ReadAddressxDN <= ReadAddressxDP + 512;  -- 128*4byte
         if AmWaitReqxS /= '1' then
           StatexDN <= finishBurst;
         end if;
@@ -231,7 +243,6 @@ begin  -- architecture behavioral
                 DviPixelAvxS) is
   begin  -- process DVI
     DviDataOutxD <= (others => '0');
-    BufWriteEnxS <= '0';
     BufReadReqxS <= '0';
 
     if DviPixelAvxS = '1' and DviNewLinexD = '1' and DviNewFramexD = '1' then
@@ -239,7 +250,7 @@ begin  -- architecture behavioral
         BufReadReqxS <= '1';
         DviDataOutxD <= BufDataOutxD;
       else
-        DviDataOutxD <= (others => '0');  -- orange
+        DviDataOutxD <= (others => '0');
       end if;
     end if;
   end process DVI;
