@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-13
--- Last update: 2013-05-13
+-- Last update: 2013-05-14
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -72,16 +72,16 @@ architecture Behavioral of dvi_master_tb is
   
 
  -- timing of clock and simulation events
-  constant clk_phase_high            : time := 5 ns;
-  constant clk_phase_low             : time := 5 ns;
-  constant stimuli_application_time  : time := 1 ns;
-  constant response_acquisition_time : time := 9 ns;
+  constant clk_phase_high            : time := 2.5 ns;
+  constant clk_phase_low             : time := 2.5 ns;
+  constant stimuli_application_time  : time := 0.5 ns;
+  constant response_acquisition_time : time := 4.5 ns;
   constant resetactive_time          : time := 100 ns;
 
-  constant clk_dvi_phase_high : time := 25 ns;
-  constant clk_dvi_phase_low : time := 25 ns;
+  constant clk_dvi_phase_high : time := 5 ns;
+  constant clk_dvi_phase_low : time := 5 ns;
   constant lvds_stimuli_application_time  : time := 1 ns;
-  constant lvds_response_acquisition_time : time := 24 ns;
+  constant lvds_response_acquisition_time : time := 9 ns;
 
   
 -------------------------------------------------------------------------------
@@ -97,8 +97,10 @@ architecture Behavioral of dvi_master_tb is
 --        response_acquisition_time
 -------------------------------------------------------------------------------
 
-  
-  
+
+  signal DataRegxDP, DataRegxDN : std_logic_vector(AmReadDataxD'high downto 0) := (others => '0');
+  signal DataCounterxDP, DataCounterxDN : integer;
+  signal Ones : std_logic_vector(DataRegxDP'high downto 0) := (others => '1');
 
   begin                                 --behavioural
 
@@ -155,14 +157,55 @@ architecture Behavioral of dvi_master_tb is
   end process ResetGen;
 
 
-  process (AmReadDataxD, AmReadDataValidxS, AmWaitReqxS, DviNewLinexD, DviNewFramexD, DviPixelAvxS) is
+  memory: process (ClkxC, RstxRB) is
+  begin  -- process memory
+    if RstxRB = '0' then                -- asynchronous reset (active low)
+      DataRegxDP <= (others => '0');
+      DataCounterxDP <= 0;
+    elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
+      DataRegxDP <= DataRegxDN;
+      DataCounterxDP <= DataCounterxDN;
+    end if;
+  end process memory;
+
+  memory_clk_dvi: process (ClkDvixC, RstxRB) is
+  begin  -- process memory_clk_dvi
+    if RstxRB = '0' then                -- asynchronous reset (active low)
+      
+    elsif ClkDvixC'event and ClkDvixC = '1' then  -- rising clock edge
+      
+    end if;
+  end process memory_clk_dvi;
+  
+  process (RstxRB, AmReadDataxD, AmReadDataValidxS, AmWaitReqxS, DviNewLinexD, DviNewFramexD, DviPixelAvxS, DataCounterxDP) is
   begin  -- process
 
-    AmReadDataValidxS <= '1';
+    if RstxRB = '1' then
+      AmReadDataValidxS <= '1';
+    else
+      AmReadDataValidxS <= '0';
+    end if;
     AmWaitReqxS <= '0';
     DviNewLinexD <= '1';
     DviNewFramexD <= '1';
     DviPixelAvxS <= '1';
+    DataRegxDN <= DataRegxDP;
+    DataCounterxDN <= DataCounterxDP;
+
+    if DataCounterxDP = 32 then
+      DviNewFramexD <= '0';
+      DataCounterxDN <= 0;
+    else
+      DataCounterxDN <= DataCounterxDP + 1;
+    end if;
+    
+    if DataRegxDP = Ones then
+      DataRegxDN <= (others => '0');
+    else
+      DataRegxDN <= DataRegxDP(DataRegxDP'high-1 downto 0) & '1';
+      AmReadDataxD <= DataRegxDP; 
+    end if;
+    
     
   end process;
 

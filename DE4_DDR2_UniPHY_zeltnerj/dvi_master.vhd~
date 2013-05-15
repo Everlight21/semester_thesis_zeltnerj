@@ -172,7 +172,7 @@ begin  -- architecture behavioral
   -----------------------------------------------------------------------------
   -- combinational processes
   -----------------------------------------------------------------------------
-  fsm: process (AmReadDataValidxS, AmWaitReqxS, BufNoOfWordsxS, DviNewFramexD,
+  fsm: process (RstxRB, AmReadDataValidxS, AmWaitReqxS, BufNoOfWordsxS, DviNewFramexD,
                 PendingReadOutsxDP, ReadAddressxDP, StatexDP) is
   begin  -- process fsm
     StatexDN <= StatexDP;
@@ -181,6 +181,8 @@ begin  -- architecture behavioral
     AmReadxS <= '0';
     BufWriteEnxS <= AmReadDataValidxS;
 
+    --BufClearxS <= '0';
+    
     if RstxRB = '0' then
       BufClearxS <= '1';
     else

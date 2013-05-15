@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-03
--- Last update: 2013-05-13
+-- Last update: 2013-05-15
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ architecture Behavioral of cmv_master_tb is
 --        response_acquisition_time
 -------------------------------------------------------------------------------
 
-  signal PixelValidCounterxDP, PixelValidCounterxDN : integer range 0 to 1024;
+  signal PixelValidCounterxDP, PixelValidCounterxDN : integer range 0 to 2048;
   signal DataCounterxDP, DataCounterxDN : integer;
   signal TogglexDP, TogglexDN : integer range 0 to 2;
   signal Zeros : std_logic_vector(DataInxD'high downto 0) := (others => '0');
@@ -185,14 +185,15 @@ architecture Behavioral of cmv_master_tb is
   process (TogglexDP) is
   begin  -- process
 
-    --if PixelValidCounterxDP = 8 then
-    --  PixelValidxS <= '0';
-    --  PixelValidCounterxDN <= 0;
-    --else
-    --  PixelValidxS <= '1';
-    --  PixelValidCounterxDN <= PixelValidCounterxDN + 1;
-    --end if;
-    PixelValidxS <= '1';
+    if PixelValidCounterxDP = 2048/noOfDataChannels then
+      PixelValidxS <= '0';
+      PixelValidCounterxDN <= 0;
+    else
+      PixelValidxS <= '1';
+      PixelValidCounterxDN <= PixelValidCounterxDN + 1;
+    end if;
+    
+    --PixelValidxS <= '1';
     RowValidxS <= '1';
     FrameValidxS <= '1';
     AMWaitReqxS <= '0';

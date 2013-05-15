@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-10
--- Last update: 2013-05-14
+-- Last update: 2013-05-15
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -172,7 +172,7 @@ begin  -- architecture behavioral
   -----------------------------------------------------------------------------
   -- combinational processes
   -----------------------------------------------------------------------------
-  fsm: process (RstxRB, AmReadDataValidxS, AmWaitReqxS, BufNoOfWordsxS, DviNewFramexD,
+  fsm: process (AmReadDataValidxS, AmWaitReqxS, BufNoOfWordsxS, DviNewFramexD,
                 PendingReadOutsxDP, ReadAddressxDP, StatexDP) is
   begin  -- process fsm
     StatexDN <= StatexDP;
@@ -181,13 +181,8 @@ begin  -- architecture behavioral
     AmReadxS <= '0';
     BufWriteEnxS <= AmReadDataValidxS;
 
-    --BufClearxS <= '0';
+    BufClearxS <= '0';
     
-    if RstxRB = '0' then
-      BufClearxS <= '1';
-    else
-      BufClearxS <= '0';
-    end if;
 
     if DviNewFramexD = '0' then
       ReadAddressxDN <= (others => '0');
@@ -252,7 +247,7 @@ begin  -- architecture behavioral
         BufReadReqxS <= '1';
         DviDataOutxD <= BufDataOutxD;
       else
-        DviDataOutxD <= (others => '0');
+        DviDataOutxD <= "00000000111111111111111111111111";
       end if;
     end if;
   end process DVI;
