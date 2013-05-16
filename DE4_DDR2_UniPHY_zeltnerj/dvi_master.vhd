@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-10
--- Last update: 2013-05-15
+-- Last update: 2013-05-16
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ architecture behavioral of dvi_master is
   signal BufWriteEnxS : std_logic;
   signal BufNoOfWordsxS : std_logic_vector(11 downto 0);
   signal BufEmptyxS : std_logic;
-  signal BufClearxS : std_logic;
+  signal BufClearxSP, BufClearxSN : std_logic;
 
   -----------------------------------------------------------------------------
   -- control signals
@@ -152,10 +152,12 @@ begin  -- architecture behavioral
       ReadAddressxDP <= (others => '0');
       StatexDP <= idle;
       PendingReadOutsxDP <= 0;
+      BufClearxSP <= '1';
     elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
       ReadAddressxDP <= ReadAddressxDN;
       StatexDP <= StatexDN;
       PendingReadOutsxDP <= PendingReadOutsxDN;
+      BufClearxSP <= BufClearxSN;
     end if;
   end process memory;
 
@@ -181,7 +183,7 @@ begin  -- architecture behavioral
     AmReadxS <= '0';
     BufWriteEnxS <= AmReadDataValidxS;
 
-    BufClearxS <= '0';
+    BufClearxSN <= '0';
     
 
     if DviNewFramexD = '0' then
@@ -257,7 +259,7 @@ begin  -- architecture behavioral
   -----------------------------------------------------------------------------
   ram_dvi_fifo_1: ram_dvi_fifo
     port map (
-      aclr    => BufClearxS,
+      aclr    => BufClearxSP,
       data    => BufDataInxD,
       rdclk   => ClkDvixCI,
       rdreq   => BufReadReqxS,

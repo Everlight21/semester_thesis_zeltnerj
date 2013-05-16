@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-05-14
+-- Last update: 2013-05-15
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -181,13 +181,13 @@ architecture behavioral of cmv_master is
     ---------------------------------------------------------------------------
     -- input
     ---------------------------------------------------------------------------
-    buffer_input: process (RstxRB, DataInxD, CounterxDP, PixelValidxS, RowValidxS, FrameValidxS, FrameRunningxSN, FrameRunningxSP, BufFullxS, BufNoOfWordsxS) is
+    buffer_input: process (DataInxD, CounterxDP, PixelValidxS, RowValidxS, FrameValidxS, FrameRunningxSN, FrameRunningxSP, BufFullxS, BufNoOfWordsxS) is
     begin  -- process buffer_input
 
       BufClearxS <= '0';                --BufClearxS is deasserted by default
-      -- compares the current value of FrameValidxS with the previous one
-      FrameRunningxSN <= FrameValidxS;
-      if RstxRB = '0' or (FrameRunningxSN = '0' and FrameRunningxSP = '1') then
+      
+      FrameRunningxSN <= FrameValidxS;  -- compares the current value of FrameValidxS with the previous one
+      if (FrameRunningxSN = '0' and FrameRunningxSP = '1') then
         BufClearxS <= '1';
       end if;
 
@@ -264,7 +264,7 @@ architecture behavioral of cmv_master is
     -- FSM
     ---------------------------------------------------------------------------
     fsm: process (StatexDP,AMWriteAddressxDP,BurstWordCountxDP,NoOfPacketsInRowxDP,
-             ChannelSelectxSP,BufClearxS,AMWaitReqxS, CounterxDP) is
+             ChannelSelectxSP,BufClearxS,AMWaitReqxS, CounterxDP, BufNoOfWordsxS) is
     begin  -- process fsm
        StatexDN <= StatexDP;
       AMWriteAddressxDN <= AMWriteAddressxDP;
@@ -303,7 +303,11 @@ architecture behavioral of cmv_master is
           StatexDN <= burst;
           
           for i in 1 to noOfDataChannels loop
-            if BufNoOfWordsxS(i) < 32 then
+            if BufNoOfWordsxS(i) < 8 then  -- fifo has 4*32=128 bit output (4
+                                           -- pixel each 32bit) and
+                                           -- rdwuse counts 128bit words. After
+                                           -- 8*128=1024bit or 8*4pixel=32pixel
+                                           -- a read-out should be performed
               StatexDN <= fifoWait;
             --else
             --  StatexDN <= burst;
@@ -323,12 +327,25 @@ architecture behavioral of cmv_master is
               BufReadReqxS(i) <= '0';
             end if;
           end loop;  -- i
-          
+
+          ---------------------------------------------------------------------
+          -- This section needs to be adjusted according to the no of channels.
+          -- Each channel provides a multiple of 128pixel PER ROW according to
+          -- the no of channels.
+          -- 16 channels: 1 * 128 pixels
+          --  8 channels: 2 * 128 pixels
+          --  4 channels: 4 * 128 pixels
+          --  2 channels: 8 * 128 pixels
+          ---------------------------------------------------------------------
           if AMWaitReqxS /= '1' then
-            if BurstWordCountxDP = 7 then  -- 32/4 -> 32bit/pixel in, 128bit out
+            if BurstWordCountxDP = 7 then  -- for each burstcount 4pixels are
+                                           -- read out. After 8 read-outs, a
+                                           -- packet of 32pixels have been read
+                                           -- out.
               BurstWordCountxDN <= 0;
               case NoOfPacketsInRowxDP is
-                when 15 =>
+                when 15 =>              -- each channel provides 4*128pixels =
+                                        -- 16*32pixels per row.
                   ChannelSelectxSN <= 2;
                   AMWriteAddressxDN <= AMWriteAddressxDP + 128;
                   NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
@@ -340,12 +357,19 @@ architecture behavioral of cmv_master is
                   ChannelSelectxSN <= 4;
                   AMWriteAddressxDN <= AMWriteAddressxDP + 128;
                   NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
-                when 63 =>
+                when 63 =>              -- row has been read-out, switch to
+                                        -- next row.
                   ChannelSelectxSN <= 1;
-                  AMWriteAddressxDN <= AMWriteAddressxDP + 1664;  --128*47+1664=1920*4
+                  AMWriteAddressxDN <= AMWriteAddressxDP + 128;  
                   NoOfPacketsInRowxDN <= 0;
                 when others =>
-                  AMWriteAddressxDN <= AMWriteAddressxDP + 128;  -- 32*32bit/8=128byte
+                  AMWriteAddressxDN <= AMWriteAddressxDP + 128;  -- after each
+                                                                 -- burst
+                                                                 -- 32pixels
+                                                                 -- have been
+                                                                 -- read-out.
+                                                                 -- Address is
+                                                                 -- in bytes: 32pixel*32bit/8bit=128bytes
                   NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
               end case;
               StatexDN <= idle;
