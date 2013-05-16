@@ -104,7 +104,11 @@ architecture behavioral of dvi_master is
   -----------------------------------------------------------------------------
   type fsmState is (idle, fifoWait, burst, finishBurst);
   signal StatexDP, StatexDN : fsmState;
-  
+
+  -----------------------------------------------------------------------------
+  -- counters
+  -----------------------------------------------------------------------------
+  signal NoOfBurstCounterxDP, NoOfBurstCounterxDN : integer;
   
 begin  -- architecture behavioral
 
@@ -136,7 +140,6 @@ begin  -- architecture behavioral
   AmAddressxD <= ReadAddressxDP;
   AmBurstCountxD <= "10000000";         -- 128d (each channel has 128 pixels
                                         -- per row
-  
 
   -----------------------------------------------------------------------------
   -- control
@@ -153,11 +156,13 @@ begin  -- architecture behavioral
       StatexDP <= idle;
       PendingReadOutsxDP <= 0;
       BufClearxSP <= '1';
+      NoOfBurstCounterxDP <= 0;
     elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
       ReadAddressxDP <= ReadAddressxDN;
       StatexDP <= StatexDN;
       PendingReadOutsxDP <= PendingReadOutsxDN;
       BufClearxSP <= BufClearxSN;
+      NoOfBurstCounterxDP <= NoOfBurstCounterxDN;
     end if;
   end process memory;
 
@@ -175,7 +180,7 @@ begin  -- architecture behavioral
   -- combinational processes
   -----------------------------------------------------------------------------
   fsm: process (AmReadDataValidxS, AmWaitReqxS, BufNoOfWordsxS, DviNewFramexD,
-                PendingReadOutsxDP, ReadAddressxDP, StatexDP) is
+                PendingReadOutsxDP, ReadAddressxDP, StatexDP, NoOfBurstCounterxDP) is
   begin  -- process fsm
     StatexDN <= StatexDP;
     ReadAddressxDN <= ReadAddressxDP;
@@ -183,8 +188,9 @@ begin  -- architecture behavioral
     AmReadxS <= '0';
     BufWriteEnxS <= AmReadDataValidxS;
 
-    BufClearxSN <= '0';
-    
+    BufClearxSN <= BufClearxSP;
+
+    NoOfBurstCounterxDN <= NoOfBurstCounterxDP;
 
     if DviNewFramexD = '0' then
       ReadAddressxDN <= (others => '0');
@@ -197,6 +203,8 @@ begin  -- architecture behavioral
       
     end if;
 
+   
+
     case StatexDP is
       when idle =>
         StatexDN <= fifoWait;
@@ -206,6 +214,7 @@ begin  -- architecture behavioral
         if BufNoOfWordsxS < 4096-128 then  -- size of buffer is defined in ram_dvi_fifo.vhd
                                            -- 128 = 4*32 (pixel per row per channel)
           StatexDN <= burst;
+          BufClearxSN <= '0';
           
           
           if AmReadDataValidxS = '0' then
@@ -227,7 +236,20 @@ begin  -- architecture behavioral
         if AmReadDataValidxS = '1' then
           if PendingReadOutsxDP = 1 then
             StatexDN <= idle;
-            ReadAddressxDN <= ReadAddressxDP + 512;  -- 128*4byte
+            if NoOfBurstCounterxDP = 14 then  -- 1920pixel/128pixel=15bursts
+              NoOfBurstCounterxDN <= 0;
+              ReadAddressxDN <= ReadAddressxDP + 128*4 + (2048-1920)*4;  -- pixels per
+                                                                 -- row are
+                                                                 -- 2048, but
+                                                                 -- resolution
+                                                                 -- is only
+                                                                 -- 1920, so
+                                                                 -- skip the
+                                                                 -- remaining pixels
+            else
+              NoOfBurstCounterxDN <= NoOfBurstCounterxDP + 1;
+              ReadAddressxDN <= ReadAddressxDP + 128*4;  -- 128pixels*4bytes
+            end if;
           end if;
         end if;
         

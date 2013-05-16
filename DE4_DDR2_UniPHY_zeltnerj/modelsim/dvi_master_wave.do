@@ -52,8 +52,10 @@ add wave -noupdate /dvi_master_tb/dvi_master_1/BufNoOfWordsxS
 add wave -noupdate /dvi_master_tb/dvi_master_1/BufEmptyxS
 add wave -noupdate /dvi_master_tb/dvi_master_1/PendingReadOutsxDP
 add wave -noupdate /dvi_master_tb/dvi_master_1/PendingReadOutsxDN
-add wave -noupdate -radix hexadecimal /dvi_master_tb/dvi_master_1/ReadAddressxDP
-add wave -noupdate -radix hexadecimal /dvi_master_tb/dvi_master_1/ReadAddressxDN
+add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/NoOfBurstCounterxDP
+add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/NoOfBurstCounterxDN
+add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/ReadAddressxDP
+add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/ReadAddressxDN
 add wave -noupdate /dvi_master_tb/dvi_master_1/StatexDP
 add wave -noupdate /dvi_master_tb/dvi_master_1/StatexDN
 add wave -noupdate -divider fifo
@@ -83,5 +85,5 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {542635 ps} {949035 ps}
+WaveRestoreZoom {9844835 ps} {10008167 ps}
 bookmark add wave {bookmark0} {{10169190 ps} {10357990 ps}} 4
