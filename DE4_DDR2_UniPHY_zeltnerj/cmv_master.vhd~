@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-05-15
+-- Last update: 2013-05-16
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ architecture behavioral of cmv_master is
   signal BufFullxS : bufferFull;
 
 
-  signal BufClearxS : std_logic;
+  signal BufClearxSP, BufClearxSN : std_logic;
 
   signal ChannelSelectxSP, ChannelSelectxSN : integer range 1 to noOfDataChannels;
 
@@ -133,11 +133,7 @@ architecture behavioral of cmv_master is
   type fsmState is (idle, fifoWait, burst);
   signal StatexDP, StatexDN : fsmState;
 
-  -----------------------------------------------------------------------------
-  -- counter
-  -----------------------------------------------------------------------------
-  signal CounterxDP, CounterxDN : integer range 0 to 20;  -- just for debugging
-                                                          -- reasons
+  
   -----------------------------------------------------------------------------
   -- control
   -----------------------------------------------------------------------------
@@ -181,21 +177,16 @@ architecture behavioral of cmv_master is
     ---------------------------------------------------------------------------
     -- input
     ---------------------------------------------------------------------------
-    buffer_input: process (DataInxD, CounterxDP, PixelValidxS, RowValidxS, FrameValidxS, FrameRunningxSN, FrameRunningxSP, BufFullxS, BufNoOfWordsxS) is
+    buffer_input: process (DataInxD, PixelValidxS, RowValidxS, FrameValidxS, FrameRunningxSN, FrameRunningxSP, BufFullxS, BufNoOfWordsxS) is
     begin  -- process buffer_input
 
-      BufClearxS <= '0';                --BufClearxS is deasserted by default
+      BufClearxSN <= '0';                --BufClearxS is deasserted by default
       
       FrameRunningxSN <= FrameValidxS;  -- compares the current value of FrameValidxS with the previous one
       if (FrameRunningxSN = '0' and FrameRunningxSP = '1') then
-        BufClearxS <= '1';
+        BufClearxSN <= '1';
       end if;
 
-      --if CounterxDP = 20 then
-      --  CounterxDN <= 0;
-      --else
-      --  CounterxDN <= CounterxDP + 1;
-      --end if;
       
       for i in 1 to noOfDataChannels loop
         BufWriteEnxS(i) <= '0';
@@ -252,11 +243,11 @@ architecture behavioral of cmv_master is
     memory_ClkLvdsRxxD: process (ClkLvdsRxxC, RstxRB) is
     begin  -- process memory_ClkLvdsRxxD
       if RstxRB = '0' then              -- asynchronous reset (active low)
-        CounterxDP <= 0;
         FrameRunningxSP <= '0';
+        BufClearxSP <= '1';
       elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
-        CounterxDP <= CounterxDN;
         FrameRunningxSP <= FrameRunningxSN;
+        BufClearxSP <= BufClearxSN;
       end if;
     end process memory_ClkLvdsRxxD;
 
@@ -264,7 +255,7 @@ architecture behavioral of cmv_master is
     -- FSM
     ---------------------------------------------------------------------------
     fsm: process (StatexDP,AMWriteAddressxDP,BurstWordCountxDP,NoOfPacketsInRowxDP,
-             ChannelSelectxSP,BufClearxS,AMWaitReqxS, CounterxDP, BufNoOfWordsxS) is
+             ChannelSelectxSP,BufClearxSP,AMWaitReqxS, BufNoOfWordsxS) is
     begin  -- process fsm
        StatexDN <= StatexDP;
       AMWriteAddressxDN <= AMWriteAddressxDP;
@@ -280,7 +271,7 @@ architecture behavioral of cmv_master is
           end loop;  -- i
 
       
-      if BufClearxS = '1' then
+      if BufClearxSP = '1' then
         AMWriteAddressxDN <= (others => '0');
         NoOfPacketsInRowxDN <= 0;  
       end if;
@@ -395,7 +386,7 @@ architecture behavioral of cmv_master is
     fifo_instances : for i in 1 to noOfDataChannels generate
     cmv_ram_fifo_1: cmv_ram_fifo
       port map (
-        aclr    => BufClearxS,
+        aclr    => BufClearxSP,
         data    => BufDataInxD(i),
         rdclk   => ClkxC,
         rdreq   => BufReadReqxS(i),
