@@ -206,6 +206,8 @@ begin  -- architecture behavioral
         if BufNoOfWordsxS < 4096-128 then  -- size of buffer is defined in ram_dvi_fifo.vhd
                                            -- 128 = 4*32 (pixel per row per channel)
           StatexDN <= burst;
+          
+          
           if AmReadDataValidxS = '0' then
             PendingReadOutsxDN <= PendingReadOutsxDP + 128;  
           else
@@ -216,7 +218,7 @@ begin  -- architecture behavioral
 
       when burst =>
         AmReadxS <= '1';
-        ReadAddressxDN <= ReadAddressxDP + 512;  -- 128*4byte
+        
         if AmWaitReqxS /= '1' then
           StatexDN <= finishBurst;
         end if;
@@ -225,6 +227,7 @@ begin  -- architecture behavioral
         if AmReadDataValidxS = '1' then
           if PendingReadOutsxDP = 1 then
             StatexDN <= idle;
+            ReadAddressxDN <= ReadAddressxDP + 512;  -- 128*4byte
           end if;
         end if;
         

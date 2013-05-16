@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-13
--- Last update: 2013-05-14
+-- Last update: 2013-05-15
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -192,7 +192,7 @@ architecture Behavioral of dvi_master_tb is
     DataRegxDN <= DataRegxDP;
     DataCounterxDN <= DataCounterxDP;
 
-    if DataCounterxDP = 32 then
+    if DataCounterxDP = 2048 then
       DviNewFramexD <= '0';
       DataCounterxDN <= 0;
     else

@@ -50,11 +50,10 @@ add wave -noupdate /dvi_master_tb/dvi_master_1/BufReadReqxS
 add wave -noupdate /dvi_master_tb/dvi_master_1/BufWriteEnxS
 add wave -noupdate /dvi_master_tb/dvi_master_1/BufNoOfWordsxS
 add wave -noupdate /dvi_master_tb/dvi_master_1/BufEmptyxS
-add wave -noupdate /dvi_master_tb/dvi_master_1/BufClearxS
 add wave -noupdate /dvi_master_tb/dvi_master_1/PendingReadOutsxDP
 add wave -noupdate /dvi_master_tb/dvi_master_1/PendingReadOutsxDN
 add wave -noupdate -radix hexadecimal /dvi_master_tb/dvi_master_1/ReadAddressxDP
-add wave -noupdate /dvi_master_tb/dvi_master_1/ReadAddressxDN
+add wave -noupdate -radix hexadecimal /dvi_master_tb/dvi_master_1/ReadAddressxDN
 add wave -noupdate /dvi_master_tb/dvi_master_1/StatexDP
 add wave -noupdate /dvi_master_tb/dvi_master_1/StatexDN
 add wave -noupdate -divider fifo
@@ -68,7 +67,7 @@ add wave -noupdate /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/q
 add wave -noupdate /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/rdempty
 add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/wrusedw
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {7357587 ps} 0}
+WaveRestoreCursors {{Cursor 1} {107773 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 176
 configure wave -valuecolwidth 58
@@ -84,5 +83,5 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {7125322 ps} {7531722 ps}
+WaveRestoreZoom {542635 ps} {949035 ps}
 bookmark add wave {bookmark0} {{10169190 ps} {10357990 ps}} 4
