@@ -14,6 +14,8 @@ add wave -noupdate /cmv_master_tb/AMWritexS
 add wave -noupdate /cmv_master_tb/AMBurstCountxS
 add wave -noupdate /cmv_master_tb/PixelValidCounterxDP
 add wave -noupdate /cmv_master_tb/PixelValidCounterxDN
+add wave -noupdate /cmv_master_tb/FrameValidCounterxDP
+add wave -noupdate /cmv_master_tb/FrameValidCounterxDN
 add wave -noupdate -divider cmv_master_interace
 add wave -noupdate /cmv_master_tb/cmv_master_1/ClkxCI
 add wave -noupdate /cmv_master_tb/cmv_master_1/ClkLvdsRxxCI
@@ -46,7 +48,6 @@ add wave -noupdate /cmv_master_tb/cmv_master_1/BufReadReqxS
 add wave -noupdate /cmv_master_tb/cmv_master_1/BufWriteEnxS
 add wave -noupdate -radix unsigned -childformat {{/cmv_master_tb/cmv_master_1/BufNoOfWordsxS(1) -radix unsigned} {/cmv_master_tb/cmv_master_1/BufNoOfWordsxS(2) -radix unsigned} {/cmv_master_tb/cmv_master_1/BufNoOfWordsxS(3) -radix unsigned} {/cmv_master_tb/cmv_master_1/BufNoOfWordsxS(4) -radix unsigned}} -subitemconfig {/cmv_master_tb/cmv_master_1/BufNoOfWordsxS(1) {-height 15 -radix unsigned} /cmv_master_tb/cmv_master_1/BufNoOfWordsxS(2) {-height 15 -radix unsigned} /cmv_master_tb/cmv_master_1/BufNoOfWordsxS(3) {-height 15 -radix unsigned} /cmv_master_tb/cmv_master_1/BufNoOfWordsxS(4) {-height 15 -radix unsigned}} /cmv_master_tb/cmv_master_1/BufNoOfWordsxS
 add wave -noupdate /cmv_master_tb/cmv_master_1/BufFullxS
-add wave -noupdate /cmv_master_tb/cmv_master_1/BufClearxS
 add wave -noupdate /cmv_master_tb/cmv_master_1/ChannelSelectxSP
 add wave -noupdate /cmv_master_tb/cmv_master_1/ChannelSelectxSN
 add wave -noupdate /cmv_master_tb/cmv_master_1/NoOfPacketsInRowxDP
@@ -55,12 +56,14 @@ add wave -noupdate -radix unsigned /cmv_master_tb/cmv_master_1/AMWriteAddressxDP
 add wave -noupdate -radix unsigned /cmv_master_tb/cmv_master_1/AMWriteAddressxDN
 add wave -noupdate /cmv_master_tb/cmv_master_1/BurstWordCountxDP
 add wave -noupdate /cmv_master_tb/cmv_master_1/BurstWordCountxDN
-add wave -noupdate /cmv_master_tb/cmv_master_1/CounterxDP
-add wave -noupdate /cmv_master_tb/cmv_master_1/CounterxDN
 add wave -noupdate /cmv_master_tb/cmv_master_1/StatexDP
 add wave -noupdate /cmv_master_tb/cmv_master_1/StatexDN
 add wave -noupdate /cmv_master_tb/DataRegxDP
 add wave -noupdate /cmv_master_tb/DataRegxDN
+add wave -noupdate /cmv_master_tb/cmv_master_1/BufClearxSP
+add wave -noupdate /cmv_master_tb/cmv_master_1/BufClearxSN
+add wave -noupdate /cmv_master_tb/cmv_master_1/PixelCounterxDP
+add wave -noupdate /cmv_master_tb/cmv_master_1/PixelCounterxDN
 add wave -noupdate -divider {cmv_ram_fifo 1}
 add wave -noupdate -expand -group {cmv_ram_fifo
 } /cmv_master_tb/cmv_master_1/fifo_instances(1)/cmv_ram_fifo_1/aclr
@@ -87,7 +90,7 @@ add wave -noupdate -expand -group {cmv_ram_fifo
 add wave -noupdate -expand -group {cmv_ram_fifo
 } /cmv_master_tb/cmv_master_1/fifo_instances(1)/cmv_ram_fifo_1/sub_wire2
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {384673 ps} 0}
+WaveRestoreCursors {{Cursor 1} {27852907139 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 166
 configure wave -valuecolwidth 77
@@ -103,5 +106,6 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {1057320 ps}
+WaveRestoreZoom {27852789360 ps} {27853210673 ps}
 bookmark add wave {bookmark0} {{10169190 ps} {10357990 ps}} 4
+bookmark add wave {bookmark1} {{27852789360 ps} {27853210673 ps}} 0

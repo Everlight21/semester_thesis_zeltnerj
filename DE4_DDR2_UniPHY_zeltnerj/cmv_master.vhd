@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-05-16
+-- Last update: 2013-05-21
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -126,6 +126,7 @@ architecture behavioral of cmv_master is
   -- counter
   -----------------------------------------------------------------------------
   signal BurstWordCountxDP, BurstWordCountxDN : integer range 0 to 31;
+  signal PixelCounterxDP, PixelCounterxDN : integer range 0 to 2048*1088;
   
   -----------------------------------------------------------------------------
   -- fsm
@@ -177,7 +178,6 @@ architecture behavioral of cmv_master is
     ---------------------------------------------------------------------------
     -- control
     ---------------------------------------------------------------------------
-    BufClearxSP <= not FrameValidxS;
     
     ---------------------------------------------------------------------------
     -- input
@@ -236,12 +236,16 @@ architecture behavioral of cmv_master is
         BurstWordCountxDP <= 0;
         NoOfPacketsInRowxDP <= 0;
         ChannelSelectxSP <= 1;
+        PixelCounterxDP <= 0;
+        BufClearxSP <= '1';
       elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
         StatexDP <= StatexDN;
         AMWriteAddressxDP <= AMWriteAddressxDN;
         BurstWordCountxDP <= BurstWordCountxDN;
         NoOfPacketsInRowxDP <= NoOfPacketsInRowxDN;
         ChannelSelectxSP <= ChannelSelectxSN;
+        PixelCounterxDP <= PixelCounterxDN;
+        BufClearxSP <= BufClearxSN;
       end if;
     end process memory;
 
@@ -249,10 +253,8 @@ architecture behavioral of cmv_master is
     begin  -- process memory_ClkLvdsRxxD
       if RstxRB = '0' then              -- asynchronous reset (active low)
         FrameRunningxSP <= '0';
-        --BufClearxSP <= '1';
       elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
         FrameRunningxSP <= FrameRunningxSN;
-       -- BufClearxSP <= BufClearxSN;
       end if;
     end process memory_ClkLvdsRxxD;
 
@@ -260,15 +262,17 @@ architecture behavioral of cmv_master is
     -- FSM
     ---------------------------------------------------------------------------
     fsm: process (StatexDP,AMWriteAddressxDP,BurstWordCountxDP,NoOfPacketsInRowxDP,
-             ChannelSelectxSP,BufClearxSP,AMWaitReqxS, BufNoOfWordsxS) is
+             ChannelSelectxSP,BufClearxSP,AMWaitReqxS, BufNoOfWordsxS, PixelCounterxDP) is
     begin  -- process fsm
-       StatexDN <= StatexDP;
+      StatexDN <= StatexDP;
       AMWriteAddressxDN <= AMWriteAddressxDP;
       BurstWordCountxDN <= BurstWordCountxDP;
       NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP;
       ChannelSelectxSN <= ChannelSelectxSP;
       AMBurstCountxS <= "00001000";  -- 8 (8*128bit = 8*4pixel = 32pixel)
       AMWritexS <= '0';
+      PixelCounterxDN <= PixelCounterxDP;
+      BufClearxSN <= '0';
       
        
       for i in 1 to noOfDataChannels loop
@@ -287,6 +291,7 @@ architecture behavioral of cmv_master is
         when idle =>
           StatexDN <= fifoWait;
           BurstWordCountxDN <= 0;
+          BufClearxSN <= '0';
 
         when fifoWait =>
 
@@ -368,9 +373,17 @@ architecture behavioral of cmv_master is
                                                                  -- in bytes: 32pixel*32bit/8bit=128bytes
                   NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
               end case;
+              if PixelCounterxDP = 2048*1088 then
+                BufClearxSN <= '1';
+                PixelCounterxDN <= 0;
+              end if;
               StatexDN <= idle;
             else
               BurstWordCountxDN <= BurstWordCountxDP + 1;
+              PixelCounterxDN <= PixelCounterxDP + 4;  -- 128bit/32bit=4pixels
+                                                       -- are read-out each
+                                                       -- clock cycle during a
+                                                       -- burst.
             end if;
           end if;
           

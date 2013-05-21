@@ -175,17 +175,22 @@ architecture behavioral of cmv_master is
     end process buf_output;
 
     ---------------------------------------------------------------------------
+    -- control
+    ---------------------------------------------------------------------------
+    BufClearxSP <= not FrameValidxS;
+    
+    ---------------------------------------------------------------------------
     -- input
     ---------------------------------------------------------------------------
     buffer_input: process (DataInxD, PixelValidxS, RowValidxS, FrameValidxS, FrameRunningxSN, FrameRunningxSP, BufFullxS, BufNoOfWordsxS) is
     begin  -- process buffer_input
 
-      BufClearxSN <= '0';                --BufClearxS is deasserted by default
+      --BufClearxSN <= '0';                --BufClearxS is deasserted by default
       
-      FrameRunningxSN <= FrameValidxS;  -- compares the current value of FrameValidxS with the previous one
-      if (FrameRunningxSN = '0' and FrameRunningxSP = '1') then
-        BufClearxSN <= '1';
-      end if;
+      ----FrameRunningxSN <= FrameValidxS;  -- compares the current value of FrameValidxS with the previous one
+      ----if (FrameRunningxSN = '0' and FrameRunningxSP = '1') then
+      ----  BufClearxSN <= '1';
+      ----end if;
 
       
       for i in 1 to noOfDataChannels loop
@@ -244,10 +249,10 @@ architecture behavioral of cmv_master is
     begin  -- process memory_ClkLvdsRxxD
       if RstxRB = '0' then              -- asynchronous reset (active low)
         FrameRunningxSP <= '0';
-        BufClearxSP <= '1';
+        --BufClearxSP <= '1';
       elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
         FrameRunningxSP <= FrameRunningxSN;
-        BufClearxSP <= BufClearxSN;
+       -- BufClearxSP <= BufClearxSN;
       end if;
     end process memory_ClkLvdsRxxD;
 

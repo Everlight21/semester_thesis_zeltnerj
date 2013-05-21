@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-03
--- Last update: 2013-05-15
+-- Last update: 2013-05-21
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -98,6 +98,7 @@ architecture Behavioral of cmv_master_tb is
 -------------------------------------------------------------------------------
 
   signal PixelValidCounterxDP, PixelValidCounterxDN : integer range 0 to 2048;
+  signal FrameValidCounterxDP, FrameValidCounterxDN : integer range 0 to 2048*1088;
   signal DataCounterxDP, DataCounterxDN : integer;
   signal TogglexDP, TogglexDN : integer range 0 to 2;
   signal Zeros : std_logic_vector(DataInxD'high downto 0) := (others => '0');
@@ -171,37 +172,53 @@ architecture Behavioral of cmv_master_tb is
     if RstxRB = '0' then                -- asynchronous reset (active low)
       TogglexDP <= 0;
       PixelValidCounterxDP <= 0;
+      FrameValidCounterxDP <= 0;
       DataCounterxDP <= 0;
       DataRegxDP <= (others => '0');
     elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
       TogglexDP <= TogglexDN;
       PixelValidCounterxDP <= PixelValidCounterxDN;
+      FrameValidCounterxDP <= FrameValidCounterxDN;
       DataCounterxDP <= DataCounterxDN;
       DataRegxDP <= DataRegxDN;
     end if;
   end process memory_clk_lvds;
 
 
-  process (TogglexDP) is
+  process (PixelValidCounterxDP, FrameValidCounterxDP, TogglexDP, DataRegxDP) is
   begin  -- process
 
     if PixelValidCounterxDP = 2048/noOfDataChannels then
-      PixelValidxS <= '0';
+      PixelValidxS <= '1';
       PixelValidCounterxDN <= 0;
+      if FrameValidCounterxDP = 1087 then
+        FrameValidCounterxDN <= 0;
+      else
+        FrameValidCounterxDN <= FrameValidCounterxDP + 1;
+      end if;
+    elsif PixelValidCounterxDP = 0 then
+      PixelValidxS <= '0';
+      PixelValidCounterxDN <= PixelValidCounterxDP + 1;
     else
       PixelValidxS <= '1';
-      PixelValidCounterxDN <= PixelValidCounterxDN + 1;
+      PixelValidCounterxDN <= PixelValidCounterxDP + 1;
+    end if;
+
+    if FrameValidCounterxDP = 0 then
+      FrameValidxS <= '0';
+    else
+      FrameValidxS <= '1';
     end if;
     
     --PixelValidxS <= '1';
     RowValidxS <= '1';
-    FrameValidxS <= '1';
+    --FrameValidxS <= '1';
     AMWaitReqxS <= '0';
     DataRegxDN <= (others => '0');
     if TogglexDP = 2 then
       TogglexDN <= 0;
     else
-      TogglexDN <= TogglexDN + 1;
+      TogglexDN <= TogglexDP + 1;
     end if;
 
     DataRegxDN <= DataRegxDP(DataRegxDP'high-1 downto 0) & '1';
