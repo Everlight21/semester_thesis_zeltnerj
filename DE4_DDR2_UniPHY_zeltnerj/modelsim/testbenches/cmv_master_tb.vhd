@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-03
--- Last update: 2013-05-21
+-- Last update: 2013-05-22
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -190,6 +190,7 @@ architecture Behavioral of cmv_master_tb is
 
     if PixelValidCounterxDP = 2048/noOfDataChannels then
       PixelValidxS <= '1';
+      FrameValidxS <= '1';
       PixelValidCounterxDN <= 0;
       if FrameValidCounterxDP = 1087 then
         FrameValidCounterxDN <= 0;
@@ -198,17 +199,18 @@ architecture Behavioral of cmv_master_tb is
       end if;
     elsif PixelValidCounterxDP = 0 then
       PixelValidxS <= '0';
+      if FrameValidCounterxDP = 0 then
+        FrameValidxS <= '0';
+      else
+        FrameValidxS <= '1';
+      end if;
       PixelValidCounterxDN <= PixelValidCounterxDP + 1;
     else
       PixelValidxS <= '1';
+      FrameValidxS <= '1';
       PixelValidCounterxDN <= PixelValidCounterxDP + 1;
     end if;
 
-    if FrameValidCounterxDP = 0 then
-      FrameValidxS <= '0';
-    else
-      FrameValidxS <= '1';
-    end if;
     
     --PixelValidxS <= '1';
     RowValidxS <= '1';
