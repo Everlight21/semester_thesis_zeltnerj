@@ -334,7 +334,7 @@ architecture behavioral of cmv_master is
           --  2 channels: 8 * 128 pixels
           ---------------------------------------------------------------------
           if AMWaitReqxS /= '1' then
-            if BurstWordCountxDP = 8 then  -- for each burstcount 4pixels are
+            if BurstWordCountxDP = 7 then  -- for each burstcount 4pixels are
                                            -- read out. After 8 read-outs, a
                                            -- packet of 32pixels have been read
                                            -- out.

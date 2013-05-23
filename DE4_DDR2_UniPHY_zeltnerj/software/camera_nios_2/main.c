@@ -45,7 +45,7 @@ int main() {
 
 	while(1) {
 		IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x40); //sets pio[6] which is connected to cmv frameRequest
-//		IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x00); //frame req pulse
+		IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x00); //frame req pulse
 
 
 			/*
@@ -57,7 +57,7 @@ int main() {
 //			alt_avalon_spi_command(SPI_2_BASE,0,1,&sentread,1,&received2,0);
 //			printf("value1: %d value2: %d\n",received1,received2);
 
-		usleep(1000000);
+		usleep(100000000);
 
 
 	}
