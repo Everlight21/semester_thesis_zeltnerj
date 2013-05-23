@@ -26,6 +26,7 @@ library ieee;
 use ieee.std_logic_textio.all;  -- read and write overloaded for std_logic
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use ieee.std_logic_unsigned.all;
 use work.tb_util.all;
 use work.configuration_pkg.all;
 use work.all;
@@ -175,7 +176,7 @@ architecture Behavioral of cmv_master_tb is
       PixelValidCounterxDP <= 0;
       FrameValidCounterxDP <= 0;
       DataCounterxDP <= 0;
-      DataRegxDP <= (others => '0');
+      DataRegxDP <= (DataRegxDP'high downto 10 => '0')&"0000000100";
     elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
       TogglexDP <= TogglexDN;
       PixelValidCounterxDP <= PixelValidCounterxDN;
@@ -186,14 +187,19 @@ architecture Behavioral of cmv_master_tb is
   end process memory_clk_lvds;
 
 
-  process (PixelValidCounterxDP, FrameValidCounterxDP, TogglexDP, DataRegxDP) is
+  process (PixelValidCounterxDP, FrameValidCounterxDP, TogglexDP, DataRegxDP, PixelValidxS) is
   begin  -- process
 
     
     if PixelValidCounterxDP = 0 then
       PixelValidxS <= '0';
-      PixelValidCounterxDN <= PixelValidCounterxDP + 16;
-      FrameValidxS <= '0';
+      PixelValidCounterxDN <= PixelValidCounterxDP + 4;
+      if FrameValidCounterxDP = 0 then
+       FrameValidxS <= '0';
+      else
+        FrameValidxS <= '1';
+      end if;
+      
     else
       PixelValidxS <= '1';
       FrameValidxS <= '1';
@@ -205,7 +211,7 @@ architecture Behavioral of cmv_master_tb is
           FrameValidCounterxDN <= FrameValidCounterxDP + 1;
         end if;
       else
-        PixelValidCounterxDN <= PixelValidCounterxDP + 16;
+        PixelValidCounterxDN <= PixelValidCounterxDP + 4;
       end if;
      
       
@@ -223,9 +229,21 @@ architecture Behavioral of cmv_master_tb is
       TogglexDN <= TogglexDP + 1;
     end if;
 
-    DataRegxDN <= DataRegxDP(DataRegxDP'high-1 downto 0) & '1';
-    --DataRegxDN <= DataRegxDP + 1;
-    DataInxD <= std_logic_vector(DataRegxDP); 
+    --if PixelValidxS = '1' then
+    --  --DataRegxDN <= DataRegxDP(DataRegxDP'high-1 downto 0) & '1';
+    --  if DataRegxDP = (31 downto 10 => '0')&"1000000000" then
+    --    DataRegxDN <= (DataRegxDP'high downto 10 => '0')&"0000000100";
+    --  else
+    --    DataRegxDN <= DataRegxDP(DataRegxDP'high-1 downto 0) & '0';
+    --  end if;
+    --  DataInxD <= DataRegxDP;  
+    --end if;
+
+    if PixelValidxS = '1' then
+      DataRegxDN <= DataRegxDP + 4;
+      DataInxD <= std_logic_vector(DataRegxDP);
+    end if;
+    
 
     --if TogglexDP = 0 then
     --  DataInxD <= (others => '0');

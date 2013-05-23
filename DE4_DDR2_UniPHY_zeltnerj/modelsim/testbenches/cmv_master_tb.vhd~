@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-03
--- Last update: 2013-05-22
+-- Last update: 2013-05-23
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -81,8 +81,8 @@ architecture Behavioral of cmv_master_tb is
 
   constant clk_lvds_phase_high : time := 25 ns;
   constant clk_lvds_phase_low : time := 25 ns;
-  constant lvds_stimuli_application_time  : time := 5 ns;
-  constant lvds_response_acquisition_time : time := 45 ns;
+  constant lvds_stimuli_application_time  : time := 1 ns;
+  constant lvds_response_acquisition_time : time := 49 ns;
 
   
 -------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ architecture Behavioral of cmv_master_tb is
   signal DataCounterxDP, DataCounterxDN : integer;
   signal TogglexDP, TogglexDN : integer range 0 to 2;
   signal Zeros : std_logic_vector(DataInxD'high downto 0) := (others => '0');
-  signal DataRegxDP, DataRegxDN : std_logic_vector(DataInxD'high downto 0) := (others => '0');
+  signal DataRegxDP, DataRegxDN : unsigned(DataInxD'high downto 0) := (others => '0');
   
   
 
@@ -192,12 +192,12 @@ architecture Behavioral of cmv_master_tb is
     
     if PixelValidCounterxDP = 0 then
       PixelValidxS <= '0';
-      PixelValidCounterxDN <= PixelValidCounterxDP + 1;
+      PixelValidCounterxDN <= PixelValidCounterxDP + 16;
       FrameValidxS <= '0';
     else
       PixelValidxS <= '1';
       FrameValidxS <= '1';
-      if PixelValidCounterxDP = 2048/noOfDataChannels then
+      if PixelValidCounterxDP = 2048 then
         PixelValidCounterxDN <= 0;
         if FrameValidCounterxDP = 1087 then
           FrameValidCounterxDN <= 0;
@@ -205,7 +205,7 @@ architecture Behavioral of cmv_master_tb is
           FrameValidCounterxDN <= FrameValidCounterxDP + 1;
         end if;
       else
-        PixelValidCounterxDN <= PixelValidCounterxDP + 1;
+        PixelValidCounterxDN <= PixelValidCounterxDP + 16;
       end if;
      
       
@@ -223,9 +223,9 @@ architecture Behavioral of cmv_master_tb is
       TogglexDN <= TogglexDP + 1;
     end if;
 
-    --DataRegxDN <= DataRegxDP(DataRegxDP'high-1 downto 0) & '1';
-    DataRegxDN <= std_logic_vector(unsigned(DataRegxDP) + 1);
-    DataInxD <= DataRegxDP; 
+    DataRegxDN <= DataRegxDP(DataRegxDP'high-1 downto 0) & '1';
+    --DataRegxDN <= DataRegxDP + 1;
+    DataInxD <= std_logic_vector(DataRegxDP); 
 
     --if TogglexDP = 0 then
     --  DataInxD <= (others => '0');

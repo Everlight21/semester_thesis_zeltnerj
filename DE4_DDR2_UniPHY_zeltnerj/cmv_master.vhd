@@ -297,6 +297,11 @@ architecture behavioral of cmv_master is
           --end if;
           
           StatexDN <= burst;
+          --for i in 1 to noOfDataChannels loop
+          --  if ChannelSelectxSP = i then
+          --    BufReadReqxS(i) <= '1';
+          --  end if;
+          --end loop;  -- i
           
           for i in 1 to noOfDataChannels loop
             if BufNoOfWordsxS(i) < 8 then  -- fifo has 4*32=128 bit output (4
@@ -305,6 +310,7 @@ architecture behavioral of cmv_master is
                                            -- 8*128=1024bit or 8*4pixel=32pixel
                                            -- a read-out should be performed
               StatexDN <= fifoWait;
+              --BufReadReqxS <= (others => '0');
             --else
             --  StatexDN <= burst;
             end if;
