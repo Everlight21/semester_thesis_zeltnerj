@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-05-16
+-- Last update: 2013-05-23
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -334,7 +334,7 @@ architecture behavioral of cmv_master is
           --  2 channels: 8 * 128 pixels
           ---------------------------------------------------------------------
           if AMWaitReqxS /= '1' then
-            if BurstWordCountxDP = 7 then  -- for each burstcount 4pixels are
+            if BurstWordCountxDP = 8 then  -- for each burstcount 4pixels are
                                            -- read out. After 8 read-outs, a
                                            -- packet of 32pixels have been read
                                            -- out.
