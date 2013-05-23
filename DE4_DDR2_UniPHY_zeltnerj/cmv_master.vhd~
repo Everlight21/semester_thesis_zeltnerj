@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-05-21
+-- Last update: 2013-05-22
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -182,7 +182,7 @@ architecture behavioral of cmv_master is
     ---------------------------------------------------------------------------
     -- input
     ---------------------------------------------------------------------------
-    buffer_input: process (DataInxD, PixelValidxS, RowValidxS, FrameValidxS, FrameRunningxSN, FrameRunningxSP, BufFullxS, BufNoOfWordsxS) is
+    buffer_input: process (DataInxD, PixelValidxS, RowValidxS, FrameValidxS, BufFullxS) is
     begin  -- process buffer_input
 
       --BufClearxSN <= '0';                --BufClearxS is deasserted by default
@@ -280,10 +280,10 @@ architecture behavioral of cmv_master is
           end loop;  -- i
 
       
-      if BufClearxSP = '1' then
-        AMWriteAddressxDN <= (others => '0');
-        NoOfPacketsInRowxDN <= 0;  
-      end if;
+      --if BufClearxSP = '1' then
+      --  AMWriteAddressxDN <= (others => '0');
+      --  NoOfPacketsInRowxDN <= 0;  
+      --end if;
       
       
 
@@ -374,8 +374,10 @@ architecture behavioral of cmv_master is
                   NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
               end case;
               if PixelCounterxDP = 2048*1088 then
-                BufClearxSN <= '1';
+                --BufClearxSN <= '1';
                 PixelCounterxDN <= 0;
+                NoOfPacketsInRowxDN <= 0;
+                AMWriteAddressxDN <= (others => '0');
               end if;
               StatexDN <= idle;
             else

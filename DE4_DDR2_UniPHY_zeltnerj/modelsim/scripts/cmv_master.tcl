@@ -19,4 +19,4 @@ vsim -voptargs=+acc work.cmv_master_tb
 do cmv_master_wave.do
 
 #run
-run 10us
+run 500us
