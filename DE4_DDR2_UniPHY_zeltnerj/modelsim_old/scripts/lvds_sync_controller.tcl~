@@ -1,0 +1,8 @@
+#change directory to working directory
+cd ../../../sem13f2/DE4_DDR2_UniPHY_zeltnerj/modelsim
+
+vlib work
+
+vcom ../configuration_pkg.vhd
+vcom ../lvds_sync_controller.vhd
+

@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-03
--- Last update: 2013-05-15
+-- Last update: 2013-05-23
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -25,6 +25,7 @@ use std.textio.all;
 library ieee;
 use ieee.std_logic_textio.all;  -- read and write overloaded for std_logic
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use work.tb_util.all;
 use work.configuration_pkg.all;
 use work.all;
@@ -81,7 +82,7 @@ architecture Behavioral of cmv_master_tb is
   constant clk_lvds_phase_high : time := 25 ns;
   constant clk_lvds_phase_low : time := 25 ns;
   constant lvds_stimuli_application_time  : time := 1 ns;
-  constant lvds_response_acquisition_time : time := 24 ns;
+  constant lvds_response_acquisition_time : time := 49 ns;
 
   
 -------------------------------------------------------------------------------
@@ -98,10 +99,11 @@ architecture Behavioral of cmv_master_tb is
 -------------------------------------------------------------------------------
 
   signal PixelValidCounterxDP, PixelValidCounterxDN : integer range 0 to 2048;
+  signal FrameValidCounterxDP, FrameValidCounterxDN : integer range 0 to 2048*1088;
   signal DataCounterxDP, DataCounterxDN : integer;
   signal TogglexDP, TogglexDN : integer range 0 to 2;
   signal Zeros : std_logic_vector(DataInxD'high downto 0) := (others => '0');
-  signal DataRegxDP, DataRegxDN : std_logic_vector(DataInxD'high downto 0) := (others => '0');
+  signal DataRegxDP, DataRegxDN : unsigned(DataInxD'high downto 0) := (others => '0');
   
   
 
@@ -171,41 +173,59 @@ architecture Behavioral of cmv_master_tb is
     if RstxRB = '0' then                -- asynchronous reset (active low)
       TogglexDP <= 0;
       PixelValidCounterxDP <= 0;
+      FrameValidCounterxDP <= 0;
       DataCounterxDP <= 0;
       DataRegxDP <= (others => '0');
     elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
       TogglexDP <= TogglexDN;
       PixelValidCounterxDP <= PixelValidCounterxDN;
+      FrameValidCounterxDP <= FrameValidCounterxDN;
       DataCounterxDP <= DataCounterxDN;
       DataRegxDP <= DataRegxDN;
     end if;
   end process memory_clk_lvds;
 
 
-  process (TogglexDP) is
+  process (PixelValidCounterxDP, FrameValidCounterxDP, TogglexDP, DataRegxDP) is
   begin  -- process
 
-    if PixelValidCounterxDP = 2048/noOfDataChannels then
+    
+    if PixelValidCounterxDP = 0 then
       PixelValidxS <= '0';
-      PixelValidCounterxDN <= 0;
+      PixelValidCounterxDN <= PixelValidCounterxDP + 16;
+      FrameValidxS <= '0';
     else
       PixelValidxS <= '1';
-      PixelValidCounterxDN <= PixelValidCounterxDN + 1;
+      FrameValidxS <= '1';
+      if PixelValidCounterxDP = 2048 then
+        PixelValidCounterxDN <= 0;
+        if FrameValidCounterxDP = 1087 then
+          FrameValidCounterxDN <= 0;
+        else
+          FrameValidCounterxDN <= FrameValidCounterxDP + 1;
+        end if;
+      else
+        PixelValidCounterxDN <= PixelValidCounterxDP + 16;
+      end if;
+     
+      
     end if;
+
     
     --PixelValidxS <= '1';
     RowValidxS <= '1';
-    FrameValidxS <= '1';
+    --FrameValidxS <= '1';
     AMWaitReqxS <= '0';
     DataRegxDN <= (others => '0');
     if TogglexDP = 2 then
       TogglexDN <= 0;
     else
-      TogglexDN <= TogglexDN + 1;
+      TogglexDN <= TogglexDP + 1;
     end if;
 
     DataRegxDN <= DataRegxDP(DataRegxDP'high-1 downto 0) & '1';
-    DataInxD <= DataRegxDP; 
+    --DataRegxDN <= DataRegxDP + 1;
+    DataInxD <= std_logic_vector(DataRegxDP); 
 
     --if TogglexDP = 0 then
     --  DataInxD <= (others => '0');
