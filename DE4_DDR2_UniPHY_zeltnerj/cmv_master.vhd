@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-05-23
+-- Last update: 2013-05-29
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -126,6 +126,7 @@ architecture behavioral of cmv_master is
   -- counter
   -----------------------------------------------------------------------------
   signal BurstWordCountxDP, BurstWordCountxDN : integer range 0 to 31;
+  signal RowCounterxDP, RowCounterxDN : integer range 0 to 1088;
   
   -----------------------------------------------------------------------------
   -- fsm
@@ -177,7 +178,7 @@ architecture behavioral of cmv_master is
     ---------------------------------------------------------------------------
     -- control
     ---------------------------------------------------------------------------
-    BufClearxSP <= not FrameValidxS;
+    --BufClearxSP <= not FrameValidxS;
     
     ---------------------------------------------------------------------------
     -- input
@@ -234,12 +235,14 @@ architecture behavioral of cmv_master is
         StatexDP <= idle;
         AMWriteAddressxDP <= (others => '0');
         BurstWordCountxDP <= 0;
+        RowCounterxDP <= 0;
         NoOfPacketsInRowxDP <= 0;
         ChannelSelectxSP <= 1;
       elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
         StatexDP <= StatexDN;
         AMWriteAddressxDP <= AMWriteAddressxDN;
         BurstWordCountxDP <= BurstWordCountxDN;
+        RowCounterxDP <= RowCounterxDN;
         NoOfPacketsInRowxDP <= NoOfPacketsInRowxDN;
         ChannelSelectxSP <= ChannelSelectxSN;
       end if;
@@ -249,10 +252,10 @@ architecture behavioral of cmv_master is
     begin  -- process memory_ClkLvdsRxxD
       if RstxRB = '0' then              -- asynchronous reset (active low)
         FrameRunningxSP <= '0';
-        --BufClearxSP <= '1';
+        BufClearxSP <= '1';
       elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
         FrameRunningxSP <= FrameRunningxSN;
-       -- BufClearxSP <= BufClearxSN;
+        BufClearxSP <= BufClearxSN;
       end if;
     end process memory_ClkLvdsRxxD;
 
@@ -260,15 +263,17 @@ architecture behavioral of cmv_master is
     -- FSM
     ---------------------------------------------------------------------------
     fsm: process (StatexDP,AMWriteAddressxDP,BurstWordCountxDP,NoOfPacketsInRowxDP,
-             ChannelSelectxSP,BufClearxSP,AMWaitReqxS, BufNoOfWordsxS) is
+             ChannelSelectxSP,BufClearxSP,AMWaitReqxS, BufNoOfWordsxS, RowCounterxDP) is
     begin  -- process fsm
-       StatexDN <= StatexDP;
+      StatexDN <= StatexDP;
       AMWriteAddressxDN <= AMWriteAddressxDP;
       BurstWordCountxDN <= BurstWordCountxDP;
+      RowCounterxDN <= RowCounterxDP;
       NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP;
       ChannelSelectxSN <= ChannelSelectxSP;
       AMBurstCountxS <= "00001000";  -- 8 (8*128bit = 8*4pixel = 32pixel)
       AMWritexS <= '0';
+      BufClearxSN <= '0';
       
        
       for i in 1 to noOfDataChannels loop
@@ -277,8 +282,8 @@ architecture behavioral of cmv_master is
 
       
       if BufClearxSP = '1' then
-        AMWriteAddressxDN <= (others => '0');
-        NoOfPacketsInRowxDN <= 0;  
+        --AMWriteAddressxDN <= (others => '0');
+        --NoOfPacketsInRowxDN <= 0;  
       end if;
       
       
@@ -364,6 +369,13 @@ architecture behavioral of cmv_master is
                   ChannelSelectxSN <= 1;
                   AMWriteAddressxDN <= AMWriteAddressxDP + 128;  
                   NoOfPacketsInRowxDN <= 0;
+                  if RowCounterxDP = 1087 then
+                    RowCounterxDN <= 0;
+                    AMWriteAddressxDN <= (others => '0');
+                  else
+                    RowCounterxDN <= RowCounterxDP + 1;
+                  end if;
+                  
                 when others =>
                   AMWriteAddressxDN <= AMWriteAddressxDP + 128;  -- after each
                                                                  -- burst
