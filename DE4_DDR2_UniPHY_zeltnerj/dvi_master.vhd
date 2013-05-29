@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-10
--- Last update: 2013-05-16
+-- Last update: 2013-05-29
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -109,6 +109,7 @@ architecture behavioral of dvi_master is
   -- counters
   -----------------------------------------------------------------------------
   signal NoOfBurstCounterxDP, NoOfBurstCounterxDN : integer;
+  signal RowCounterxDP, RowCounterxDN : integer range 0 to 2047;
   
 begin  -- architecture behavioral
 
@@ -157,12 +158,14 @@ begin  -- architecture behavioral
       PendingReadOutsxDP <= 0;
       BufClearxSP <= '1';
       NoOfBurstCounterxDP <= 0;
+      RowCounterxDP <= 0;
     elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
       ReadAddressxDP <= ReadAddressxDN;
       StatexDP <= StatexDN;
       PendingReadOutsxDP <= PendingReadOutsxDN;
       BufClearxSP <= BufClearxSN;
       NoOfBurstCounterxDP <= NoOfBurstCounterxDN;
+      RowCounterxDP <= RowCounterxDN;
     end if;
   end process memory;
 
@@ -191,10 +194,11 @@ begin  -- architecture behavioral
     BufClearxSN <= BufClearxSP;
 
     NoOfBurstCounterxDN <= NoOfBurstCounterxDP;
+    RowCounterxDN <= RowCounterxDP;
 
-    if DviNewFramexD = '0' then
-      ReadAddressxDN <= (others => '0');
-    end if;
+    --if DviNewFramexD = '0' then
+    --  ReadAddressxDN <= (others => '0');
+    --end if;
 
     if AmReadDataValidxS = '1' then
       if PendingReadOutsxDP > 0 then
@@ -246,6 +250,12 @@ begin  -- architecture behavioral
                                                                  -- 1920, so
                                                                  -- skip the
                                                                  -- remaining pixels
+              if RowCounterxDP = 1087 then
+                RowCounterxDN <= 0;
+                ReadAddressxDN <= (others => '0');
+              else
+                RowCounterxDN <= RowCounterxDP + 1;
+              end if;
             else
               NoOfBurstCounterxDN <= NoOfBurstCounterxDP + 1;
               ReadAddressxDN <= ReadAddressxDP + 128*4;  -- 128pixels*4bytes

@@ -13,10 +13,14 @@ add wave -noupdate /dvi_master_tb/AmReadDataxD
 add wave -noupdate /dvi_master_tb/AmReadxS
 add wave -noupdate /dvi_master_tb/AmReadDataValidxS
 add wave -noupdate /dvi_master_tb/AmBurstCountxD
-add wave -noupdate /dvi_master_tb/DataRegxDP
-add wave -noupdate /dvi_master_tb/DataRegxDN
-add wave -noupdate /dvi_master_tb/DataCounterxDP
-add wave -noupdate /dvi_master_tb/DataCounterxDN
+add wave -noupdate -radix decimal /dvi_master_tb/DataRegxDP
+add wave -noupdate -radix decimal /dvi_master_tb/DataRegxDN
+add wave -noupdate /dvi_master_tb/PixelCounterxDP
+add wave -noupdate /dvi_master_tb/PixelCounterxDN
+add wave -noupdate /dvi_master_tb/RowCounterxDP
+add wave -noupdate /dvi_master_tb/RowCounterxDN
+add wave -noupdate /dvi_master_tb/BurstCounterxDP
+add wave -noupdate /dvi_master_tb/BurstCounterxDN
 add wave -noupdate -divider dvi_master
 add wave -noupdate /dvi_master_tb/dvi_master_1/ClkxCI
 add wave -noupdate /dvi_master_tb/dvi_master_1/ClkDvixCI
@@ -54,13 +58,15 @@ add wave -noupdate /dvi_master_tb/dvi_master_1/PendingReadOutsxDP
 add wave -noupdate /dvi_master_tb/dvi_master_1/PendingReadOutsxDN
 add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/NoOfBurstCounterxDP
 add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/NoOfBurstCounterxDN
+add wave -noupdate /dvi_master_tb/dvi_master_1/RowCounterxDP
+add wave -noupdate /dvi_master_tb/dvi_master_1/RowCounterxDN
 add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/ReadAddressxDP
 add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/ReadAddressxDN
 add wave -noupdate /dvi_master_tb/dvi_master_1/StatexDP
 add wave -noupdate /dvi_master_tb/dvi_master_1/StatexDN
 add wave -noupdate -divider fifo
 add wave -noupdate /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/aclr
-add wave -noupdate /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/data
+add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/data
 add wave -noupdate /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/rdclk
 add wave -noupdate /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/rdreq
 add wave -noupdate /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/wrclk
@@ -85,5 +91,9 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {9844835 ps} {10008167 ps}
-bookmark add wave {bookmark0} {{10169190 ps} {10357990 ps}} 4
+WaveRestoreZoom {0 ps} {211051 ps}
+bookmark add wave {bookmark52} {{27975089 ps} {29660337 ps}} 26
+bookmark add wave {bookmark53} {{27906516425 ps} {27908201673 ps}} 0
+bookmark add wave {bookmark54} {{28269980 ps} {28691292 ps}} 26
+bookmark add wave {bookmark55} {{10169190 ps} {10357990 ps}} 4
+bookmark add wave {bookmark56} {{27852789360 ps} {27853210673 ps}} 0

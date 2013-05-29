@@ -1,9 +1,9 @@
 <sld_project_info>
   <project>
-    <hash md5_digest_80b="b7b8998f50d6cbf8d291"/>
+    <hash md5_digest_80b="8c3003556acf4f86bf48"/>
   </project>
   <file_info>
-    <file checksum="0x0829F817" device="EP4SGX230KF40C2" path="DE4_DDR2.sof" usercode="0xFFFFFFFF"/>
+    <file checksum="0x082DD2A2" device="EP4SGX230KF40C2" path="DE4_DDR2.sof" usercode="0xFFFFFFFF"/>
   </file_info>
   <hub_info ir_width="2" node_count="2"/>
   <node_info>

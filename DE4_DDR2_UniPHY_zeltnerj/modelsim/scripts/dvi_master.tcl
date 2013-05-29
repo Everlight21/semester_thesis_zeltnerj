@@ -19,4 +19,4 @@ vsim -voptargs=+acc work.dvi_master_tb
 do dvi_master_wave.do
 
 #run
-run 10us
+run 15us
