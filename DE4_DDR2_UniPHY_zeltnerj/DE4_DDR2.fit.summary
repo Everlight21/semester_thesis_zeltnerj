@@ -1,4 +1,4 @@
-Fitter Status : Successful - Thu May 23 19:06:05 2013
+Fitter Status : Successful - Wed May 29 16:56:18 2013
 Quartus II 32-bit Version : 12.1 Build 243 01/31/2013 SP 1 SJ Full Version
 Revision Name : DE4_DDR2
 Top-level Entity Name : cmv4000design
@@ -6,10 +6,10 @@ Family : Stratix IV
 Device : EP4SGX230KF40C2
 Timing Models : Final
 Logic utilization : 11 %
-    Combinational ALUTs : 12,303 / 182,400 ( 7 % )
+    Combinational ALUTs : 12,325 / 182,400 ( 7 % )
     Memory ALUTs : 183 / 91,200 ( < 1 % )
-    Dedicated logic registers : 13,686 / 182,400 ( 8 % )
-Total registers : 14324
+    Dedicated logic registers : 13,692 / 182,400 ( 8 % )
+Total registers : 14330
 Total pins : 302 / 888 ( 34 % )
 Total virtual pins : 0
 Total block memory bits : 2,526,620 / 14,625,792 ( 17 % )

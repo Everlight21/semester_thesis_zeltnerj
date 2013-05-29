@@ -68,12 +68,12 @@ add wave -noupdate -radix unsigned /cmv_master_tb/cmv_master_1/AMWriteAddressxDP
 add wave -noupdate -radix unsigned /cmv_master_tb/cmv_master_1/AMWriteAddressxDN
 add wave -noupdate /cmv_master_tb/cmv_master_1/BurstWordCountxDP
 add wave -noupdate /cmv_master_tb/cmv_master_1/BurstWordCountxDN
+add wave -noupdate /cmv_master_tb/cmv_master_1/RowCounterxDP
+add wave -noupdate /cmv_master_tb/cmv_master_1/RowCounterxDN
 add wave -noupdate /cmv_master_tb/cmv_master_1/StatexDP
 add wave -noupdate /cmv_master_tb/cmv_master_1/StatexDN
 add wave -noupdate /cmv_master_tb/cmv_master_1/BufClearxSP
 add wave -noupdate /cmv_master_tb/cmv_master_1/BufClearxSN
-add wave -noupdate /cmv_master_tb/cmv_master_1/PixelCounterxDP
-add wave -noupdate /cmv_master_tb/cmv_master_1/PixelCounterxDN
 add wave -noupdate -divider {cmv_ram_fifo 1}
 add wave -noupdate -expand -group {cmv_ram_fifo
 } /cmv_master_tb/cmv_master_1/fifo_instances(1)/cmv_ram_fifo_1/aclr
@@ -130,6 +130,9 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {1685248 ps}
-bookmark add wave {bookmark10} {{10169190 ps} {10357990 ps}} 4
-bookmark add wave {bookmark11} {{27852789360 ps} {27853210673 ps}} 0
+WaveRestoreZoom {499362052 ps} {500033577 ps}
+bookmark add wave {bookmark2} {{28269980 ps} {28691292 ps}} 26
+bookmark add wave {bookmark3} {{27852789360 ps} {27853210673 ps}} 0
+bookmark add wave {bookmark4} {{10169190 ps} {10357990 ps}} 4
+bookmark add wave {bookmark5} {{27975089 ps} {29660337 ps}} 26
+bookmark add wave {bookmark6} {{27906516425 ps} {27908201673 ps}} 0
