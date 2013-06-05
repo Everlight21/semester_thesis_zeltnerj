@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-13
--- Last update: 2013-05-29
+-- Last update: 2013-06-05
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -188,7 +188,7 @@ architecture Behavioral of dvi_master_tb is
            DviPixelAvxS, PixelCounterxDP, RowCounterxDP, BurstCounterxDP) is
   begin  -- process
 
-    AmReadDataValidxS <= '1';
+    
     AmWaitReqxS <= '0';
     DviNewLinexD <= '1';
     DviNewFramexD <= '1';
@@ -202,14 +202,17 @@ architecture Behavioral of dvi_master_tb is
     
 
     if BurstCounterxDP > 0 then
+      AmReadDataValidxS <= '1';
       BurstCounterxDN <= BurstCounterxDP - 1;
       PixelCounterxDN <= PixelCounterxDP + 1;
       DataRegxDN <= DataRegxDP + 1;
     elsif AmReadxS = '1' then
+      AmReadDataValidxS <= '1';
       BurstCounterxDN <= 127;
       PixelCounterxDN <= PixelCounterxDP + 1;
       DataRegxDN <= DataRegxDP + 1;
     else
+      AmReadDataValidxS <= '0';
       BurstCounterxDN <= 0;
     end if;
 
@@ -226,11 +229,6 @@ architecture Behavioral of dvi_master_tb is
     end if;
 
     
-    --if DataRegxDP = 2047 then
-    --  DataRegxDN <= (others => '0');
-    --else
-    --  DataRegxDN <= DataRegxDP + 1; 
-    --end if;
     
     
   end process;
