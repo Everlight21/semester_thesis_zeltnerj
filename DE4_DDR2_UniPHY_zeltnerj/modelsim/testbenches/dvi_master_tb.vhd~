@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-13
--- Last update: 2013-05-15
+-- Last update: 2013-05-29
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -23,6 +23,7 @@ use std.textio.all;
 library ieee;
 use ieee.std_logic_textio.all;  -- read and write overloaded for std_logic
 use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
 use work.tb_util.all;
 use work.configuration_pkg.all;
 use work.all;
@@ -80,8 +81,8 @@ architecture Behavioral of dvi_master_tb is
 
   constant clk_dvi_phase_high : time := 5 ns;
   constant clk_dvi_phase_low : time := 5 ns;
-  constant lvds_stimuli_application_time  : time := 1 ns;
-  constant lvds_response_acquisition_time : time := 9 ns;
+  constant lvds_stimuli_application_time  : time := 0.5 ns;
+  constant lvds_response_acquisition_time : time := 9.5 ns;
 
   
 -------------------------------------------------------------------------------
@@ -99,7 +100,9 @@ architecture Behavioral of dvi_master_tb is
 
 
   signal DataRegxDP, DataRegxDN : std_logic_vector(AmReadDataxD'high downto 0) := (others => '0');
-  signal DataCounterxDP, DataCounterxDN : integer;
+  signal PixelCounterxDP, PixelCounterxDN : integer range 0 to 2048;
+  signal RowCounterxDP, RowCounterxDN : integer range 0 to 2048;
+  signal BurstCounterxDP, BurstCounterxDN : integer range 0 to 127;
   signal Ones : std_logic_vector(DataRegxDP'high downto 0) := (others => '1');
 
   begin                                 --behavioural
@@ -161,10 +164,14 @@ architecture Behavioral of dvi_master_tb is
   begin  -- process memory
     if RstxRB = '0' then                -- asynchronous reset (active low)
       DataRegxDP <= (others => '0');
-      DataCounterxDP <= 0;
+      PixelCounterxDP <= 0;
+      RowCounterxDP <= 0;
+      BurstCounterxDP <= 0;
     elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
       DataRegxDP <= DataRegxDN;
-      DataCounterxDP <= DataCounterxDN;
+      PixelCounterxDP <= PixelCounterxDN;
+      RowCounterxDP <= RowCounterxDN;
+      BurstCounterxDP <= BurstCounterxDN;
     end if;
   end process memory;
 
@@ -177,34 +184,53 @@ architecture Behavioral of dvi_master_tb is
     end if;
   end process memory_clk_dvi;
   
-  process (RstxRB, AmReadDataxD, AmReadDataValidxS, AmWaitReqxS, DviNewLinexD, DviNewFramexD, DviPixelAvxS, DataCounterxDP) is
+  process (AmReadDataxD, AmReadxS, AmReadDataValidxS, AmWaitReqxS, DviNewLinexD, DviNewFramexD,
+           DviPixelAvxS, PixelCounterxDP, RowCounterxDP, BurstCounterxDP) is
   begin  -- process
 
-    if RstxRB = '1' then
-      AmReadDataValidxS <= '1';
-    else
-      AmReadDataValidxS <= '0';
-    end if;
+    AmReadDataValidxS <= '1';
     AmWaitReqxS <= '0';
     DviNewLinexD <= '1';
     DviNewFramexD <= '1';
     DviPixelAvxS <= '1';
     DataRegxDN <= DataRegxDP;
-    DataCounterxDN <= DataCounterxDP;
+    PixelCounterxDN <= PixelCounterxDP;
+    RowCounterxDN <= RowCounterxDP;
+    BurstCounterxDN <= BurstCounterxDP;
+    AmReadDataxD <= DataRegxDP;
 
-    if DataCounterxDP = 2048 then
-      DviNewFramexD <= '0';
-      DataCounterxDN <= 0;
-    else
-      DataCounterxDN <= DataCounterxDP + 1;
-    end if;
     
-    if DataRegxDP = Ones then
-      DataRegxDN <= (others => '0');
+
+    if BurstCounterxDP > 0 then
+      BurstCounterxDN <= BurstCounterxDP - 1;
+      PixelCounterxDN <= PixelCounterxDP + 1;
+      DataRegxDN <= DataRegxDP + 1;
+    elsif AmReadxS = '1' then
+      BurstCounterxDN <= 127;
+      PixelCounterxDN <= PixelCounterxDP + 1;
+      DataRegxDN <= DataRegxDP + 1;
     else
-      DataRegxDN <= DataRegxDP(DataRegxDP'high-1 downto 0) & '1';
-      AmReadDataxD <= DataRegxDP; 
+      BurstCounterxDN <= 0;
     end if;
+
+    if PixelCounterxDP = 2047 then
+      DviNewLinexD <= '0';
+      PixelCounterxDN <= 0;
+      DataRegxDN <= (others => '0');
+      if RowCounterxDP = 1088 then
+        DviNewFramexD <= '0';
+        RowCounterxDN <= 0;
+      else
+        RowCounterxDN <= RowCounterxDP + 1;
+      end if;
+    end if;
+
+    
+    --if DataRegxDP = 2047 then
+    --  DataRegxDN <= (others => '0');
+    --else
+    --  DataRegxDN <= DataRegxDP + 1; 
+    --end if;
     
     
   end process;

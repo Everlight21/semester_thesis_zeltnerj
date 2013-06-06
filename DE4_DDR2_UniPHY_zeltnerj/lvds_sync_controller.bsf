@@ -114,6 +114,13 @@ applicable agreement for further details.
 		(text "LedxSO[7..0]" (rect 222 123 275 135)(font "Arial" ))
 		(line (pt 296 128)(pt 280 128)(line_width 3))
 	)
+	(port
+		(pt 296 144)
+		(output)
+		(text "CameraReadyxSO" (rect 0 0 79 12)(font "Arial" ))
+		(text "CameraReadyxSO" (rect 196 139 275 151)(font "Arial" ))
+		(line (pt 296 144)(pt 280 144)(line_width 1))
+	)
 	(drawing
 		(rectangle (rect 16 16 280 160)(line_width 1))
 	)

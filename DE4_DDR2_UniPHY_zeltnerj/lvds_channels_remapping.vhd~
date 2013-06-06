@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-04-30
--- Last update: 2013-05-13
+-- Last update: 2013-05-15
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ begin  -- architecture remapping
                     Cam1Channel5xDI &
                     Cam1Channel1xDI &
                     Cam1ChannelCtrlxDI when noOfDataChannels = 4 else
-						  (DataOutxDO'high downto 8+1 => '0') &
+                    (DataOutxDO'high downto 8+1 => '0') &
                     Cam1Channel15xDI &
                     Cam1Channel13xDI &
                     Cam1Channel11xDI &
@@ -89,7 +89,8 @@ begin  -- architecture remapping
                     Cam1Channel5xDI &
                     Cam1Channel3xDI &
                     Cam1Channel1xDI &
-                    Cam1ChannelCtrlxDI;
+                    Cam1ChannelCtrlxDI when noOfDataChannels = 8 else
+                    (others => '0');
                     -- add here new 'when' branches for different
                     -- number of channels.
                   

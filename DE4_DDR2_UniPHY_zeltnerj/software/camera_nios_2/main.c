@@ -57,7 +57,7 @@ int main() {
 //			alt_avalon_spi_command(SPI_2_BASE,0,1,&sentread,1,&received2,0);
 //			printf("value1: %d value2: %d\n",received1,received2);
 
-		usleep(1000000);
+		usleep(10000000);
 
 
 	}

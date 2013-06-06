@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-05-09
+-- Last update: 2013-05-21
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -37,11 +37,11 @@ entity lvds_sync_controller is
     RstxRBI             : in  std_logic;
     -- lvds signal enter in reversed order, e.g. DVAL bit is Bit [9] not Bit [0]
     --LVDSDataxDI         : in  std_logic_vector(lvdsDataWidth-1 downto 0);
-    LVDSDataxDI         : in  std_logic_vector((8+1)*channelWidth-1 downto 0);
+    LVDSDataxDI         : in  std_logic_vector(18*channelWidth-1 downto 0);
     ButtonxSI           : in  std_logic_vector (3 downto 0);
     FrameReqInxSI       : in  std_logic;
-    AlignxSO            : out std_logic_vector(9-1 downto 0);
-    PixelDataxDO        : out std_logic_vector(79 downto 0);
+    AlignxSO            : out std_logic_vector(18-1 downto 0);
+    PixelDataxDO        : out std_logic_vector(16*channelWidth-1 downto 0);
     FrameReqOutxSO      : out std_logic;
     PixelValidxSO       : out std_logic;
     RowValidxSO         : out std_logic;
@@ -75,7 +75,7 @@ architecture behavioral of lvds_sync_controller is
   -----------------------------------------------------------------------------
   -- Pixel Channel type and signal declaration
   -----------------------------------------------------------------------------
-  type channelArray is array (0 to 8) of std_logic_vector(channelWidth-1 downto 0);
+  type channelArray is array (0 to 17) of std_logic_vector(channelWidth-1 downto 0);
   signal PixelChannelxD                   : channelArray;
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
@@ -87,8 +87,8 @@ architecture behavioral of lvds_sync_controller is
   -----------------------------------------------------------------------------
   -- counters
   -----------------------------------------------------------------------------
-  signal InitCounterxDP, InitCounterxDN   : integer range 0 to 64000;
-  signal DelayCounterxDP, DelayCounterxDN : integer range 0 to 64000;
+  signal InitCounterxDP, InitCounterxDN   : integer range 0 to 128;
+  signal DelayCounterxDP, DelayCounterxDN : integer range 0 to 128;
 
   -----------------------------------------------------------------------------
   -- control signals
@@ -121,7 +121,8 @@ begin  -- architecture behavioral
   -----------------------------------------------------------------------------
   -- control signals
   -----------------------------------------------------------------------------
-  InitReadyxS <= NoOfDataChannelsxDI(0);
+  InitReadyxS <= NoOfDataChannelsxDI(0);  -- temporary hack, should be changed
+                                          -- with proper init signal
 
   
   -----------------------------------------------------------------------------
@@ -132,8 +133,9 @@ begin  -- architecture behavioral
   -- see CMV2000/4000 datasheet for reference
 
  
-  -- control channel
+  -- control channels
   PixelChannelxD(0) <= reverseBitOrder(LVDSDataxD(channelWidth*1-1 downto 0));
+  PixelChannelxD(17) <= reverseBitOrder(LVDSDataxD(channelWidth*18-1 downto channelWidth*17));
   -- data channels
   PixelChannelxD(1) <= reverseBitOrder(LVDSDataxD(channelWidth*2-1 downto channelWidth*1));
   PixelChannelxD(2) <= reverseBitOrder(LVDSDataxD(channelWidth*3-1 downto channelWidth*2));
@@ -143,14 +145,14 @@ begin  -- architecture behavioral
   PixelChannelxD(6) <= reverseBitOrder(LVDSDataxD(channelWidth*7-1 downto channelWidth*6));
   PixelChannelxD(7) <= reverseBitOrder(LVDSDataxD(channelWidth*8-1 downto channelWidth*7));
   PixelChannelxD(8) <= reverseBitOrder(LVDSDataxD(channelWidth*9-1 downto channelWidth*8));
-  --PixelChannelxD(9) <= reverseBitOrder(LVDSDataxD(channelWidth*10-1 downto channelWidth*9));
-  --PixelChannelxD(10) <= reverseBitOrder(LVDSDataxD(channelWidth*11-1 downto channelWidth*10));
-  --PixelChannelxD(11) <= reverseBitOrder(LVDSDataxD(channelWidth*12-1 downto channelWidth*11));
-  --PixelChannelxD(12) <= reverseBitOrder(LVDSDataxD(channelWidth*13-1 downto channelWidth*12));
-  --PixelChannelxD(13) <= reverseBitOrder(LVDSDataxD(channelWidth*14-1 downto channelWidth*13));
-  --PixelChannelxD(14) <= reverseBitOrder(LVDSDataxD(channelWidth*15-1 downto channelWidth*14));
-  --PixelChannelxD(15) <= reverseBitOrder(LVDSDataxD(channelWidth*16-1 downto channelWidth*15));
-  --PixelChannelxD(16) <= reverseBitOrder(LVDSDataxD(channelWidth*17-1 downto channelWidth*16));
+  PixelChannelxD(9) <= reverseBitOrder(LVDSDataxD(channelWidth*10-1 downto channelWidth*9));
+  PixelChannelxD(10) <= reverseBitOrder(LVDSDataxD(channelWidth*11-1 downto channelWidth*10));
+  PixelChannelxD(11) <= reverseBitOrder(LVDSDataxD(channelWidth*12-1 downto channelWidth*11));
+  PixelChannelxD(12) <= reverseBitOrder(LVDSDataxD(channelWidth*13-1 downto channelWidth*12));
+  PixelChannelxD(13) <= reverseBitOrder(LVDSDataxD(channelWidth*14-1 downto channelWidth*13));
+  PixelChannelxD(14) <= reverseBitOrder(LVDSDataxD(channelWidth*15-1 downto channelWidth*14));
+  PixelChannelxD(15) <= reverseBitOrder(LVDSDataxD(channelWidth*16-1 downto channelWidth*15));
+  PixelChannelxD(16) <= reverseBitOrder(LVDSDataxD(channelWidth*17-1 downto channelWidth*16));
 
   -----------------------------------------------------------------------------
   -- Pixel Data Output
@@ -161,7 +163,7 @@ begin  -- architecture behavioral
   -- outputs: PixelDataxD
   output_signal_mapping: process (PixelChannelxD) is
   begin  -- process output_signal_mapping
-    for i in 1 to 8 loop
+    for i in 1 to 2*8 loop
       if i <= noOfDataChannels then
         PixelDataxD(channelWidth*i-1 downto channelWidth*(i-1)) <= PixelChannelxD(i);
       else
@@ -238,7 +240,7 @@ begin  -- architecture behavioral
   -- inputs : 
   -- outputs: 
   fsm : process (AlignxS, ButtonxS, CameraReadyxSP, InitCounterxDP, DelayCounterxDP,
-                 PixelChannelxD, StatexDP, AlignxDP) is
+                 PixelChannelxD, StatexDP, AlignxDP, InitReadyxS) is
   begin  -- process fsm
     StatexDN        <= StatexDP;
     InitCounterxDN  <= InitCounterxDP;
@@ -277,16 +279,24 @@ begin  -- architecture behavioral
 
       when idle =>
 
-        if PixelChannelxD(0)(0) = '0' then
-          for i in 1 to noOfDataChannels loop
+        if PixelChannelxD(0)(9) /= '1' or PixelChannelxD(0)(8) /= '0' then
+          CameraReadyxSN <= '0';
+          InitCounterxDN <= 0;    
+          AlignxS(0)     <= '1';
+          StatexDN       <= pulseChannelDataAlign;
+        elsif PixelChannelxD(0)(0) = '0' then
+          for i in 0 to noOfDataChannels loop
             if PixelChannelxD(i)(9) /= '1' or PixelChannelxD(i)(8) /= '0' then
               AlignxS(i) <= '1';
               StatexDN <= pulseChannelDataAlign;
             end if;
           end loop;  -- i
         end if;
-        
 
+        -----------------------------------------------------------------------
+        -- change alignement of channels with dev board buttons
+        -- (just for debugging reasons)
+        -----------------------------------------------------------------------
         for i in 0 to 3 loop
           if ButtonxS(i) = '0' then
             AlignxS(i+1) <= '1';

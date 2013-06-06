@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-10
--- Last update: 2013-05-16
+-- Last update: 2013-06-05
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -104,7 +104,12 @@ architecture behavioral of dvi_master is
   -----------------------------------------------------------------------------
   type fsmState is (idle, fifoWait, burst, finishBurst);
   signal StatexDP, StatexDN : fsmState;
-  
+
+  -----------------------------------------------------------------------------
+  -- counters
+  -----------------------------------------------------------------------------
+  signal NoOfBurstCounterxDP, NoOfBurstCounterxDN : integer;
+  signal RowCounterxDP, RowCounterxDN : integer range 0 to 2047;
   
 begin  -- architecture behavioral
 
@@ -136,7 +141,6 @@ begin  -- architecture behavioral
   AmAddressxD <= ReadAddressxDP;
   AmBurstCountxD <= "10000000";         -- 128d (each channel has 128 pixels
                                         -- per row
-  
 
   -----------------------------------------------------------------------------
   -- control
@@ -153,11 +157,15 @@ begin  -- architecture behavioral
       StatexDP <= idle;
       PendingReadOutsxDP <= 0;
       BufClearxSP <= '1';
+      NoOfBurstCounterxDP <= 0;
+      RowCounterxDP <= 0;
     elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
       ReadAddressxDP <= ReadAddressxDN;
       StatexDP <= StatexDN;
       PendingReadOutsxDP <= PendingReadOutsxDN;
       BufClearxSP <= BufClearxSN;
+      NoOfBurstCounterxDP <= NoOfBurstCounterxDN;
+      RowCounterxDP <= RowCounterxDN;
     end if;
   end process memory;
 
@@ -175,7 +183,7 @@ begin  -- architecture behavioral
   -- combinational processes
   -----------------------------------------------------------------------------
   fsm: process (AmReadDataValidxS, AmWaitReqxS, BufNoOfWordsxS, DviNewFramexD,
-                PendingReadOutsxDP, ReadAddressxDP, StatexDP) is
+                PendingReadOutsxDP, ReadAddressxDP, StatexDP, NoOfBurstCounterxDP) is
   begin  -- process fsm
     StatexDN <= StatexDP;
     ReadAddressxDN <= ReadAddressxDP;
@@ -183,12 +191,14 @@ begin  -- architecture behavioral
     AmReadxS <= '0';
     BufWriteEnxS <= AmReadDataValidxS;
 
-    BufClearxSN <= '0';
-    
+    BufClearxSN <= BufClearxSP;
 
-    if DviNewFramexD = '0' then
-      ReadAddressxDN <= (others => '0');
-    end if;
+    NoOfBurstCounterxDN <= NoOfBurstCounterxDP;
+    RowCounterxDN <= RowCounterxDP;
+
+    --if DviNewFramexD = '0' then
+    --  ReadAddressxDN <= (others => '0');
+    --end if;
 
     if AmReadDataValidxS = '1' then
       if PendingReadOutsxDP > 0 then
@@ -196,6 +206,8 @@ begin  -- architecture behavioral
       end if;
       
     end if;
+
+   
 
     case StatexDP is
       when idle =>
@@ -206,6 +218,7 @@ begin  -- architecture behavioral
         if BufNoOfWordsxS < 4096-128 then  -- size of buffer is defined in ram_dvi_fifo.vhd
                                            -- 128 = 4*32 (pixel per row per channel)
           StatexDN <= burst;
+          BufClearxSN <= '0';
           
           
           if AmReadDataValidxS = '0' then
@@ -227,7 +240,28 @@ begin  -- architecture behavioral
         if AmReadDataValidxS = '1' then
           if PendingReadOutsxDP = 1 then
             StatexDN <= idle;
-            ReadAddressxDN <= ReadAddressxDP + 512;  -- 128*4byte
+            if NoOfBurstCounterxDP = 14 then  -- 1920pixel/128pixel=15bursts
+              NoOfBurstCounterxDN <= 0;
+              ReadAddressxDN <= ReadAddressxDP + 128*4 + (2048-1920)*4;  -- pixels per
+                                                                 -- row are
+                                                                 -- 2048, but
+                                                                 -- resolution
+                                                                 -- is only
+                                                                 -- 1920, so
+                                                                 -- skip the
+                                                                 -- remaining pixels
+              if RowCounterxDP = 1079 then  -- horizontal resolution of monitor
+                                            -- max. 1087 with cmv2000
+                                            -- max. 2047 with cmv4000
+                RowCounterxDN <= 0;
+                ReadAddressxDN <= (others => '0');
+              else
+                RowCounterxDN <= RowCounterxDP + 1;
+              end if;
+            else
+              NoOfBurstCounterxDN <= NoOfBurstCounterxDP + 1;
+              ReadAddressxDN <= ReadAddressxDP + 128*4;  -- 128pixels*4bytes
+            end if;
           end if;
         end if;
         

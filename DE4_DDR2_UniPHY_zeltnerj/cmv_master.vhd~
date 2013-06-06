@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-05-15
+-- Last update: 2013-06-05
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ architecture behavioral of cmv_master is
   signal BufFullxS : bufferFull;
 
 
-  signal BufClearxS : std_logic;
+  signal BufClearxSP, BufClearxSN : std_logic;
 
   signal ChannelSelectxSP, ChannelSelectxSN : integer range 1 to noOfDataChannels;
 
@@ -126,6 +126,7 @@ architecture behavioral of cmv_master is
   -- counter
   -----------------------------------------------------------------------------
   signal BurstWordCountxDP, BurstWordCountxDN : integer range 0 to 31;
+  signal RowCounterxDP, RowCounterxDN : integer range 0 to 1088;
   
   -----------------------------------------------------------------------------
   -- fsm
@@ -133,11 +134,7 @@ architecture behavioral of cmv_master is
   type fsmState is (idle, fifoWait, burst);
   signal StatexDP, StatexDN : fsmState;
 
-  -----------------------------------------------------------------------------
-  -- counter
-  -----------------------------------------------------------------------------
-  signal CounterxDP, CounterxDN : integer range 0 to 20;  -- just for debugging
-                                                          -- reasons
+  
   -----------------------------------------------------------------------------
   -- control
   -----------------------------------------------------------------------------
@@ -179,23 +176,23 @@ architecture behavioral of cmv_master is
     end process buf_output;
 
     ---------------------------------------------------------------------------
+    -- control
+    ---------------------------------------------------------------------------
+    --BufClearxSP <= not FrameValidxS;
+    
+    ---------------------------------------------------------------------------
     -- input
     ---------------------------------------------------------------------------
-    buffer_input: process (DataInxD, CounterxDP, PixelValidxS, RowValidxS, FrameValidxS, FrameRunningxSN, FrameRunningxSP, BufFullxS, BufNoOfWordsxS) is
+    buffer_input: process (DataInxD, PixelValidxS, RowValidxS, FrameValidxS, FrameRunningxSN, FrameRunningxSP, BufFullxS, BufNoOfWordsxS) is
     begin  -- process buffer_input
 
-      BufClearxS <= '0';                --BufClearxS is deasserted by default
+      --BufClearxSN <= '0';                --BufClearxS is deasserted by default
       
-      FrameRunningxSN <= FrameValidxS;  -- compares the current value of FrameValidxS with the previous one
-      if (FrameRunningxSN = '0' and FrameRunningxSP = '1') then
-        BufClearxS <= '1';
-      end if;
+      ----FrameRunningxSN <= FrameValidxS;  -- compares the current value of FrameValidxS with the previous one
+      ----if (FrameRunningxSN = '0' and FrameRunningxSP = '1') then
+      ----  BufClearxSN <= '1';
+      ----end if;
 
-      --if CounterxDP = 20 then
-      --  CounterxDN <= 0;
-      --else
-      --  CounterxDN <= CounterxDP + 1;
-      --end if;
       
       for i in 1 to noOfDataChannels loop
         BufWriteEnxS(i) <= '0';
@@ -238,12 +235,14 @@ architecture behavioral of cmv_master is
         StatexDP <= idle;
         AMWriteAddressxDP <= (others => '0');
         BurstWordCountxDP <= 0;
+        RowCounterxDP <= 0;
         NoOfPacketsInRowxDP <= 0;
         ChannelSelectxSP <= 1;
       elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
         StatexDP <= StatexDN;
         AMWriteAddressxDP <= AMWriteAddressxDN;
         BurstWordCountxDP <= BurstWordCountxDN;
+        RowCounterxDP <= RowCounterxDN;
         NoOfPacketsInRowxDP <= NoOfPacketsInRowxDN;
         ChannelSelectxSP <= ChannelSelectxSN;
       end if;
@@ -252,11 +251,11 @@ architecture behavioral of cmv_master is
     memory_ClkLvdsRxxD: process (ClkLvdsRxxC, RstxRB) is
     begin  -- process memory_ClkLvdsRxxD
       if RstxRB = '0' then              -- asynchronous reset (active low)
-        CounterxDP <= 0;
         FrameRunningxSP <= '0';
+        BufClearxSP <= '1';
       elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
-        CounterxDP <= CounterxDN;
         FrameRunningxSP <= FrameRunningxSN;
+        BufClearxSP <= BufClearxSN;
       end if;
     end process memory_ClkLvdsRxxD;
 
@@ -264,15 +263,17 @@ architecture behavioral of cmv_master is
     -- FSM
     ---------------------------------------------------------------------------
     fsm: process (StatexDP,AMWriteAddressxDP,BurstWordCountxDP,NoOfPacketsInRowxDP,
-             ChannelSelectxSP,BufClearxS,AMWaitReqxS, CounterxDP, BufNoOfWordsxS) is
+             ChannelSelectxSP,BufClearxSP,AMWaitReqxS, BufNoOfWordsxS, RowCounterxDP) is
     begin  -- process fsm
-       StatexDN <= StatexDP;
+      StatexDN <= StatexDP;
       AMWriteAddressxDN <= AMWriteAddressxDP;
       BurstWordCountxDN <= BurstWordCountxDP;
+      RowCounterxDN <= RowCounterxDP;
       NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP;
       ChannelSelectxSN <= ChannelSelectxSP;
       AMBurstCountxS <= "00001000";  -- 8 (8*128bit = 8*4pixel = 32pixel)
       AMWritexS <= '0';
+      BufClearxSN <= '0';
       
        
       for i in 1 to noOfDataChannels loop
@@ -280,9 +281,9 @@ architecture behavioral of cmv_master is
           end loop;  -- i
 
       
-      if BufClearxS = '1' then
-        AMWriteAddressxDN <= (others => '0');
-        NoOfPacketsInRowxDN <= 0;  
+      if BufClearxSP = '1' then
+        --AMWriteAddressxDN <= (others => '0');
+        --NoOfPacketsInRowxDN <= 0;  
       end if;
       
       
@@ -301,17 +302,25 @@ architecture behavioral of cmv_master is
           --end if;
           
           StatexDN <= burst;
+          --for i in 1 to noOfDataChannels loop
+          --  if ChannelSelectxSP = i then
+          --    BufReadReqxS(i) <= '1';
+          --  end if;
+          --end loop;  -- i
           
           for i in 1 to noOfDataChannels loop
+            if ChannelSelectxSP = i then
+              
             if BufNoOfWordsxS(i) < 8 then  -- fifo has 4*32=128 bit output (4
                                            -- pixel each 32bit) and
                                            -- rdwuse counts 128bit words. After
                                            -- 8*128=1024bit or 8*4pixel=32pixel
                                            -- a read-out should be performed
               StatexDN <= fifoWait;
-            --else
-            --  StatexDN <= burst;
+              
             end if;
+
+          end if;
           end loop;  -- i
           
 
@@ -362,6 +371,13 @@ architecture behavioral of cmv_master is
                   ChannelSelectxSN <= 1;
                   AMWriteAddressxDN <= AMWriteAddressxDP + 128;  
                   NoOfPacketsInRowxDN <= 0;
+                  if RowCounterxDP = 1087 then
+                    RowCounterxDN <= 0;
+                    AMWriteAddressxDN <= (others => '0');
+                  else
+                    RowCounterxDN <= RowCounterxDP + 1;
+                  end if;
+                  
                 when others =>
                   AMWriteAddressxDN <= AMWriteAddressxDP + 128;  -- after each
                                                                  -- burst
@@ -395,7 +411,7 @@ architecture behavioral of cmv_master is
     fifo_instances : for i in 1 to noOfDataChannels generate
     cmv_ram_fifo_1: cmv_ram_fifo
       port map (
-        aclr    => BufClearxS,
+        aclr    => BufClearxSP,
         data    => BufDataInxD(i),
         rdclk   => ClkxC,
         rdreq   => BufReadReqxS(i),

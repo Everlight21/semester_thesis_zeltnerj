@@ -129,7 +129,7 @@ BEGIN
 		cds_mode => "UNUSED",
 		common_rx_tx_pll => "OFF",
 		data_align_rollover => 10,
-		data_rate => "400.0 Mbps",
+		data_rate => "200.0 Mbps",
 		deserialization_factor => 10,
 		dpa_initial_phase_value => 0,
 		dpll_lock_count => 0,
@@ -145,9 +145,9 @@ BEGIN
 		implement_in_les => "OFF",
 		inclock_boost => 0,
 		inclock_data_alignment => "EDGE_ALIGNED",
-		inclock_period => 5000,
+		inclock_period => 10000,
 		inclock_phase_shift => 0,
-		input_data_rate => 400,
+		input_data_rate => 200,
 		intended_device_family => "Stratix IV",
 		lose_lock_on_one_change => "UNUSED",
 		lpm_hint => "CBX_MODULE_PREFIX=lvdsrx",
@@ -193,7 +193,7 @@ END SYN;
 -- Retrieval info: PRIVATE: Bitslip NUMERIC "10"
 -- Retrieval info: PRIVATE: Clock_Choices STRING "tx_coreclock"
 -- Retrieval info: PRIVATE: Clock_Mode NUMERIC "0"
--- Retrieval info: PRIVATE: Data_rate STRING "400.0"
+-- Retrieval info: PRIVATE: Data_rate STRING "200.0"
 -- Retrieval info: PRIVATE: Deser_Factor NUMERIC "10"
 -- Retrieval info: PRIVATE: Dpll_Lock_Count NUMERIC "0"
 -- Retrieval info: PRIVATE: Dpll_Lock_Window NUMERIC "0"
@@ -207,8 +207,8 @@ END SYN;
 -- Retrieval info: PRIVATE: pCNX_OUTCLK_ALIGN NUMERIC "0"
 -- Retrieval info: PRIVATE: pINCLOCK_PHASE_SHIFT STRING "0.00"
 -- Retrieval info: PRIVATE: PLL_Enable NUMERIC "0"
--- Retrieval info: PRIVATE: PLL_Freq STRING "200.00"
--- Retrieval info: PRIVATE: PLL_Period STRING "5.000"
+-- Retrieval info: PRIVATE: PLL_Freq STRING "100.00"
+-- Retrieval info: PRIVATE: PLL_Period STRING "10.000"
 -- Retrieval info: PRIVATE: pOUTCLOCK_PHASE_SHIFT NUMERIC "0"
 -- Retrieval info: PRIVATE: Reg_InOut NUMERIC "1"
 -- Retrieval info: PRIVATE: Use_Cda_Reset NUMERIC "0"
@@ -224,7 +224,7 @@ END SYN;
 -- Retrieval info: CONSTANT: COMMON_RX_TX_PLL STRING "OFF"
 -- Retrieval info: CONSTANT: clk_src_is_pll STRING "off"
 -- Retrieval info: CONSTANT: DATA_ALIGN_ROLLOVER NUMERIC "10"
--- Retrieval info: CONSTANT: DATA_RATE STRING "400.0 Mbps"
+-- Retrieval info: CONSTANT: DATA_RATE STRING "200.0 Mbps"
 -- Retrieval info: CONSTANT: DESERIALIZATION_FACTOR NUMERIC "10"
 -- Retrieval info: CONSTANT: DPA_INITIAL_PHASE_VALUE NUMERIC "0"
 -- Retrieval info: CONSTANT: DPLL_LOCK_COUNT NUMERIC "0"
@@ -240,9 +240,9 @@ END SYN;
 -- Retrieval info: CONSTANT: IMPLEMENT_IN_LES STRING "OFF"
 -- Retrieval info: CONSTANT: INCLOCK_BOOST NUMERIC "0"
 -- Retrieval info: CONSTANT: INCLOCK_DATA_ALIGNMENT STRING "EDGE_ALIGNED"
--- Retrieval info: CONSTANT: INCLOCK_PERIOD NUMERIC "5000"
+-- Retrieval info: CONSTANT: INCLOCK_PERIOD NUMERIC "10000"
 -- Retrieval info: CONSTANT: INCLOCK_PHASE_SHIFT NUMERIC "0"
--- Retrieval info: CONSTANT: INPUT_DATA_RATE NUMERIC "400"
+-- Retrieval info: CONSTANT: INPUT_DATA_RATE NUMERIC "200"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: CONSTANT: LOSE_LOCK_ON_ONE_CHANGE STRING "UNUSED"
 -- Retrieval info: CONSTANT: LPM_HINT STRING "UNUSED"
