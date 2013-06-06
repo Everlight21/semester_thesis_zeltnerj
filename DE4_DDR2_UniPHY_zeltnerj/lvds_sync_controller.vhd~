@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-05-13
+-- Last update: 2013-05-21
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -279,16 +279,24 @@ begin  -- architecture behavioral
 
       when idle =>
 
-        if PixelChannelxD(0)(0) = '0' then
-          for i in 1 to noOfDataChannels loop
+        if PixelChannelxD(0)(9) /= '1' or PixelChannelxD(0)(8) /= '0' then
+          CameraReadyxSN <= '0';
+          InitCounterxDN <= 0;    
+          AlignxS(0)     <= '1';
+          StatexDN       <= pulseChannelDataAlign;
+        elsif PixelChannelxD(0)(0) = '0' then
+          for i in 0 to noOfDataChannels loop
             if PixelChannelxD(i)(9) /= '1' or PixelChannelxD(i)(8) /= '0' then
               AlignxS(i) <= '1';
               StatexDN <= pulseChannelDataAlign;
             end if;
           end loop;  -- i
         end if;
-        
 
+        -----------------------------------------------------------------------
+        -- change alignement of channels with dev board buttons
+        -- (just for debugging reasons)
+        -----------------------------------------------------------------------
         for i in 0 to 3 loop
           if ButtonxS(i) = '0' then
             AlignxS(i+1) <= '1';

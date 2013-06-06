@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-05-29
+-- Last update: 2013-06-05
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -309,16 +309,18 @@ architecture behavioral of cmv_master is
           --end loop;  -- i
           
           for i in 1 to noOfDataChannels loop
+            if ChannelSelectxSP = i then
+              
             if BufNoOfWordsxS(i) < 8 then  -- fifo has 4*32=128 bit output (4
                                            -- pixel each 32bit) and
                                            -- rdwuse counts 128bit words. After
                                            -- 8*128=1024bit or 8*4pixel=32pixel
                                            -- a read-out should be performed
               StatexDN <= fifoWait;
-              --BufReadReqxS <= (others => '0');
-            --else
-            --  StatexDN <= burst;
+              
             end if;
+
+          end if;
           end loop;  -- i
           
 

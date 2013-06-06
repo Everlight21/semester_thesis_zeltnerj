@@ -72,6 +72,8 @@ add wave -noupdate /cmv_master_tb/cmv_master_1/RowCounterxDP
 add wave -noupdate /cmv_master_tb/cmv_master_1/RowCounterxDN
 add wave -noupdate /cmv_master_tb/cmv_master_1/StatexDP
 add wave -noupdate /cmv_master_tb/cmv_master_1/StatexDN
+add wave -noupdate /cmv_master_tb/cmv_master_1/getCmvDataStatexDP
+add wave -noupdate /cmv_master_tb/cmv_master_1/getCmvDataStatexDN
 add wave -noupdate /cmv_master_tb/cmv_master_1/BufClearxSP
 add wave -noupdate /cmv_master_tb/cmv_master_1/BufClearxSN
 add wave -noupdate -divider {cmv_ram_fifo 1}
@@ -130,9 +132,10 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {499362052 ps} {500033577 ps}
-bookmark add wave {bookmark2} {{28269980 ps} {28691292 ps}} 26
-bookmark add wave {bookmark3} {{27852789360 ps} {27853210673 ps}} 0
-bookmark add wave {bookmark4} {{10169190 ps} {10357990 ps}} 4
-bookmark add wave {bookmark5} {{27975089 ps} {29660337 ps}} 26
-bookmark add wave {bookmark6} {{27906516425 ps} {27908201673 ps}} 0
+WaveRestoreZoom {499745796 ps} {500417321 ps}
+bookmark add wave {bookmark45} {{27975089 ps} {29660337 ps}} 26
+bookmark add wave {bookmark46} {{27906516425 ps} {27908201673 ps}} 0
+bookmark add wave {bookmark47} {{28269980 ps} {28691292 ps}} 26
+bookmark add wave {bookmark48} {{10169190 ps} {10357990 ps}} 4
+bookmark add wave {bookmark49} {{27852789360 ps} {27853210673 ps}} 0
+bookmark add wave {bookmark50} {{27912168655 ps} {27913511703 ps}} 28
