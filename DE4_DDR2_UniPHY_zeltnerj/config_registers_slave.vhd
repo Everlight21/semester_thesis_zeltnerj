@@ -13,6 +13,10 @@
 -- Description: An avalon slave containing several registers for storing and
 --              accessing configuration data.
 --              Configuration data transfer between Nios2 and hardware blocks.
+--
+--              Register map:
+--                 0 - 127 : CMV configuration registers (see datasheet)
+--               128 -   
 -------------------------------------------------------------------------------
 -- Copyright (c) 2013 Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -------------------------------------------------------------------------------
@@ -37,6 +41,7 @@ entity config_registers_slave is
     ASWriteDataxDI  : in  std_logic_vector(31 downto 0);
     ASWritexSI      : in  std_logic;
     ASReadDataxDO   : out std_logic_vector(31 downto 0);
+    RegAddressxDI : in std_logic_vector(7 downto 0);
     ConfigInxDI     : in  std_logic_vector(2047 downto 0);  -- 256*8bit registers
     ConfigOutxDO    : out std_logic_vector(2047 downto 0));
 
@@ -57,6 +62,7 @@ architecture behavioral of config_registers_slave is
   signal ASWriteDataxD  : std_logic_vector(31 downto 0);
   signal ASWritexS      : std_logic;
   signal ASReadDataxD   : std_logic_vector(31 downto 0);
+  signal RegAddressxD   : std_logic_vector(7 downto 0);
   signal ConfigInxD     : std_logic_vector(2047 downto 0);
   signal ConfigOutxD    : std_logic_vector(2047 downto 0);
 

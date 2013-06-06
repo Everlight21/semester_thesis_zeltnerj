@@ -1056,8 +1056,8 @@ void camera_init(alt_u32 SPI_BASE) {
    40554:	00446b80 	call	446b8 <alt_avalon_spi_command>
 
 	//	request amount of frames
-	sentwrite[1] = 10;
-   40558:	00800284 	movi	r2,10
+	sentwrite[1] = 1;
+   40558:	00800044 	movi	r2,1
    4055c:	e0bffe45 	stb	r2,-7(fp)
 	sentwrite[0] = 70 | 0x80;
    40560:	00bff184 	movi	r2,-58

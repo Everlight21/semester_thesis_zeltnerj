@@ -68,6 +68,7 @@ architecture behavioral of lvds_sync_controller is
   signal RowValidxS                       : std_logic;
   signal FrameValidxS                     : std_logic;
   signal LedxS                            : std_logic_vector(7 downto 0);
+  signal CameraReadyxS : std_logic;
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
   -- DataOutput
@@ -118,6 +119,7 @@ begin  -- architecture behavioral
   RowValidxSO       <= RowValidxS;
   FrameValidxSO     <= FrameValidxS;
   LedxSO            <= LedxS;
+  CameraReadyxSO <= CameraReadyxS;
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
   -- control signals
@@ -125,6 +127,10 @@ begin  -- architecture behavioral
   InitReadyxS <= NoOfDataChannelsxDI(0);  -- temporary hack, should be changed
                                           -- with proper init signal
 
+  -----------------------------------------------------------------------------
+  -- control output signals
+  -----------------------------------------------------------------------------
+  CameraReadyxS <= CameraReadyxSP;
   
   -----------------------------------------------------------------------------
   -- lvds data channel signals

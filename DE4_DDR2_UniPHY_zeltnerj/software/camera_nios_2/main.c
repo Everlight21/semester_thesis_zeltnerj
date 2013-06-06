@@ -45,6 +45,7 @@ int main() {
 
 	while(1) {
 		IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x40); //sets pio[6] which is connected to cmv frameRequest
+//		usleep(1);
 //		IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x00); //frame req pulse
 
 
