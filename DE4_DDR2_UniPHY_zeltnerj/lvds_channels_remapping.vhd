@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-04-30
--- Last update: 2013-04-30
+-- Last update: 2013-05-21
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -45,16 +45,72 @@ use work.configuration_pkg.all;
 entity lvds_channels_remapping is
   
   port (
-    DataInxDI  : in  std_logic_vector(lvdsDataWidth-1 downto 0);
-    DataOutxDO : out std_logic_vector(lvdsDataWidth-1 downto 0));
+    Cam1ChannelCtrlxDI : in std_logic;
+    Cam1Channel1xDI : in std_logic;
+    Cam1Channel3xDI : in std_logic;
+    Cam1Channel5xDI : in std_logic;
+    Cam1Channel7xDI : in std_logic;
+    Cam1Channel9xDI : in std_logic;
+    Cam1Channel11xDI : in std_logic;
+    Cam1Channel13xDI : in std_logic;
+    Cam1Channel15xDI : in std_logic;
+    Cam2ChannelCtrlxDI : in std_logic;
+    Cam2Channel1xDI : in std_logic;
+    Cam2Channel3xDI : in std_logic;
+    Cam2Channel5xDI : in std_logic;
+    Cam2Channel7xDI : in std_logic;
+    Cam2Channel9xDI : in std_logic;
+    Cam2Channel11xDI : in std_logic;
+    Cam2Channel13xDI : in std_logic;
+    Cam2Channel15xDI : in std_logic;
+    DataOutxDO : out std_logic_vector((2*(8+1))-1 downto 0));
 
 end entity lvds_channels_remapping;
 
 
 architecture remapping of lvds_channels_remapping is
 
+  
+  
 begin  -- architecture remapping
 
-  
+  -----------------------------------------------------------------------------
+  -- standard image:
+  -- image flipping on cmv image sensor is deactivated.
+  -----------------------------------------------------------------------------
+      --DataOutxDO <= (DataOutxDO'high downto 4+1 => '0') &
+      --              Cam1Channel13xDI &
+      --              Cam1Channel9xDI &
+      --              Cam1Channel5xDI &
+      --              Cam1Channel1xDI &
+      --              Cam1ChannelCtrlxDI when noOfDataChannels = 4 else
+      --              (DataOutxDO'high downto 8+1 => '0') &
+      --              Cam1Channel15xDI &
+      --              Cam1Channel13xDI &
+      --              Cam1Channel11xDI &
+      --              Cam1Channel9xDI &
+      --              Cam1Channel7xDI &
+      --              Cam1Channel5xDI &
+      --              Cam1Channel3xDI &
+      --              Cam1Channel1xDI &
+      --              Cam1ChannelCtrlxDI when noOfDataChannels = 8 else
+      --              (others => '0');
+      --              -- add here new 'when' branches for different
+      --              -- number of channels.
+
+  -------------------------------------------------------------------------
+  -- flipped image:
+  -- in order to display the frames on the monitor correctly when the image
+  -- flipping on the cmv image sensor is activated, the channels
+  -- need to be reordered (reverse order).
+  -------------------------------------------------------------------------
+  DataOutxDO <= (DataOutxDO'high downto 4+1 => '0') &
+                Cam1Channel1xDI &
+                Cam1Channel5xDI &
+                Cam1Channel9xDI &
+                Cam1Channel13xDI &
+                Cam1ChannelCtrlxDI when noOfDataChannels = 4 else
+                (others => '0');
+    
 
 end architecture remapping;

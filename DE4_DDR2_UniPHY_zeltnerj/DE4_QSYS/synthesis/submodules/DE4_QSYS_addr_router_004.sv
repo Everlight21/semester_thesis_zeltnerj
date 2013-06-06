@@ -1,4 +1,4 @@
-// (C) 2001-2012 Altera Corporation. All rights reserved.
+// (C) 2001-2013 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -11,9 +11,9 @@
 // agreement for further details.
 
 
-// $Id: //acds/rel/12.1/ip/merlin/altera_merlin_router/altera_merlin_router.sv.terp#1 $
+// $Id: //acds/rel/12.1sp1/ip/merlin/altera_merlin_router/altera_merlin_router.sv.terp#1 $
 // $Revision: #1 $
-// $Date: 2012/08/12 $
+// $Date: 2012/10/10 $
 // $Author: swbranch $
 
 // -------------------------------------------------------
@@ -31,20 +31,20 @@
 
 module DE4_QSYS_addr_router_004_default_decode
   #(
-     parameter DEFAULT_CHANNEL = 3,
-               DEFAULT_DESTID = 7 
+     parameter DEFAULT_CHANNEL = 0,
+               DEFAULT_DESTID = 9 
    )
-  (output [116 - 113 : 0] default_destination_id,
-   output [10-1 : 0] default_src_channel
+  (output [224 - 221 : 0] default_destination_id,
+   output [12-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[116 - 113 : 0];
+    DEFAULT_DESTID[224 - 221 : 0];
   generate begin : default_decode
     if (DEFAULT_CHANNEL == -1)
       assign default_src_channel = '0;
     else
-      assign default_src_channel = 10'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 12'b1 << DEFAULT_CHANNEL;
   end
   endgenerate
 
@@ -63,7 +63,7 @@ module DE4_QSYS_addr_router_004
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [127-1 : 0]    sink_data,
+    input  [235-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -72,8 +72,8 @@ module DE4_QSYS_addr_router_004
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [127-1    : 0] src_data,
-    output reg [10-1 : 0] src_channel,
+    output reg [235-1    : 0] src_data,
+    output reg [12-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -82,16 +82,16 @@ module DE4_QSYS_addr_router_004
     // -------------------------------------------------------
     // Local parameters and variables
     // -------------------------------------------------------
-    localparam PKT_ADDR_H = 67;
-    localparam PKT_ADDR_L = 36;
-    localparam PKT_DEST_ID_H = 116;
-    localparam PKT_DEST_ID_L = 113;
-    localparam ST_DATA_W = 127;
-    localparam ST_CHANNEL_W = 10;
+    localparam PKT_ADDR_H = 175;
+    localparam PKT_ADDR_L = 144;
+    localparam PKT_DEST_ID_H = 224;
+    localparam PKT_DEST_ID_L = 221;
+    localparam ST_DATA_W = 235;
+    localparam ST_CHANNEL_W = 12;
     localparam DECODER_TYPE = 0;
 
-    localparam PKT_TRANS_WRITE = 70;
-    localparam PKT_TRANS_READ  = 71;
+    localparam PKT_TRANS_WRITE = 178;
+    localparam PKT_TRANS_READ  = 179;
 
     localparam PKT_ADDR_W = PKT_ADDR_H-PKT_ADDR_L + 1;
     localparam PKT_DEST_ID_W = PKT_DEST_ID_H-PKT_DEST_ID_L + 1;
@@ -103,17 +103,13 @@ module DE4_QSYS_addr_router_004
     // Figure out the number of bits to mask off for each slave span
     // during address decoding
     // -------------------------------------------------------
-    localparam PAD0 = log2ceil(64'h20 - 64'h0);
-    localparam PAD1 = log2ceil(64'h40 - 64'h20);
-    localparam PAD2 = log2ceil(64'h50 - 64'h40);
-    localparam PAD3 = log2ceil(64'h60 - 64'h50);
-    localparam PAD4 = log2ceil(64'h68 - 64'h60);
+    localparam PAD0 = log2ceil(64'h80000000 - 64'h40000000);
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
     // address range of the slaves. If the required width is too
     // large or too small, we use the address field width instead.
     // -------------------------------------------------------
-    localparam ADDR_RANGE = 64'h68;
+    localparam ADDR_RANGE = 64'h80000000;
     localparam RANGE_ADDR_WIDTH = log2ceil(ADDR_RANGE);
     localparam OPTIMIZED_ADDR_H = (RANGE_ADDR_WIDTH > PKT_ADDR_W) ||
                                   (RANGE_ADDR_WIDTH == 0) ?
@@ -121,7 +117,6 @@ module DE4_QSYS_addr_router_004
                                         PKT_ADDR_L + RANGE_ADDR_WIDTH - 1;
     localparam RG = RANGE_ADDR_WIDTH-1;
 
-      wire [PKT_ADDR_W-1 : 0] address = sink_data[OPTIMIZED_ADDR_H : PKT_ADDR_L];
 
     // -------------------------------------------------------
     // Pass almost everything through, untouched
@@ -132,7 +127,7 @@ module DE4_QSYS_addr_router_004
     assign src_endofpacket   = sink_endofpacket;
 
     wire [PKT_DEST_ID_W-1:0] default_destid;
-    wire [10-1 : 0] default_src_channel;
+    wire [12-1 : 0] default_src_channel;
 
 
 
@@ -151,36 +146,12 @@ module DE4_QSYS_addr_router_004
         // Address Decoder
         // Sets the channel and destination ID based on the address
         // --------------------------------------------------
+	
+        // ( 40000000 .. 80000000 )
+        src_channel = 12'b1;
+        src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 9;
+	
 
-        // ( 0x0 .. 0x20 )
-        if ( {address[RG:PAD0],{PAD0{1'b0}}} == 7'h0 ) begin
-            src_channel = 10'b01000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 7;
-        end
-
-        // ( 0x20 .. 0x40 )
-        if ( {address[RG:PAD1],{PAD1{1'b0}}} == 7'h20 ) begin
-            src_channel = 10'b00100;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 6;
-        end
-
-        // ( 0x40 .. 0x50 )
-        if ( {address[RG:PAD2],{PAD2{1'b0}}} == 7'h40 ) begin
-            src_channel = 10'b00010;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 5;
-        end
-
-        // ( 0x50 .. 0x60 )
-        if ( {address[RG:PAD3],{PAD3{1'b0}}} == 7'h50 ) begin
-            src_channel = 10'b00001;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
-        end
-
-        // ( 0x60 .. 0x68 )
-        if ( {address[RG:PAD4],{PAD4{1'b0}}} == 7'h60 ) begin
-            src_channel = 10'b10000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 8;
-        end
 
 end
 

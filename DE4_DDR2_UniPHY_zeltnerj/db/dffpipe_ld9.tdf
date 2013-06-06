@@ -1,5 +1,5 @@
 --dffpipe DELAY=2 WIDTH=9 clock clrn d q ALTERA_INTERNAL_OPTIONS=AUTO_SHIFT_REGISTER_RECOGNITION=OFF
---VERSION_BEGIN 12.1 cbx_mgl 2012:11:07:18:06:30:SJ cbx_stratixii 2012:11:07:18:03:59:SJ cbx_util_mgl 2012:11:07:18:03:59:SJ  VERSION_END
+--VERSION_BEGIN 12.1SP1 cbx_mgl 2013:01:31:18:08:27:SJ cbx_stratixii 2013:01:31:18:04:59:SJ cbx_util_mgl 2013:01:31:18:04:59:SJ  VERSION_END
 
 
 -- Copyright (C) 1991-2012 Altera Corporation
@@ -29,26 +29,26 @@ SUBDESIGN dffpipe_ld9
 	q[8..0]	:	output;
 ) 
 VARIABLE 
-	dffe13a[8..0] : dffe;
 	dffe14a[8..0] : dffe;
+	dffe15a[8..0] : dffe;
 	ena	: NODE;
 	prn	: NODE;
 	sclr	: NODE;
 
 BEGIN 
-	dffe13a[].clk = clock;
-	dffe13a[].clrn = clrn;
-	dffe13a[].d = (d[] & (! sclr));
-	dffe13a[].ena = ena;
-	dffe13a[].prn = prn;
 	dffe14a[].clk = clock;
 	dffe14a[].clrn = clrn;
-	dffe14a[].d = (dffe13a[].q & (! sclr));
+	dffe14a[].d = (d[] & (! sclr));
 	dffe14a[].ena = ena;
 	dffe14a[].prn = prn;
+	dffe15a[].clk = clock;
+	dffe15a[].clrn = clrn;
+	dffe15a[].d = (dffe14a[].q & (! sclr));
+	dffe15a[].ena = ena;
+	dffe15a[].prn = prn;
 	ena = VCC;
 	prn = VCC;
-	q[] = dffe14a[].q;
+	q[] = dffe15a[].q;
 	sclr = GND;
 END;
 --VALID FILE

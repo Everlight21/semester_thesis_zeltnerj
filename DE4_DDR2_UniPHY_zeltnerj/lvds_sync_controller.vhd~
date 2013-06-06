@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-04-29
+-- Last update: 2013-05-21
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -36,11 +36,12 @@ entity lvds_sync_controller is
     ClkxCI              : in  std_logic;
     RstxRBI             : in  std_logic;
     -- lvds signal enter in reversed order, e.g. DVAL bit is Bit [9] not Bit [0]
-    LVDSDataxDI         : in  std_logic_vector(lvdsDataWidth-1 downto 0);
+    --LVDSDataxDI         : in  std_logic_vector(lvdsDataWidth-1 downto 0);
+    LVDSDataxDI         : in  std_logic_vector(18*channelWidth-1 downto 0);
     ButtonxSI           : in  std_logic_vector (3 downto 0);
     FrameReqInxSI       : in  std_logic;
-    AlignxSO            : out std_logic_vector(noOfDataChannels downto 0);
-    PixelDataxDO        : out std_logic_vector(camDataWidth-1 downto 0);
+    AlignxSO            : out std_logic_vector(18-1 downto 0);
+    PixelDataxDO        : out std_logic_vector(16*channelWidth-1 downto 0);
     FrameReqOutxSO      : out std_logic;
     PixelValidxSO       : out std_logic;
     RowValidxSO         : out std_logic;
@@ -74,7 +75,7 @@ architecture behavioral of lvds_sync_controller is
   -----------------------------------------------------------------------------
   -- Pixel Channel type and signal declaration
   -----------------------------------------------------------------------------
-  type channelArray is array (0 to noOfDataChannels) of std_logic_vector(channelWidth-1 downto 0);
+  type channelArray is array (0 to 17) of std_logic_vector(channelWidth-1 downto 0);
   signal PixelChannelxD                   : channelArray;
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
@@ -86,12 +87,13 @@ architecture behavioral of lvds_sync_controller is
   -----------------------------------------------------------------------------
   -- counters
   -----------------------------------------------------------------------------
-  signal InitCounterxDP, InitCounterxDN   : integer range 0 to 64000;
-  signal DelayCounterxDP, DelayCounterxDN : integer range 0 to 64000;
+  signal InitCounterxDP, InitCounterxDN   : integer range 0 to 128;
+  signal DelayCounterxDP, DelayCounterxDN : integer range 0 to 128;
 
   -----------------------------------------------------------------------------
   -- control signals
   -----------------------------------------------------------------------------
+  signal InitReadyxS : std_logic;
   signal CameraReadyxSP, CameraReadyxSN : std_logic;
   signal AlignxDP, AlignxDN             : std_logic;
 
@@ -116,7 +118,13 @@ begin  -- architecture behavioral
   FrameValidxSO     <= FrameValidxS;
   LedxSO            <= LedxS;
   -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
+  -- control signals
+  -----------------------------------------------------------------------------
+  InitReadyxS <= NoOfDataChannelsxDI(0);  -- temporary hack, should be changed
+                                          -- with proper init signal
 
+  
   -----------------------------------------------------------------------------
   -- lvds data channel signals
   -----------------------------------------------------------------------------
@@ -124,25 +132,27 @@ begin  -- architecture behavioral
   -- reverse bit order to match bit order described in datasheet
   -- see CMV2000/4000 datasheet for reference
 
-  -- control channel
+ 
+  -- control channels
   PixelChannelxD(0) <= reverseBitOrder(LVDSDataxD(channelWidth*1-1 downto 0));
+  PixelChannelxD(17) <= reverseBitOrder(LVDSDataxD(channelWidth*18-1 downto channelWidth*17));
   -- data channels
   PixelChannelxD(1) <= reverseBitOrder(LVDSDataxD(channelWidth*2-1 downto channelWidth*1));
   PixelChannelxD(2) <= reverseBitOrder(LVDSDataxD(channelWidth*3-1 downto channelWidth*2));
   PixelChannelxD(3) <= reverseBitOrder(LVDSDataxD(channelWidth*4-1 downto channelWidth*3));
   PixelChannelxD(4) <= reverseBitOrder(LVDSDataxD(channelWidth*5-1 downto channelWidth*4));
-  --PixelChannelxD(5) <= reverseBitOrder(LVDSDataxD(channelWidth*6-1 downto channelWidth*5));
-  --PixelChannelxD(6) <= reverseBitOrder(LVDSDataxD(channelWidth*7-1 downto channelWidth*6));
-  --PixelChannelxD(7) <= reverseBitOrder(LVDSDataxD(channelWidth*8-1 downto channelWidth*7));
-  --PixelChannelxD(8) <= reverseBitOrder(LVDSDataxD(channelWidth*9-1 downto channelWidth*8));
-  --PixelChannelxD(9) <= reverseBitOrder(LVDSDataxD(channelWidth*10-1 downto channelWidth*9));
-  --PixelChannelxD(10) <= reverseBitOrder(LVDSDataxD(channelWidth*11-1 downto channelWidth*10));
-  --PixelChannelxD(11) <= reverseBitOrder(LVDSDataxD(channelWidth*12-1 downto channelWidth*11));
-  --PixelChannelxD(12) <= reverseBitOrder(LVDSDataxD(channelWidth*13-1 downto channelWidth*12));
-  --PixelChannelxD(13) <= reverseBitOrder(LVDSDataxD(channelWidth*14-1 downto channelWidth*13));
-  --PixelChannelxD(14) <= reverseBitOrder(LVDSDataxD(channelWidth*15-1 downto channelWidth*14));
-  --PixelChannelxD(15) <= reverseBitOrder(LVDSDataxD(channelWidth*16-1 downto channelWidth*15));
-  --PixelChannelxD(16) <= reverseBitOrder(LVDSDataxD(channelWidth*17-1 downto channelWidth*16));
+  PixelChannelxD(5) <= reverseBitOrder(LVDSDataxD(channelWidth*6-1 downto channelWidth*5));
+  PixelChannelxD(6) <= reverseBitOrder(LVDSDataxD(channelWidth*7-1 downto channelWidth*6));
+  PixelChannelxD(7) <= reverseBitOrder(LVDSDataxD(channelWidth*8-1 downto channelWidth*7));
+  PixelChannelxD(8) <= reverseBitOrder(LVDSDataxD(channelWidth*9-1 downto channelWidth*8));
+  PixelChannelxD(9) <= reverseBitOrder(LVDSDataxD(channelWidth*10-1 downto channelWidth*9));
+  PixelChannelxD(10) <= reverseBitOrder(LVDSDataxD(channelWidth*11-1 downto channelWidth*10));
+  PixelChannelxD(11) <= reverseBitOrder(LVDSDataxD(channelWidth*12-1 downto channelWidth*11));
+  PixelChannelxD(12) <= reverseBitOrder(LVDSDataxD(channelWidth*13-1 downto channelWidth*12));
+  PixelChannelxD(13) <= reverseBitOrder(LVDSDataxD(channelWidth*14-1 downto channelWidth*13));
+  PixelChannelxD(14) <= reverseBitOrder(LVDSDataxD(channelWidth*15-1 downto channelWidth*14));
+  PixelChannelxD(15) <= reverseBitOrder(LVDSDataxD(channelWidth*16-1 downto channelWidth*15));
+  PixelChannelxD(16) <= reverseBitOrder(LVDSDataxD(channelWidth*17-1 downto channelWidth*16));
 
   -----------------------------------------------------------------------------
   -- Pixel Data Output
@@ -153,8 +163,13 @@ begin  -- architecture behavioral
   -- outputs: PixelDataxD
   output_signal_mapping: process (PixelChannelxD) is
   begin  -- process output_signal_mapping
-    for i in 1 to noOfDataChannels loop
-      PixelDataxD(channelWidth*i-1 downto channelWidth*(i-1)) <= PixelChannelxD(i);
+    for i in 1 to 2*8 loop
+      if i <= noOfDataChannels then
+        PixelDataxD(channelWidth*i-1 downto channelWidth*(i-1)) <= PixelChannelxD(i);
+      else
+        PixelDataxD(channelWidth*i-1 downto channelWidth*(i-1)) <= (others => '0');
+      end if;
+      
     end loop;  -- i
   end process output_signal_mapping;
   
@@ -182,20 +197,20 @@ begin  -- architecture behavioral
   --            '0';
   --LedxS(7) <= AlignxS(0);
 
-  --LedxS(0) <= PixelChannelxD(0)(0);
-  --LedxS(1) <= PixelChannelxD(0)(1);
-  --LedxS(2) <= PixelChannelxD(0)(2);
-  --LedxS(3) <= PixelChannelxD(0)(3);
-  --LedxS(4) <= PixelChannelxD(0)(4);
-  --LedxS(5) <= PixelChannelxD(0)(5);
-  --LedxS(6) <= PixelChannelxD(0)(8);
-  --LedxS(7) <= PixelChannelxD(0)(9);
+  LedxS(0) <= PixelChannelxD(0)(0);
+  LedxS(1) <= PixelChannelxD(0)(1);
+  LedxS(2) <= PixelChannelxD(0)(2);
+  LedxS(3) <= PixelChannelxD(0)(3);
+  LedxS(4) <= PixelChannelxD(0)(4);
+  LedxS(5) <= PixelChannelxD(0)(5);
+  LedxS(6) <= PixelChannelxD(0)(8);
+  LedxS(7) <= PixelChannelxD(0)(9);
 
-  LedxS(3 downto 0) <= NoOfDataChannelsxDI;
-  LedxS(4)          <= '0';
-  LedxS(5)          <= '0';
-  LedxS(6)          <= '0';
-  LedxS(7)          <= '0';
+  --LedxS(3 downto 0) <= NoOfDataChannelsxDI;
+  --LedxS(4)          <= '0';
+  --LedxS(5)          <= '0';
+  --LedxS(6)          <= '0';
+  --LedxS(7)          <= '0';
 
   -----------------------------------------------------------------------------
   -- Register update process
@@ -225,7 +240,7 @@ begin  -- architecture behavioral
   -- inputs : 
   -- outputs: 
   fsm : process (AlignxS, ButtonxS, CameraReadyxSP, InitCounterxDP, DelayCounterxDP,
-                 PixelChannelxD, StatexDP, AlignxDP) is
+                 PixelChannelxD, StatexDP, AlignxDP, InitReadyxS) is
   begin  -- process fsm
     StatexDN        <= StatexDP;
     InitCounterxDN  <= InitCounterxDP;
@@ -236,7 +251,7 @@ begin  -- architecture behavioral
     case StatexDP is
 
       when resetDelay =>
-        if FrameReqInxS = '1' then
+        if InitReadyxS = '1' then
           StatexDN <= initCtr;
         end if;
 
@@ -264,10 +279,27 @@ begin  -- architecture behavioral
 
       when idle =>
 
-        for i in 1 to noOfDataChannels loop
-          if PixelChannelxD(i)(9) /= '1' or PixelChannelxD(i)(8) /= '0' then
-            AlignxS(i) <= '1';
-            StatexDN <= pulseChannelDataAlign;
+        if PixelChannelxD(0)(9) /= '1' or PixelChannelxD(0)(8) /= '0' then
+          CameraReadyxSN <= '0';
+          InitCounterxDN <= 0;    
+          AlignxS(0)     <= '1';
+          StatexDN       <= pulseChannelDataAlign;
+        elsif PixelChannelxD(0)(0) = '0' then
+          for i in 0 to noOfDataChannels loop
+            if PixelChannelxD(i)(9) /= '1' or PixelChannelxD(i)(8) /= '0' then
+              AlignxS(i) <= '1';
+              StatexDN <= pulseChannelDataAlign;
+            end if;
+          end loop;  -- i
+        end if;
+
+        -----------------------------------------------------------------------
+        -- change alignement of channels with dev board buttons
+        -- (just for debugging reasons)
+        -----------------------------------------------------------------------
+        for i in 0 to 3 loop
+          if ButtonxS(i) = '0' then
+            AlignxS(i+1) <= '1';
           end if;
         end loop;  -- i
         

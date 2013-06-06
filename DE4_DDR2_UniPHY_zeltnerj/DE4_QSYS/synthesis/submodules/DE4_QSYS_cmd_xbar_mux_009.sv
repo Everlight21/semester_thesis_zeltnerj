@@ -27,11 +27,11 @@
 // Generation parameters:
 //   output_name:         DE4_QSYS_cmd_xbar_mux_009
 //   NUM_INPUTS:          3
-//   ARBITRATION_SHARES:  1 32 128
+//   ARBITRATION_SHARES:  1 1 1
 //   ARBITRATION_SCHEME   "round-robin"
 //   PIPELINE_ARB:        1
-//   PKT_TRANS_LOCK:      72 (arbitration locking enabled)
-//   ST_DATA_W:           127
+//   PKT_TRANS_LOCK:      324 (arbitration locking enabled)
+//   ST_DATA_W:           379
 //   ST_CHANNEL_W:        12
 // ------------------------------------------
 
@@ -41,21 +41,21 @@ module DE4_QSYS_cmd_xbar_mux_009
     // Sinks
     // ----------------------
     input                       sink0_valid,
-    input [127-1   : 0]  sink0_data,
+    input [379-1   : 0]  sink0_data,
     input [12-1: 0]  sink0_channel,
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
 
     input                       sink1_valid,
-    input [127-1   : 0]  sink1_data,
+    input [379-1   : 0]  sink1_data,
     input [12-1: 0]  sink1_channel,
     input                       sink1_startofpacket,
     input                       sink1_endofpacket,
     output                      sink1_ready,
 
     input                       sink2_valid,
-    input [127-1   : 0]  sink2_data,
+    input [379-1   : 0]  sink2_data,
     input [12-1: 0]  sink2_channel,
     input                       sink2_startofpacket,
     input                       sink2_endofpacket,
@@ -66,7 +66,7 @@ module DE4_QSYS_cmd_xbar_mux_009
     // Source
     // ----------------------
     output                      src_valid,
-    output [127-1    : 0] src_data,
+    output [379-1    : 0] src_data,
     output [12-1 : 0] src_channel,
     output                      src_startofpacket,
     output                      src_endofpacket,
@@ -78,13 +78,13 @@ module DE4_QSYS_cmd_xbar_mux_009
     input clk,
     input reset
 );
-    localparam PAYLOAD_W        = 127 + 12 + 2;
+    localparam PAYLOAD_W        = 379 + 12 + 2;
     localparam NUM_INPUTS       = 3;
-    localparam SHARE_COUNTER_W  = 7;
+    localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 1;
-    localparam ST_DATA_W        = 127;
+    localparam ST_DATA_W        = 379;
     localparam ST_CHANNEL_W     = 12;
-    localparam PKT_TRANS_LOCK   = 72;
+    localparam PKT_TRANS_LOCK   = 324;
 
     // ------------------------------------------
     // Signals
@@ -119,9 +119,9 @@ module DE4_QSYS_cmd_xbar_mux_009
     // ------------------------------------------
     reg [NUM_INPUTS - 1 : 0] lock;
     always @* begin
-      lock[0] = sink0_data[72];
-      lock[1] = sink1_data[72];
-      lock[2] = sink2_data[72];
+      lock[0] = sink0_data[324];
+      lock[1] = sink1_data[324];
+      lock[2] = sink2_data[324];
     end
     reg [NUM_INPUTS - 1 : 0] locked = '0;
     always @(posedge clk or posedge reset) begin
@@ -162,11 +162,11 @@ module DE4_QSYS_cmd_xbar_mux_009
     // ------------------------------------------
     // Input  |  arb shares  |  counter load value
     // 0      |      1       |  0
-    // 1      |      32       |  31
-    // 2      |      128       |  127
-    wire [SHARE_COUNTER_W - 1 : 0] share_0 = 7'd0;
-    wire [SHARE_COUNTER_W - 1 : 0] share_1 = 7'd31;
-    wire [SHARE_COUNTER_W - 1 : 0] share_2 = 7'd127;
+    // 1      |      1       |  0
+    // 2      |      1       |  0
+    wire [SHARE_COUNTER_W - 1 : 0] share_0 = 1'd0;
+    wire [SHARE_COUNTER_W - 1 : 0] share_1 = 1'd0;
+    wire [SHARE_COUNTER_W - 1 : 0] share_2 = 1'd0;
 
     // ------------------------------------------
     // Choose the share value corresponding to the grant.

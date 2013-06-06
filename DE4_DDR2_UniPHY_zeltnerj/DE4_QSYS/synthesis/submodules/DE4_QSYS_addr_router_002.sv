@@ -104,18 +104,18 @@ module DE4_QSYS_addr_router_002
     // during address decoding
     // -------------------------------------------------------
     localparam PAD0 = log2ceil(64'h20 - 64'h0);
-    localparam PAD1 = log2ceil(64'h40 - 64'h20);
-    localparam PAD2 = log2ceil(64'h60 - 64'h40);
-    localparam PAD3 = log2ceil(64'h70 - 64'h60);
-    localparam PAD4 = log2ceil(64'h80 - 64'h70);
-    localparam PAD5 = log2ceil(64'h90 - 64'h80);
-    localparam PAD6 = log2ceil(64'h98 - 64'h90);
+    localparam PAD1 = log2ceil(64'ha0 - 64'h80);
+    localparam PAD2 = log2ceil(64'h120 - 64'h100);
+    localparam PAD3 = log2ceil(64'h190 - 64'h180);
+    localparam PAD4 = log2ceil(64'h1d0 - 64'h1c0);
+    localparam PAD5 = log2ceil(64'h210 - 64'h200);
+    localparam PAD6 = log2ceil(64'h248 - 64'h240);
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
     // address range of the slaves. If the required width is too
     // large or too small, we use the address field width instead.
     // -------------------------------------------------------
-    localparam ADDR_RANGE = 64'h98;
+    localparam ADDR_RANGE = 64'h248;
     localparam RANGE_ADDR_WIDTH = log2ceil(ADDR_RANGE);
     localparam OPTIMIZED_ADDR_H = (RANGE_ADDR_WIDTH > PKT_ADDR_W) ||
                                   (RANGE_ADDR_WIDTH == 0) ?
@@ -155,43 +155,43 @@ module DE4_QSYS_addr_router_002
         // --------------------------------------------------
 
         // ( 0x0 .. 0x20 )
-        if ( {address[RG:PAD0],{PAD0{1'b0}}} == 8'h0 ) begin
+        if ( {address[RG:PAD0],{PAD0{1'b0}}} == 10'h0 ) begin
             src_channel = 12'b0100000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 10;
         end
 
-        // ( 0x20 .. 0x40 )
-        if ( {address[RG:PAD1],{PAD1{1'b0}}} == 8'h20 ) begin
+        // ( 0x80 .. 0xa0 )
+        if ( {address[RG:PAD1],{PAD1{1'b0}}} == 10'h80 ) begin
             src_channel = 12'b0001000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 7;
         end
 
-        // ( 0x40 .. 0x60 )
-        if ( {address[RG:PAD2],{PAD2{1'b0}}} == 8'h40 ) begin
+        // ( 0x100 .. 0x120 )
+        if ( {address[RG:PAD2],{PAD2{1'b0}}} == 10'h100 ) begin
             src_channel = 12'b0000100;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 6;
         end
 
-        // ( 0x60 .. 0x70 )
-        if ( {address[RG:PAD3],{PAD3{1'b0}}} == 8'h60 ) begin
+        // ( 0x180 .. 0x190 )
+        if ( {address[RG:PAD3],{PAD3{1'b0}}} == 10'h180 ) begin
             src_channel = 12'b1000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 11;
         end
 
-        // ( 0x70 .. 0x80 )
-        if ( {address[RG:PAD4],{PAD4{1'b0}}} == 8'h70 ) begin
+        // ( 0x1c0 .. 0x1d0 )
+        if ( {address[RG:PAD4],{PAD4{1'b0}}} == 10'h1c0 ) begin
             src_channel = 12'b0000010;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 5;
         end
 
-        // ( 0x80 .. 0x90 )
-        if ( {address[RG:PAD5],{PAD5{1'b0}}} == 8'h80 ) begin
+        // ( 0x200 .. 0x210 )
+        if ( {address[RG:PAD5],{PAD5{1'b0}}} == 10'h200 ) begin
             src_channel = 12'b0000001;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
         end
 
-        // ( 0x90 .. 0x98 )
-        if ( {address[RG:PAD6],{PAD6{1'b0}}} == 8'h90 ) begin
+        // ( 0x240 .. 0x248 )
+        if ( {address[RG:PAD6],{PAD6{1'b0}}} == 10'h240 ) begin
             src_channel = 12'b0010000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 8;
         end

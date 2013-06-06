@@ -97,35 +97,35 @@ void camera_init(alt_u32 SPI_BASE) {
 
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 //
-	//number of lines 1 255
-	sentwrite[1] = 0x30; //0x40
-	sentwrite[0] = 1 | 0x80;
-	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
-
-	//number of lines 2 1
-	sentwrite[1] = 0x04; //0x04
-	sentwrite[0] = 2 | 0x80;
-	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
+//	//number of lines 1 255
+//	sentwrite[1] = 0x30; //0x40
+//	sentwrite[0] = 1 | 0x80;
+//	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 //
-	//start row window 1
-	sentwrite[1] = 0x00; //0x00
-	sentwrite[0] = 3 | 0x80;
-	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
-
-	//start row window 2
-	sentwrite[1] = 0x00; //0x00
-	sentwrite[0] = 4 | 0x80;
-	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
-
-	// row skip 1
-	sentwrite[1] = 0x00; //0x00
-	sentwrite[0] = 35 | 0x80;
-	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
-
-	// row skip 2
-	sentwrite[1] = 0x00; //0x00
-	sentwrite[0] = 37 | 0x80;
-	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
+//	//number of lines 2 1
+//	sentwrite[1] = 0x04; //0x04
+//	sentwrite[0] = 2 | 0x80;
+//	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
+////
+//	//start row window 1
+//	sentwrite[1] = 0x00; //0x00
+//	sentwrite[0] = 3 | 0x80;
+//	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
+//
+//	//start row window 2
+//	sentwrite[1] = 0x00; //0x00
+//	sentwrite[0] = 4 | 0x80;
+//	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
+//
+//	// row skip 1
+//	sentwrite[1] = 0x00; //0x00
+//	sentwrite[0] = 35 | 0x80;
+//	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
+//
+//	// row skip 2
+//	sentwrite[1] = 0x00; //0x00
+//	sentwrite[0] = 37 | 0x80;
+//	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 
 
 	//bit mode
@@ -135,23 +135,23 @@ void camera_init(alt_u32 SPI_BASE) {
 
 
 	//	image flipping x/y
-	sentwrite[1] = 0x01; //0x00
+	sentwrite[1] = 0x01; //0x01: image flipping x
 	sentwrite[0] = 40 | 0x80;
 	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 
-	//	exposure time 1
-	sentwrite[1] = 0x00; //0x40
-	sentwrite[0] = 42 | 0x80;
-	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
-
-	//	exposure time 2
-	sentwrite[1] = 0x04; //0x04
-	sentwrite[0] = 43 | 0x80;
-	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
-
-	//	exposure time 3
-	sentwrite[1] = 0x00; //0x00
-	sentwrite[0] = 44 | 0x80;
-	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
+//	//	exposure time 1
+//	sentwrite[1] = 0x00; //0x40
+//	sentwrite[0] = 42 | 0x80;
+//	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
+//
+//	//	exposure time 2
+//	sentwrite[1] = 0x04; //0x04
+//	sentwrite[0] = 43 | 0x80;
+//	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
+//
+//	//	exposure time 3
+//	sentwrite[1] = 0x00; //0x00
+//	sentwrite[0] = 44 | 0x80;
+//	alt_avalon_spi_command(SPI_BASE, 0, 2, sentwrite, 0, &received, 0);
 
 }

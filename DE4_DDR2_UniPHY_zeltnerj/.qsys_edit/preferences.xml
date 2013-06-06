@@ -16,8 +16,7 @@
    <frequency preferredWidth="517" />
   </columns>
  </clocktable>
- <library
-   expandedCategories="Library,Library/Peripherals,Library/Peripherals/Microcontroller Peripherals,Project" />
+ <library expandedCategories="Project,Library" />
  <window width="1874" height="1216" x="54" y="-8" />
  <hdlexample language="VHDL" />
 </preferences>

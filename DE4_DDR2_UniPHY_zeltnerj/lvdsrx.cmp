@@ -17,10 +17,10 @@ component lvdsrx
 	PORT
 	(
 		pll_areset		: IN STD_LOGIC ;
-		rx_channel_data_align		: IN STD_LOGIC_VECTOR (4 DOWNTO 0);
-		rx_in		: IN STD_LOGIC_VECTOR (4 DOWNTO 0);
+		rx_channel_data_align		: IN STD_LOGIC_VECTOR (17 DOWNTO 0);
+		rx_in		: IN STD_LOGIC_VECTOR (17 DOWNTO 0);
 		rx_inclock		: IN STD_LOGIC ;
-		rx_out		: OUT STD_LOGIC_VECTOR (49 DOWNTO 0);
+		rx_out		: OUT STD_LOGIC_VECTOR (179 DOWNTO 0);
 		rx_outclock		: OUT STD_LOGIC 
 	);
 end component;

@@ -1,0 +1,17 @@
+entity dvi_master_interface is
+	port (
+		ClkxCI             : in  std_logic                     := '0';             --    clock_main.clk
+		RstxRBI            : in  std_logic                     := '0';             --       reset_n.reset_n
+		AmWaitReqxSI       : in  std_logic                     := '0';             -- avalon_master.waitrequest
+		AmAddressxDO       : out std_logic_vector(31 downto 0);                    --              .address
+		AmReadDataxDI      : in  std_logic_vector(15 downto 0) := (others => '0'); --              .readdata
+		AmReadxSO          : out std_logic;                                        --              .read
+		AmReadDataValidxSI : in  std_logic                     := '0';             --              .readdatavalid
+		AmBurstCountxDO    : out std_logic_vector(7 downto 0);                     --              .burstcount
+		ClkDvixCI          : in  std_logic                     := '0';             --   conduit_end.export
+		DviNewLinexDI      : in  std_logic                     := '0';             --              .export
+		DviNewFramexDI     : in  std_logic                     := '0';             --              .export
+		DviPixelAvxSI      : in  std_logic                     := '0';             --              .export
+		DviDataOutxDO      : out std_logic_vector(15 downto 0)                     --              .export
+	);
+end entity dvi_master_interface;

@@ -3,10 +3,10 @@
 <pinplan intended_family="Stratix IV" variation_name="lvdsrx" megafunction_name="ALTLVDS_RX" specifies="all_ports">
 <global>
 <pin name="pll_areset" direction="input" scope="external"  />
-<pin name="rx_channel_data_align[4..0]" direction="input" scope="external"  />
-<pin name="rx_in[4..0]" direction="input" scope="external"  />
+<pin name="rx_channel_data_align[17..0]" direction="input" scope="external"  />
+<pin name="rx_in[17..0]" direction="input" scope="external"  />
 <pin name="rx_inclock" direction="input" scope="external"  />
-<pin name="rx_out[49..0]" direction="output" scope="external"  />
+<pin name="rx_out[179..0]" direction="output" scope="external"  />
 <pin name="rx_outclock" direction="output" scope="external"  />
 
 </global>

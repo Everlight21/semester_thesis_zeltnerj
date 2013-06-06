@@ -16,12 +16,12 @@
 FUNCTION lvdsrx 
 (
 	pll_areset,
-	rx_channel_data_align[4..0],
-	rx_in[4..0],
+	rx_channel_data_align[17..0],
+	rx_in[17..0],
 	rx_inclock
 )
 
 RETURNS (
-	rx_out[49..0],
+	rx_out[179..0],
 	rx_outclock
 );

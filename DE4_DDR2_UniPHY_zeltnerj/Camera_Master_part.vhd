@@ -55,7 +55,7 @@ component fifocamera
 	);
 end component;
 
-	
+	 
 	-- state machine states
 	type write_states_T is (idle, fifo_wait, mid_burst);--, final_burst);
 	signal write_state : write_states_T;

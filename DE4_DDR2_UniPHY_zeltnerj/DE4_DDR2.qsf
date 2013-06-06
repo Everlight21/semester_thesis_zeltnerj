@@ -1231,6 +1231,16 @@ set_instance_assignment -name IO_STANDARD LVDS -to C2_CHN_11
 set_location_assignment PIN_F5 -to "C2_CHN_11(n)"
 set_instance_assignment -name IO_STANDARD LVDS -to C2_CHN_3
 set_location_assignment PIN_F6 -to "C2_CHN_3(n)"
+set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
+set_global_assignment -name FITTER_EFFORT "FAST FIT"
+set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
+set_global_assignment -name SMART_RECOMPILE ON
+set_global_assignment -name PHYSICAL_SYNTHESIS_EFFORT FAST
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name VHDL_FILE cmv_master.vhd
+set_global_assignment -name VHDL_FILE dvi_master.vhd
+set_global_assignment -name VHDL_FILE lvds_channels_remapping.vhd
 set_global_assignment -name VHDL_FILE configuration_pkg.vhd
 set_global_assignment -name VHDL_FILE lvds_sync_controller.vhd
 set_global_assignment -name VERILOG_FILE vpg_source/vpg.v
@@ -1253,13 +1263,6 @@ set_global_assignment -name BDF_FILE cmv4000design.bdf
 set_global_assignment -name VHDL_FILE RX.vhd
 set_global_assignment -name VHDL_FILE Stored_Mastertest.vhd
 set_global_assignment -name VHDL_FILE RX_Multiplexer.vhd
-set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
-set_global_assignment -name FITTER_EFFORT "FAST FIT"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
-set_global_assignment -name SMART_RECOMPILE ON
-set_global_assignment -name PHYSICAL_SYNTHESIS_EFFORT FAST
-set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
-set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name QIP_FILE DE4_QSYS/synthesis/DE4_QSYS.qip
 set_global_assignment -name QIP_FILE pll.qip
 set_global_assignment -name QIP_FILE storage.qip
@@ -1267,4 +1270,6 @@ set_global_assignment -name QIP_FILE fifo.qip
 set_global_assignment -name QIP_FILE fifocamera.qip
 set_global_assignment -name QIP_FILE plldvi.qip
 set_global_assignment -name QIP_FILE pllcamera.qip
+set_global_assignment -name QIP_FILE cmv_ram_fifo.qip
+set_global_assignment -name QIP_FILE ram_dvi_fifo.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

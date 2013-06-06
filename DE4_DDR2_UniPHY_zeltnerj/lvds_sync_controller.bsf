@@ -40,8 +40,8 @@ applicable agreement for further details.
 	(port
 		(pt 0 64)
 		(input)
-		(text "LVDSDataxDI[49..0]" (rect 0 0 86 12)(font "Arial" ))
-		(text "LVDSDataxDI[49..0]" (rect 21 59 107 71)(font "Arial" ))
+		(text "LVDSDataxDI[179..0]" (rect 0 0 88 12)(font "Arial" ))
+		(text "LVDSDataxDI[179..0]" (rect 21 59 109 71)(font "Arial" ))
 		(line (pt 0 64)(pt 16 64)(line_width 3))
 	)
 	(port
@@ -68,15 +68,15 @@ applicable agreement for further details.
 	(port
 		(pt 296 32)
 		(output)
-		(text "AlignxSO[4..0]" (rect 0 0 59 12)(font "Arial" ))
-		(text "AlignxSO[4..0]" (rect 216 27 275 39)(font "Arial" ))
+		(text "AlignxSO[17..0]" (rect 0 0 61 12)(font "Arial" ))
+		(text "AlignxSO[17..0]" (rect 214 27 275 39)(font "Arial" ))
 		(line (pt 296 32)(pt 280 32)(line_width 3))
 	)
 	(port
 		(pt 296 48)
 		(output)
-		(text "PixelDataxDO[39..0]" (rect 0 0 80 12)(font "Arial" ))
-		(text "PixelDataxDO[39..0]" (rect 195 43 275 55)(font "Arial" ))
+		(text "PixelDataxDO[159..0]" (rect 0 0 83 12)(font "Arial" ))
+		(text "PixelDataxDO[159..0]" (rect 192 43 275 55)(font "Arial" ))
 		(line (pt 296 48)(pt 280 48)(line_width 3))
 	)
 	(port
@@ -113,6 +113,13 @@ applicable agreement for further details.
 		(text "LedxSO[7..0]" (rect 0 0 53 12)(font "Arial" ))
 		(text "LedxSO[7..0]" (rect 222 123 275 135)(font "Arial" ))
 		(line (pt 296 128)(pt 280 128)(line_width 3))
+	)
+	(port
+		(pt 296 144)
+		(output)
+		(text "CameraReadyxSO" (rect 0 0 79 12)(font "Arial" ))
+		(text "CameraReadyxSO" (rect 196 139 275 151)(font "Arial" ))
+		(line (pt 296 144)(pt 280 144)(line_width 1))
 	)
 	(drawing
 		(rectangle (rect 16 16 280 160)(line_width 1))

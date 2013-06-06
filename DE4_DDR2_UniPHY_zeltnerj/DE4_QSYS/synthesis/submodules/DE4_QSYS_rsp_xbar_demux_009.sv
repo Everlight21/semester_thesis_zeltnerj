@@ -28,7 +28,7 @@
 // ------------------------------------------
 // Generation parameters:
 //   output_name:         DE4_QSYS_rsp_xbar_demux_009
-//   ST_DATA_W:           127
+//   ST_DATA_W:           379
 //   ST_CHANNEL_W:        12
 //   NUM_OUTPUTS:         3
 //   VALID_WIDTH:         1
@@ -46,7 +46,7 @@ module DE4_QSYS_rsp_xbar_demux_009
     // Sink
     // -------------------
     input  [1-1      : 0]   sink_valid,
-    input  [127-1    : 0]   sink_data, // ST_DATA_W=127
+    input  [379-1    : 0]   sink_data, // ST_DATA_W=379
     input  [12-1 : 0]   sink_channel, // ST_CHANNEL_W=12
     input                         sink_startofpacket,
     input                         sink_endofpacket,
@@ -56,21 +56,21 @@ module DE4_QSYS_rsp_xbar_demux_009
     // Sources 
     // -------------------
     output reg                      src0_valid,
-    output reg [127-1    : 0] src0_data, // ST_DATA_W=127
+    output reg [379-1    : 0] src0_data, // ST_DATA_W=379
     output reg [12-1 : 0] src0_channel, // ST_CHANNEL_W=12
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,
     input                           src0_ready,
 
     output reg                      src1_valid,
-    output reg [127-1    : 0] src1_data, // ST_DATA_W=127
+    output reg [379-1    : 0] src1_data, // ST_DATA_W=379
     output reg [12-1 : 0] src1_channel, // ST_CHANNEL_W=12
     output reg                      src1_startofpacket,
     output reg                      src1_endofpacket,
     input                           src1_ready,
 
     output reg                      src2_valid,
-    output reg [127-1    : 0] src2_data, // ST_DATA_W=127
+    output reg [379-1    : 0] src2_data, // ST_DATA_W=379
     output reg [12-1 : 0] src2_channel, // ST_CHANNEL_W=12
     output reg                      src2_startofpacket,
     output reg                      src2_endofpacket,

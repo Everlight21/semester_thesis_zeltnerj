@@ -1,5 +1,5 @@
 Flow report for DE4_DDR2
-Tue Apr 30 17:59:20 2013
+Thu Jun 06 16:07:47 2013
 Quartus II 32-bit Version 12.1 Build 243 01/31/2013 Service Pack 1 SJ Full Version
 
 
@@ -38,21 +38,21 @@ applicable agreement for further details.
 +------------------------------------------------------------------------------------+
 ; Flow Summary                                                                       ;
 +-----------------------------------+------------------------------------------------+
-; Flow Status                       ; Successful - Tue Apr 30 17:58:08 2013          ;
+; Flow Status                       ; Successful - Thu Jun 06 16:06:31 2013          ;
 ; Quartus II 32-bit Version         ; 12.1 Build 243 01/31/2013 SP 1 SJ Full Version ;
 ; Revision Name                     ; DE4_DDR2                                       ;
 ; Top-level Entity Name             ; cmv4000design                                  ;
 ; Family                            ; Stratix IV                                     ;
 ; Device                            ; EP4SGX230KF40C2                                ;
 ; Timing Models                     ; Final                                          ;
-; Logic utilization                 ; 10 %                                           ;
-;     Combinational ALUTs           ; 11,279 / 182,400 ( 6 % )                       ;
+; Logic utilization                 ; 11 %                                           ;
+;     Combinational ALUTs           ; 12,327 / 182,400 ( 7 % )                       ;
 ;     Memory ALUTs                  ; 183 / 91,200 ( < 1 % )                         ;
-;     Dedicated logic registers     ; 13,685 / 182,400 ( 8 % )                       ;
-; Total registers                   ; 14323                                          ;
+;     Dedicated logic registers     ; 13,705 / 182,400 ( 8 % )                       ;
+; Total registers                   ; 14343                                          ;
 ; Total pins                        ; 302 / 888 ( 34 % )                             ;
 ; Total virtual pins                ; 0                                              ;
-; Total block memory bits           ; 1,707,452 / 14,625,792 ( 12 % )                ;
+; Total block memory bits           ; 2,526,620 / 14,625,792 ( 17 % )                ;
 ; DSP block 18-bit elements         ; 4 / 1,288 ( < 1 % )                            ;
 ; Total GXB Receiver Channel PCS    ; 0 / 24 ( 0 % )                                 ;
 ; Total GXB Receiver Channel PMA    ; 0 / 36 ( 0 % )                                 ;
@@ -68,7 +68,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/30/2013 17:45:08 ;
+; Start date & time ; 06/06/2013 15:52:26 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE4_DDR2            ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ applicable agreement for further details.
 +-------------------------------------+------------------------------------------------------------+---------------+------------------------------------------+------------+
 ; Assignment Name                     ; Value                                                      ; Default Value ; Entity Name                              ; Section Id ;
 +-------------------------------------+------------------------------------------------------------+---------------+------------------------------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 116526678098.136733670704764                               ; --            ; --                                       ; --         ;
+; COMPILER_SIGNATURE_ID               ; 116526678098.137052674503512                               ; --            ; --                                       ; --         ;
 ; ECO_REGENERATE_REPORT               ; On                                                         ; Off           ; --                                       ; --         ;
 ; FITTER_EFFORT                       ; Fast Fit                                                   ; Auto Fit      ; --                                       ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS                                 ; --         ;
@@ -87,11 +87,13 @@ applicable agreement for further details.
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_addr_router_001                 ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_addr_router_002                 ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_addr_router_003                 ; --         ;
+; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_addr_router_004                 ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_button                          ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_cmd_xbar_demux                  ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_cmd_xbar_demux_001              ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_cmd_xbar_demux_002              ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_cmd_xbar_demux_003              ; --         ;
+; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_cmd_xbar_demux_004              ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_cmd_xbar_mux                    ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_cmd_xbar_mux_009                ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS_id_router                       ; --         ;
@@ -139,16 +141,20 @@ applicable agreement for further details.
 ; IP_TOOL_NAME                        ; FIFO                                                       ; --            ; --                                       ; --         ;
 ; IP_TOOL_NAME                        ; FIFO                                                       ; --            ; --                                       ; --         ;
 ; IP_TOOL_NAME                        ; ALTPLL                                                     ; --            ; --                                       ; --         ;
+; IP_TOOL_NAME                        ; FIFO                                                       ; --            ; --                                       ; --         ;
+; IP_TOOL_NAME                        ; FIFO                                                       ; --            ; --                                       ; --         ;
 ; IP_TOOL_NAME                        ; qsys                                                       ; --            ; DE4_QSYS                                 ; --         ;
 ; IP_TOOL_NAME                        ; altera_merlin_router                                       ; --            ; DE4_QSYS_addr_router                     ; --         ;
 ; IP_TOOL_NAME                        ; altera_merlin_router                                       ; --            ; DE4_QSYS_addr_router_001                 ; --         ;
 ; IP_TOOL_NAME                        ; altera_merlin_router                                       ; --            ; DE4_QSYS_addr_router_002                 ; --         ;
 ; IP_TOOL_NAME                        ; altera_merlin_router                                       ; --            ; DE4_QSYS_addr_router_003                 ; --         ;
+; IP_TOOL_NAME                        ; altera_merlin_router                                       ; --            ; DE4_QSYS_addr_router_004                 ; --         ;
 ; IP_TOOL_NAME                        ; altera_avalon_pio                                          ; --            ; DE4_QSYS_button                          ; --         ;
 ; IP_TOOL_NAME                        ; altera_merlin_demultiplexer                                ; --            ; DE4_QSYS_cmd_xbar_demux                  ; --         ;
 ; IP_TOOL_NAME                        ; altera_merlin_demultiplexer                                ; --            ; DE4_QSYS_cmd_xbar_demux_001              ; --         ;
 ; IP_TOOL_NAME                        ; altera_merlin_demultiplexer                                ; --            ; DE4_QSYS_cmd_xbar_demux_002              ; --         ;
 ; IP_TOOL_NAME                        ; altera_merlin_demultiplexer                                ; --            ; DE4_QSYS_cmd_xbar_demux_003              ; --         ;
+; IP_TOOL_NAME                        ; altera_merlin_demultiplexer                                ; --            ; DE4_QSYS_cmd_xbar_demux_004              ; --         ;
 ; IP_TOOL_NAME                        ; altera_merlin_multiplexer                                  ; --            ; DE4_QSYS_cmd_xbar_mux                    ; --         ;
 ; IP_TOOL_NAME                        ; altera_merlin_multiplexer                                  ; --            ; DE4_QSYS_cmd_xbar_mux_009                ; --         ;
 ; IP_TOOL_NAME                        ; altera_merlin_router                                       ; --            ; DE4_QSYS_id_router                       ; --         ;
@@ -196,16 +202,20 @@ applicable agreement for further details.
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; --                                       ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; --                                       ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; --                                       ; --         ;
+; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; --                                       ; --         ;
+; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; --                                       ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1sp1                                                    ; --            ; DE4_QSYS                                 ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_addr_router                     ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_addr_router_001                 ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_addr_router_002                 ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_addr_router_003                 ; --         ;
+; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_addr_router_004                 ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_button                          ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_cmd_xbar_demux                  ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_cmd_xbar_demux_001              ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_cmd_xbar_demux_002              ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_cmd_xbar_demux_003              ; --         ;
+; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_cmd_xbar_demux_004              ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_cmd_xbar_mux                    ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_cmd_xbar_mux_009                ; --         ;
 ; IP_TOOL_VERSION                     ; 12.1                                                       ; --            ; DE4_QSYS_id_router                       ; --         ;
@@ -263,13 +273,15 @@ applicable agreement for further details.
 ; MISC_FILE                           ; pllcamera.bsf                                              ; --            ; --                                       ; --         ;
 ; MISC_FILE                           ; pllcamera.cmp                                              ; --            ; --                                       ; --         ;
 ; MISC_FILE                           ; pllcamera.ppf                                              ; --            ; --                                       ; --         ;
+; MISC_FILE                           ; cmv_ram_fifo.cmp                                           ; --            ; --                                       ; --         ;
+; MISC_FILE                           ; ram_dvi_fifo.cmp                                           ; --            ; --                                       ; --         ;
 ; PARTITION_COLOR                     ; 16764057                                                   ; --            ; cmv4000design                            ; Top        ;
 ; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                                      ; --            ; cmv4000design                            ; Top        ;
 ; PARTITION_NETLIST_TYPE              ; SOURCE                                                     ; --            ; cmv4000design                            ; Top        ;
 ; PHYSICAL_SYNTHESIS_EFFORT           ; Fast                                                       ; Normal        ; --                                       ; --         ;
 ; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                        ; --            ; --                                       ; --         ;
 ; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                      ; --            ; --                                       ; --         ;
-; SLD_INFO                            ; QSYS_NAME DE4_QSYS HAS_SOPCINFO 1 GENERATION_ID 1366720735 ; --            ; DE4_QSYS                                 ; --         ;
+; SLD_INFO                            ; QSYS_NAME DE4_QSYS HAS_SOPCINFO 1 GENERATION_ID 1368545481 ; --            ; DE4_QSYS                                 ; --         ;
 ; SMART_RECOMPILE                     ; On                                                         ; Off           ; --                                       ; --         ;
 ; SOPCINFO_FILE                       ; DE4_QSYS/synthesis/../../DE4_QSYS.sopcinfo                 ; --            ; --                                       ; --         ;
 ; SYNTHESIS_ONLY_QIP                  ; On                                                         ; --            ; --                                       ; --         ;
@@ -282,11 +294,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:03:40     ; 1.0                     ; 890 MB              ; 00:03:38                           ;
-; Fitter                    ; 00:08:07     ; 1.9                     ; 1192 MB             ; 00:09:29                           ;
-; Assembler                 ; 00:00:41     ; 1.0                     ; 608 MB              ; 00:00:39                           ;
-; TimeQuest Timing Analyzer ; 00:01:08     ; 1.8                     ; 820 MB              ; 00:01:19                           ;
-; Total                     ; 00:13:36     ; --                      ; --                  ; 00:15:05                           ;
+; Analysis & Synthesis      ; 00:03:51     ; 1.0                     ; 914 MB              ; 00:03:46                           ;
+; Fitter                    ; 00:08:59     ; 2.0                     ; 1250 MB             ; 00:10:32                           ;
+; Assembler                 ; 00:00:42     ; 1.0                     ; 612 MB              ; 00:00:40                           ;
+; TimeQuest Timing Analyzer ; 00:01:12     ; 1.9                     ; 853 MB              ; 00:01:25                           ;
+; Total                     ; 00:14:44     ; --                      ; --                  ; 00:16:23                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

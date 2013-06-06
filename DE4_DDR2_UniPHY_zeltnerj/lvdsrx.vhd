@@ -43,10 +43,10 @@ ENTITY lvdsrx IS
 	PORT
 	(
 		pll_areset		: IN STD_LOGIC ;
-		rx_channel_data_align		: IN STD_LOGIC_VECTOR (4 DOWNTO 0);
-		rx_in		: IN STD_LOGIC_VECTOR (4 DOWNTO 0);
+		rx_channel_data_align		: IN STD_LOGIC_VECTOR (17 DOWNTO 0);
+		rx_in		: IN STD_LOGIC_VECTOR (17 DOWNTO 0);
 		rx_inclock		: IN STD_LOGIC ;
-		rx_out		: OUT STD_LOGIC_VECTOR (49 DOWNTO 0);
+		rx_out		: OUT STD_LOGIC_VECTOR (179 DOWNTO 0);
 		rx_outclock		: OUT STD_LOGIC 
 	);
 END lvdsrx;
@@ -54,7 +54,7 @@ END lvdsrx;
 
 ARCHITECTURE SYN OF lvdsrx IS
 
-	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (49 DOWNTO 0);
+	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (179 DOWNTO 0);
 	SIGNAL sub_wire1	: STD_LOGIC ;
 
 
@@ -110,17 +110,17 @@ ARCHITECTURE SYN OF lvdsrx IS
 		clk_src_is_pll		: STRING
 	);
 	PORT (
-			rx_in	: IN STD_LOGIC_VECTOR (4 DOWNTO 0);
+			rx_in	: IN STD_LOGIC_VECTOR (17 DOWNTO 0);
 			rx_inclock	: IN STD_LOGIC ;
 			pll_areset	: IN STD_LOGIC ;
-			rx_channel_data_align	: IN STD_LOGIC_VECTOR (4 DOWNTO 0);
-			rx_out	: OUT STD_LOGIC_VECTOR (49 DOWNTO 0);
+			rx_channel_data_align	: IN STD_LOGIC_VECTOR (17 DOWNTO 0);
+			rx_out	: OUT STD_LOGIC_VECTOR (179 DOWNTO 0);
 			rx_outclock	: OUT STD_LOGIC 
 	);
 	END COMPONENT;
 
 BEGIN
-	rx_out    <= sub_wire0(49 DOWNTO 0);
+	rx_out    <= sub_wire0(179 DOWNTO 0);
 	rx_outclock    <= sub_wire1;
 
 	ALTLVDS_RX_component : ALTLVDS_RX
@@ -129,7 +129,7 @@ BEGIN
 		cds_mode => "UNUSED",
 		common_rx_tx_pll => "OFF",
 		data_align_rollover => 10,
-		data_rate => "400.0 Mbps",
+		data_rate => "200.0 Mbps",
 		deserialization_factor => 10,
 		dpa_initial_phase_value => 0,
 		dpll_lock_count => 0,
@@ -145,14 +145,14 @@ BEGIN
 		implement_in_les => "OFF",
 		inclock_boost => 0,
 		inclock_data_alignment => "EDGE_ALIGNED",
-		inclock_period => 5000,
+		inclock_period => 10000,
 		inclock_phase_shift => 0,
-		input_data_rate => 400,
+		input_data_rate => 200,
 		intended_device_family => "Stratix IV",
 		lose_lock_on_one_change => "UNUSED",
 		lpm_hint => "CBX_MODULE_PREFIX=lvdsrx",
 		lpm_type => "altlvds_rx",
-		number_of_channels => 5,
+		number_of_channels => 18,
 		outclock_resource => "AUTO",
 		pll_operation_mode => "UNUSED",
 		pll_self_reset_on_loss_lock => "UNUSED",
@@ -193,7 +193,7 @@ END SYN;
 -- Retrieval info: PRIVATE: Bitslip NUMERIC "10"
 -- Retrieval info: PRIVATE: Clock_Choices STRING "tx_coreclock"
 -- Retrieval info: PRIVATE: Clock_Mode NUMERIC "0"
--- Retrieval info: PRIVATE: Data_rate STRING "400.0"
+-- Retrieval info: PRIVATE: Data_rate STRING "200.0"
 -- Retrieval info: PRIVATE: Deser_Factor NUMERIC "10"
 -- Retrieval info: PRIVATE: Dpll_Lock_Count NUMERIC "0"
 -- Retrieval info: PRIVATE: Dpll_Lock_Window NUMERIC "0"
@@ -202,13 +202,13 @@ END SYN;
 -- Retrieval info: PRIVATE: Ext_PLL STRING "OFF"
 -- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: PRIVATE: Le_Serdes STRING "OFF"
--- Retrieval info: PRIVATE: Num_Channel NUMERIC "5"
+-- Retrieval info: PRIVATE: Num_Channel NUMERIC "18"
 -- Retrieval info: PRIVATE: Outclock_Divide_By NUMERIC "0"
 -- Retrieval info: PRIVATE: pCNX_OUTCLK_ALIGN NUMERIC "0"
 -- Retrieval info: PRIVATE: pINCLOCK_PHASE_SHIFT STRING "0.00"
 -- Retrieval info: PRIVATE: PLL_Enable NUMERIC "0"
--- Retrieval info: PRIVATE: PLL_Freq STRING "200.00"
--- Retrieval info: PRIVATE: PLL_Period STRING "5.000"
+-- Retrieval info: PRIVATE: PLL_Freq STRING "100.00"
+-- Retrieval info: PRIVATE: PLL_Period STRING "10.000"
 -- Retrieval info: PRIVATE: pOUTCLOCK_PHASE_SHIFT NUMERIC "0"
 -- Retrieval info: PRIVATE: Reg_InOut NUMERIC "1"
 -- Retrieval info: PRIVATE: Use_Cda_Reset NUMERIC "0"
@@ -224,7 +224,7 @@ END SYN;
 -- Retrieval info: CONSTANT: COMMON_RX_TX_PLL STRING "OFF"
 -- Retrieval info: CONSTANT: clk_src_is_pll STRING "off"
 -- Retrieval info: CONSTANT: DATA_ALIGN_ROLLOVER NUMERIC "10"
--- Retrieval info: CONSTANT: DATA_RATE STRING "400.0 Mbps"
+-- Retrieval info: CONSTANT: DATA_RATE STRING "200.0 Mbps"
 -- Retrieval info: CONSTANT: DESERIALIZATION_FACTOR NUMERIC "10"
 -- Retrieval info: CONSTANT: DPA_INITIAL_PHASE_VALUE NUMERIC "0"
 -- Retrieval info: CONSTANT: DPLL_LOCK_COUNT NUMERIC "0"
@@ -240,14 +240,14 @@ END SYN;
 -- Retrieval info: CONSTANT: IMPLEMENT_IN_LES STRING "OFF"
 -- Retrieval info: CONSTANT: INCLOCK_BOOST NUMERIC "0"
 -- Retrieval info: CONSTANT: INCLOCK_DATA_ALIGNMENT STRING "EDGE_ALIGNED"
--- Retrieval info: CONSTANT: INCLOCK_PERIOD NUMERIC "5000"
+-- Retrieval info: CONSTANT: INCLOCK_PERIOD NUMERIC "10000"
 -- Retrieval info: CONSTANT: INCLOCK_PHASE_SHIFT NUMERIC "0"
--- Retrieval info: CONSTANT: INPUT_DATA_RATE NUMERIC "400"
+-- Retrieval info: CONSTANT: INPUT_DATA_RATE NUMERIC "200"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: CONSTANT: LOSE_LOCK_ON_ONE_CHANGE STRING "UNUSED"
 -- Retrieval info: CONSTANT: LPM_HINT STRING "UNUSED"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altlvds_rx"
--- Retrieval info: CONSTANT: NUMBER_OF_CHANNELS NUMERIC "5"
+-- Retrieval info: CONSTANT: NUMBER_OF_CHANNELS NUMERIC "18"
 -- Retrieval info: CONSTANT: OUTCLOCK_RESOURCE STRING "AUTO"
 -- Retrieval info: CONSTANT: PLL_OPERATION_MODE STRING "UNUSED"
 -- Retrieval info: CONSTANT: PLL_SELF_RESET_ON_LOSS_LOCK STRING "UNUSED"
@@ -268,14 +268,14 @@ END SYN;
 -- Retrieval info: CONSTANT: X_ON_BITSLIP STRING "ON"
 -- Retrieval info: USED_PORT: pll_areset 0 0 0 0 INPUT NODEFVAL "pll_areset"
 -- Retrieval info: CONNECT: @pll_areset 0 0 0 0 pll_areset 0 0 0 0
--- Retrieval info: USED_PORT: rx_channel_data_align 0 0 5 0 INPUT NODEFVAL "rx_channel_data_align[4..0]"
--- Retrieval info: CONNECT: @rx_channel_data_align 0 0 5 0 rx_channel_data_align 0 0 5 0
--- Retrieval info: USED_PORT: rx_in 0 0 5 0 INPUT NODEFVAL "rx_in[4..0]"
--- Retrieval info: CONNECT: @rx_in 0 0 5 0 rx_in 0 0 5 0
+-- Retrieval info: USED_PORT: rx_channel_data_align 0 0 18 0 INPUT NODEFVAL "rx_channel_data_align[17..0]"
+-- Retrieval info: CONNECT: @rx_channel_data_align 0 0 18 0 rx_channel_data_align 0 0 18 0
+-- Retrieval info: USED_PORT: rx_in 0 0 18 0 INPUT NODEFVAL "rx_in[17..0]"
+-- Retrieval info: CONNECT: @rx_in 0 0 18 0 rx_in 0 0 18 0
 -- Retrieval info: USED_PORT: rx_inclock 0 0 0 0 INPUT NODEFVAL "rx_inclock"
 -- Retrieval info: CONNECT: @rx_inclock 0 0 0 0 rx_inclock 0 0 0 0
--- Retrieval info: USED_PORT: rx_out 0 0 50 0 OUTPUT NODEFVAL "rx_out[49..0]"
--- Retrieval info: CONNECT: rx_out 0 0 50 0 @rx_out 0 0 50 0
+-- Retrieval info: USED_PORT: rx_out 0 0 180 0 OUTPUT NODEFVAL "rx_out[179..0]"
+-- Retrieval info: CONNECT: rx_out 0 0 180 0 @rx_out 0 0 180 0
 -- Retrieval info: USED_PORT: rx_outclock 0 0 0 0 OUTPUT NODEFVAL "rx_outclock"
 -- Retrieval info: CONNECT: rx_outclock 0 0 0 0 @rx_outclock 0 0 0 0
 -- Retrieval info: GEN_FILE: TYPE_NORMAL lvdsrx.vhd TRUE FALSE
