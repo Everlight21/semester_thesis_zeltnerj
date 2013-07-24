@@ -1056,8 +1056,8 @@ void camera_init(alt_u32 SPI_BASE) {
    40554:	00446b80 	call	446b8 <alt_avalon_spi_command>
 
 	//	request amount of frames
-	sentwrite[1] = 10;
-   40558:	00800284 	movi	r2,10
+	sentwrite[1] = 1;
+   40558:	00800044 	movi	r2,1
    4055c:	e0bffe45 	stb	r2,-7(fp)
 	sentwrite[0] = 70 | 0x80;
    40560:	00bff184 	movi	r2,-58
@@ -1251,9 +1251,9 @@ int main() {
 //			alt_avalon_spi_command(SPI_2_BASE,0,1,&sentread,1,&received2,0);
 //			printf("value1: %d value2: %d\n",received1,received2);
 
-		usleep(10000000);
-   40714:	01002674 	movhi	r4,153
-   40718:	2125a004 	addi	r4,r4,-27008
+		usleep(100000);
+   40714:	010000b4 	movhi	r4,2
+   40718:	2121a804 	addi	r4,r4,-31072
    4071c:	00439940 	call	43994 <usleep>
 
 
