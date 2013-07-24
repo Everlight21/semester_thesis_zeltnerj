@@ -1075,7 +1075,7 @@ void camera_init(alt_u32 SPI_BASE) {
    40588:	00446b80 	call	446b8 <alt_avalon_spi_command>
 //
 	//	training pattern 1
-	sentwrite[1] = 0x00; //0b01010101
+	sentwrite[1] = 0x00;
    4058c:	e03ffe45 	stb	zero,-7(fp)
 	sentwrite[0] = 78 | 0x80;
    40590:	00bff384 	movi	r2,-50
@@ -1093,7 +1093,7 @@ void camera_init(alt_u32 SPI_BASE) {
    405b8:	00446b80 	call	446b8 <alt_avalon_spi_command>
 
 	//	training pattern 2
-	sentwrite[1] = 0x02;
+	sentwrite[1] = 0x02; //0x02 is the default training pattern
    405bc:	00800084 	movi	r2,2
    405c0:	e0bffe45 	stb	r2,-7(fp)
 	sentwrite[0] = 79 | 0x80;
