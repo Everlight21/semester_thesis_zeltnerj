@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-03
--- Last update: 2013-05-23
+-- Last update: 2013-06-05
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -240,7 +240,12 @@ architecture Behavioral of cmv_master_tb is
     --end if;
 
     if PixelValidxS = '1' then
-      DataRegxDN <= DataRegxDP + 4;
+      if DataRegxDP = 508 then
+        DataRegxDN <= (others => '0');
+      else
+        DataRegxDN <= DataRegxDP + 4;
+      end if;
+      
       DataInxD <= std_logic_vector(DataRegxDP);
     end if;
     

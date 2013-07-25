@@ -29,16 +29,17 @@
 			spi_1_SCLK                          : out   std_logic;                                         -- SCLK
 			spi_1_SS_n                          : out   std_logic;                                         -- SS_n
 			no_of_cam_channels_export           : out   std_logic_vector(3 downto 0);                      -- export
+			dvi_master_interface_ClkDvixCI      : in    std_logic                      := 'X';             -- ClkDvixCI
+			dvi_master_interface_DviNewLinexDI  : in    std_logic                      := 'X';             -- DviNewLinexDI
+			dvi_master_interface_DviNewFramexDI : in    std_logic                      := 'X';             -- DviNewFramexDI
+			dvi_master_interface_DviPixelAvxSI  : in    std_logic                      := 'X';             -- DviPixelAvxSI
+			dvi_master_interface_DviDataOutxDO  : out   std_logic_vector(31 downto 0);                     -- DviDataOutxDO
 			cmv_master_interface_PixelValidxSI  : in    std_logic                      := 'X';             -- PixelValidxSI
 			cmv_master_interface_RowValidxSI    : in    std_logic                      := 'X';             -- RowValidxSI
 			cmv_master_interface_FrameValidxSI  : in    std_logic                      := 'X';             -- FrameValidxSI
 			cmv_master_interface_DataInxDI      : in    std_logic_vector(159 downto 0) := (others => 'X'); -- DataInxDI
 			cmv_master_interface_ClkLvdsRxxCI   : in    std_logic                      := 'X';             -- ClkLvdsRxxCI
-			dvi_master_interface_ClkDvixCI      : in    std_logic                      := 'X';             -- ClkDvixCI
-			dvi_master_interface_DviNewLinexDI  : in    std_logic                      := 'X';             -- DviNewLinexDI
-			dvi_master_interface_DviNewFramexDI : in    std_logic                      := 'X';             -- DviNewFramexDI
-			dvi_master_interface_DviPixelAvxSI  : in    std_logic                      := 'X';             -- DviPixelAvxSI
-			dvi_master_interface_DviDataOutxDO  : out   std_logic_vector(31 downto 0)                      -- DviDataOutxDO
+			cmv_master_interface_CameraReadyxSI : in    std_logic                      := 'X'              -- CameraReadyxSI
 		);
 	end component DE4_QSYS;
 

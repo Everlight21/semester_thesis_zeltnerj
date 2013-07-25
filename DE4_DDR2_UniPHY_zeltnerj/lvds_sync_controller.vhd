@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-06-06
+-- Last update: 2013-07-25
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -118,6 +118,7 @@ begin  -- architecture behavioral
   RowValidxSO       <= RowValidxS;
   FrameValidxSO     <= FrameValidxS;
   LedxSO            <= LedxS;
+  CameraReadyxSO <= CameraReadyxSP;
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
   -- control signals
@@ -204,7 +205,8 @@ begin  -- architecture behavioral
   LedxS(3) <= PixelChannelxD(0)(3);
   LedxS(4) <= PixelChannelxD(0)(4);
   LedxS(5) <= PixelChannelxD(0)(5);
-  LedxS(6) <= PixelChannelxD(0)(8);
+  --LedxS(6) <= PixelChannelxD(0)(8);
+  LedxS(6) <= CameraReadyxSP;
   LedxS(7) <= PixelChannelxD(0)(9);
 
   --LedxS(3 downto 0) <= NoOfDataChannelsxDI;
@@ -258,7 +260,6 @@ begin  -- architecture behavioral
 
       when initCtr =>
         if InitCounterxDP < 10 then
-          -- if PixelChannelxD(0)(9) = trainingPattern(15) and PixelChannelxD(0)(8) = trainingPattern(14) then
           if PixelChannelxD(0)(9) = '1' and PixelChannelxD(0)(8) = '0' then
             InitCounterxDN <= InitCounterxDP + 1;
           else

@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-03
--- Last update: 2013-06-05
+-- Last update: 2013-07-25
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -50,6 +50,7 @@ architecture Behavioral of cmv_master_tb is
       PixelValidxSI   : in  std_logic;
       RowValidxSI     : in  std_logic;
       FrameValidxSI   : in  std_logic;
+      CameraReadyxSI  : in  std_logic;
       DataInxDI       : in  std_logic_vector(159 downto 0);
       AMWaitReqxSI    : in  std_logic;
       AMAddressxDO    : out std_logic_vector(31 downto 0);
@@ -64,6 +65,7 @@ architecture Behavioral of cmv_master_tb is
   signal PixelValidxS   : std_logic;
   signal RowValidxS     : std_logic;
   signal FrameValidxS   : std_logic;
+  signal CameraReadyxS  : std_logic;
   signal DataInxD       : std_logic_vector(159 downto 0);
   signal AMWaitReqxS    : std_logic;
   signal AMAddressxD    : std_logic_vector(31 downto 0);
@@ -117,7 +119,7 @@ architecture Behavioral of cmv_master_tb is
   -----------------------------------------------------------------------------
 
 
-    cmv_master_1: cmv_master
+    cmv_master_1: entity work.cmv_master
       port map (
         ClkxCI          => ClkxC,
         ClkLvdsRxxCI    => ClkLvdsRxxC,
@@ -125,6 +127,7 @@ architecture Behavioral of cmv_master_tb is
         PixelValidxSI   => PixelValidxS,
         RowValidxSI     => RowValidxS,
         FrameValidxSI   => FrameValidxS,
+        CameraReadyxSI  => CameraReadyxS,
         DataInxDI       => DataInxD,
         AMWaitReqxSI    => AMWaitReqxS,
         AMAddressxDO    => AMAddressxD,
@@ -257,7 +260,8 @@ architecture Behavioral of cmv_master_tb is
     --else
     --  DataInxD <= (DataInxD'high downto 2 => '1') & "00";
     --end if;
-    
+
+    CameraReadyxS <= '1';
     
   end process;
   

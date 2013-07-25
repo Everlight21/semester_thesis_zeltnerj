@@ -40,6 +40,7 @@ entity cmv_master is
     PixelValidxSI   : in  std_logic;
     RowValidxSI     : in  std_logic;
     FrameValidxSI   : in  std_logic;
+    CameraReadyxSI : in std_logic;
     DataInxDI       : in  std_logic_vector(159 downto 0);
     -- avalon mm master interface
     AMWaitReqxSI    : in  std_logic;
@@ -62,6 +63,7 @@ architecture behavioral of cmv_master is
   signal PixelValidxS   : std_logic;
   signal RowValidxS     : std_logic;
   signal FrameValidxS   : std_logic;
+  signal CameraReadyxS : std_logic;
   signal DataInxD       : std_logic_vector(159 downto 0);
   signal AMWaitReqxS    : std_logic;
   signal AMAddressxD    : std_logic_vector(31 downto 0);
@@ -101,9 +103,8 @@ architecture behavioral of cmv_master is
   type bufferDataOut is array (1 to noOfDataChannels) of std_logic_vector(127 downto 0);
   signal BufDataOutxD : bufferDataOut;
 
-  type bufferControlSignals is array (1 to noOfDataChannels) of std_logic;
-  signal BufReadReqxS : bufferControlSignals := (others => '0');
-  signal BufWriteEnxS : bufferControlSignals := (others => '0');
+  signal BufReadReqxS : std_logic_vector(noOfDataChannels downto 1);
+  signal BufWriteEnxS : std_logic_vector(noOfDataChannels downto 1);
 
   type bufferNoOfWords is array (1 to noOfDataChannels) of std_logic_vector(7 downto 0);
   signal BufNoOfWordsxS : bufferNoOfWords;
@@ -154,6 +155,7 @@ begin
   PixelValidxS <= PixelValidxSI;
   RowValidxS   <= RowValidxSI;
   FrameValidxS <= FrameValidxSI;
+  CameraReadyxS <= CameraReadyxSI;
   DataInxD     <= DataInxDI;
   AMWaitReqxS  <= AMWaitReqxSI;
 
@@ -193,7 +195,17 @@ begin
   begin  -- process buffer_input
 
     BufClearxS <= '0';                  --BufClearxS is deasserted by default
+    BufWriteEnxS <= (others => '0');
+
+    for i in 1 to 16 loop
+          BufDataInxD(i) <= (others => '0');
+        end loop;  -- i
+    
     if RstxRB = '0' then
+      BufClearxS <= '1';
+    end if;
+
+    if CameraReadyxS = '0' then
       BufClearxS <= '1';
     end if;
 
@@ -215,13 +227,7 @@ begin
       when waitForData => null;
 
       when writeDataToBuffer =>
-        for i in 1 to noOfDataChannels loop
-          BufWriteEnxS(i) <= '0';
-        end loop;  -- i
 
-        for i in 1 to 16 loop
-          BufDataInxD(i) <= (others => '0');
-        end loop;  -- i
 
         if PixelValidxS = '1' and RowValidxS = '1' and FrameValidxS = '1' then
 
@@ -298,15 +304,16 @@ begin
     ChannelSelectxSN    <= ChannelSelectxSP;
     AMBurstCountxS      <= "00001000";  -- 8 (8*128bit = 8*4pixel = 32pixel)
     AMWritexS           <= '0';
+    BufReadReqxS <= (others => '0');
 
 
-    for i in 1 to noOfDataChannels loop
-      BufReadReqxS(i) <= '0';
-    end loop;  -- i
-
-
-
-
+    if CameraReadyxS = '0' then
+      StatexDN <= idle;
+      AMWriteAddressxDN <= (others => '0');
+      NoOfPacketsInRowxDN <= 0;
+      BurstWordCountxDN <= 0;
+    else
+      
 
 
     case StatexDP is
@@ -435,6 +442,8 @@ begin
 
       when others => null;
     end case;
+
+  end if;
   end process fsm;
 
 

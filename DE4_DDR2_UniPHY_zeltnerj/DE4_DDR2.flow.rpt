@@ -1,5 +1,5 @@
 Flow report for DE4_DDR2
-Thu Jul 25 14:35:34 2013
+Thu Jul 25 15:18:11 2013
 Quartus II 32-bit Version 12.1 Build 243 01/31/2013 Service Pack 1 SJ Full Version
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +------------------------------------------------------------------------------------+
 ; Flow Summary                                                                       ;
 +-----------------------------------+------------------------------------------------+
-; Flow Status                       ; Successful - Thu Jul 25 14:34:18 2013          ;
+; Flow Status                       ; Successful - Thu Jul 25 15:16:57 2013          ;
 ; Quartus II 32-bit Version         ; 12.1 Build 243 01/31/2013 SP 1 SJ Full Version ;
 ; Revision Name                     ; DE4_DDR2                                       ;
 ; Top-level Entity Name             ; cmv4000design                                  ;
@@ -46,13 +46,13 @@ applicable agreement for further details.
 ; Device                            ; EP4SGX230KF40C2                                ;
 ; Timing Models                     ; Final                                          ;
 ; Logic utilization                 ; 11 %                                           ;
-;     Combinational ALUTs           ; 12,354 / 182,400 ( 7 % )                       ;
+;     Combinational ALUTs           ; 12,331 / 182,400 ( 7 % )                       ;
 ;     Memory ALUTs                  ; 183 / 91,200 ( < 1 % )                         ;
-;     Dedicated logic registers     ; 13,705 / 182,400 ( 8 % )                       ;
-; Total registers                   ; 14343                                          ;
+;     Dedicated logic registers     ; 13,700 / 182,400 ( 8 % )                       ;
+; Total registers                   ; 14338                                          ;
 ; Total pins                        ; 302 / 888 ( 34 % )                             ;
 ; Total virtual pins                ; 0                                              ;
-; Total block memory bits           ; 2,526,620 / 14,625,792 ( 17 % )                ;
+; Total block memory bits           ; 2,526,660 / 14,625,792 ( 17 % )                ;
 ; DSP block 18-bit elements         ; 4 / 1,288 ( < 1 % )                            ;
 ; Total GXB Receiver Channel PCS    ; 0 / 24 ( 0 % )                                 ;
 ; Total GXB Receiver Channel PMA    ; 0 / 36 ( 0 % )                                 ;
@@ -68,7 +68,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 07/25/2013 14:20:33 ;
+; Start date & time ; 07/25/2013 15:02:48 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE4_DDR2            ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ applicable agreement for further details.
 +-------------------------------------+------------------------------------------------------------+---------------+------------------------------------------+------------+
 ; Assignment Name                     ; Value                                                      ; Default Value ; Entity Name                              ; Section Id ;
 +-------------------------------------+------------------------------------------------------------+---------------+------------------------------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 116526678098.137475483304384                               ; --            ; --                                       ; --         ;
+; COMPILER_SIGNATURE_ID               ; 116526678098.137475736701816                               ; --            ; --                                       ; --         ;
 ; ECO_REGENERATE_REPORT               ; On                                                         ; Off           ; --                                       ; --         ;
 ; FITTER_EFFORT                       ; Fast Fit                                                   ; Auto Fit      ; --                                       ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS                                 ; --         ;
@@ -281,7 +281,7 @@ applicable agreement for further details.
 ; PHYSICAL_SYNTHESIS_EFFORT           ; Fast                                                       ; Normal        ; --                                       ; --         ;
 ; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                        ; --            ; --                                       ; --         ;
 ; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                      ; --            ; --                                       ; --         ;
-; SLD_INFO                            ; QSYS_NAME DE4_QSYS HAS_SOPCINFO 1 GENERATION_ID 1368545481 ; --            ; DE4_QSYS                                 ; --         ;
+; SLD_INFO                            ; QSYS_NAME DE4_QSYS HAS_SOPCINFO 1 GENERATION_ID 1374756872 ; --            ; DE4_QSYS                                 ; --         ;
 ; SMART_RECOMPILE                     ; On                                                         ; Off           ; --                                       ; --         ;
 ; SOPCINFO_FILE                       ; DE4_QSYS/synthesis/../../DE4_QSYS.sopcinfo                 ; --            ; --                                       ; --         ;
 ; SYNTHESIS_ONLY_QIP                  ; On                                                         ; --            ; --                                       ; --         ;
@@ -294,11 +294,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:03:58     ; 1.0                     ; 908 MB              ; 00:03:53                           ;
-; Fitter                    ; 00:08:29     ; 1.9                     ; 1237 MB             ; 00:10:00                           ;
-; Assembler                 ; 00:00:42     ; 1.0                     ; 612 MB              ; 00:00:40                           ;
-; TimeQuest Timing Analyzer ; 00:01:12     ; 1.7                     ; 858 MB              ; 00:01:24                           ;
-; Total                     ; 00:14:21     ; --                      ; --                  ; 00:15:57                           ;
+; Analysis & Synthesis      ; 00:04:24     ; 1.0                     ; 926 MB              ; 00:04:21                           ;
+; Fitter                    ; 00:08:29     ; 1.9                     ; 1249 MB             ; 00:10:02                           ;
+; Assembler                 ; 00:00:42     ; 1.0                     ; 616 MB              ; 00:00:39                           ;
+; TimeQuest Timing Analyzer ; 00:01:11     ; 2.1                     ; 849 MB              ; 00:01:23                           ;
+; Total                     ; 00:14:46     ; --                      ; --                  ; 00:16:25                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

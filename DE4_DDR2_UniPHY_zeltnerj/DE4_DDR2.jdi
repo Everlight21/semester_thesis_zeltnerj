@@ -1,9 +1,9 @@
 <sld_project_info>
   <project>
-    <hash md5_digest_80b="a6280b5cd2377ca924bf"/>
+    <hash md5_digest_80b="f70ed363b16414f825c2"/>
   </project>
   <file_info>
-    <file checksum="0x082DE2CE" device="EP4SGX230KF40C2" path="DE4_DDR2.sof" usercode="0xFFFFFFFF"/>
+    <file checksum="0x082C5B8E" device="EP4SGX230KF40C2" path="DE4_DDR2.sof" usercode="0xFFFFFFFF"/>
   </file_info>
   <hub_info ir_width="2" node_count="2"/>
   <node_info>
@@ -144,7 +144,7 @@
   <sld_infos>
     <sld_info hpath="DE4_QSYS:inst" name="inst">
       <assignment_values>
-        <assignment_value text="QSYS_NAME DE4_QSYS HAS_SOPCINFO 1 GENERATION_ID 1368545481"/>
+        <assignment_value text="QSYS_NAME DE4_QSYS HAS_SOPCINFO 1 GENERATION_ID 1374756872"/>
       </assignment_values>
       <parameters/>
     </sld_info>
