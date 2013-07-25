@@ -1,44 +1,45 @@
 	component DE4_QSYS is
 		port (
-			clk_clk                             : in    std_logic                      := 'X';             -- clk
-			reset_reset_n                       : in    std_logic                      := 'X';             -- reset_n
-			memory_mem_a                        : out   std_logic_vector(13 downto 0);                     -- mem_a
-			memory_mem_ba                       : out   std_logic_vector(2 downto 0);                      -- mem_ba
-			memory_mem_ck                       : out   std_logic_vector(1 downto 0);                      -- mem_ck
-			memory_mem_ck_n                     : out   std_logic_vector(1 downto 0);                      -- mem_ck_n
-			memory_mem_cke                      : out   std_logic_vector(0 downto 0);                      -- mem_cke
-			memory_mem_cs_n                     : out   std_logic_vector(0 downto 0);                      -- mem_cs_n
-			memory_mem_dm                       : out   std_logic_vector(7 downto 0);                      -- mem_dm
-			memory_mem_ras_n                    : out   std_logic_vector(0 downto 0);                      -- mem_ras_n
-			memory_mem_cas_n                    : out   std_logic_vector(0 downto 0);                      -- mem_cas_n
-			memory_mem_we_n                     : out   std_logic_vector(0 downto 0);                      -- mem_we_n
-			memory_mem_dq                       : inout std_logic_vector(63 downto 0)  := (others => 'X'); -- mem_dq
-			memory_mem_dqs                      : inout std_logic_vector(7 downto 0)   := (others => 'X'); -- mem_dqs
-			memory_mem_dqs_n                    : inout std_logic_vector(7 downto 0)   := (others => 'X'); -- mem_dqs_n
-			memory_mem_odt                      : out   std_logic_vector(0 downto 0);                      -- mem_odt
-			oct_rdn                             : in    std_logic                      := 'X';             -- rdn
-			oct_rup                             : in    std_logic                      := 'X';             -- rup
-			led_export                          : out   std_logic_vector(7 downto 0);                      -- export
-			button_export                       : in    std_logic_vector(3 downto 0)   := (others => 'X'); -- export
-			spi_2_MISO                          : in    std_logic                      := 'X';             -- MISO
-			spi_2_MOSI                          : out   std_logic;                                         -- MOSI
-			spi_2_SCLK                          : out   std_logic;                                         -- SCLK
-			spi_2_SS_n                          : out   std_logic;                                         -- SS_n
-			spi_1_MISO                          : in    std_logic                      := 'X';             -- MISO
-			spi_1_MOSI                          : out   std_logic;                                         -- MOSI
-			spi_1_SCLK                          : out   std_logic;                                         -- SCLK
-			spi_1_SS_n                          : out   std_logic;                                         -- SS_n
-			no_of_cam_channels_export           : out   std_logic_vector(3 downto 0);                      -- export
-			cmv_master_interface_PixelValidxSI  : in    std_logic                      := 'X';             -- PixelValidxSI
-			cmv_master_interface_RowValidxSI    : in    std_logic                      := 'X';             -- RowValidxSI
-			cmv_master_interface_FrameValidxSI  : in    std_logic                      := 'X';             -- FrameValidxSI
-			cmv_master_interface_DataInxDI      : in    std_logic_vector(159 downto 0) := (others => 'X'); -- DataInxDI
-			cmv_master_interface_ClkLvdsRxxCI   : in    std_logic                      := 'X';             -- ClkLvdsRxxCI
-			dvi_master_interface_ClkDvixCI      : in    std_logic                      := 'X';             -- ClkDvixCI
-			dvi_master_interface_DviNewLinexDI  : in    std_logic                      := 'X';             -- DviNewLinexDI
-			dvi_master_interface_DviNewFramexDI : in    std_logic                      := 'X';             -- DviNewFramexDI
-			dvi_master_interface_DviPixelAvxSI  : in    std_logic                      := 'X';             -- DviPixelAvxSI
-			dvi_master_interface_DviDataOutxDO  : out   std_logic_vector(31 downto 0)                      -- DviDataOutxDO
+			clk_clk                               : in    std_logic                      := 'X';             -- clk
+			reset_reset_n                         : in    std_logic                      := 'X';             -- reset_n
+			memory_mem_a                          : out   std_logic_vector(13 downto 0);                     -- mem_a
+			memory_mem_ba                         : out   std_logic_vector(2 downto 0);                      -- mem_ba
+			memory_mem_ck                         : out   std_logic_vector(1 downto 0);                      -- mem_ck
+			memory_mem_ck_n                       : out   std_logic_vector(1 downto 0);                      -- mem_ck_n
+			memory_mem_cke                        : out   std_logic_vector(0 downto 0);                      -- mem_cke
+			memory_mem_cs_n                       : out   std_logic_vector(0 downto 0);                      -- mem_cs_n
+			memory_mem_dm                         : out   std_logic_vector(7 downto 0);                      -- mem_dm
+			memory_mem_ras_n                      : out   std_logic_vector(0 downto 0);                      -- mem_ras_n
+			memory_mem_cas_n                      : out   std_logic_vector(0 downto 0);                      -- mem_cas_n
+			memory_mem_we_n                       : out   std_logic_vector(0 downto 0);                      -- mem_we_n
+			memory_mem_dq                         : inout std_logic_vector(63 downto 0)  := (others => 'X'); -- mem_dq
+			memory_mem_dqs                        : inout std_logic_vector(7 downto 0)   := (others => 'X'); -- mem_dqs
+			memory_mem_dqs_n                      : inout std_logic_vector(7 downto 0)   := (others => 'X'); -- mem_dqs_n
+			memory_mem_odt                        : out   std_logic_vector(0 downto 0);                      -- mem_odt
+			oct_rdn                               : in    std_logic                      := 'X';             -- rdn
+			oct_rup                               : in    std_logic                      := 'X';             -- rup
+			led_export                            : out   std_logic_vector(7 downto 0);                      -- export
+			button_export                         : in    std_logic_vector(3 downto 0)   := (others => 'X'); -- export
+			spi_2_MISO                            : in    std_logic                      := 'X';             -- MISO
+			spi_2_MOSI                            : out   std_logic;                                         -- MOSI
+			spi_2_SCLK                            : out   std_logic;                                         -- SCLK
+			spi_2_SS_n                            : out   std_logic;                                         -- SS_n
+			spi_1_MISO                            : in    std_logic                      := 'X';             -- MISO
+			spi_1_MOSI                            : out   std_logic;                                         -- MOSI
+			spi_1_SCLK                            : out   std_logic;                                         -- SCLK
+			spi_1_SS_n                            : out   std_logic;                                         -- SS_n
+			no_of_cam_channels_export             : out   std_logic_vector(3 downto 0);                      -- export
+			dvi_master_interface_ClkDvixCI        : in    std_logic                      := 'X';             -- ClkDvixCI
+			dvi_master_interface_DviNewLinexDI    : in    std_logic                      := 'X';             -- DviNewLinexDI
+			dvi_master_interface_DviNewFramexDI   : in    std_logic                      := 'X';             -- DviNewFramexDI
+			dvi_master_interface_DviPixelAvxSI    : in    std_logic                      := 'X';             -- DviPixelAvxSI
+			dvi_master_interface_DviDataOutxDO    : out   std_logic_vector(31 downto 0);                     -- DviDataOutxDO
+			cmv_master_interface_1_PixelValidxSI  : in    std_logic                      := 'X';             -- PixelValidxSI
+			cmv_master_interface_1_RowValidxSI    : in    std_logic                      := 'X';             -- RowValidxSI
+			cmv_master_interface_1_FrameValidxSI  : in    std_logic                      := 'X';             -- FrameValidxSI
+			cmv_master_interface_1_DataInxDI      : in    std_logic_vector(159 downto 0) := (others => 'X'); -- DataInxDI
+			cmv_master_interface_1_ClkLvdsRxxCI   : in    std_logic                      := 'X';             -- ClkLvdsRxxCI
+			cmv_master_interface_1_CameraReadyxSI : in    std_logic                      := 'X'              -- CameraReadyxSI
 		);
 	end component DE4_QSYS;
 

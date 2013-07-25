@@ -20,6 +20,14 @@
          type = "String";
       }
    }
+   element mem_if_ddr2_emif_0.avl
+   {
+      datum baseAddress
+      {
+         value = "1073741824";
+         type = "String";
+      }
+   }
    element mem_if_ddr2_emif.avl
    {
       datum _lockedAddress
@@ -27,14 +35,6 @@
          value = "0";
          type = "boolean";
       }
-      datum baseAddress
-      {
-         value = "1073741824";
-         type = "String";
-      }
-   }
-   element mem_if_ddr2_emif_0.avl
-   {
       datum baseAddress
       {
          value = "1073741824";
@@ -78,6 +78,14 @@
       datum _sortIndex
       {
          value = "19";
+         type = "int";
+      }
+   }
+   element cmv_master_interface_1
+   {
+      datum _sortIndex
+      {
+         value = "21";
          type = "int";
       }
    }
@@ -193,12 +201,12 @@
          type = "String";
       }
    }
-   element ddr2_i2c_sda.s1
+   element onchip_memory.s1
    {
       datum baseAddress
       {
-         value = "80";
-         type = "long";
+         value = "262144";
+         type = "String";
       }
    }
    element no_of_cam_channels.s1
@@ -209,12 +217,12 @@
          type = "String";
       }
    }
-   element led.s1
+   element ddr2_i2c_sda.s1
    {
       datum baseAddress
       {
-         value = "448";
-         type = "String";
+         value = "80";
+         type = "long";
       }
    }
    element button.s1
@@ -233,20 +241,20 @@
          type = "String";
       }
    }
-   element onchip_memory.s1
-   {
-      datum baseAddress
-      {
-         value = "262144";
-         type = "String";
-      }
-   }
    element ddr2_i2c_scl.s1
    {
       datum baseAddress
       {
          value = "64";
          type = "long";
+      }
+   }
+   element led.s1
+   {
+      datum baseAddress
+      {
+         value = "448";
+         type = "String";
       }
    }
    element spi_1
@@ -320,7 +328,7 @@
  <parameter name="projectName" value="DE4_DDR2.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1368545420851" />
+ <parameter name="timeStamp" value="1374738584370" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_50_bank3.clk_in" type="clock" dir="end" />
@@ -369,12 +377,15 @@
    dir="end" />
  <interface
    name="cmv_master_interface"
-   internal="cmv_master_interface_0.conduit_end"
-   type="conduit"
-   dir="end" />
+   internal="cmv_master_interface_0.conduit_end" />
  <interface
    name="dvi_master_interface"
    internal="dvi_master_interface_0.conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="cmv_master_interface_1"
+   internal="cmv_master_interface_1.conduit_end"
    type="conduit"
    dir="end" />
  <module kind="clock_source" version="12.1" enabled="1" name="clk_50_bank3">
@@ -1314,7 +1325,7 @@
  <module
    kind="cmv_master_interface"
    version="1.0"
-   enabled="1"
+   enabled="0"
    name="cmv_master_interface_0">
   <parameter name="AUTO_CLOCK_MAIN_CLOCK_RATE" value="200000000" />
  </module>
@@ -1325,6 +1336,11 @@
    name="dvi_master_interface_0">
   <parameter name="AUTO_CLOCK_MAIN_CLOCK_RATE" value="200000000" />
  </module>
+ <module
+   kind="cmv_master_interface"
+   version="1.0"
+   enabled="1"
+   name="cmv_master_interface_1" />
  <connection
    kind="avalon"
    version="12.1"
@@ -1751,6 +1767,24 @@
    kind="avalon"
    version="12.1"
    start="cmv_master_interface_0.avalon_master"
+   end="mem_if_ddr2_emif.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x40000000" />
+ </connection>
+ <connection
+   kind="clock"
+   version="12.1"
+   start="mem_if_ddr2_emif.afi_clk"
+   end="cmv_master_interface_1.clock_main" />
+ <connection
+   kind="reset"
+   version="12.1"
+   start="clk_50_bank3.clk_reset"
+   end="cmv_master_interface_1.reset_n" />
+ <connection
+   kind="avalon"
+   version="12.1"
+   start="cmv_master_interface_1.avalon_master"
    end="mem_if_ddr2_emif.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x40000000" />
