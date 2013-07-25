@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-03
--- Last update: 2013-06-05
+-- Last update: 2013-07-25
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -42,6 +42,7 @@ architecture Behavioral of cmv_master_tb is
 
   -- declaration of model under test (MUT) and functional
   -- reference (expected response pickup)
+
   component cmv_master is
     port (
       ClkxCI          : in  std_logic;
@@ -50,6 +51,7 @@ architecture Behavioral of cmv_master_tb is
       PixelValidxSI   : in  std_logic;
       RowValidxSI     : in  std_logic;
       FrameValidxSI   : in  std_logic;
+      CameraReadyxSI  : in  std_logic;
       DataInxDI       : in  std_logic_vector(159 downto 0);
       AMWaitReqxSI    : in  std_logic;
       AMAddressxDO    : out std_logic_vector(31 downto 0);
@@ -64,13 +66,13 @@ architecture Behavioral of cmv_master_tb is
   signal PixelValidxS   : std_logic;
   signal RowValidxS     : std_logic;
   signal FrameValidxS   : std_logic;
+  signal CameraReadyxS  : std_logic := '0';
   signal DataInxD       : std_logic_vector(159 downto 0);
   signal AMWaitReqxS    : std_logic;
   signal AMAddressxD    : std_logic_vector(31 downto 0);
   signal AMWriteDataxD  : std_logic_vector(127 downto 0);
   signal AMWritexS      : std_logic;
   signal AMBurstCountxS : std_logic_vector(7 downto 0);
-  
   
 
   -- timing of clock and simulation events
@@ -117,7 +119,8 @@ architecture Behavioral of cmv_master_tb is
   -----------------------------------------------------------------------------
 
 
-    cmv_master_1: cmv_master
+
+    cmv_master_1: entity work.cmv_master
       port map (
         ClkxCI          => ClkxC,
         ClkLvdsRxxCI    => ClkLvdsRxxC,
@@ -125,6 +128,7 @@ architecture Behavioral of cmv_master_tb is
         PixelValidxSI   => PixelValidxS,
         RowValidxSI     => RowValidxS,
         FrameValidxSI   => FrameValidxS,
+        CameraReadyxSI  => CameraReadyxS,
         DataInxDI       => DataInxD,
         AMWaitReqxSI    => AMWaitReqxS,
         AMAddressxDO    => AMAddressxD,
@@ -248,6 +252,7 @@ architecture Behavioral of cmv_master_tb is
       
       DataInxD <= std_logic_vector(DataRegxDP);
     end if;
+
     
 
     --if TogglexDP = 0 then
@@ -256,6 +261,11 @@ architecture Behavioral of cmv_master_tb is
     --  DataInxD <= (others => '1');
     --else
     --  DataInxD <= (DataInxD'high downto 2 => '1') & "00";
+    --end if;
+
+    CameraReadyxS <= '1';
+    --if PixelValidCounterxDP > 20 then
+    --  CameraReadyxS <= '1';
     --end if;
     
     

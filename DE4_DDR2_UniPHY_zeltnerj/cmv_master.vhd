@@ -191,7 +191,7 @@ begin
   ---------------------------------------------------------------------------
   buffer_input : process (DataInxD, PixelValidxS, RowValidxS, FrameValidxS,
                           FrameRunningxSN, FrameRunningxSP, BufFullxS,
-                          BufNoOfWordsxS, getCmvDataStatexDP, BufClearxS, RstxRB) is
+                          BufNoOfWordsxS, getCmvDataStatexDP, BufClearxS, RstxRB, CameraReadyxS) is
   begin  -- process buffer_input
 
     BufWriteEnxS <= (others => '0');
@@ -199,7 +199,11 @@ begin
     getCmvDataStatexDN <= getCmvDataStatexDP;
     BufClearxS         <= '0';          --BufClearxS is deasserted by default
 
-    if RstxRB = '0' or CameraReadyxS = '0' then
+    if RstxRB = '0' then
+      BufClearxS <= '1';
+    end if;
+
+    if CameraReadyxS = '0' then
       BufClearxS <= '1';
     end if;
 
@@ -224,22 +228,20 @@ begin
 
       when writeDataToBuffer =>
 
-        if CameraReadyxS = '1' then
-          if PixelValidxS = '1' and RowValidxS = '1' and FrameValidxS = '1' then
+        if PixelValidxS = '1' and RowValidxS = '1' and FrameValidxS = '1' then
 
-            for i in 1 to noOfDataChannels loop
-              if BufFullxS(i) /= '1' then
-                BufWriteEnxS(i) <= '1';
-                -- this is only the raw pixel data
-                -- if a rgb camera is used, the buffer input has to be changed accordingly
-                BufDataInxD(i)  <= (31 downto 24 => '0') &
-                                  DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
-                                  DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
-                                  DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2);
-              end if;
-            end loop;  -- i
+          for i in 1 to noOfDataChannels loop
+            if BufFullxS(i) /= '1' then
+              BufWriteEnxS(i) <= '1';
+              -- this is only the raw pixel data
+              -- if a rgb camera is used, the buffer input has to be changed accordingly
+              BufDataInxD(i)  <= (31 downto 24 => '0') &
+                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
+                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
+                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2);
+            end if;
+          end loop;  -- i
 
-          end if;
         end if;
 
       when others => null;
@@ -291,7 +293,7 @@ begin
   -- FSM
   ---------------------------------------------------------------------------
   fsm : process (StatexDP, AMWriteAddressxDP, BurstWordCountxDP, NoOfPacketsInRowxDP,
-                 ChannelSelectxSP, AMWaitReqxS, BufNoOfWordsxS, RowCounterxDP) is
+                 ChannelSelectxSP, AMWaitReqxS, BufNoOfWordsxS, RowCounterxDP, CameraReadyxS) is
   begin  -- process fsm
     StatexDN            <= StatexDP;
     AMWriteAddressxDN   <= AMWriteAddressxDP;
@@ -303,130 +305,133 @@ begin
     AMWritexS           <= '0';
 
 
-    for i in 1 to noOfDataChannels loop
-      BufReadReqxS(i) <= '0';
-    end loop;  -- i
+    BufReadReqxS <= (others => '0');
+
+    if CameraReadyxS = '0' then
+      AMWriteAddressxDN <= (others => '0');
+      StatexDN          <= idle;
+    else
 
 
 
 
+      case StatexDP is
+        when idle =>
+          StatexDN          <= fifoWait;
+          BurstWordCountxDN <= 0;
+
+        when fifoWait =>
 
 
-    case StatexDP is
-      when idle =>
-        StatexDN          <= fifoWait;
-        BurstWordCountxDN <= 0;
+          StatexDN <= burst;
 
-      when fifoWait =>
+          --for i in 1 to noOfDataChannels loop
+          --  if ChannelSelectxSP = i then
+          --    BufReadReqxS(i) <= '1';
+          --  end if;
+          --end loop;  -- i
 
+          for i in 1 to noOfDataChannels loop
+            if ChannelSelectxSP = i then
 
-        StatexDN <= burst;
+              if BufNoOfWordsxS(i) < 8 then  -- fifo has 4*32=128 bit output (4
+                                             -- pixel each 32bit) and
+                                             -- rdwuse counts 128bit words. After
+                                             -- 8*128=1024bit or 8*4pixel=32pixel
+                                             -- a read-out should be performed
+                StatexDN        <= fifoWait;
+                BufReadReqxS(i) <= '0';
 
-        --for i in 1 to noOfDataChannels loop
-        --  if ChannelSelectxSP = i then
-        --    BufReadReqxS(i) <= '1';
-        --  end if;
-        --end loop;  -- i
-
-        for i in 1 to noOfDataChannels loop
-          if ChannelSelectxSP = i then
-
-            if BufNoOfWordsxS(i) < 8 then  -- fifo has 4*32=128 bit output (4
-                                           -- pixel each 32bit) and
-                                           -- rdwuse counts 128bit words. After
-                                           -- 8*128=1024bit or 8*4pixel=32pixel
-                                           -- a read-out should be performed
-              StatexDN        <= fifoWait;
-              BufReadReqxS(i) <= '0';
+              end if;
 
             end if;
-
-          end if;
-        end loop;  -- i
+          end loop;  -- i
 
 
-      when burst =>
+        when burst =>
 
-        AMWritexS <= '1';
+          AMWritexS <= '1';
 
-        for i in 1 to noOfDataChannels loop
+          for i in 1 to noOfDataChannels loop
 
-          if AMWaitReqxS = '0' and ChannelSelectxSP = i then
-            BufReadReqxS(i) <= '1';
-          else
-            BufReadReqxS(i) <= '0';
-          end if;
-        end loop;  -- i
+            if AMWaitReqxS = '0' and ChannelSelectxSP = i then
+              BufReadReqxS(i) <= '1';
+            else
+              BufReadReqxS(i) <= '0';
+            end if;
+          end loop;  -- i
 
-        ---------------------------------------------------------------------
-        -- This section needs to be adjusted according to the no of channels.
-        -- Each channel provides a multiple of 128pixel PER ROW according to
-        -- the no of channels.
-        -- 16 channels: 1 * 128 pixels
-        --  8 channels: 2 * 128 pixels
-        --  4 channels: 4 * 128 pixels = 16 * 32 pixels
-        --  2 channels: 8 * 128 pixels
-        ---------------------------------------------------------------------
-        if AMWaitReqxS /= '1' then
-          if BurstWordCountxDP = 7 then  -- for each burstcount 4pixels are
-                                         -- read out. After 8 read-outs, a
-                                         -- packet of 32pixels have been read
-                                         -- out.
-            BurstWordCountxDN <= 0;
+          ---------------------------------------------------------------------
+          -- This section needs to be adjusted according to the no of channels.
+          -- Each channel provides a multiple of 128pixel PER ROW according to
+          -- the no of channels.
+          -- 16 channels: 1 * 128 pixels
+          --  8 channels: 2 * 128 pixels
+          --  4 channels: 4 * 128 pixels = 16 * 32 pixels
+          --  2 channels: 8 * 128 pixels
+          ---------------------------------------------------------------------
+          if AMWaitReqxS /= '1' then
+            if BurstWordCountxDP = 7 then  -- for each burstcount 4pixels are
+                                           -- read out. After 8 read-outs, a
+                                           -- packet of 32pixels have been read
+                                           -- out.
+              BurstWordCountxDN <= 0;
 
 
-            --for i in 1 to noOfDataChannels loop
-            --  if ChannelSelectxSP = i then
-            --    BufReadReqxS(i) <= '0';
-            --  end if;
-            --end loop;  -- i
+              --for i in 1 to noOfDataChannels loop
+              --  if ChannelSelectxSP = i then
+              --    BufReadReqxS(i) <= '0';
+              --  end if;
+              --end loop;  -- i
 
-            case NoOfPacketsInRowxDP is
-              when 15 =>                -- each channel provides 4*128pixels =
+              case NoOfPacketsInRowxDP is
+                when 15 =>              -- each channel provides 4*128pixels =
                                         -- 16*32pixels per row.
-                ChannelSelectxSN    <= 2;
-                AMWriteAddressxDN   <= AMWriteAddressxDP + 128;
-                NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
-              when 31 =>
-                ChannelSelectxSN    <= 3;
-                AMWriteAddressxDN   <= AMWriteAddressxDP + 128;
-                NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
-              when 47 =>
-                ChannelSelectxSN    <= 4;
-                AMWriteAddressxDN   <= AMWriteAddressxDP + 128;
-                NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
-              when 63 =>                -- row has been read-out, switch to
+                  ChannelSelectxSN    <= 2;
+                  AMWriteAddressxDN   <= AMWriteAddressxDP + 128;
+                  NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
+                when 31 =>
+                  ChannelSelectxSN    <= 3;
+                  AMWriteAddressxDN   <= AMWriteAddressxDP + 128;
+                  NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
+                when 47 =>
+                  ChannelSelectxSN    <= 4;
+                  AMWriteAddressxDN   <= AMWriteAddressxDP + 128;
+                  NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
+                when 63 =>              -- row has been read-out, switch to
                                         -- next row.
-                ChannelSelectxSN    <= 1;
-                AMWriteAddressxDN   <= AMWriteAddressxDP + 128;
-                NoOfPacketsInRowxDN <= 0;
-                if RowCounterxDP = 1087 then
-                  RowCounterxDN     <= 0;
-                  AMWriteAddressxDN <= (others => '0');
-                else
-                  RowCounterxDN <= RowCounterxDP + 1;
-                end if;
+                  ChannelSelectxSN    <= 1;
+                  AMWriteAddressxDN   <= AMWriteAddressxDP + 128;
+                  NoOfPacketsInRowxDN <= 0;
+                  if RowCounterxDP = 1087 then
+                    RowCounterxDN     <= 0;
+                    AMWriteAddressxDN <= (others => '0');
+                  else
+                    RowCounterxDN <= RowCounterxDP + 1;
+                  end if;
 
-              when others =>
-                AMWriteAddressxDN   <= AMWriteAddressxDP + 128;  -- after each
-                                                                 -- burst
-                                                                 -- 32pixels
-                                                                 -- have been
-                                                                 -- read-out.
-                                                                 -- Address is
-                                                                 -- in bytes: 32pixel*32bit/8bit=128bytes
-                NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
-            end case;
-            StatexDN <= idle;
-          else
-            BurstWordCountxDN <= BurstWordCountxDP + 1;
+                when others =>
+                  AMWriteAddressxDN   <= AMWriteAddressxDP + 128;  -- after each
+                                                                   -- burst
+                                                                   -- 32pixels
+                                                                   -- have been
+                                                                   -- read-out.
+                                        -- Address is
+                                                                   -- in bytes: 32pixel*32bit/8bit=128bytes
+                  NoOfPacketsInRowxDN <= NoOfPacketsInRowxDP + 1;
+              end case;
+              StatexDN <= idle;
+            else
+              BurstWordCountxDN <= BurstWordCountxDP + 1;
+            end if;
           end if;
-        end if;
 
 
 
-      when others => null;
-    end case;
+        when others => null;
+      end case;
+
+    end if;
   end process fsm;
 
 

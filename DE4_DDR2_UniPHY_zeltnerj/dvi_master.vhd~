@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-10
--- Last update: 2013-05-29
+-- Last update: 2013-06-05
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -250,7 +250,9 @@ begin  -- architecture behavioral
                                                                  -- 1920, so
                                                                  -- skip the
                                                                  -- remaining pixels
-              if RowCounterxDP = 1087 then
+              if RowCounterxDP = 1079 then  -- horizontal resolution of monitor
+                                            -- max. 1087 with cmv2000
+                                            -- max. 2047 with cmv4000
                 RowCounterxDN <= 0;
                 ReadAddressxDN <= (others => '0');
               else

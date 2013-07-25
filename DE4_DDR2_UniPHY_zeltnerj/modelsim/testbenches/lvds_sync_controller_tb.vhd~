@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-18
--- Last update: 2013-05-09
+-- Last update: 2013-05-13
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -43,11 +43,11 @@ architecture Behavioral of lvds_sync_controller_tb is
     port (
       ClkxCI              : in  std_logic;
       RstxRBI             : in  std_logic;
-      LVDSDataxDI         : in  std_logic_vector((8+1)*channelWidth-1 downto 0);
+      LVDSDataxDI         : in  std_logic_vector(18*channelWidth-1 downto 0);
       ButtonxSI           : in  std_logic_vector (3 downto 0);
       FrameReqInxSI       : in  std_logic;
-      AlignxSO            : out std_logic_vector(9-1 downto 0);
-      PixelDataxDO        : out std_logic_vector(79 downto 0);
+      AlignxSO            : out std_logic_vector(18-1 downto 0);
+      PixelDataxDO        : out std_logic_vector(16*channelWidth-1 downto 0);
       FrameReqOutxSO      : out std_logic;
       PixelValidxSO       : out std_logic;
       RowValidxSO         : out std_logic;
@@ -58,11 +58,11 @@ architecture Behavioral of lvds_sync_controller_tb is
 
   signal ClkxC              : std_logic;
   signal RstxRB             : std_logic;
-  signal LVDSDataxD         : std_logic_vector((8+1)*channelWidth-1 downto 0);
+  signal LVDSDataxD         : std_logic_vector(18*channelWidth-1 downto 0);
   signal ButtonxS           : std_logic_vector (3 downto 0);
   signal FrameReqInxS       : std_logic;
-  signal AlignxS            : std_logic_vector(9-1 downto 0);
-  signal PixelDataxD        : std_logic_vector(79 downto 0);
+  signal AlignxS            : std_logic_vector(18-1 downto 0);
+  signal PixelDataxD        : std_logic_vector(16*channelWidth-1 downto 0);
   signal FrameReqOutxS      : std_logic;
   signal PixelValidxS       : std_logic;
   signal RowValidxS         : std_logic;

@@ -49,6 +49,8 @@ add wave -noupdate -expand -group {testbench
 add wave -noupdate -expand -group {testbench
 } /lvds_sync_controller_tb/LedxS
 add wave -noupdate -expand -group {testbench
+} /lvds_sync_controller_tb/CameraReadyxS
+add wave -noupdate -expand -group {testbench
 } /lvds_sync_controller_tb/DataInxDP
 add wave -noupdate -expand -group {testbench
 } /lvds_sync_controller_tb/DataInxDN
@@ -98,6 +100,8 @@ add wave -noupdate -expand -group {lvds_sync_controller
 } /lvds_sync_controller_tb/lvds_sync_controller_1/FrameValidxS
 add wave -noupdate -expand -group {lvds_sync_controller
 } /lvds_sync_controller_tb/lvds_sync_controller_1/LedxS
+add wave -noupdate -expand -group {lvds_sync_controller
+} /lvds_sync_controller_tb/lvds_sync_controller_1/CameraReadyxS
 add wave -noupdate -expand -group {lvds_sync_controller
 } -expand /lvds_sync_controller_tb/lvds_sync_controller_1/PixelChannelxD
 add wave -noupdate -expand -group {lvds_sync_controller
@@ -201,5 +205,10 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {23360 ps}
-bookmark add wave {bookmark0} {{10169190 ps} {10357990 ps}} 4
+WaveRestoreZoom {822464 ps} {1009344 ps}
+bookmark add wave {bookmark5} {{27975089 ps} {29660337 ps}} 26
+bookmark add wave {bookmark6} {{27906516425 ps} {27908201673 ps}} 0
+bookmark add wave {bookmark7} {{28269980 ps} {28691292 ps}} 26
+bookmark add wave {bookmark8} {{10169190 ps} {10357990 ps}} 4
+bookmark add wave {bookmark9} {{27852789360 ps} {27853210673 ps}} 0
+bookmark add wave {bookmark10} {{27912168655 ps} {27913511703 ps}} 28

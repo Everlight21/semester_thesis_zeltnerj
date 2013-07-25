@@ -16,6 +16,7 @@ add wave -noupdate /cmv_master_tb/RstxRB
 add wave -noupdate /cmv_master_tb/PixelValidxS
 add wave -noupdate /cmv_master_tb/RowValidxS
 add wave -noupdate /cmv_master_tb/FrameValidxS
+add wave -noupdate /cmv_master_tb/CameraReadyxS
 add wave -noupdate /cmv_master_tb/DataInxD
 add wave -noupdate /cmv_master_tb/DataRegxDP
 add wave -noupdate /cmv_master_tb/DataRegxDN
@@ -35,6 +36,7 @@ add wave -noupdate /cmv_master_tb/cmv_master_1/RstxRBI
 add wave -noupdate /cmv_master_tb/cmv_master_1/PixelValidxSI
 add wave -noupdate /cmv_master_tb/cmv_master_1/RowValidxSI
 add wave -noupdate /cmv_master_tb/cmv_master_1/FrameValidxSI
+add wave -noupdate /cmv_master_tb/cmv_master_1/CameraReadyxSI
 add wave -noupdate /cmv_master_tb/cmv_master_1/DataInxDI
 add wave -noupdate /cmv_master_tb/cmv_master_1/AMWaitReqxSI
 add wave -noupdate -radix hexadecimal /cmv_master_tb/cmv_master_1/AMAddressxDO
@@ -48,6 +50,7 @@ add wave -noupdate /cmv_master_tb/cmv_master_1/RstxRB
 add wave -noupdate /cmv_master_tb/cmv_master_1/PixelValidxS
 add wave -noupdate /cmv_master_tb/cmv_master_1/RowValidxS
 add wave -noupdate /cmv_master_tb/cmv_master_1/FrameValidxS
+add wave -noupdate /cmv_master_tb/cmv_master_1/CameraReadyxS
 add wave -noupdate /cmv_master_tb/cmv_master_1/DataInxD
 add wave -noupdate /cmv_master_tb/cmv_master_1/AMWaitReqxS
 add wave -noupdate -radix hexadecimal /cmv_master_tb/cmv_master_1/AMAddressxD
@@ -74,8 +77,6 @@ add wave -noupdate /cmv_master_tb/cmv_master_1/StatexDP
 add wave -noupdate /cmv_master_tb/cmv_master_1/StatexDN
 add wave -noupdate /cmv_master_tb/cmv_master_1/getCmvDataStatexDP
 add wave -noupdate /cmv_master_tb/cmv_master_1/getCmvDataStatexDN
-add wave -noupdate /cmv_master_tb/cmv_master_1/BufClearxSP
-add wave -noupdate /cmv_master_tb/cmv_master_1/BufClearxSN
 add wave -noupdate -divider {cmv_ram_fifo 1}
 add wave -noupdate -expand -group {cmv_ram_fifo
 } /cmv_master_tb/cmv_master_1/fifo_instances(1)/cmv_ram_fifo_1/aclr
@@ -132,10 +133,16 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {499745796 ps} {500417321 ps}
-bookmark add wave {bookmark45} {{27975089 ps} {29660337 ps}} 26
-bookmark add wave {bookmark46} {{27906516425 ps} {27908201673 ps}} 0
-bookmark add wave {bookmark47} {{28269980 ps} {28691292 ps}} 26
-bookmark add wave {bookmark48} {{10169190 ps} {10357990 ps}} 4
-bookmark add wave {bookmark49} {{27852789360 ps} {27853210673 ps}} 0
-bookmark add wave {bookmark50} {{27912168655 ps} {27913511703 ps}} 28
+WaveRestoreZoom {0 ps} {1070335 ps}
+bookmark add wave {bookmark
+45} {{27975089 ps} {29660337 ps}} 26
+bookmark add wave {bookmark
+46} {{27906516425 ps} {27908201673 ps}} 0
+bookmark add wave {bookmark
+47} {{28269980 ps} {28691292 ps}} 26
+bookmark add wave {bookmark
+48} {{10169190 ps} {10357990 ps}} 4
+bookmark add wave {bookmark
+49} {{27852789360 ps} {27853210673 ps}} 0
+bookmark add wave {bookmark
+50} {{27912168655 ps} {27913511703 ps}} 28

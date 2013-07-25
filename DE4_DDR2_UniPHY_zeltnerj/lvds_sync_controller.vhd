@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-06-06
+-- Last update: 2013-07-25
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -62,12 +62,13 @@ architecture behavioral of lvds_sync_controller is
   signal LVDSDataxD                       : std_logic_vector(LVDSDataxDI'high downto 0);
   signal ButtonxS                         : std_logic_vector (3 downto 0);
   signal FrameReqInxS                     : std_logic;
-  signal FrameReqOutxS                    : std_logic := '0';
+  signal FrameReqOutxS                    : std_logic;
   signal AlignxS                          : std_logic_vector(AlignxSO'high downto 0);
   signal PixelValidxS                     : std_logic;
   signal RowValidxS                       : std_logic;
   signal FrameValidxS                     : std_logic;
   signal LedxS                            : std_logic_vector(7 downto 0);
+  signal CameraReadyxS : std_logic;
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
   -- DataOutput
@@ -111,13 +112,14 @@ begin  -- architecture behavioral
   LVDSDataxD        <= LVDSDataxDI(LVDSDataxDI'high downto 0);
   ButtonxS          <= ButtonxSI;
   FrameReqInxS      <= FrameReqInxSI;
+  FrameReqOutxSO <= FrameReqOutxS;
   AlignxSO          <= AlignxS;
   PixelDataxDO      <= PixelDataxD;
-  FrameReqOutxSO    <= FrameReqInxS and CameraReadyxSP;
   PixelValidxSO     <= PixelValidxS;
   RowValidxSO       <= RowValidxS;
   FrameValidxSO     <= FrameValidxS;
   LedxSO            <= LedxS;
+  CameraReadyxSO <= CameraReadyxS;
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
   -- control signals
@@ -125,6 +127,13 @@ begin  -- architecture behavioral
   InitReadyxS <= NoOfDataChannelsxDI(0);  -- temporary hack, should be changed
                                           -- with proper init signal
 
+  --FrameReqOutxS <= '1' when FrameReqInxS = '1' and CameraReadyxSP = '1' else
+  --                 '1' when ButtonxS(3) = '0' and CameraReadyxSP = '1' else
+  --                 '0';
+
+  FrameReqOutxS <= FrameReqInxS and CameraReadyxSP;
+
+  CameraReadyxS <= CameraReadyxSP;
   
   -----------------------------------------------------------------------------
   -- lvds data channel signals
@@ -258,7 +267,6 @@ begin  -- architecture behavioral
 
       when initCtr =>
         if InitCounterxDP < 10 then
-          -- if PixelChannelxD(0)(9) = trainingPattern(15) and PixelChannelxD(0)(8) = trainingPattern(14) then
           if PixelChannelxD(0)(9) = '1' and PixelChannelxD(0)(8) = '0' then
             InitCounterxDN <= InitCounterxDP + 1;
           else
@@ -298,11 +306,11 @@ begin  -- architecture behavioral
         -- change alignement of channels with dev board buttons
         -- (just for debugging reasons)
         -----------------------------------------------------------------------
-        for i in 0 to 3 loop
-          if ButtonxS(i) = '0' then
-            AlignxS(i+1) <= '1';
-          end if;
-        end loop;  -- i
+        --for i in 0 to 3 loop
+        --  if ButtonxS(i) = '0' then
+        --    AlignxS(i+1) <= '1';
+        --  end if;
+        --end loop;  -- i
         
       when others => null;
                      
