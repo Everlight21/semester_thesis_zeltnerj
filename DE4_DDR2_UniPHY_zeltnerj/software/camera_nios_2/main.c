@@ -26,15 +26,15 @@ int main() {
 	 * pio[6] is frame_req, active high
 	 */
 
-	usleep(10);
+	usleep(1000);
 	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x00); //cmv_reset_n, low
-	usleep(10);
+	usleep(100);
 	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80); //cmv_reset_n, high
 
-	usleep(10);
+	usleep(100);
 	//camera_init(SPI_1_BASE);
 	camera_init(SPI_2_BASE);
-	usleep(10);
+	usleep(1000);
 //	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x40); //sets pio[6] which is connected to cmv frameRequest
 //	usleep(1000);
 //	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x00); //resets pio[6] which is connected to cmv frameRequest
@@ -43,7 +43,7 @@ int main() {
 	IOWR_ALTERA_AVALON_PIO_DATA(NO_OF_CAM_CHANNELS_BASE, 0x1);
 	usleep(10);
 
-//	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x40); //sets pio[6] which is connected to cmv frameRequest
+	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x40); //sets pio[6] which is connected to cmv frameRequest
 //	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80|0x00); //sets pio[6] which is connected to cmv frameRequest
 
 
@@ -61,7 +61,7 @@ int main() {
 //			alt_avalon_spi_command(SPI_2_BASE,0,1,&sentread,1,&received2,0);
 //			printf("value1: %d value2: %d\n",received1,received2);
 
-		usleep(100000000);
+		usleep(10000);
 
 
 	}

@@ -62,7 +62,7 @@ architecture behavioral of lvds_sync_controller is
   signal LVDSDataxD                       : std_logic_vector(LVDSDataxDI'high downto 0);
   signal ButtonxS                         : std_logic_vector (3 downto 0);
   signal FrameReqInxS                     : std_logic;
-  signal FrameReqOutxS                    : std_logic := '0';
+  signal FrameReqOutxS                    : std_logic;
   signal AlignxS                          : std_logic_vector(AlignxSO'high downto 0);
   signal PixelValidxS                     : std_logic;
   signal RowValidxS                       : std_logic;
@@ -113,7 +113,7 @@ begin  -- architecture behavioral
   FrameReqInxS      <= FrameReqInxSI;
   AlignxSO          <= AlignxS;
   PixelDataxDO      <= PixelDataxD;
-  FrameReqOutxSO    <= FrameReqInxS and CameraReadyxSP;
+  FrameReqOutxSO    <= FrameReqOutxS;
   PixelValidxSO     <= PixelValidxS;
   RowValidxSO       <= RowValidxS;
   FrameValidxSO     <= FrameValidxS;
@@ -125,6 +125,7 @@ begin  -- architecture behavioral
   -----------------------------------------------------------------------------
   InitReadyxS <= NoOfDataChannelsxDI(0);  -- temporary hack, should be changed
                                           -- with proper init signal
+  FrameReqOutxS <= FrameReqInxS and CameraReadyxSP;
 
   
   -----------------------------------------------------------------------------

@@ -40,7 +40,7 @@ entity cmv_master is
     PixelValidxSI   : in  std_logic;
     RowValidxSI     : in  std_logic;
     FrameValidxSI   : in  std_logic;
-    CameraReadyxSI : in std_logic;
+    CameraReadyxSI  : in  std_logic;
     DataInxDI       : in  std_logic_vector(159 downto 0);
     -- avalon mm master interface
     AMWaitReqxSI    : in  std_logic;
@@ -63,7 +63,7 @@ architecture behavioral of cmv_master is
   signal PixelValidxS   : std_logic;
   signal RowValidxS     : std_logic;
   signal FrameValidxS   : std_logic;
-  signal CameraReadyxS : std_logic;
+  signal CameraReadyxS  : std_logic;
   signal DataInxD       : std_logic_vector(159 downto 0);
   signal AMWaitReqxS    : std_logic;
   signal AMAddressxD    : std_logic_vector(31 downto 0);
@@ -149,15 +149,15 @@ begin
   ---------------------------------------------------------------------------
   -- port initializations
   ---------------------------------------------------------------------------
-  ClkxC        <= ClkxCI;
-  ClkLvdsRxxC  <= ClkLvdsRxxCI;
-  RstxRB       <= RstxRBI;
-  PixelValidxS <= PixelValidxSI;
-  RowValidxS   <= RowValidxSI;
-  FrameValidxS <= FrameValidxSI;
+  ClkxC         <= ClkxCI;
+  ClkLvdsRxxC   <= ClkLvdsRxxCI;
+  RstxRB        <= RstxRBI;
+  PixelValidxS  <= PixelValidxSI;
+  RowValidxS    <= RowValidxSI;
+  FrameValidxS  <= FrameValidxSI;
   CameraReadyxS <= CameraReadyxSI;
-  DataInxD     <= DataInxDI;
-  AMWaitReqxS  <= AMWaitReqxSI;
+  DataInxD      <= DataInxDI;
+  AMWaitReqxS   <= AMWaitReqxSI;
 
   AMAddressxDO    <= AMAddressxD;
   AMWriteDataxDO  <= AMWriteDataxD;
@@ -191,23 +191,24 @@ begin
   ---------------------------------------------------------------------------
   buffer_input : process (DataInxD, PixelValidxS, RowValidxS, FrameValidxS,
                           FrameRunningxSN, FrameRunningxSP, BufFullxS,
-                          BufNoOfWordsxS, getCmvDataStatexDP, BufClearxS, RstxRB) is
+                          BufNoOfWordsxS, getCmvDataStatexDP, BufClearxS, RstxRB, CameraReadyxS) is
   begin  -- process buffer_input
 
-    BufClearxS <= '0';                  --BufClearxS is deasserted by default
+    BufClearxS   <= '0';                --BufClearxS is deasserted by default
     BufWriteEnxS <= (others => '0');
 
     for i in 1 to 16 loop
-          BufDataInxD(i) <= (others => '0');
-        end loop;  -- i
-    
+      BufDataInxD(i) <= (others => '0');
+    end loop;  -- i
+
     if RstxRB = '0' then
       BufClearxS <= '1';
     end if;
 
-    if CameraReadyxS = '0' then
-      BufClearxS <= '1';
-    end if;
+    --if CameraReadyxS = '0' then
+    --  BufClearxS         <= '1';
+    --  getCmvDataStatexDN <= init;
+    --end if;
 
 
     getCmvDataStatexDN <= getCmvDataStatexDP;
@@ -221,6 +222,9 @@ begin
         --else
         --  BufClearxS <= '1';
         --end if;
+        if CameraReadyxS = '1' then
+          getCmvDataStatexDN <= writeDataToBuffer;
+        end if;
 
       when idle => null;
 
@@ -283,7 +287,7 @@ begin
   begin  -- process memory_ClkLvdsRxxD
     if RstxRB = '0' then                -- asynchronous reset (active low)
       FrameRunningxSP    <= '0';
-      getCmvDataStatexDP <= writeDataToBuffer;
+      getCmvDataStatexDP <= init;       --writeDataToBuffer;
     elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
       FrameRunningxSP    <= FrameRunningxSN;
       getCmvDataStatexDP <= getCmvDataStatexDN;
@@ -294,7 +298,7 @@ begin
   -- FSM
   ---------------------------------------------------------------------------
   fsm : process (StatexDP, AMWriteAddressxDP, BurstWordCountxDP, NoOfPacketsInRowxDP,
-                 ChannelSelectxSP, AMWaitReqxS, BufNoOfWordsxS, RowCounterxDP) is
+                 ChannelSelectxSP, AMWaitReqxS, BufNoOfWordsxS, RowCounterxDP, CameraReadyxS) is
   begin  -- process fsm
     StatexDN            <= StatexDP;
     AMWriteAddressxDN   <= AMWriteAddressxDP;
@@ -304,16 +308,16 @@ begin
     ChannelSelectxSN    <= ChannelSelectxSP;
     AMBurstCountxS      <= "00001000";  -- 8 (8*128bit = 8*4pixel = 32pixel)
     AMWritexS           <= '0';
-    BufReadReqxS <= (others => '0');
+    BufReadReqxS        <= (others => '0');
 
 
-    if CameraReadyxS = '0' then
-      StatexDN <= idle;
-      AMWriteAddressxDN <= (others => '0');
-      NoOfPacketsInRowxDN <= 0;
-      BurstWordCountxDN <= 0;
-    else
-      
+    --if CameraReadyxS = '0' then
+    --  StatexDN            <= idle;
+    --  AMWriteAddressxDN   <= (others => '0');
+    --  NoOfPacketsInRowxDN <= 0;
+    --  BurstWordCountxDN   <= 0;
+    --else
+
 
 
     case StatexDP is
@@ -354,7 +358,7 @@ begin
 
           if AMWaitReqxS = '0' and ChannelSelectxSP = i then
             BufReadReqxS(i) <= '1';
-            StatexDN <= burst;
+            StatexDN        <= burst;
           else
             BufReadReqxS(i) <= '0';
           end if;
@@ -364,14 +368,19 @@ begin
 
         AMWritexS <= '1';
 
-        for i in 1 to noOfDataChannels loop
+        if AMWaitReqxS = '1' then
+          StatexDN <= setReadReq;
+        else
+          for i in 1 to noOfDataChannels loop
 
-          if AMWaitReqxS = '0' and ChannelSelectxSP = i then
-            BufReadReqxS(i) <= '1';
-          else
-            BufReadReqxS(i) <= '0';
-          end if;
-        end loop;  -- i
+            if ChannelSelectxSP = i then
+              BufReadReqxS(i) <= '1';
+            else
+              BufReadReqxS(i) <= '0';
+            end if;
+          end loop;  -- i
+        end if;
+
 
         ---------------------------------------------------------------------
         -- This section needs to be adjusted according to the no of channels.
@@ -443,7 +452,6 @@ begin
       when others => null;
     end case;
 
-  end if;
   end process fsm;
 
 

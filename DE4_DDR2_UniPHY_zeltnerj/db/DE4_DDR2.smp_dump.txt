@@ -77,11 +77,11 @@ state.ST_UNCOMP_TRANS 1 0 1 0
 state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
 
 State Machine - |cmv4000design|DE4_QSYS:inst|cmv_master_interface:cmv_master_interface_0|cmv_master:cmv_master_1|getCmvDataStatexDP
-Name getCmvDataStatexDP.init getCmvDataStatexDP.waitForData getCmvDataStatexDP.idle getCmvDataStatexDP.writeDataToBuffer 
-getCmvDataStatexDP.writeDataToBuffer 0 0 0 0 
+Name getCmvDataStatexDP.writeDataToBuffer getCmvDataStatexDP.waitForData getCmvDataStatexDP.idle getCmvDataStatexDP.init 
+getCmvDataStatexDP.init 0 0 0 0 
 getCmvDataStatexDP.idle 0 0 1 1 
 getCmvDataStatexDP.waitForData 0 1 0 1 
-getCmvDataStatexDP.init 1 0 0 1 
+getCmvDataStatexDP.writeDataToBuffer 1 0 0 1 
 
 State Machine - |cmv4000design|DE4_QSYS:inst|cmv_master_interface:cmv_master_interface_0|cmv_master:cmv_master_1|StatexDP
 Name StatexDP.burst StatexDP.setReadReq StatexDP.fifoWait StatexDP.idle 
