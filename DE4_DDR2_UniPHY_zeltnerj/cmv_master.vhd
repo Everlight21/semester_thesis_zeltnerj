@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-07-25
+-- Last update: 2013-07-26
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -101,15 +101,14 @@ architecture behavioral of cmv_master is
   type bufferDataOut is array (1 to noOfDataChannels) of std_logic_vector(127 downto 0);
   signal BufDataOutxD : bufferDataOut;
 
-  type bufferControlSignals is array (1 to noOfDataChannels) of std_logic;
-  signal BufReadReqxS : bufferControlSignals := (others => '0');
-  signal BufWriteEnxS : bufferControlSignals := (others => '0');
+  signal BufReadReqxS : std_logic_vector(noOfDataChannels downto 1);
+  signal BufWriteEnxS : std_logic_vector(noOfDataChannels downto 1);
 
   type bufferNoOfWords is array (1 to noOfDataChannels) of std_logic_vector(7 downto 0);
   signal BufNoOfWordsxS : bufferNoOfWords;
 
-  type bufferFull is array (1 to noOfDataChannels) of std_logic;
-  signal BufFullxS : bufferFull;
+ 
+  signal BufFullxS : std_logic_vector(noOfDataChannels downto 1);
 
 
   signal BufClearxS : std_logic;
@@ -215,9 +214,7 @@ begin
       when waitForData => null;
 
       when writeDataToBuffer =>
-        for i in 1 to noOfDataChannels loop
-          BufWriteEnxS(i) <= '0';
-        end loop;  -- i
+        BufWriteEnxS <= (others => '0');
 
         for i in 1 to 16 loop
           BufDataInxD(i) <= (others => '0');
@@ -300,9 +297,7 @@ begin
     AMWritexS           <= '0';
 
 
-    for i in 1 to noOfDataChannels loop
-      BufReadReqxS(i) <= '0';
-    end loop;  -- i
+    BufReadReqxS <= (others => '0');
 
 
 
@@ -383,11 +378,7 @@ begin
             BurstWordCountxDN <= 0;
 
 
-            for i in 1 to noOfDataChannels loop
-              if ChannelSelectxSP = i then
-                BufReadReqxS(i) <= '0';
-              end if;
-            end loop;  -- i
+            BufReadReqxS <= (others => '0');
 
             case NoOfPacketsInRowxDP is
               when 15 =>                -- each channel provides 4*128pixels =
@@ -457,7 +448,10 @@ begin
         q       => BufDataOutxD(i),
         rdusedw => BufNoOfWordsxS(i),
         wrfull  => BufFullxS(i));
+
   end generate fifo_instances;
+
+  
 
 
 end architecture behavioral;
