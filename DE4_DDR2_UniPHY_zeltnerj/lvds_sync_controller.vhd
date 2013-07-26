@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-06-06
+-- Last update: 2013-07-26
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -286,7 +286,7 @@ begin  -- architecture behavioral
           AlignxS(0)     <= '1';
           StatexDN       <= pulseChannelDataAlign;
         elsif PixelChannelxD(0)(0) = '0' then
-          for i in 0 to noOfDataChannels loop
+          for i in 1 to noOfDataChannels loop
             if PixelChannelxD(i)(9) /= '1' or PixelChannelxD(i)(8) /= '0' then
               AlignxS(i) <= '1';
               StatexDN <= pulseChannelDataAlign;
