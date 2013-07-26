@@ -134,7 +134,7 @@ architecture behavioral of cmv_master is
   signal StatexDP, StatexDN : fsmState;
 
   type getCmvDataStates is (init, idle, waitForData, writeDataToBuffer);
-  signal getCmvDataStatexDP, getCmvDataStatexDN : getCmvDataStates;
+  signal StateCmvxDP, StateCmvxDN : getCmvDataStates;
 
 
   -----------------------------------------------------------------------------
@@ -188,37 +188,49 @@ begin
   ---------------------------------------------------------------------------
   buffer_input : process (DataInxD, PixelValidxS, RowValidxS, FrameValidxS,
                           FrameRunningxSN, FrameRunningxSP, BufFullxS,
-                          BufNoOfWordsxS, getCmvDataStatexDP, BufClearxS, RstxRB) is
+                          BufNoOfWordsxS, StateCmvxDP, BufClearxS) is
   begin  -- process buffer_input
 
-    BufClearxS <= '0';                  --BufClearxS is deasserted by default
-    if RstxRB = '0' then
-      BufClearxS <= '1';
-    end if;
 
 
-    getCmvDataStatexDN <= getCmvDataStatexDP;
+    StateCmvxDN <= StateCmvxDP;
+    BufClearxS <= '0';
+    BufWriteEnxS <= (others => '0');
 
-    case getCmvDataStatexDP is
+    for i in 1 to noOfDataChannels loop
+      BufDataInxD(i) <= (others => '0');
+    end loop;  -- i
+
+    case StateCmvxDP is
 
       when init =>
-        --if FrameRunningxSP = '0' and FrameRunningxSN = '1' then
-        --  BufClearxS <= '0';
-        --  getCmvDataStatexDN <= writeDataToBuffer;
-        --else
-        --  BufClearxS <= '1';
-        --end if;
+        BufClearxS <= '1';
+        StateCmvxDN <= idle;
 
-      when idle => null;
+      when idle =>
+        if PixelValidxS = '0' and RowValidxS = '0' and FrameValidxS = '0' then
+          StateCmvxDN <= waitForData;
+        end if;
 
-      when waitForData => null;
+      when waitForData =>
+        if PixelValidxS = '1' and RowValidxS = '1' and FrameValidxS = '1' then
+
+          StateCmvxDN <= writeDataToBuffer;
+          
+          for i in 1 to noOfDataChannels loop
+            if BufFullxS(i) /= '1' then
+              BufWriteEnxS(i) <= '1';
+              -- this is only the raw pixel data
+              -- if a rgb camera is used, the buffer input has to be changed accordingly
+              BufDataInxD(i)  <= (31 downto 24 => '0') &
+                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
+                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
+                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2);
+            end if;
+          end loop;  -- i
+        end if;
 
       when writeDataToBuffer =>
-        BufWriteEnxS <= (others => '0');
-
-        for i in 1 to 16 loop
-          BufDataInxD(i) <= (others => '0');
-        end loop;  -- i
 
         if PixelValidxS = '1' and RowValidxS = '1' and FrameValidxS = '1' then
 
@@ -274,10 +286,10 @@ begin
   begin  -- process memory_ClkLvdsRxxD
     if RstxRB = '0' then                -- asynchronous reset (active low)
       FrameRunningxSP    <= '0';
-      getCmvDataStatexDP <= writeDataToBuffer;
+      StateCmvxDP <= init;
     elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
       FrameRunningxSP    <= FrameRunningxSN;
-      getCmvDataStatexDP <= getCmvDataStatexDN;
+      StateCmvxDP <= StateCmvxDN;
     end if;
   end process memory_ClkLvdsRxxD;
 

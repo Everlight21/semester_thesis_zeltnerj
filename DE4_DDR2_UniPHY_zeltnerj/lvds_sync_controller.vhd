@@ -286,7 +286,7 @@ begin  -- architecture behavioral
           AlignxS(0)     <= '1';
           StatexDN       <= pulseChannelDataAlign;
         elsif PixelChannelxD(0)(0) = '0' then
-          for i in 1 to noOfDataChannels loop
+          for i in 0 to noOfDataChannels loop
             if PixelChannelxD(i)(9) /= '1' or PixelChannelxD(i)(8) /= '0' then
               AlignxS(i) <= '1';
               StatexDN <= pulseChannelDataAlign;

@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-05-21
+-- Last update: 2013-06-06
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -47,7 +47,8 @@ entity lvds_sync_controller is
     RowValidxSO         : out std_logic;
     FrameValidxSO       : out std_logic;
     LedxSO              : out std_logic_vector(7 downto 0);
-    NoOfDataChannelsxDI : in  std_logic_vector(3 downto 0));
+    NoOfDataChannelsxDI : in  std_logic_vector(3 downto 0);
+    CameraReadyxSO : out std_logic);
 
 
 end entity lvds_sync_controller;

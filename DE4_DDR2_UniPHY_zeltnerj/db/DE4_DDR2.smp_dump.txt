@@ -83,12 +83,12 @@ StatexDP.fifoWait 0 0 1 1
 StatexDP.burst 0 1 0 1 
 StatexDP.finishBurst 1 0 0 1 
 
-State Machine - |cmv4000design|DE4_QSYS:inst|cmv_master_interface:cmv_master_interface_0|cmv_master:cmv_master_1|getCmvDataStatexDP
-Name getCmvDataStatexDP.init getCmvDataStatexDP.waitForData getCmvDataStatexDP.idle getCmvDataStatexDP.writeDataToBuffer 
-getCmvDataStatexDP.writeDataToBuffer 0 0 0 0 
-getCmvDataStatexDP.idle 0 0 1 1 
-getCmvDataStatexDP.waitForData 0 1 0 1 
-getCmvDataStatexDP.init 1 0 0 1 
+State Machine - |cmv4000design|DE4_QSYS:inst|cmv_master_interface:cmv_master_interface_0|cmv_master:cmv_master_1|StateCmvxDP
+Name StateCmvxDP.writeDataToBuffer StateCmvxDP.waitForData StateCmvxDP.idle StateCmvxDP.init 
+StateCmvxDP.init 0 0 0 0 
+StateCmvxDP.idle 0 0 1 1 
+StateCmvxDP.waitForData 0 1 0 1 
+StateCmvxDP.writeDataToBuffer 1 0 0 1 
 
 State Machine - |cmv4000design|DE4_QSYS:inst|cmv_master_interface:cmv_master_interface_0|cmv_master:cmv_master_1|StatexDP
 Name StatexDP.burst StatexDP.setReadReq StatexDP.fifoWait StatexDP.idle 
