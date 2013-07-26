@@ -100,18 +100,29 @@ architecture behavioral of cmv_master is
 
   type bufferDataOut is array (1 to noOfDataChannels) of std_logic_vector(127 downto 0);
   signal BufDataOutxD : bufferDataOut;
+  signal Buf1DataOutxD : bufferDataOut;
+  signal Buf2DataOutxD : bufferDataOut;
 
   signal BufReadReqxS : std_logic_vector(noOfDataChannels downto 1);
+  signal Buf1ReadReqxS : std_logic_vector(noOfDataChannels downto 1);
+  signal Buf2ReadReqxS : std_logic_vector(noOfDataChannels downto 1);
+
   signal BufWriteEnxS : std_logic_vector(noOfDataChannels downto 1);
+  signal Buf1WriteEnxS : std_logic_vector(noOfDataChannels downto 1);
+  signal Buf2WriteEnxS : std_logic_vector(noOfDataChannels downto 1);
 
   type bufferNoOfWords is array (1 to noOfDataChannels) of std_logic_vector(7 downto 0);
   signal BufNoOfWordsxS : bufferNoOfWords;
-
+  signal Buf1NoOfWordsxS : bufferNoOfWords;
+  signal Buf2NoOfWordsxS : bufferNoOfWords;
  
   signal BufFullxS : std_logic_vector(noOfDataChannels downto 1);
-
+  signal Buf1FullxS : std_logic_vector(noOfDataChannels downto 1);
+  signal Buf2FullxS : std_logic_vector(noOfDataChannels downto 1);
 
   signal BufClearxS : std_logic;
+  signal Buf1ClearxS : std_logic;
+  signal Buf2ClearxS : std_logic;
 
   signal ChannelSelectxSP, ChannelSelectxSN : integer range 1 to noOfDataChannels;
 
@@ -141,6 +152,8 @@ architecture behavioral of cmv_master is
   -- control
   -----------------------------------------------------------------------------
   signal FrameRunningxSP, FrameRunningxSN : std_logic;
+  signal BufInpTogglexDP, BufInpTogglexDN : std_logic;
+  signal BufOupTogglexDP, BufOupTogglexDN : std_logic;
 
 begin
 
@@ -182,18 +195,44 @@ begin
   ---------------------------------------------------------------------------
   FrameRunningxSN <= FrameValidxS;
 
+  -----------------------------------------------------------------------------
+  -- multiplexers
+  -----------------------------------------------------------------------------
+  BufReadReqxS <= Buf1ReadReqxS when BufOupTogglexDP = '0' else
+                  Buf2ReadReqxS;
+  BufWriteEnxS <= Buf1WriteEnxS when BufInpTogglexDP = '0' else
+                  Buf2WriteEnxS;
+  BufNoOfWordsxS <= Buf1NoOfWordsxS when BufOupTogglexDP = '0' else
+                    Buf2NoOfWordsxS;
+  BufFullxS <= Buf1FullxS when BufInpTogglexDP = '0' else
+               Buf2FullxS;
+
+  BufClearxS <= Buf1ClearxS when BufInpTogglexDP = '0' else
+                Buf2ClearxS;
+
+  BufDataOutxD <= Buf1DataOutxD when BufOupTogglexDP = '0' else
+                  Buf2DataOutxD;
 
   ---------------------------------------------------------------------------
   -- input
   ---------------------------------------------------------------------------
   buffer_input : process (DataInxD, PixelValidxS, RowValidxS, FrameValidxS,
                           FrameRunningxSN, FrameRunningxSP, BufFullxS,
-                          BufNoOfWordsxS, getCmvDataStatexDP, BufClearxS, RstxRB) is
+                          BufNoOfWordsxS, getCmvDataStatexDP, BufClearxS, RstxRB, BufInpTogglexDP) is
   begin  -- process buffer_input
 
-    BufClearxS <= '0';                  --BufClearxS is deasserted by default
+    Buf1WriteEnxS <= (others => '0');
+    Buf2WriteEnxS <= (others => '0');
+
+    Buf1WriteEnxS(i) <= '0';
+    Buf2WriteEnxS(i) <= '0';
+
+    Buf1ClearxS <= '0';                  --BufClearxS is deasserted by default
+    Buf2ClearxS <= '0';                  --BufClearxS is deasserted by default
+    
     if RstxRB = '0' then
-      BufClearxS <= '1';
+      Buf1ClearxS <= '1';
+      Buf2ClearxS <= '1';
     end if;
 
 
@@ -214,7 +253,6 @@ begin
       when waitForData => null;
 
       when writeDataToBuffer =>
-        BufWriteEnxS <= (others => '0');
 
         for i in 1 to 16 loop
           BufDataInxD(i) <= (others => '0');
@@ -274,9 +312,13 @@ begin
   begin  -- process memory_ClkLvdsRxxD
     if RstxRB = '0' then                -- asynchronous reset (active low)
       FrameRunningxSP    <= '0';
+      BufInpTogglexDP <= '0';
+      BufOupTogglexDP <= '0';
       getCmvDataStatexDP <= writeDataToBuffer;
     elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
       FrameRunningxSP    <= FrameRunningxSN;
+      BufInpTogglexDP <= BufInpTogglexDN;
+      BufOupTogglexDP <= BufOupTogglexDN;
       getCmvDataStatexDP <= getCmvDataStatexDN;
     end if;
   end process memory_ClkLvdsRxxD;
@@ -439,15 +481,27 @@ begin
   fifo_instances : for i in 1 to noOfDataChannels generate
     cmv_ram_fifo_1 : cmv_ram_fifo
       port map (
-        aclr    => BufClearxS,
+        aclr    => Buf1ClearxS,
         data    => BufDataInxD(i),
         rdclk   => ClkxC,
-        rdreq   => BufReadReqxS(i),
+        rdreq   => Buf1ReadReqxS(i),
         wrclk   => ClkLvdsRxxC,
-        wrreq   => BufWriteEnxS(i),
-        q       => BufDataOutxD(i),
-        rdusedw => BufNoOfWordsxS(i),
-        wrfull  => BufFullxS(i));
+        wrreq   => Buf1WriteEnxS(i),
+        q       => Buf1DataOutxD(i),
+        rdusedw => Buf1NoOfWordsxS(i),
+        wrfull  => Buf1FullxS(i));
+
+    cmv_ram_fifo_2 : cmv_ram_fifo
+      port map (
+        aclr    => Buf2ClearxS,
+        data    => BufDataInxD(i),
+        rdclk   => ClkxC,
+        rdreq   => Buf2ReadReqxS(i),
+        wrclk   => ClkLvdsRxxC,
+        wrreq   => Buf2WriteEnxS(i),
+        q       => Buf2DataOutxD(i),
+        rdusedw => Buf2NoOfWordsxS(i),
+        wrfull  => Buf2FullxS(i));
 
   end generate fifo_instances;
 
