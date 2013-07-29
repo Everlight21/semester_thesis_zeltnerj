@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-07-26
+-- Last update: 2013-07-29
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -203,32 +203,32 @@ begin
 
     case StateCmvxDP is
 
-      when init =>
-        BufClearxS <= '1';
-        StateCmvxDN <= idle;
+      --when init =>
+      --  BufClearxS <= '1';
+      --  StateCmvxDN <= idle;
 
-      when idle =>
-        if PixelValidxS = '0' and RowValidxS = '0' and FrameValidxS = '0' then
-          StateCmvxDN <= waitForData;
-        end if;
+      --when idle =>
+      --  if PixelValidxS = '0' and RowValidxS = '0' and FrameValidxS = '0' then
+      --    StateCmvxDN <= waitForData;
+      --  end if;
 
-      when waitForData =>
-        if PixelValidxS = '1' and RowValidxS = '1' and FrameValidxS = '1' then
+      --when waitForData =>
+      --  if PixelValidxS = '1' and RowValidxS = '1' and FrameValidxS = '1' then
 
-          StateCmvxDN <= writeDataToBuffer;
+      --    StateCmvxDN <= writeDataToBuffer;
           
-          for i in 1 to noOfDataChannels loop
-            if BufFullxS(i) /= '1' then
-              BufWriteEnxS(i) <= '1';
-              -- this is only the raw pixel data
-              -- if a rgb camera is used, the buffer input has to be changed accordingly
-              BufDataInxD(i)  <= (31 downto 24 => '0') &
-                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
-                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
-                                DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2);
-            end if;
-          end loop;  -- i
-        end if;
+      --    for i in 1 to noOfDataChannels loop
+      --      if BufFullxS(i) /= '1' then
+      --        BufWriteEnxS(i) <= '1';
+      --        -- this is only the raw pixel data
+      --        -- if a rgb camera is used, the buffer input has to be changed accordingly
+      --        BufDataInxD(i)  <= (31 downto 24 => '0') &
+      --                          DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
+      --                          DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2) &
+      --                          DataInxD(i*channelWidth-1 downto (i-1)*channelWidth+2);
+      --      end if;
+      --    end loop;  -- i
+      --  end if;
 
       when writeDataToBuffer =>
 
@@ -286,7 +286,7 @@ begin
   begin  -- process memory_ClkLvdsRxxD
     if RstxRB = '0' then                -- asynchronous reset (active low)
       FrameRunningxSP    <= '0';
-      StateCmvxDP <= init;
+      StateCmvxDP <= writeDataToBuffer;
     elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
       FrameRunningxSP    <= FrameRunningxSN;
       StateCmvxDP <= StateCmvxDN;
