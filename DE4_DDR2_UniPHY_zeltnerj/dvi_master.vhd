@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-10
--- Last update: 2013-06-05
+-- Last update: 2013-07-29
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -278,7 +278,7 @@ begin  -- architecture behavioral
   DVI: process (BufDataOutxD, BufEmptyxS, DviNewFramexD, DviNewLinexD,
                 DviPixelAvxS) is
   begin  -- process DVI
-    DviDataOutxD <= (others => '0');
+    DviDataOutxD <= "00000000000000000000000011111111";
     BufReadReqxS <= '0';
 
     if DviPixelAvxS = '1' and DviNewLinexD = '1' and DviNewFramexD = '1' then
@@ -286,7 +286,7 @@ begin  -- architecture behavioral
         BufReadReqxS <= '1';
         DviDataOutxD <= BufDataOutxD;
       else
-        DviDataOutxD <= "00000000111111111111111111111111";
+        DviDataOutxD <= "00000000111111110000000000000000";
       end if;
     end if;
   end process DVI;
