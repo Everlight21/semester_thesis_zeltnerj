@@ -1,0 +1,24 @@
+
+WORK > DEFAULT
+DEFAULT:                     ./libraries/work/                       
+work:                        ./libraries/work/                       
+no_of_cam_channels:          ./libraries/no_of_cam_channels/         
+spi_2:                       ./libraries/spi_2/                      
+mm_clock_crossing_bridge_io: ./libraries/mm_clock_crossing_bridge_io/
+button:                      ./libraries/button/                     
+led:                         ./libraries/led/                        
+timer:                       ./libraries/timer/                      
+sysid:                       ./libraries/sysid/                      
+jtag_uart:                   ./libraries/jtag_uart/                  
+nios2_qsys:                  ./libraries/nios2_qsys/                 
+mem_if_ddr2_emif:            ./libraries/mem_if_ddr2_emif/           
+onchip_memory:               ./libraries/onchip_memory/              
+altera:                      ./libraries/altera/                     
+lpm:                         ./libraries/lpm/                        
+sgate:                       ./libraries/sgate/                      
+altera_mf:                   ./libraries/altera_mf/                  
+altera_lnsim:                ./libraries/altera_lnsim/               
+stratixiv_hssi:              ./libraries/stratixiv_hssi/             
+stratixiv_pcie_hip:          ./libraries/stratixiv_pcie_hip/         
+stratixiv:                   ./libraries/stratixiv/                  
+LIBRARY_SCAN = TRUE

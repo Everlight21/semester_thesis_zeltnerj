@@ -198,17 +198,17 @@ begin  -- architecture behavioral
   --            '0';
   --LedxS(7) <= AlignxS(0);
 
-  LedxS(0) <= PixelChannelxD(0)(0);
-  LedxS(1) <= PixelChannelxD(0)(1);
-  LedxS(2) <= PixelChannelxD(0)(2);
-  LedxS(3) <= PixelChannelxD(0)(3);
-  LedxS(4) <= PixelChannelxD(0)(4);
-  --LedxS(5) <= PixelChannelxD(0)(5);
-  LedxS(5) <= '1' when StatexDP = idle else
-              '0';
-  --LedxS(6) <= PixelChannelxD(0)(8);
-  LedxS(6) <= CameraReadyxSP;
-  LedxS(7) <= PixelChannelxD(0)(9);
+  --LedxS(0) <= PixelChannelxD(0)(0);
+  --LedxS(1) <= PixelChannelxD(0)(1);
+  --LedxS(2) <= PixelChannelxD(0)(2);
+  --LedxS(3) <= PixelChannelxD(0)(3);
+  --LedxS(4) <= PixelChannelxD(0)(4);
+  ----LedxS(5) <= PixelChannelxD(0)(5);
+  --LedxS(5) <= '1' when StatexDP = idle else
+  --            '0';
+  ----LedxS(6) <= PixelChannelxD(0)(8);
+  --LedxS(6) <= CameraReadyxSP;
+  --LedxS(7) <= PixelChannelxD(0)(9);
 
   --LedxS(3 downto 0) <= NoOfDataChannelsxDI;
   --LedxS(4)          <= '0';

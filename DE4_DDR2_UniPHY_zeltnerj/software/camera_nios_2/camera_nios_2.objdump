@@ -1199,15 +1199,15 @@ int main() {
 	 * pio[6] is frame_req, active high
 	 */
 
-	usleep(10);
-   406a4:	01000284 	movi	r4,10
+	usleep(100);
+   406a4:	01001904 	movi	r4,100
    406a8:	004399c0 	call	4399c <usleep>
 	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x00); //cmv_reset_n, low
    406ac:	00804034 	movhi	r2,256
    406b0:	10807004 	addi	r2,r2,448
    406b4:	10000035 	stwio	zero,0(r2)
-	usleep(10);
-   406b8:	01000284 	movi	r4,10
+	usleep(100);
+   406b8:	01001904 	movi	r4,100
    406bc:	004399c0 	call	4399c <usleep>
 	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80); //cmv_reset_n, high
    406c0:	00c04034 	movhi	r3,256

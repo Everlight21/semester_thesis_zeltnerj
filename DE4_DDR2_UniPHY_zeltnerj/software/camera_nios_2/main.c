@@ -26,9 +26,9 @@ int main() {
 	 * pio[6] is frame_req, active high
 	 */
 
-	usleep(10);
+	usleep(100);
 	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x00); //cmv_reset_n, low
-	usleep(10);
+	usleep(100);
 	IOWR_ALTERA_AVALON_PIO_DATA(LED_BASE, 0x80); //cmv_reset_n, high
 
 	usleep(1000);

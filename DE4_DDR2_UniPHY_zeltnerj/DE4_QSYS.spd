@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_no_of_cam_channels.vhd"
+   type="VHDL"
+   library="no_of_cam_channels" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_spi_2.vhd"
+   type="VHDL"
+   library="spi_2" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_mm_clock_crossing_bridge_io.vho"
+   type="VHDL"
+   library="mm_clock_crossing_bridge_io" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_button.vhd"
+   type="VHDL"
+   library="button" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_led.vhd"
+   type="VHDL"
+   library="led" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_timer.vhd"
+   type="VHDL"
+   library="timer" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_sysid.vho"
+   type="VHDL"
+   library="sysid" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_jtag_uart.vhd"
+   type="VHDL"
+   library="jtag_uart" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_jtag_uart_input_mutex.dat"
+   type="OTHER"
+   library="jtag_uart" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_jtag_uart_input_stream.dat"
+   type="OTHER"
+   library="jtag_uart" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_jtag_uart_output_stream.dat"
+   type="OTHER"
+   library="jtag_uart" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys.do"
+   type="OTHER"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys.ocp"
+   type="OTHER"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys.sdc"
+   type="SDC"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys.vhd"
+   type="VHDL_ENCRYPT"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys.vho"
+   type="VHDL"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_bht_ram.dat"
+   type="DAT"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_bht_ram.hex"
+   type="HEX"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_bht_ram.mif"
+   type="MIF"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_dc_tag_ram.dat"
+   type="DAT"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_dc_tag_ram.hex"
+   type="HEX"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_dc_tag_ram.mif"
+   type="MIF"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_ic_tag_ram.dat"
+   type="DAT"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_ic_tag_ram.hex"
+   type="HEX"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_ic_tag_ram.mif"
+   type="MIF"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_jtag_debug_module_sysclk.vhd"
+   type="VHDL"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_jtag_debug_module_tck.vhd"
+   type="VHDL"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_jtag_debug_module_wrapper.vhd"
+   type="VHDL"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_mult_cell.vhd"
+   type="VHDL"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_ociram_default_contents.dat"
+   type="DAT"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_ociram_default_contents.hex"
+   type="HEX"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_ociram_default_contents.mif"
+   type="MIF"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_oci_test_bench.vhd"
+   type="VHDL"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_rf_ram_a.dat"
+   type="DAT"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_rf_ram_a.hex"
+   type="HEX"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_rf_ram_a.mif"
+   type="MIF"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_rf_ram_b.dat"
+   type="DAT"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_rf_ram_b.hex"
+   type="HEX"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_rf_ram_b.mif"
+   type="MIF"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_nios2_qsys_test_bench.vhd"
+   type="VHDL"
+   library="nios2_qsys" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_mem_if_ddr2_emif.vhd"
+   type="VHDL"
+   library="mem_if_ddr2_emif" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_onchip_memory.hex"
+   type="HEX"
+   library="onchip_memory" />
+ <file
+   path="DE4_QSYS/simulation/submodules/DE4_QSYS_onchip_memory.vhd"
+   type="VHDL"
+   library="onchip_memory" />
+ <file path="DE4_QSYS/simulation/DE4_QSYS.vhd" type="VHDL" />
+ <file
+   path="DE4_QSYS/simulation/de4_qsys_nios2_qsys_jtag_debug_module_translator.vhd"
+   type="VHDL" />
+ <file
+   path="DE4_QSYS/simulation/de4_qsys_onchip_memory_s1_translator.vhd"
+   type="VHDL" />
+ <file
+   path="DE4_QSYS/simulation/de4_qsys_jtag_uart_avalon_jtag_slave_translator.vhd"
+   type="VHDL" />
+ <file
+   path="DE4_QSYS/simulation/de4_qsys_mm_clock_crossing_bridge_io_s0_translator.vhd"
+   type="VHDL" />
+ <file
+   path="DE4_QSYS/simulation/de4_qsys_button_s1_translator.vhd"
+   type="VHDL" />
+ <file
+   path="DE4_QSYS/simulation/de4_qsys_timer_s1_translator.vhd"
+   type="VHDL" />
+ <file
+   path="DE4_QSYS/simulation/de4_qsys_sysid_control_slave_translator.vhd"
+   type="VHDL" />
+ <file
+   path="DE4_QSYS/simulation/de4_qsys_mem_if_ddr2_emif_avl_translator.vhd"
+   type="VHDL" />
+ <topLevel name="DE4_QSYS" />
+ <deviceFamily name="stratixiv" />
+ <modelMap
+   controllerPath="DE4_QSYS.onchip_memory"
+   modelPath="DE4_QSYS.onchip_memory" />
+ <modelMap
+   controllerPath="DE4_QSYS.mem_if_ddr2_emif"
+   modelPath="DE4_QSYS.mem_if_ddr2_emif" />
+</simPackage>

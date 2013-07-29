@@ -1,0 +1,1518 @@
+Info: Starting: Create simulation model
+Info: ip-generate --project-directory=C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/ --output-directory=C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/simulation/ --file-set=SIM_VHDL --report-file=sopcinfo:C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.sopcinfo --report-file=html:C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.html --report-file=sip:C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/simulation/DE4_QSYS.sip --report-file=csv:C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.csv --report-file=spd:C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.spd --report-file=cmp:C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.cmp --system-info=DEVICE_FAMILY="Stratix IV" --system-info=DEVICE=EP4SGX230KF40C2 --system-info=DEVICE_SPEEDGRADE=2 --component-file=C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.qsys
+Progress: Loading DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.qsys
+Progress: Reading input file
+Progress: Adding clk_50_bank3 [clock_source 12.1]
+Progress: Parameterizing module clk_50_bank3
+Progress: Adding onchip_memory [altera_avalon_onchip_memory2 12.1]
+Progress: Parameterizing module onchip_memory
+Progress: Adding mem_if_ddr2_emif [altera_mem_if_ddr2_emif 12.1]
+Progress: Parameterizing module mem_if_ddr2_emif
+Progress: Adding nios2_qsys [altera_nios2_qsys 12.1]
+Progress: Parameterizing module nios2_qsys
+Progress: Adding jtag_uart [altera_avalon_jtag_uart 12.1]
+Progress: Parameterizing module jtag_uart
+Progress: Adding sysid [altera_avalon_sysid_qsys 12.1]
+Progress: Parameterizing module sysid
+Progress: Adding timer [altera_avalon_timer 12.1]
+Progress: Parameterizing module timer
+Progress: Adding led [altera_avalon_pio 12.1]
+Progress: Parameterizing module led
+Progress: Adding button [altera_avalon_pio 12.1]
+Progress: Parameterizing module button
+Progress: Adding mm_clock_crossing_bridge_io [altera_avalon_mm_clock_crossing_bridge 12.1]
+Progress: Parameterizing module mm_clock_crossing_bridge_io
+Progress: Adding ddr2_i2c_scl [altera_avalon_pio 12.1]
+Progress: Parameterizing module ddr2_i2c_scl
+Progress: Adding ddr2_i2c_sda [altera_avalon_pio 12.1]
+Progress: Parameterizing module ddr2_i2c_sda
+Progress: Adding spi_2 [altera_avalon_spi 12.1]
+Progress: Parameterizing module spi_2
+Progress: Adding mem_if_ddr2_emif_0 [altera_mem_if_ddr2_emif 12.1]
+Progress: Parameterizing module mem_if_ddr2_emif_0
+Progress: Adding clk_0_bank4 [clock_source 12.1]
+Progress: Parameterizing module clk_0_bank4
+Progress: Adding spi_1 [altera_avalon_spi 12.1]
+Progress: Parameterizing module spi_1
+Progress: Adding camera_interface_block_0 [camera_interface_block 1.0]
+Progress: Parameterizing module camera_interface_block_0
+Progress: Adding stored_interface_block_0 [stored_interface_block 1.0]
+Progress: Parameterizing module stored_interface_block_0
+Progress: Adding no_of_cam_channels [altera_avalon_pio 12.1]
+Progress: Parameterizing module no_of_cam_channels
+Progress: Adding cmv_master_interface_0 [cmv_master_interface 1.0]
+Progress: Parameterizing module cmv_master_interface_0
+Progress: Adding dvi_master_interface_0 [dvi_master_interface 1.0]
+Progress: Parameterizing module dvi_master_interface_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: DE4_QSYS.onchip_memory: Memory will be initialized from onchip_memory.hex
+Info: DE4_QSYS.mem_if_ddr2_emif: Auto interface leveling mode set to 'Leveling'
+Info: DE4_QSYS.nios2_qsys: CPUID control register value is 0. Please manually assign CPUID if creating multiple Nios II system
+Info: DE4_QSYS.sysid: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: DE4_QSYS.sysid: Time stamp will be automatically updated when this component is generated.
+Info: DE4_QSYS.button: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Warning: DE4_QSYS.mem_if_ddr2_emif: mem_if_ddr2_emif.status must be exported, or connected to a matching conduit.
+Info: DE4_QSYS: Generating DE4_QSYS "DE4_QSYS" for SIM_VHDL
+Info: pipeline_bridge_swap_transform: After transform: 15 modules, 58 connections
+Info: No custom instruction connections, skipping transform 
+Info: merlin_translator_transform: After transform: 32 modules, 109 connections
+Info: merlin_domain_transform: After transform: 71 modules, 292 connections
+Info: merlin_router_transform: After transform: 88 modules, 343 connections
+Info: merlin_traffic_limiter_transform: After transform: 91 modules, 355 connections
+Info: merlin_burst_transform: After transform: 102 modules, 388 connections
+Info: reset_adaptation_transform: After transform: 105 modules, 394 connections
+Info: merlin_network_to_switch_transform: After transform: 138 modules, 474 connections
+Info: merlin_width_transform: After transform: 144 modules, 492 connections
+Info: Inserting clock-crossing logic between cmd_xbar_demux_001.src3 and cmd_xbar_mux_003.sink0
+Info: Inserting clock-crossing logic between cmd_xbar_demux_001.src4 and cmd_xbar_mux_004.sink0
+Info: Inserting clock-crossing logic between cmd_xbar_demux_001.src5 and cmd_xbar_mux_005.sink0
+Info: Inserting clock-crossing logic between cmd_xbar_demux_001.src6 and cmd_xbar_mux_006.sink0
+Info: Inserting clock-crossing logic between cmd_xbar_demux_001.src7 and cmd_xbar_mux_007.sink0
+Info: Inserting clock-crossing logic between cmd_xbar_demux_001.src8 and cmd_xbar_mux_008.sink0
+Info: Inserting clock-crossing logic between cmd_xbar_demux_001.src10 and cmd_xbar_mux_010.sink0
+Info: Inserting clock-crossing logic between cmd_xbar_demux_001.src11 and cmd_xbar_mux_011.sink0
+Info: Inserting clock-crossing logic between cmd_xbar_demux_002.src0 and cmd_xbar_mux_004.sink1
+Info: Inserting clock-crossing logic between cmd_xbar_demux_002.src1 and cmd_xbar_mux_005.sink1
+Info: Inserting clock-crossing logic between cmd_xbar_demux_002.src2 and cmd_xbar_mux_006.sink1
+Info: Inserting clock-crossing logic between cmd_xbar_demux_002.src3 and cmd_xbar_mux_007.sink1
+Info: Inserting clock-crossing logic between cmd_xbar_demux_002.src4 and cmd_xbar_mux_008.sink1
+Info: Inserting clock-crossing logic between cmd_xbar_demux_002.src5 and cmd_xbar_mux_010.sink1
+Info: Inserting clock-crossing logic between cmd_xbar_demux_002.src6 and cmd_xbar_mux_011.sink1
+Info: Inserting clock-crossing logic between rsp_xbar_demux_003.src0 and rsp_xbar_mux_001.sink3
+Info: Inserting clock-crossing logic between rsp_xbar_demux_004.src0 and rsp_xbar_mux_001.sink4
+Info: Inserting clock-crossing logic between rsp_xbar_demux_004.src1 and rsp_xbar_mux_002.sink0
+Info: Inserting clock-crossing logic between rsp_xbar_demux_005.src0 and rsp_xbar_mux_001.sink5
+Info: Inserting clock-crossing logic between rsp_xbar_demux_005.src1 and rsp_xbar_mux_002.sink1
+Info: Inserting clock-crossing logic between rsp_xbar_demux_006.src0 and rsp_xbar_mux_001.sink6
+Info: Inserting clock-crossing logic between rsp_xbar_demux_006.src1 and rsp_xbar_mux_002.sink2
+Info: Inserting clock-crossing logic between rsp_xbar_demux_007.src0 and rsp_xbar_mux_001.sink7
+Info: Inserting clock-crossing logic between rsp_xbar_demux_007.src1 and rsp_xbar_mux_002.sink3
+Info: Inserting clock-crossing logic between rsp_xbar_demux_008.src0 and rsp_xbar_mux_001.sink8
+Info: Inserting clock-crossing logic between rsp_xbar_demux_008.src1 and rsp_xbar_mux_002.sink4
+Info: Inserting clock-crossing logic between rsp_xbar_demux_010.src0 and rsp_xbar_mux_001.sink10
+Info: Inserting clock-crossing logic between rsp_xbar_demux_010.src1 and rsp_xbar_mux_002.sink5
+Info: Inserting clock-crossing logic between rsp_xbar_demux_011.src0 and rsp_xbar_mux_001.sink11
+Info: Inserting clock-crossing logic between rsp_xbar_demux_011.src1 and rsp_xbar_mux_002.sink6
+Info: com_altera_sopcmodel_transforms_avalon_ClockCrossingTransform: After transform: 174 modules, 642 connections
+Info: limiter_update_transform: After transform: 174 modules, 645 connections
+Info: merlin_interrupt_mapper_transform: After transform: 175 modules, 648 connections
+Info: merlin_interrupt_sync_transform: After transform: 178 modules, 663 connections
+Info: Starting classic module elaboration.
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0001_sopclgen  --no_splash --refresh C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0001_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+Info: Finished elaborating classic module.
+Executing: C:/altera/12.1sp1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0001_sopclgen/yysystem.ptf
+Info: Running sopc_builder...
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0001_sopclgen  --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0001_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+No .sopc_builder configuration file(!)
+.
+# 2013.07.29 16:53:22 (*) Success: sopc_builder finished.
+Info: onchip_memory: "DE4_QSYS" instantiated altera_avalon_onchip_memory2 "onchip_memory"
+Info: pipeline_bridge_swap_transform: After transform: 14 modules, 33 connections
+Info: No custom instruction connections, skipping transform 
+Info: No Avalon connections, skipping transform 
+Info: No Avalon connections, skipping transform 
+Info: mem_if_ddr2_emif: "DE4_QSYS" instantiated altera_mem_if_ddr2_emif "mem_if_ddr2_emif"
+Info: nios2_qsys: Starting RTL generation for module 'DE4_QSYS_nios2_qsys'
+Info: nios2_qsys:   Generation command is [exec C:/altera/12.1sp1/quartus/../ip/altera/nios2_ip/altera_nios2/eperl.exe -I C:/altera/12.1sp1/quartus/common/ip/altera/common/perl/5.8.3 -I C:/altera/12.1sp1/quartus/sopc_builder/bin/europa -I C:/altera/12.1sp1/quartus/sopc_builder/bin/perl_lib -I C:/altera/12.1sp1/quartus/sopc_builder/bin -I C:/altera/12.1sp1/quartus/../ip/altera/nios2_ip/altera_nios2/cpu_lib -I C:/altera/12.1sp1/quartus/../ip/altera/nios2_ip/altera_nios2/nios_lib -I C:/altera/12.1sp1/quartus/../ip/altera/nios2_ip/altera_nios2 -I C:/altera/12.1sp1/quartus/../ip/altera/nios2_ip/altera_nios2 -- C:/altera/12.1sp1/quartus/../ip/altera/nios2_ip/altera_nios2/generate_rtl.epl --name=DE4_QSYS_nios2_qsys --dir=C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0002_nios2_qsys_gen/ --quartus_dir=C:/altera/12.1sp1/quartus --vhdl --config=C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0002_nios2_qsys_gen//DE4_QSYS_nios2_qsys_processor_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0002_nios2_qsys_gen/    --bogus  ]
+Info: nios2_qsys: # 2013.07.29 16:53:26 (*) Starting Nios II generation
+Info: nios2_qsys: # 2013.07.29 16:53:26 (*)   Checking for plaintext license.
+Info: nios2_qsys: # 2013.07.29 16:53:27 (*)   Plaintext license not found.
+Info: nios2_qsys: # 2013.07.29 16:53:27 (*)   Checking for encrypted license (non-evaluation).
+Info: nios2_qsys: # 2013.07.29 16:53:28 (*)   Encrypted license found.  SOF will not be time-limited.
+Info: nios2_qsys: # 2013.07.29 16:53:28 (*)   Elaborating CPU configuration settings
+Info: nios2_qsys: # 2013.07.29 16:53:28 (*)   Creating all objects for CPU
+Info: nios2_qsys: # 2013.07.29 16:53:28 (*)     Testbench
+Info: nios2_qsys: # 2013.07.29 16:53:28 (*)     Instruction decoding
+Info: nios2_qsys: # 2013.07.29 16:53:28 (*)       Instruction fields
+Info: nios2_qsys: # 2013.07.29 16:53:28 (*)       Instruction decodes
+Info: nios2_qsys: # 2013.07.29 16:53:29 (*)       Signals for RTL simulation waveforms
+Info: nios2_qsys: # 2013.07.29 16:53:29 (*)       Instruction controls
+Info: nios2_qsys: # 2013.07.29 16:53:29 (*)     Pipeline frontend
+Info: nios2_qsys: # 2013.07.29 16:53:30 (*)     Pipeline backend
+Info: nios2_qsys: # 2013.07.29 16:53:33 (*)   Creating 'C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0002_nios2_qsys_gen//DE4_QSYS_nios2_qsys.do'
+Info: nios2_qsys: # 2013.07.29 16:53:33 (*)   Generating RTL from CPU objects
+Info: nios2_qsys: # 2013.07.29 16:53:43 (*)   Creating encrypted RTL
+Info: nios2_qsys: # 2013.07.29 16:53:46 (*)   Creating IP functional simulation model
+Info: nios2_qsys: # 2013.07.29 16:54:01 (*) Done Nios II generation
+Info: nios2_qsys: Done RTL generation for module 'DE4_QSYS_nios2_qsys'
+Info: nios2_qsys: "DE4_QSYS" instantiated altera_nios2_qsys "nios2_qsys"
+Info: Starting classic module elaboration.
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0003_sopclgen  --no_splash --refresh C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0003_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+Info: Finished elaborating classic module.
+Executing: C:/altera/12.1sp1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0003_sopclgen/yysystem.ptf
+Info: Running sopc_builder...
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0003_sopclgen  --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0003_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+No .sopc_builder configuration file(!)
+.
+# 2013.07.29 16:54:08 (*) Success: sopc_builder finished.
+Info: jtag_uart: "DE4_QSYS" instantiated altera_avalon_jtag_uart "jtag_uart"
+Info: sysid: Generating VHDL simulation model
+Info: sysid: Generated simulation model DE4_QSYS_sysid.vho
+Info: sysid: "DE4_QSYS" instantiated altera_avalon_sysid_qsys "sysid"
+Info: Starting classic module elaboration.
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0007_sopclgen  --no_splash --refresh C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0007_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+Info: Finished elaborating classic module.
+Executing: C:/altera/12.1sp1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0007_sopclgen/yysystem.ptf
+Info: Running sopc_builder...
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0007_sopclgen  --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0007_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+No .sopc_builder configuration file(!)
+.
+# 2013.07.29 16:54:18 (*) Success: sopc_builder finished.
+Info: timer: "DE4_QSYS" instantiated altera_avalon_timer "timer"
+Info: Starting classic module elaboration.
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0008_sopclgen  --no_splash --refresh C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0008_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+Info: Finished elaborating classic module.
+Executing: C:/altera/12.1sp1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0008_sopclgen/yysystem.ptf
+Info: Running sopc_builder...
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0008_sopclgen  --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0008_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+No .sopc_builder configuration file(!)
+.
+# 2013.07.29 16:54:25 (*) Success: sopc_builder finished.
+Info: led: "DE4_QSYS" instantiated altera_avalon_pio "led"
+Info: Starting classic module elaboration.
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0009_sopclgen  --no_splash --refresh C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0009_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+Info: Finished elaborating classic module.
+Executing: C:/altera/12.1sp1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0009_sopclgen/yysystem.ptf
+Info: Running sopc_builder...
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0009_sopclgen  --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0009_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+No .sopc_builder configuration file(!)
+.
+# 2013.07.29 16:54:32 (*) Success: sopc_builder finished.
+Info: button: "DE4_QSYS" instantiated altera_avalon_pio "button"
+Info: mm_clock_crossing_bridge_io: Generating VHDL simulation model
+Warning: Verilog HDL assignment warning at altera_avalon_mm_clock_crossing_bridge.v(175): truncated value with size 32 to match size of target (3)
+Warning: Verilog HDL assignment warning at altera_avalon_mm_clock_crossing_bridge.v(177): truncated value with size 32 to match size of target (3)
+Info: mm_clock_crossing_bridge_io: Generated simulation model DE4_QSYS_mm_clock_crossing_bridge_io.vho
+Info: mm_clock_crossing_bridge_io: "DE4_QSYS" instantiated altera_avalon_mm_clock_crossing_bridge "mm_clock_crossing_bridge_io"
+Info: Starting classic module elaboration.
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0013_sopclgen  --no_splash --refresh C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0013_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+Info: Finished elaborating classic module.
+Executing: C:/altera/12.1sp1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0013_sopclgen/yysystem.ptf
+Info: Running sopc_builder...
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0013_sopclgen  --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0013_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+No .sopc_builder configuration file(!)
+.
+# 2013.07.29 16:54:43 (*) Success: sopc_builder finished.
+Info: spi_2: "DE4_QSYS" instantiated altera_avalon_spi "spi_2"
+Info: Starting classic module elaboration.
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0014_sopclgen  --no_splash --refresh C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0014_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+Info: Finished elaborating classic module.
+Executing: C:/altera/12.1sp1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0014_sopclgen/yysystem.ptf
+Info: Running sopc_builder...
+"c:/altera/12.1sp1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/12.1sp1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/12.1sp1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0014_sopclgen  --generate C:/Users/zeltnerj/AppData/Local/Temp/alt5915_7244898569924102481.dir/0014_sopclgen/yysystem.vhd --quartus_dir="c:/altera/12.1sp1/quartus" --sopc_perl="c:/altera/12.1sp1/quartus/bin/perl" --sopc_lib_path="++c:/altera/12.1sp1/quartus/../ip/altera/sopc_builder_ip+c:/altera/12.1sp1/quartus/../ip/altera/nios2_ip"
+No .sopc_builder configuration file(!)
+.
+# 2013.07.29 16:54:51 (*) Success: sopc_builder finished.
+Info: no_of_cam_channels: "DE4_QSYS" instantiated altera_avalon_pio "no_of_cam_channels"
+Error: cmv_master_interface_0: cmv_master_interface does not support generation for VHDL Simulation. Generation is available for: Quartus Synthesis.
+Error: Generation stopped, 175 or more modules remaining
+Info: DE4_QSYS: Done DE4_QSYS" with 84 modules, 53 files, 3646223 bytes
+Error: ip-generate failed with exit code 1: 2 Errors, 3 Warnings
+Info: Finished: Create simulation model
+Info: Starting: Create Modelsim Project.
+Info: sim-script-gen --spd=C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.spd --output-directory=C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/simulation/
+Info: Doing: ip-make-simscript --spd=C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.spd --output-directory=C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/simulation/
+Info: Generating the following file(s) for MODELSIM simulator in C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/simulation/ directory:
+Info: 	mentor/msim_setup.tcl
+Info: Skipping VCS script generation since VHDL file c:/altera/12.1sp1/quartus/eda/sim_lib/altera_syn_attributes.vhd is required for simulation
+Info: Generating the following file(s) for VCSMX simulator in C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/simulation/ directory:
+Info: 	synopsys/vcsmx/synopsys_sim.setup
+Info: 	synopsys/vcsmx/vcsmx_setup.sh
+Info: Generating the following file(s) for NCSIM simulator in C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/simulation/ directory:
+Info: 	cadence/cds.lib
+Info: 	cadence/hdl.var
+Info: 	cadence/ncsim_setup.sh
+Info: 	11 .cds.lib files in cadence/cds_libs/ directory
+Info: Generating the following file(s) for RIVIERAPRO simulator in C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/simulation/ directory:
+Info: 	aldec/rivierapro_setup.tcl
+Info: Finished: Create Modelsim Project.
+Info: 
+Info: Starting: Create testbench Qsys system
+Info: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/testbench/DE4_QSYS.ipx
+Info: ip-generate --project-directory=C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/ --output-directory=C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/ --report-file=sopcinfo:C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.sopcinfo --report-file=html:C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.html --system-info=DEVICE_FAMILY="Stratix IV" --system-info=DEVICE=EP4SGX230KF40C2 --system-info=DEVICE_SPEEDGRADE=2 --component-file=C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.qsys
+Progress: Loading DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.qsys
+Progress: Reading input file
+Progress: Adding clk_50_bank3 [clock_source 12.1]
+Progress: Parameterizing module clk_50_bank3
+Progress: Adding onchip_memory [altera_avalon_onchip_memory2 12.1]
+Progress: Parameterizing module onchip_memory
+Progress: Adding mem_if_ddr2_emif [altera_mem_if_ddr2_emif 12.1]
+Progress: Parameterizing module mem_if_ddr2_emif
+Progress: Adding nios2_qsys [altera_nios2_qsys 12.1]
+Progress: Parameterizing module nios2_qsys
+Progress: Adding jtag_uart [altera_avalon_jtag_uart 12.1]
+Progress: Parameterizing module jtag_uart
+Progress: Adding sysid [altera_avalon_sysid_qsys 12.1]
+Progress: Parameterizing module sysid
+Progress: Adding timer [altera_avalon_timer 12.1]
+Progress: Parameterizing module timer
+Progress: Adding led [altera_avalon_pio 12.1]
+Progress: Parameterizing module led
+Progress: Adding button [altera_avalon_pio 12.1]
+Progress: Parameterizing module button
+Progress: Adding mm_clock_crossing_bridge_io [altera_avalon_mm_clock_crossing_bridge 12.1]
+Progress: Parameterizing module mm_clock_crossing_bridge_io
+Progress: Adding ddr2_i2c_scl [altera_avalon_pio 12.1]
+Progress: Parameterizing module ddr2_i2c_scl
+Progress: Adding ddr2_i2c_sda [altera_avalon_pio 12.1]
+Progress: Parameterizing module ddr2_i2c_sda
+Progress: Adding spi_2 [altera_avalon_spi 12.1]
+Progress: Parameterizing module spi_2
+Progress: Adding mem_if_ddr2_emif_0 [altera_mem_if_ddr2_emif 12.1]
+Progress: Parameterizing module mem_if_ddr2_emif_0
+Progress: Adding clk_0_bank4 [clock_source 12.1]
+Progress: Parameterizing module clk_0_bank4
+Progress: Adding spi_1 [altera_avalon_spi 12.1]
+Progress: Parameterizing module spi_1
+Progress: Adding camera_interface_block_0 [camera_interface_block 1.0]
+Progress: Parameterizing module camera_interface_block_0
+Progress: Adding stored_interface_block_0 [stored_interface_block 1.0]
+Progress: Parameterizing module stored_interface_block_0
+Progress: Adding no_of_cam_channels [altera_avalon_pio 12.1]
+Progress: Parameterizing module no_of_cam_channels
+Progress: Adding cmv_master_interface_0 [cmv_master_interface 1.0]
+Progress: Parameterizing module cmv_master_interface_0
+Progress: Adding dvi_master_interface_0 [dvi_master_interface 1.0]
+Progress: Parameterizing module dvi_master_interface_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: DE4_QSYS.onchip_memory: Memory will be initialized from onchip_memory.hex
+Info: DE4_QSYS.mem_if_ddr2_emif: Auto interface leveling mode set to 'Leveling'
+Info: DE4_QSYS.nios2_qsys: CPUID control register value is 0. Please manually assign CPUID if creating multiple Nios II system
+Info: DE4_QSYS.sysid: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: DE4_QSYS.sysid: Time stamp will be automatically updated when this component is generated.
+Info: DE4_QSYS.button: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Warning: DE4_QSYS.mem_if_ddr2_emif: mem_if_ddr2_emif.status must be exported, or connected to a matching conduit.
+Info: ip-generate succeeded.
+Info: Loading component library for testbench.
+Progress: 
+Progress: 
+Progress: 
+Progress: (1) searching C:/altera/12.1sp1/quartus/sopc_builder/bin/root_components.ipx (ipx file)
+Info: Reading index C:/altera/12.1sp1/quartus/sopc_builder/bin/root_components.ipx
+Info: C:/altera/12.1sp1/quartus/sopc_builder/bin/root_components.ipx: Loading now from components.ipx
+Info: Reading index C:/altera/12.1sp1/quartus/sopc_builder/bin/ip_component_categories.ipx
+Info: C:/altera/12.1sp1/quartus/sopc_builder/bin/ip_component_categories.ipx described 0 plugins, 0 paths, in 0.02 seconds
+Info: C:/altera/12.1sp1/quartus/sopc_builder/bin/ip_component_categories.ipx matched 1 files in 0.02 seconds
+Info: Reading index C:/altera/12.1sp1/ip/altera/altera_components.ipx
+Info: C:/altera/12.1sp1/ip/altera/altera_components.ipx described 740 plugins, 0 paths, in 0.24 seconds
+Progress: Loading component/sls_avalon_udsc_hw.tcl
+Info: C:\altera\12.1sp1\ip\sls\udsc\hardware\component\sls_avalon_udsc_hw.tcl: no _hw.tcl package requested, assuming package require -exact sopc 9.0
+Progress: Loading component/sls_avalon_usb20hc_hw.tcl
+Info: C:\altera\12.1sp1\ip\sls\usb20hc\hardware\component\sls_avalon_usb20hc_hw.tcl: no _hw.tcl package requested, assuming package require -exact sopc 9.0
+Progress: Loading component/sls_avalon_usb20hr_hw.tcl
+Info: C:\altera\12.1sp1\ip\sls\usb20hr\hardware\component\sls_avalon_usb20hr_hw.tcl: no _hw.tcl package requested, assuming package require -exact sopc 9.0
+Progress: Loading component/sls_avalon_usb20sr_hw.tcl
+Info: C:\altera\12.1sp1\ip\sls\usb20sr\hardware\component\sls_avalon_usb20sr_hw.tcl: no _hw.tcl package requested, assuming package require -exact sopc 9.0
+Progress: Loading component/sls_avalon_udsc_hw.tcl
+Info: C:\altera\12.1sp1\ip\sls\usb20sr\udsc\hardware\component\sls_avalon_udsc_hw.tcl: no _hw.tcl package requested, assuming package require -exact sopc 9.0
+Progress: Loading component/sls_avalon_usb20sr_hw.tcl
+Info: C:\altera\12.1sp1\ip\sls\usb20sr\usb20sr\hardware\component\sls_avalon_usb20sr_hw.tcl: no _hw.tcl package requested, assuming package require -exact sopc 9.0
+Info: C:/altera/12.1sp1/ip/**/* matched 1206 files in 0.70 seconds
+Info: Reading index Y:/.altera.quartus/ip/12.1sp1/ip_search_path/user_components.ipx
+Info: Y:/.altera.quartus/ip/12.1sp1/ip_search_path/user_components.ipx described 0 plugins, 0 paths, in 0.01 seconds
+Info: Y:/.altera.quartus/ip/12.1sp1/**/* matched 2 files in 0.02 seconds
+Info: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/testbench/ip/**/* matched 0 files in 0.00 seconds
+Info: Reading index C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/testbench/DE4_QSYS.ipx
+Progress: Loading DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS.qsys
+Progress: Loading DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS_test.qsys
+Progress: Loading DE4_DDR2_UniPHY_zeltnerj/camera_interface_block_hw.tcl
+Progress: Loading DE4_DDR2_UniPHY_zeltnerj/cmv_master_interface_hw.tcl
+Progress: Loading DE4_DDR2_UniPHY_zeltnerj/control_registers_hw.tcl
+Progress: Loading DE4_DDR2_UniPHY_zeltnerj/dvi_master_interface_hw.tcl
+Progress: Loading DE4_DDR2_UniPHY_zeltnerj/stored_interface_block_hw.tcl
+Info: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/* matched 261 files in 0.18 seconds
+Progress: Loading mpfe/mpfe_top_hw.tcl
+Info: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/ip/**/* matched 10 files in 0.14 seconds
+Info: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/*/* matched 1981 files in 0.23 seconds
+Info: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/testbench/DE4_QSYS.ipx described 0 plugins, 3 paths, in 0.56 seconds
+Info: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/testbench/* matched 1 files in 0.56 seconds
+Info: C:/semester_thesis_zeltnerj/DE4_DDR2_UniPHY_zeltnerj/DE4_QSYS/testbench/*/* matched 0 files in 0.00 seconds
+Info: Reading index C:/altera/12.1sp1/quartus/sopc_builder/builtin.ipx
+Info: C:/altera/12.1sp1/quartus/sopc_builder/builtin.ipx described 98 plugins, 0 paths, in 0.03 seconds
+Info: C:/altera/12.1sp1/quartus/sopc_builder/**/* matched 9 files in 0.03 seconds
+Info: Reading index C:/altera/12.1sp1/quartus/common/librarian/factories/index.ipx
+Info: C:/altera/12.1sp1/quartus/common/librarian/factories/index.ipx described 150 plugins, 0 paths, in 0.04 seconds
+Info: C:/altera/12.1sp1/quartus/common/librarian/factories/**/* matched 4 files in 0.04 seconds
+Info: C:/altera/12.1sp1/quartus/sopc_builder/bin/$IP_IPX_PATH matched 1 files in 0.00 seconds
+Info: C:/altera/12.1sp1/quartus/sopc_builder/bin/root_components.ipx described 0 plugins, 9 paths, in 1.38 seconds
+Info: C:/altera/12.1sp1/quartus/sopc_builder/bin/root_components.ipx matched 1 files in 1.38 seconds
+Progress: 
+Progress: 
+Progress: 
+Info: Loading presets
+Progress: Loading presets
+Debug: Script: C:/altera/12.1sp1/quartus/sopc_builder/bin/tbgen.tcl
+Info: Running script C:/altera/12.1sp1/quartus/sopc_builder/bin/tbgen.tcl
+Info: sopc::set_package_version 12.1
+Info: send_message Info TB_Gen: QSYS Testbench Generator Rev: $Revision: #1 $
+Info: TB_Gen: QSYS Testbench Generator Rev: $Revision: #1 $
+Info: get_module_property NAME
+Info: send_message Info TB_Gen: System design is: DE4_QSYS
+Info: TB_Gen: System design is: DE4_QSYS
+Info: get_interfaces 
+Info: get_connections 
+Info: get_interface_property clk EXPORT_OF
+Info: get_instance_property clk_50_bank3 CLASS_NAME
+Info: get_instance_assignment clk_50_bank3 testbench.partner.map.clk_in
+Info: get_interface_property reset EXPORT_OF
+Info: get_instance_property clk_50_bank3 CLASS_NAME
+Info: get_instance_assignment clk_50_bank3 testbench.partner.map.clk_in_reset
+Info: get_interface_property memory EXPORT_OF
+Info: get_instance_property mem_if_ddr2_emif CLASS_NAME
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.map.memory
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.class
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.version
+Info: get_instance_assignments mem_if_ddr2_emif
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_PARITY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR0
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR0_CALIB
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR0_DLL_RESET
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR0_DLL_RESET_MIRR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR0_MIRR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR1
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR1_CALIB
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR1_MIRR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR1_OCD_ENABLE
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR2
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR2_MIRR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR3
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AC_ROM_MR3_MIRR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.ADDR_CMD_DDR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.ADDR_RATE_RATIO
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_ADDR_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_BANKADDR_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_CLK_EN_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_CLK_PAIR_COUNT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_CONTROL_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_CS_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_DM_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_DQ_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_ODT_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_RATE_RATIO
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_RLAT_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_RRANK_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_WLAT_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_WRANK_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.AFI_WRITE_DQS_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.ALTMEMPHY_COMPATIBLE_MODE
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.CFG_TCCD
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.CFG_TCCD_NS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.CTL_RD_TO_PCH_EXTRA_CLK
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.CTL_RD_TO_RD_DIFF_CHIP_EXTRA_CLK
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.CTL_RD_TO_RD_EXTRA_CLK
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.CTL_WR_TO_WR_DIFF_CHIP_EXTRA_CLK
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.CTL_WR_TO_WR_EXTRA_CLK
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.CUT_NEW_FAMILY_TIMING
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.DATA_RATE_RATIO
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.DAT_DATA_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.DEVICE_DEPTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.DEVICE_FAMILY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.DEVICE_FAMILY_PARAM
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.DEVICE_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.DISABLE_CHILD_MESSAGING
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.DISCRETE_FLY_BY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.DQ_DDR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.FLY_BY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.FORCE_DQS_TRACKING
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.FORCE_SHADOW_REGS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.HARD_EMIF
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.HARD_PHY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.HHP_HPS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.HHP_HPS_SIMULATION
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.HHP_HPS_VERIFICATION
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.HPS_PROTOCOL
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.IS_ES_DEVICE
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.LRDIMM
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.LRDIMM_INT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_ASR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_ATCL
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_ATCL_INT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_AUTO_LEVELING_MODE
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_BANKADDR_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_BL
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_BT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_BURST_LENGTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_CK_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_CLK_EN_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_CLK_FREQ
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_CLK_FREQ_MAX
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_CLK_MAX_NS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_CLK_MAX_PS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_CLK_TO_DQS_CAPTURE_DELAY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_COL_ADDR_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_CS_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_DLL_EN
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_DQS_TO_CLK_CAPTURE_DELAY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_DQ_PER_DQS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_DQ_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_DRV_STR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_FORMAT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_GUARANTEED_WRITE_INIT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_ADDR_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_ADDR_WIDTH_MIN
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_BANKADDR_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_BOARD_BASE_DELAY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_CHIP_BITS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_CK_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_CLK_EN_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_CLK_PAIR_COUNT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_COL_ADDR_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_CONTROL_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_CS_PER_DIMM
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_CS_PER_RANK
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_CS_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_DM_PINS_EN
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_DM_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_DQSN_EN
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_DQS_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_DQ_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_NUMBER_OF_RANKS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_ODT_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_RD_TO_WR_TURNAROUND_OCT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_READ_DQS_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_ROW_ADDR_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_SIM_VALID_WINDOW
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_WRITE_DQS_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_IF_WR_TO_RD_TURNAROUND_OCT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_INIT_EN
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_INIT_FILE
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_LEVELING
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_LRDIMM_ENABLED
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_MIRROR_ADDRESSING
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_MIRROR_ADDRESSING_DEC
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_NUMBER_OF_DIMMS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_NUMBER_OF_RANKS_PER_DEVICE
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_NUMBER_OF_RANKS_PER_DIMM
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_PD
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_RANK_MULTIPLICATION_FACTOR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_REGDIMM_ENABLED
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_ROW_ADDR_WIDTH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_RTT_NOM
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_SRT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TCL
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TDQSCK
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TFAW
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TFAW_NS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TINIT_CK
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TINIT_US
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TMRD_CK
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRAS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRAS_NS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRC
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRCD
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRCD_NS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TREFI
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TREFI_US
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRFC
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRFC_NS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRP
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRP_NS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRRD
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRRD_NS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRTP
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TRTP_NS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TWR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TWR_NS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TWTR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_TYPE
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_USER_LEVELING_MODE
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_VENDOR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_VERBOSE
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MEM_WTCL_INT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR0_BL
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR0_BT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR0_CAS_LATENCY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR0_DLL
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR0_PD
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR0_WR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR1_AL
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR1_DLL
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR1_DQS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR1_ODS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR1_QOFF
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR1_RDQS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR1_RTT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR1_TDQS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR1_WL
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR2_ASR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR2_CWL
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR2_RTT_WR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR2_SRF
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR2_SRT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR3_MPR
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR3_MPR_AA
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MR3_MPR_RF
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.MRS_MIRROR_PING_PONG_ATSO
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.NEXTGEN
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.PARSE_FRIENDLY_DEVICE_FAMILY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.PARSE_FRIENDLY_DEVICE_FAMILY_CACHE_VALID
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.PARSE_FRIENDLY_DEVICE_FAMILY_PARAM
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.PARSE_FRIENDLY_DEVICE_FAMILY_PARAM_VALID
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.PINGPONGPHY_EN
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.PRE_V_SERIES_FAMILY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.RATE
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.RDIMM
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.RDIMM_INT
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.REFRESH_BURST_VALIDATION
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.SPEED_GRADE
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.SYS_INFO_DEVICE_FAMILY
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TDH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TDQSCK
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TDQSCKDL
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TDQSCKDM
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TDQSCKDS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TDQSH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TDQSQ
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TDQSS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TDS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TDSH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TDSS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TIH
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TIS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.TIMING_TQHS
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.USE_DQS_TRACKING
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.USE_MEM_CLK_FREQ
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.mem_model.parameter.USE_SHADOW_REGS
+Info: send_message Info TB_Gen: Found partner module for interface memory
+Info: TB_Gen: Found partner module for interface memory
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_interface.memory: memory
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_interface.memory: memory
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_class: altera_mem_if_ddr2_mem_model
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_class: altera_mem_if_ddr2_mem_model
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_version: 
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_version: 
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_PARITY:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_PARITY:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR0:0101001100011
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR0:0101001100011
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR0_CALIB:0101001100011
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR0_CALIB:0101001100011
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR0_DLL_RESET:0101101100011
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR0_DLL_RESET:0101101100011
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR0_DLL_RESET_MIRR:
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR0_DLL_RESET_MIRR:
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR0_MIRR:
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR0_MIRR:
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR1:0000001000100
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR1:0000001000100
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR1_CALIB:
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR1_CALIB:
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR1_MIRR:
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR1_MIRR:
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR1_OCD_ENABLE:0001111000100
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR1_OCD_ENABLE:0001111000100
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR2:0000010000000
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR2:0000010000000
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR2_MIRR:
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR2_MIRR:
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR3:0000000000000
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR3:0000000000000
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR3_MIRR:
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AC_ROM_MR3_MIRR:
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: ADDR_CMD_DDR:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: ADDR_CMD_DDR:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: ADDR_RATE_RATIO:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: ADDR_RATE_RATIO:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_ADDR_WIDTH:28
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_ADDR_WIDTH:28
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_BANKADDR_WIDTH:6
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_BANKADDR_WIDTH:6
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_CLK_EN_WIDTH:2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_CLK_EN_WIDTH:2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_CLK_PAIR_COUNT:2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_CLK_PAIR_COUNT:2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_CONTROL_WIDTH:2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_CONTROL_WIDTH:2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_CS_WIDTH:2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_CS_WIDTH:2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_DM_WIDTH:32
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_DM_WIDTH:32
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_DQ_WIDTH:256
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_DQ_WIDTH:256
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_ODT_WIDTH:2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_ODT_WIDTH:2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_RATE_RATIO:2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_RATE_RATIO:2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_RLAT_WIDTH:6
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_RLAT_WIDTH:6
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_RRANK_WIDTH:16
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_RRANK_WIDTH:16
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_WLAT_WIDTH:6
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_WLAT_WIDTH:6
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_WRANK_WIDTH:16
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_WRANK_WIDTH:16
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_WRITE_DQS_WIDTH:16
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: AFI_WRITE_DQS_WIDTH:16
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: ALTMEMPHY_COMPATIBLE_MODE:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: ALTMEMPHY_COMPATIBLE_MODE:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CFG_TCCD:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CFG_TCCD:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CFG_TCCD_NS:2.5
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CFG_TCCD_NS:2.5
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CTL_RD_TO_PCH_EXTRA_CLK:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CTL_RD_TO_PCH_EXTRA_CLK:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CTL_RD_TO_RD_DIFF_CHIP_EXTRA_CLK:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CTL_RD_TO_RD_DIFF_CHIP_EXTRA_CLK:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CTL_RD_TO_RD_EXTRA_CLK:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CTL_RD_TO_RD_EXTRA_CLK:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CTL_WR_TO_WR_DIFF_CHIP_EXTRA_CLK:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CTL_WR_TO_WR_DIFF_CHIP_EXTRA_CLK:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CTL_WR_TO_WR_EXTRA_CLK:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CTL_WR_TO_WR_EXTRA_CLK:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CUT_NEW_FAMILY_TIMING:true
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: CUT_NEW_FAMILY_TIMING:true
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DATA_RATE_RATIO:2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DATA_RATE_RATIO:2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DAT_DATA_WIDTH:32
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DAT_DATA_WIDTH:32
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DEVICE_DEPTH:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DEVICE_DEPTH:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DEVICE_FAMILY:Stratix IV
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DEVICE_FAMILY:Stratix IV
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DEVICE_FAMILY_PARAM:
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DEVICE_FAMILY_PARAM:
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DEVICE_WIDTH:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DEVICE_WIDTH:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DISABLE_CHILD_MESSAGING:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DISABLE_CHILD_MESSAGING:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DISCRETE_FLY_BY:true
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DISCRETE_FLY_BY:true
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DQ_DDR:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: DQ_DDR:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: FLY_BY:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: FLY_BY:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: FORCE_DQS_TRACKING:AUTO
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: FORCE_DQS_TRACKING:AUTO
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: FORCE_SHADOW_REGS:AUTO
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: FORCE_SHADOW_REGS:AUTO
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HARD_EMIF:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HARD_EMIF:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HARD_PHY:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HARD_PHY:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HHP_HPS:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HHP_HPS:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HHP_HPS_SIMULATION:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HHP_HPS_SIMULATION:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HHP_HPS_VERIFICATION:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HHP_HPS_VERIFICATION:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HPS_PROTOCOL:DEFAULT
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: HPS_PROTOCOL:DEFAULT
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: IS_ES_DEVICE:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: IS_ES_DEVICE:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: LRDIMM:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: LRDIMM:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: LRDIMM_INT:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: LRDIMM_INT:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_ASR:Manual
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_ASR:Manual
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_ATCL:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_ATCL:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_ATCL_INT:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_ATCL_INT:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_AUTO_LEVELING_MODE:true
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_AUTO_LEVELING_MODE:true
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_BANKADDR_WIDTH:3
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_BANKADDR_WIDTH:3
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_BL:8
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_BL:8
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_BT:Sequential
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_BT:Sequential
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_BURST_LENGTH:8
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_BURST_LENGTH:8
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CK_WIDTH:2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CK_WIDTH:2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_EN_WIDTH:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_EN_WIDTH:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_FREQ:400.0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_FREQ:400.0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_FREQ_MAX:400.0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_FREQ_MAX:400.0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_MAX_NS:2.5
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_MAX_NS:2.5
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_MAX_PS:2500.0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_MAX_PS:2500.0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_TO_DQS_CAPTURE_DELAY:100000
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CLK_TO_DQS_CAPTURE_DELAY:100000
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_COL_ADDR_WIDTH:10
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_COL_ADDR_WIDTH:10
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CS_WIDTH:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_CS_WIDTH:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_DLL_EN:true
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_DLL_EN:true
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_DQS_TO_CLK_CAPTURE_DELAY:100
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_DQS_TO_CLK_CAPTURE_DELAY:100
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_DQ_PER_DQS:8
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_DQ_PER_DQS:8
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_DQ_WIDTH:64
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_DQ_WIDTH:64
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_DRV_STR:Full
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_DRV_STR:Full
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_FORMAT:UNBUFFERED
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_FORMAT:UNBUFFERED
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_GUARANTEED_WRITE_INIT:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_GUARANTEED_WRITE_INIT:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_ADDR_WIDTH:14
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_ADDR_WIDTH:14
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_ADDR_WIDTH_MIN:13
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_ADDR_WIDTH_MIN:13
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_BANKADDR_WIDTH:3
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_BANKADDR_WIDTH:3
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_BOARD_BASE_DELAY:10
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_BOARD_BASE_DELAY:10
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CHIP_BITS:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CHIP_BITS:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CK_WIDTH:2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CK_WIDTH:2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CLK_EN_WIDTH:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CLK_EN_WIDTH:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CLK_PAIR_COUNT:2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CLK_PAIR_COUNT:2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_COL_ADDR_WIDTH:10
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_COL_ADDR_WIDTH:10
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CONTROL_WIDTH:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CONTROL_WIDTH:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CS_PER_DIMM:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CS_PER_DIMM:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CS_PER_RANK:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CS_PER_RANK:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CS_WIDTH:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_CS_WIDTH:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_DM_PINS_EN:true
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_DM_PINS_EN:true
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_DM_WIDTH:8
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_DM_WIDTH:8
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_DQSN_EN:true
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_DQSN_EN:true
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_DQS_WIDTH:8
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_DQS_WIDTH:8
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_DQ_WIDTH:64
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_DQ_WIDTH:64
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_NUMBER_OF_RANKS:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_NUMBER_OF_RANKS:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_ODT_WIDTH:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_ODT_WIDTH:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_RD_TO_WR_TURNAROUND_OCT:3
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_RD_TO_WR_TURNAROUND_OCT:3
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_READ_DQS_WIDTH:8
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_READ_DQS_WIDTH:8
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_ROW_ADDR_WIDTH:14
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_ROW_ADDR_WIDTH:14
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_SIM_VALID_WINDOW:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_SIM_VALID_WINDOW:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_WRITE_DQS_WIDTH:8
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_WRITE_DQS_WIDTH:8
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_WR_TO_RD_TURNAROUND_OCT:3
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_IF_WR_TO_RD_TURNAROUND_OCT:3
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_INIT_EN:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_INIT_EN:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_INIT_FILE:
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_INIT_FILE:
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_LEVELING:true
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_LEVELING:true
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_LRDIMM_ENABLED:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_LRDIMM_ENABLED:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_MIRROR_ADDRESSING:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_MIRROR_ADDRESSING:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_MIRROR_ADDRESSING_DEC:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_MIRROR_ADDRESSING_DEC:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_NUMBER_OF_DIMMS:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_NUMBER_OF_DIMMS:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_NUMBER_OF_RANKS_PER_DEVICE:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_NUMBER_OF_RANKS_PER_DEVICE:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_NUMBER_OF_RANKS_PER_DIMM:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_NUMBER_OF_RANKS_PER_DIMM:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_PD:Fast exit
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_PD:Fast exit
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_RANK_MULTIPLICATION_FACTOR:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_RANK_MULTIPLICATION_FACTOR:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_REGDIMM_ENABLED:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_REGDIMM_ENABLED:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_ROW_ADDR_WIDTH:14
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_ROW_ADDR_WIDTH:14
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_RTT_NOM:50
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_RTT_NOM:50
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_SRT:2x refresh rate
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_SRT:2x refresh rate
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TCL:6
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TCL:6
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TDQSCK:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TDQSCK:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TFAW:15
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TFAW:15
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TFAW_NS:37.5
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TFAW_NS:37.5
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TINIT_CK:80000
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TINIT_CK:80000
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TINIT_US:200
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TINIT_US:200
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TMRD_CK:5
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TMRD_CK:5
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRAS:16
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRAS:16
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRAS_NS:40.0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRAS_NS:40.0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRC:22
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRC:22
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRCD:6
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRCD:6
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRCD_NS:15.0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRCD_NS:15.0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TREFI:3120
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TREFI:3120
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TREFI_US:7.8
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TREFI_US:7.8
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRFC:51
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRFC:51
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRFC_NS:127.5
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRFC_NS:127.5
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRP:6
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRP:6
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRP_NS:15.0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRP_NS:15.0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRRD:3
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRRD:3
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRRD_NS:7.5
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRRD_NS:7.5
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRTP:3
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRTP:3
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRTP_NS:7.5
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TRTP_NS:7.5
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TWR:6
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TWR:6
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TWR_NS:15.0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TWR_NS:15.0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TWTR:3
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TWTR:3
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TYPE:DDR2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_TYPE:DDR2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_USER_LEVELING_MODE:Leveling
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_USER_LEVELING_MODE:Leveling
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_VENDOR:Micron
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_VENDOR:Micron
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_VERBOSE:true
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_VERBOSE:true
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_WTCL_INT:5
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MEM_WTCL_INT:5
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_BL:3
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_BL:3
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_BT:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_BT:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_CAS_LATENCY:6
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_CAS_LATENCY:6
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_DLL:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_DLL:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_PD:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_PD:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_WR:5
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR0_WR:5
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_AL:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_AL:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_DLL:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_DLL:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_DQS:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_DQS:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_ODS:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_ODS:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_QOFF:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_QOFF:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_RDQS:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_RDQS:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_RTT:3
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_RTT:3
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_TDQS:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_TDQS:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_WL:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR1_WL:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR2_ASR:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR2_ASR:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR2_CWL:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR2_CWL:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR2_RTT_WR:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR2_RTT_WR:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR2_SRF:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR2_SRF:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR2_SRT:1
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR2_SRT:1
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR3_MPR:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR3_MPR:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR3_MPR_AA:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR3_MPR_AA:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR3_MPR_RF:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MR3_MPR_RF:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MRS_MIRROR_PING_PONG_ATSO:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: MRS_MIRROR_PING_PONG_ATSO:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: NEXTGEN:true
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: NEXTGEN:true
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PARSE_FRIENDLY_DEVICE_FAMILY:STRATIXIV
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PARSE_FRIENDLY_DEVICE_FAMILY:STRATIXIV
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PARSE_FRIENDLY_DEVICE_FAMILY_CACHE_VALID:true
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PARSE_FRIENDLY_DEVICE_FAMILY_CACHE_VALID:true
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PARSE_FRIENDLY_DEVICE_FAMILY_PARAM:
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PARSE_FRIENDLY_DEVICE_FAMILY_PARAM:
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PARSE_FRIENDLY_DEVICE_FAMILY_PARAM_VALID:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PARSE_FRIENDLY_DEVICE_FAMILY_PARAM_VALID:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PINGPONGPHY_EN:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PINGPONGPHY_EN:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PRE_V_SERIES_FAMILY:true
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: PRE_V_SERIES_FAMILY:true
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: RATE:Half
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: RATE:Half
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: RDIMM:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: RDIMM:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: RDIMM_INT:0
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: RDIMM_INT:0
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: REFRESH_BURST_VALIDATION:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: REFRESH_BURST_VALIDATION:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: SPEED_GRADE:2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: SPEED_GRADE:2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: SYS_INFO_DEVICE_FAMILY:Stratix IV
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: SYS_INFO_DEVICE_FAMILY:Stratix IV
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDH:250
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDH:250
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSCK:350
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSCK:350
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSCKDL:1200
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSCKDL:1200
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSCKDM:900
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSCKDM:900
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSCKDS:450
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSCKDS:450
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSH:0.35
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSH:0.35
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSQ:200
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSQ:200
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSS:0.25
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDQSS:0.25
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDS:250
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDS:250
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDSH:0.2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDSH:0.2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDSS:0.2
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TDSS:0.2
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TIH:375
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TIH:375
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TIS:375
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TIS:375
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TQHS:300
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: TIMING_TQHS:300
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: USE_DQS_TRACKING:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: USE_DQS_TRACKING:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: USE_MEM_CLK_FREQ:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: USE_MEM_CLK_FREQ:false
+Info: send_message Info TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: USE_SHADOW_REGS:false
+Info: TB_Gen: mem_if_ddr2_emif_mem_model.partner_parameters: USE_SHADOW_REGS:false
+Info: get_instance_property mem_if_ddr2_emif CLASS_NAME
+Info: get_interface_property oct EXPORT_OF
+Info: get_instance_property mem_if_ddr2_emif CLASS_NAME
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.map.oct
+Info: get_interface_property led EXPORT_OF
+Info: get_instance_property led CLASS_NAME
+Info: get_instance_assignment led testbench.partner.map.external_connection
+Info: get_interface_property button EXPORT_OF
+Info: get_instance_property button CLASS_NAME
+Info: get_instance_assignment button testbench.partner.map.external_connection
+Info: get_interface_property spi_2 EXPORT_OF
+Info: get_instance_property spi_2 CLASS_NAME
+Info: get_instance_assignment spi_2 testbench.partner.map.external
+Info: get_interface_property spi_1 EXPORT_OF
+Info: get_instance_property spi_1 CLASS_NAME
+Info: get_instance_assignment spi_1 testbench.partner.map.external
+Info: get_interface_property no_of_cam_channels EXPORT_OF
+Info: get_instance_property no_of_cam_channels CLASS_NAME
+Info: get_instance_assignment no_of_cam_channels testbench.partner.map.external_connection
+Info: get_interface_property cmv_master_interface EXPORT_OF
+Info: get_instance_property cmv_master_interface_0 CLASS_NAME
+Info: get_instance_assignment cmv_master_interface_0 testbench.partner.map.conduit_end
+Info: get_interface_property dvi_master_interface EXPORT_OF
+Info: get_instance_property dvi_master_interface_0 CLASS_NAME
+Info: get_instance_assignment dvi_master_interface_0 testbench.partner.map.conduit_end
+Info: get_instance_assignments mem_if_ddr2_emif
+Info: get_instance_interface_property mem_if_ddr2_emif memory CLASS_NAME
+Info: get_instance_assignment mem_if_ddr2_emif testbench.partner.map.memory
+Info: send_message Info TB_Gen: Creating testbench system : DE4_QSYS_tb with all standard BFMs
+Info: TB_Gen: Creating testbench system : DE4_QSYS_tb with all standard BFMs
+Info: create_system DE4_QSYS_tb QSYS
+Info: add_instance DE4_QSYS_inst DE4_QSYS 
+Info: set_use_testbench_naming_pattern true
+Info: get_instance_interfaces DE4_QSYS_inst
+Info: get_instance_interface_property DE4_QSYS_inst clk CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst reset CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst memory CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst oct CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst led CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst button CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst spi_2 CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst spi_1 CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst no_of_cam_channels CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst cmv_master_interface CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst dvi_master_interface CLASS_NAME
+Info: send_message Info TB_Gen: clock_sink found: clk
+Info: TB_Gen: clock_sink found: clk
+Info: get_instance_interface_property DE4_QSYS_inst clk CLASS_NAME
+Info: add_instance DE4_QSYS_inst_clk_bfm altera_avalon_clock_source 
+Info: get_instance_property DE4_QSYS_inst_clk_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value DE4_QSYS_inst clk clockRate
+Info: set_instance_parameter_value DE4_QSYS_inst_clk_bfm CLOCK_RATE 50000000.0
+Info: set_instance_parameter_value DE4_QSYS_inst_clk_bfm CLOCK_UNIT 1
+Info: get_instance_interface_property DE4_QSYS_inst clk CLASS_NAME
+Info: get_instance_interfaces DE4_QSYS_inst_clk_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_clk_bfm clk CLASS_NAME
+Info: add_connection DE4_QSYS_inst_clk_bfm.clk DE4_QSYS_inst.clk
+Info: send_message Info TB_Gen: reset_sink found: reset
+Info: TB_Gen: reset_sink found: reset
+Info: get_instance_interface_property DE4_QSYS_inst reset CLASS_NAME
+Info: add_instance DE4_QSYS_inst_reset_bfm altera_avalon_reset_source 
+Info: get_instance_property DE4_QSYS_inst_reset_bfm CLASS_NAME
+Info: get_instance_interface_ports DE4_QSYS_inst reset
+Info: get_instance_interface_port_property DE4_QSYS_inst reset reset_reset_n ROLE
+Info: set_instance_parameter_value DE4_QSYS_inst_reset_bfm ASSERT_HIGH_RESET 0
+Info: set_instance_parameter_value DE4_QSYS_inst_reset_bfm INITIAL_RESET_CYCLES 50
+Info: get_instance_property DE4_QSYS_inst_reset_bfm CLASS_NAME
+Info: get_instance_interfaces DE4_QSYS_inst_reset_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_reset_bfm reset CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst_reset_bfm clk CLASS_NAME
+Info: get_instance_interface_parameter_value DE4_QSYS_inst reset associatedClock
+Info: get_instance_interfaces DE4_QSYS_inst_clk_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_clk_bfm clk CLASS_NAME
+Info: send_message Warning TB_Gen: DE4_QSYS_inst_reset_bfm is not associated to any clock
+Warning: TB_Gen: DE4_QSYS_inst_reset_bfm is not associated to any clock
+Info: send_message Warning TB_Gen: Connecting DE4_QSYS_inst_reset_bfm to 'DE4_QSYS_inst_clk_bfm.clk'
+Warning: TB_Gen: Connecting DE4_QSYS_inst_reset_bfm to 'DE4_QSYS_inst_clk_bfm.clk'
+Info: add_connection DE4_QSYS_inst_clk_bfm.clk DE4_QSYS_inst_reset_bfm.clk
+Info: get_instance_interface_property DE4_QSYS_inst reset CLASS_NAME
+Info: get_instance_interfaces DE4_QSYS_inst_reset_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_reset_bfm reset CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst_reset_bfm clk CLASS_NAME
+Info: add_connection DE4_QSYS_inst_reset_bfm.reset DE4_QSYS_inst.reset
+Info: send_message Info TB_Gen: conduit_end found: oct
+Info: TB_Gen: conduit_end found: oct
+Info: get_instance_interface_property DE4_QSYS_inst oct CLASS_NAME
+Info: add_instance DE4_QSYS_inst_oct_bfm altera_conduit_bfm 
+Info: get_instance_property DE4_QSYS_inst_oct_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value DE4_QSYS_inst oct associatedClock
+Info: get_instance_interface_parameter_value DE4_QSYS_inst oct associatedReset
+Info: get_instance_interface_ports DE4_QSYS_inst oct
+Info: get_instance_interface_port_property DE4_QSYS_inst oct oct_rdn ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst oct oct_rdn WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst oct oct_rdn DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst oct oct_rup ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst oct oct_rup WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst oct oct_rup DIRECTION
+Info: set_instance_parameter_value DE4_QSYS_inst_oct_bfm CLOCKED_SIGNAL 0
+Info: set_instance_parameter_value DE4_QSYS_inst_oct_bfm ENABLE_RESET 0
+Info: set_instance_parameter_value DE4_QSYS_inst_oct_bfm SIGNAL_ROLES rdn rup
+Info: set_instance_parameter_value DE4_QSYS_inst_oct_bfm SIGNAL_WIDTHS 1 1
+Info: set_instance_parameter_value DE4_QSYS_inst_oct_bfm SIGNAL_DIRECTIONS output output
+Info: get_instance_interface_property DE4_QSYS_inst oct CLASS_NAME
+Info: get_instance_interfaces DE4_QSYS_inst_oct_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_oct_bfm conduit CLASS_NAME
+Info: add_connection DE4_QSYS_inst_oct_bfm.conduit DE4_QSYS_inst.oct
+Info: send_message Info TB_Gen: conduit found: led
+Info: TB_Gen: conduit found: led
+Info: get_instance_interface_property DE4_QSYS_inst led CLASS_NAME
+Info: add_instance DE4_QSYS_inst_led_bfm altera_conduit_bfm 
+Info: get_instance_property DE4_QSYS_inst_led_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value DE4_QSYS_inst led associatedClock
+Info: get_instance_interface_parameter_value DE4_QSYS_inst led associatedReset
+Info: get_instance_interface_ports DE4_QSYS_inst led
+Info: get_instance_interface_port_property DE4_QSYS_inst led led_export ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst led led_export WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst led led_export DIRECTION
+Info: set_instance_parameter_value DE4_QSYS_inst_led_bfm CLOCKED_SIGNAL 0
+Info: set_instance_parameter_value DE4_QSYS_inst_led_bfm ENABLE_RESET 0
+Info: set_instance_parameter_value DE4_QSYS_inst_led_bfm SIGNAL_ROLES export
+Info: set_instance_parameter_value DE4_QSYS_inst_led_bfm SIGNAL_WIDTHS 8
+Info: set_instance_parameter_value DE4_QSYS_inst_led_bfm SIGNAL_DIRECTIONS input
+Info: get_instance_interface_property DE4_QSYS_inst led CLASS_NAME
+Info: get_instance_interfaces DE4_QSYS_inst_led_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_led_bfm conduit CLASS_NAME
+Info: add_connection DE4_QSYS_inst_led_bfm.conduit DE4_QSYS_inst.led
+Info: send_message Info TB_Gen: conduit found: button
+Info: TB_Gen: conduit found: button
+Info: get_instance_interface_property DE4_QSYS_inst button CLASS_NAME
+Info: add_instance DE4_QSYS_inst_button_bfm altera_conduit_bfm 
+Info: get_instance_property DE4_QSYS_inst_button_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value DE4_QSYS_inst button associatedClock
+Info: get_instance_interface_parameter_value DE4_QSYS_inst button associatedReset
+Info: get_instance_interface_ports DE4_QSYS_inst button
+Info: get_instance_interface_port_property DE4_QSYS_inst button button_export ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst button button_export WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst button button_export DIRECTION
+Info: set_instance_parameter_value DE4_QSYS_inst_button_bfm CLOCKED_SIGNAL 0
+Info: set_instance_parameter_value DE4_QSYS_inst_button_bfm ENABLE_RESET 0
+Info: set_instance_parameter_value DE4_QSYS_inst_button_bfm SIGNAL_ROLES export
+Info: set_instance_parameter_value DE4_QSYS_inst_button_bfm SIGNAL_WIDTHS 4
+Info: set_instance_parameter_value DE4_QSYS_inst_button_bfm SIGNAL_DIRECTIONS output
+Info: get_instance_interface_property DE4_QSYS_inst button CLASS_NAME
+Info: get_instance_interfaces DE4_QSYS_inst_button_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_button_bfm conduit CLASS_NAME
+Info: add_connection DE4_QSYS_inst_button_bfm.conduit DE4_QSYS_inst.button
+Info: send_message Info TB_Gen: conduit found: spi_2
+Info: TB_Gen: conduit found: spi_2
+Info: get_instance_interface_property DE4_QSYS_inst spi_2 CLASS_NAME
+Info: add_instance DE4_QSYS_inst_spi_2_bfm altera_conduit_bfm 
+Info: get_instance_property DE4_QSYS_inst_spi_2_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value DE4_QSYS_inst spi_2 associatedClock
+Info: get_instance_interface_parameter_value DE4_QSYS_inst spi_2 associatedReset
+Info: get_instance_interface_ports DE4_QSYS_inst spi_2
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_MISO ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_MISO WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_MISO DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_MOSI ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_MOSI WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_MOSI DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_SCLK ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_SCLK WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_SCLK DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_SS_n ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_SS_n WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_2 spi_2_SS_n DIRECTION
+Info: set_instance_parameter_value DE4_QSYS_inst_spi_2_bfm CLOCKED_SIGNAL 0
+Info: set_instance_parameter_value DE4_QSYS_inst_spi_2_bfm ENABLE_RESET 0
+Info: set_instance_parameter_value DE4_QSYS_inst_spi_2_bfm SIGNAL_ROLES MISO MOSI SCLK SS_n
+Info: set_instance_parameter_value DE4_QSYS_inst_spi_2_bfm SIGNAL_WIDTHS 1 1 1 1
+Info: set_instance_parameter_value DE4_QSYS_inst_spi_2_bfm SIGNAL_DIRECTIONS output input input input
+Info: get_instance_interface_property DE4_QSYS_inst spi_2 CLASS_NAME
+Info: get_instance_interfaces DE4_QSYS_inst_spi_2_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_spi_2_bfm conduit CLASS_NAME
+Info: add_connection DE4_QSYS_inst_spi_2_bfm.conduit DE4_QSYS_inst.spi_2
+Info: send_message Info TB_Gen: conduit found: spi_1
+Info: TB_Gen: conduit found: spi_1
+Info: get_instance_interface_property DE4_QSYS_inst spi_1 CLASS_NAME
+Info: add_instance DE4_QSYS_inst_spi_1_bfm altera_conduit_bfm 
+Info: get_instance_property DE4_QSYS_inst_spi_1_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value DE4_QSYS_inst spi_1 associatedClock
+Info: get_instance_interface_parameter_value DE4_QSYS_inst spi_1 associatedReset
+Info: get_instance_interface_ports DE4_QSYS_inst spi_1
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_MISO ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_MISO WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_MISO DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_MOSI ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_MOSI WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_MOSI DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_SCLK ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_SCLK WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_SCLK DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_SS_n ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_SS_n WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst spi_1 spi_1_SS_n DIRECTION
+Info: set_instance_parameter_value DE4_QSYS_inst_spi_1_bfm CLOCKED_SIGNAL 0
+Info: set_instance_parameter_value DE4_QSYS_inst_spi_1_bfm ENABLE_RESET 0
+Info: set_instance_parameter_value DE4_QSYS_inst_spi_1_bfm SIGNAL_ROLES MISO MOSI SCLK SS_n
+Info: set_instance_parameter_value DE4_QSYS_inst_spi_1_bfm SIGNAL_WIDTHS 1 1 1 1
+Info: set_instance_parameter_value DE4_QSYS_inst_spi_1_bfm SIGNAL_DIRECTIONS output input input input
+Info: get_instance_interface_property DE4_QSYS_inst spi_1 CLASS_NAME
+Info: get_instance_interfaces DE4_QSYS_inst_spi_1_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_spi_1_bfm conduit CLASS_NAME
+Info: add_connection DE4_QSYS_inst_spi_1_bfm.conduit DE4_QSYS_inst.spi_1
+Info: send_message Info TB_Gen: conduit found: no_of_cam_channels
+Info: TB_Gen: conduit found: no_of_cam_channels
+Info: get_instance_interface_property DE4_QSYS_inst no_of_cam_channels CLASS_NAME
+Info: add_instance DE4_QSYS_inst_no_of_cam_channels_bfm altera_conduit_bfm 
+Info: get_instance_property DE4_QSYS_inst_no_of_cam_channels_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value DE4_QSYS_inst no_of_cam_channels associatedClock
+Info: get_instance_interface_parameter_value DE4_QSYS_inst no_of_cam_channels associatedReset
+Info: get_instance_interface_ports DE4_QSYS_inst no_of_cam_channels
+Info: get_instance_interface_port_property DE4_QSYS_inst no_of_cam_channels no_of_cam_channels_export ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst no_of_cam_channels no_of_cam_channels_export WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst no_of_cam_channels no_of_cam_channels_export DIRECTION
+Info: set_instance_parameter_value DE4_QSYS_inst_no_of_cam_channels_bfm CLOCKED_SIGNAL 0
+Info: set_instance_parameter_value DE4_QSYS_inst_no_of_cam_channels_bfm ENABLE_RESET 0
+Info: set_instance_parameter_value DE4_QSYS_inst_no_of_cam_channels_bfm SIGNAL_ROLES export
+Info: set_instance_parameter_value DE4_QSYS_inst_no_of_cam_channels_bfm SIGNAL_WIDTHS 4
+Info: set_instance_parameter_value DE4_QSYS_inst_no_of_cam_channels_bfm SIGNAL_DIRECTIONS input
+Info: get_instance_interface_property DE4_QSYS_inst no_of_cam_channels CLASS_NAME
+Info: get_instance_interfaces DE4_QSYS_inst_no_of_cam_channels_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_no_of_cam_channels_bfm conduit CLASS_NAME
+Info: add_connection DE4_QSYS_inst_no_of_cam_channels_bfm.conduit DE4_QSYS_inst.no_of_cam_channels
+Info: send_message Info TB_Gen: conduit_end found: cmv_master_interface
+Info: TB_Gen: conduit_end found: cmv_master_interface
+Info: get_instance_interface_property DE4_QSYS_inst cmv_master_interface CLASS_NAME
+Info: add_instance DE4_QSYS_inst_cmv_master_interface_bfm altera_conduit_bfm 
+Info: get_instance_property DE4_QSYS_inst_cmv_master_interface_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value DE4_QSYS_inst cmv_master_interface associatedClock
+Info: get_instance_interface_parameter_value DE4_QSYS_inst cmv_master_interface associatedReset
+Info: get_instance_interface_ports DE4_QSYS_inst cmv_master_interface
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_PixelValidxSI ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_PixelValidxSI WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_PixelValidxSI DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_RowValidxSI ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_RowValidxSI WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_RowValidxSI DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_FrameValidxSI ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_FrameValidxSI WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_FrameValidxSI DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_DataInxDI ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_DataInxDI WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_DataInxDI DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_ClkLvdsRxxCI ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_ClkLvdsRxxCI WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst cmv_master_interface cmv_master_interface_ClkLvdsRxxCI DIRECTION
+Info: set_instance_parameter_value DE4_QSYS_inst_cmv_master_interface_bfm CLOCKED_SIGNAL 0
+Info: set_instance_parameter_value DE4_QSYS_inst_cmv_master_interface_bfm ENABLE_RESET 0
+Info: set_instance_parameter_value DE4_QSYS_inst_cmv_master_interface_bfm SIGNAL_ROLES PixelValidxSI RowValidxSI FrameValidxSI DataInxDI ClkLvdsRxxCI
+Info: set_instance_parameter_value DE4_QSYS_inst_cmv_master_interface_bfm SIGNAL_WIDTHS 1 1 1 160 1
+Info: set_instance_parameter_value DE4_QSYS_inst_cmv_master_interface_bfm SIGNAL_DIRECTIONS output output output output output
+Info: get_instance_interface_property DE4_QSYS_inst cmv_master_interface CLASS_NAME
+Info: get_instance_interfaces DE4_QSYS_inst_cmv_master_interface_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_cmv_master_interface_bfm conduit CLASS_NAME
+Info: add_connection DE4_QSYS_inst_cmv_master_interface_bfm.conduit DE4_QSYS_inst.cmv_master_interface
+Info: send_message Info TB_Gen: conduit_end found: dvi_master_interface
+Info: TB_Gen: conduit_end found: dvi_master_interface
+Info: get_instance_interface_property DE4_QSYS_inst dvi_master_interface CLASS_NAME
+Info: add_instance DE4_QSYS_inst_dvi_master_interface_bfm altera_conduit_bfm 
+Info: get_instance_property DE4_QSYS_inst_dvi_master_interface_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value DE4_QSYS_inst dvi_master_interface associatedClock
+Info: get_instance_interface_parameter_value DE4_QSYS_inst dvi_master_interface associatedReset
+Info: get_instance_interface_ports DE4_QSYS_inst dvi_master_interface
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_ClkDvixCI ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_ClkDvixCI WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_ClkDvixCI DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviNewLinexDI ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviNewLinexDI WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviNewLinexDI DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviNewFramexDI ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviNewFramexDI WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviNewFramexDI DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviPixelAvxSI ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviPixelAvxSI WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviPixelAvxSI DIRECTION
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviDataOutxDO ROLE
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviDataOutxDO WIDTH
+Info: get_instance_interface_port_property DE4_QSYS_inst dvi_master_interface dvi_master_interface_DviDataOutxDO DIRECTION
+Info: set_instance_parameter_value DE4_QSYS_inst_dvi_master_interface_bfm CLOCKED_SIGNAL 0
+Info: set_instance_parameter_value DE4_QSYS_inst_dvi_master_interface_bfm ENABLE_RESET 0
+Info: set_instance_parameter_value DE4_QSYS_inst_dvi_master_interface_bfm SIGNAL_ROLES ClkDvixCI DviNewLinexDI DviNewFramexDI DviPixelAvxSI DviDataOutxDO
+Info: set_instance_parameter_value DE4_QSYS_inst_dvi_master_interface_bfm SIGNAL_WIDTHS 1 1 1 1 32
+Info: set_instance_parameter_value DE4_QSYS_inst_dvi_master_interface_bfm SIGNAL_DIRECTIONS output output output output input
+Info: get_instance_interface_property DE4_QSYS_inst dvi_master_interface CLASS_NAME
+Info: get_instance_interfaces DE4_QSYS_inst_dvi_master_interface_bfm
+Info: get_instance_interface_property DE4_QSYS_inst_dvi_master_interface_bfm conduit CLASS_NAME
+Info: add_connection DE4_QSYS_inst_dvi_master_interface_bfm.conduit DE4_QSYS_inst.dvi_master_interface
+Info: send_message Info TB_Gen: conduit_end (for partner module) found: memory
+Info: TB_Gen: conduit_end (for partner module) found: memory
+Info: add_instance mem_if_ddr2_emif_mem_model altera_mem_if_ddr2_mem_model 
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_PARITY false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR0 0101001100011
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR0_CALIB 0101001100011
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR0_DLL_RESET 0101101100011
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR0_DLL_RESET_MIRR 
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR0_MIRR 
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR1 0000001000100
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR1_CALIB 
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR1_MIRR 
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR1_OCD_ENABLE 0001111000100
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR2 0000010000000
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR2_MIRR 
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR3 0000000000000
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AC_ROM_MR3_MIRR 
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model ADDR_CMD_DDR 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model ADDR_RATE_RATIO 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_ADDR_WIDTH 28
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_BANKADDR_WIDTH 6
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_CLK_EN_WIDTH 2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_CLK_PAIR_COUNT 2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_CONTROL_WIDTH 2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_CS_WIDTH 2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_DM_WIDTH 32
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_DQ_WIDTH 256
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_ODT_WIDTH 2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_RATE_RATIO 2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_RLAT_WIDTH 6
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_RRANK_WIDTH 16
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_WLAT_WIDTH 6
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_WRANK_WIDTH 16
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model AFI_WRITE_DQS_WIDTH 16
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model ALTMEMPHY_COMPATIBLE_MODE false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model CFG_TCCD 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model CFG_TCCD_NS 2.5
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model CTL_RD_TO_PCH_EXTRA_CLK 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model CTL_RD_TO_RD_DIFF_CHIP_EXTRA_CLK 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model CTL_RD_TO_RD_EXTRA_CLK 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model CTL_WR_TO_WR_DIFF_CHIP_EXTRA_CLK 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model CTL_WR_TO_WR_EXTRA_CLK 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model CUT_NEW_FAMILY_TIMING true
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model DATA_RATE_RATIO 2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model DAT_DATA_WIDTH 32
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model DEVICE_DEPTH 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model DEVICE_FAMILY Stratix IV
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model DEVICE_FAMILY_PARAM 
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model DEVICE_WIDTH 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model DISABLE_CHILD_MESSAGING false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model DISCRETE_FLY_BY true
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model DQ_DDR 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model FLY_BY false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model FORCE_DQS_TRACKING AUTO
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model FORCE_SHADOW_REGS AUTO
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model HARD_EMIF false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model HARD_PHY false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model HHP_HPS false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model HHP_HPS_SIMULATION false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model HHP_HPS_VERIFICATION false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model HPS_PROTOCOL DEFAULT
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model IS_ES_DEVICE false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model LRDIMM false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model LRDIMM_INT 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_ASR Manual
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_ATCL 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_ATCL_INT 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_AUTO_LEVELING_MODE true
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_BANKADDR_WIDTH 3
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_BL 8
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_BT Sequential
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_BURST_LENGTH 8
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_CK_WIDTH 2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_CLK_EN_WIDTH 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_CLK_FREQ 400.0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_CLK_FREQ_MAX 400.0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_CLK_MAX_NS 2.5
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_CLK_MAX_PS 2500.0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_CLK_TO_DQS_CAPTURE_DELAY 100000
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_COL_ADDR_WIDTH 10
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_CS_WIDTH 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_DLL_EN true
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_DQS_TO_CLK_CAPTURE_DELAY 100
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_DQ_PER_DQS 8
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_DQ_WIDTH 64
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_DRV_STR Full
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_FORMAT UNBUFFERED
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_GUARANTEED_WRITE_INIT false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_ADDR_WIDTH 14
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_ADDR_WIDTH_MIN 13
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_BANKADDR_WIDTH 3
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_BOARD_BASE_DELAY 10
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_CHIP_BITS 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_CK_WIDTH 2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_CLK_EN_WIDTH 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_CLK_PAIR_COUNT 2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_COL_ADDR_WIDTH 10
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_CONTROL_WIDTH 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_CS_PER_DIMM 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_CS_PER_RANK 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_CS_WIDTH 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_DM_PINS_EN true
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_DM_WIDTH 8
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_DQSN_EN true
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_DQS_WIDTH 8
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_DQ_WIDTH 64
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_NUMBER_OF_RANKS 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_ODT_WIDTH 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_RD_TO_WR_TURNAROUND_OCT 3
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_READ_DQS_WIDTH 8
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_ROW_ADDR_WIDTH 14
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_SIM_VALID_WINDOW 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_WRITE_DQS_WIDTH 8
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_IF_WR_TO_RD_TURNAROUND_OCT 3
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_INIT_EN false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_INIT_FILE 
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_LEVELING true
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_LRDIMM_ENABLED false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_MIRROR_ADDRESSING 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_MIRROR_ADDRESSING_DEC 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_NUMBER_OF_DIMMS 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_NUMBER_OF_RANKS_PER_DEVICE 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_NUMBER_OF_RANKS_PER_DIMM 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_PD Fast exit
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_RANK_MULTIPLICATION_FACTOR 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_REGDIMM_ENABLED false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_ROW_ADDR_WIDTH 14
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_RTT_NOM 50
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_SRT 2x refresh rate
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TCL 6
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TDQSCK 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TFAW 15
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TFAW_NS 37.5
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TINIT_CK 80000
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TINIT_US 200
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TMRD_CK 5
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRAS 16
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRAS_NS 40.0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRC 22
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRCD 6
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRCD_NS 15.0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TREFI 3120
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TREFI_US 7.8
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRFC 51
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRFC_NS 127.5
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRP 6
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRP_NS 15.0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRRD 3
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRRD_NS 7.5
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRTP 3
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TRTP_NS 7.5
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TWR 6
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TWR_NS 15.0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TWTR 3
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_TYPE DDR2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_USER_LEVELING_MODE Leveling
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_VENDOR Micron
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_VERBOSE true
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MEM_WTCL_INT 5
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR0_BL 3
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR0_BT 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR0_CAS_LATENCY 6
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR0_DLL 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR0_PD 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR0_WR 5
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR1_AL 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR1_DLL 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR1_DQS 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR1_ODS 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR1_QOFF 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR1_RDQS 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR1_RTT 3
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR1_TDQS 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR1_WL 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR2_ASR 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR2_CWL 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR2_RTT_WR 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR2_SRF 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR2_SRT 1
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR3_MPR 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR3_MPR_AA 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MR3_MPR_RF 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model MRS_MIRROR_PING_PONG_ATSO false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model NEXTGEN true
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model PARSE_FRIENDLY_DEVICE_FAMILY STRATIXIV
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model PARSE_FRIENDLY_DEVICE_FAMILY_CACHE_VALID true
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model PARSE_FRIENDLY_DEVICE_FAMILY_PARAM 
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model PARSE_FRIENDLY_DEVICE_FAMILY_PARAM_VALID false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model PINGPONGPHY_EN false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model PRE_V_SERIES_FAMILY true
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model RATE Half
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model RDIMM false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model RDIMM_INT 0
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model REFRESH_BURST_VALIDATION false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model SPEED_GRADE 2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model SYS_INFO_DEVICE_FAMILY Stratix IV
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TDH 250
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TDQSCK 350
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TDQSCKDL 1200
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TDQSCKDM 900
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TDQSCKDS 450
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TDQSH 0.35
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TDQSQ 200
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TDQSS 0.25
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TDS 250
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TDSH 0.2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TDSS 0.2
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TIH 375
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TIS 375
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model TIMING_TQHS 300
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model USE_DQS_TRACKING false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model USE_MEM_CLK_FREQ false
+Info: set_instance_parameter_value mem_if_ddr2_emif_mem_model USE_SHADOW_REGS false
+Info: get_instance_interface_property DE4_QSYS_inst memory CLASS_NAME
+Info: get_instance_interface_property mem_if_ddr2_emif_mem_model memory CLASS_NAME
+Info: get_instance_interface_property DE4_QSYS_inst memory CLASS_NAME
+Info: get_instance_interface_property mem_if_ddr2_emif_mem_model memory CLASS_NAME
+Info: add_connection mem_if_ddr2_emif_mem_model.memory DE4_QSYS_inst.memory
+Info: send_message Info TB_Gen: Saving testbench system : DE4_QSYS_tb.qsys
+Info: TB_Gen: Saving testbench system : DE4_QSYS_tb.qsys
+Info: save_system DE4_QSYS_tb.qsys
