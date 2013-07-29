@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-07-26
+-- Last update: 2013-07-29
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -203,8 +203,11 @@ begin  -- architecture behavioral
   LedxS(2) <= PixelChannelxD(0)(2);
   LedxS(3) <= PixelChannelxD(0)(3);
   LedxS(4) <= PixelChannelxD(0)(4);
-  LedxS(5) <= PixelChannelxD(0)(5);
-  LedxS(6) <= PixelChannelxD(0)(8);
+  --LedxS(5) <= PixelChannelxD(0)(5);
+  LedxS(5) <= '1' when StatexDP = idle else
+              '0';
+  --LedxS(6) <= PixelChannelxD(0)(8);
+  LedxS(6) <= CameraReadyxSP;
   LedxS(7) <= PixelChannelxD(0)(9);
 
   --LedxS(3 downto 0) <= NoOfDataChannelsxDI;
