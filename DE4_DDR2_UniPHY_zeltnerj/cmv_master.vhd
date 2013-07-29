@@ -188,7 +188,7 @@ begin
   ---------------------------------------------------------------------------
   buffer_input : process (DataInxD, PixelValidxS, RowValidxS, FrameValidxS,
                           FrameRunningxSN, FrameRunningxSP, BufFullxS,
-                          BufNoOfWordsxS, StateCmvxDP, BufClearxS) is
+                          BufNoOfWordsxS, StateCmvxDP, BufClearxS, RstxRB) is
   begin  -- process buffer_input
 
 
@@ -200,6 +200,10 @@ begin
     for i in 1 to noOfDataChannels loop
       BufDataInxD(i) <= (others => '0');
     end loop;  -- i
+
+    if RstxRB = '0' then
+      BufClearxS <= '1';
+    end if;
 
     case StateCmvxDP is
 
@@ -323,14 +327,7 @@ begin
 
       when fifoWait =>
 
-
         StatexDN <= setReadReq;
-
-        --for i in 1 to noOfDataChannels loop
-        --  if ChannelSelectxSP = i then
-        --    BufReadReqxS(i) <= '1';
-        --  end if;
-        --end loop;  -- i
 
         for i in 1 to noOfDataChannels loop
           if ChannelSelectxSP = i then
@@ -341,7 +338,6 @@ begin
                                            -- 8*128=1024bit or 8*4pixel=32pixel
                                            -- a read-out should be performed
               StatexDN        <= fifoWait;
-              BufReadReqxS(i) <= '0';
 
             end if;
 
@@ -383,6 +379,8 @@ begin
         --  2 channels: 8 * 128 pixels
         ---------------------------------------------------------------------
         if AMWaitReqxS /= '1' then
+
+          
           if BurstWordCountxDP = 7 then  -- for each burstcount 4pixels are
                                          -- read out. After 8 read-outs, a
                                          -- packet of 32pixels have been read
@@ -432,6 +430,7 @@ begin
           else
             BurstWordCountxDN <= BurstWordCountxDP + 1;
           end if;
+          
         end if;
 
 
