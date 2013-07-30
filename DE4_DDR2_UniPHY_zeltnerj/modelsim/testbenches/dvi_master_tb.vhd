@@ -79,10 +79,10 @@ architecture Behavioral of dvi_master_tb is
   constant response_acquisition_time : time := 4.5 ns;
   constant resetactive_time          : time := 100 ns;
 
-  constant clk_dvi_phase_high : time := 5 ns;
-  constant clk_dvi_phase_low : time := 5 ns;
+  constant clk_dvi_phase_high : time := 3.367 ns;
+  constant clk_dvi_phase_low : time := 3.367 ns;
   constant lvds_stimuli_application_time  : time := 0.5 ns;
-  constant lvds_response_acquisition_time : time := 9.5 ns;
+  constant lvds_response_acquisition_time : time := 5.5 ns;
 
   
 -------------------------------------------------------------------------------
@@ -199,8 +199,10 @@ architecture Behavioral of dvi_master_tb is
     BurstCounterxDN <= BurstCounterxDP;
     AmReadDataxD <= DataRegxDP;
 
-    if PixelCounterxDP < 5 then
+    if PixelCounterxDP < 10 then
+      DviPixelAvxS <= '0';
       DviNewLinexD <= '0';
+      DviNewFramexD <= '0';
     end if;
 
     

@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-13
--- Last update: 2013-06-05
+-- Last update: 2013-07-30
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -198,6 +198,10 @@ architecture Behavioral of dvi_master_tb is
     RowCounterxDN <= RowCounterxDP;
     BurstCounterxDN <= BurstCounterxDP;
     AmReadDataxD <= DataRegxDP;
+
+    if PixelCounterxDP < 5 then
+      DviNewLinexD <= '0';
+    end if;
 
     
 

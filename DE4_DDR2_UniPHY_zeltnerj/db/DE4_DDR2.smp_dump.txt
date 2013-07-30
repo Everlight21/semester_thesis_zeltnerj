@@ -76,6 +76,13 @@ state.ST_COMP_TRANS 1 0 0 1
 state.ST_UNCOMP_TRANS 1 0 1 0 
 state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
 
+State Machine - |cmv4000design|DE4_QSYS:inst|dvi_master_interface:dvi_master_interface_0|dvi_master:dvi_master_1|StateDVIxDP
+Name StateDVIxDP.streaming StateDVIxDP.waitForData StateDVIxDP.idle StateDVIxDP.init 
+StateDVIxDP.init 0 0 0 0 
+StateDVIxDP.idle 0 0 1 1 
+StateDVIxDP.waitForData 0 1 0 1 
+StateDVIxDP.streaming 1 0 0 1 
+
 State Machine - |cmv4000design|DE4_QSYS:inst|dvi_master_interface:dvi_master_interface_0|dvi_master:dvi_master_1|StatexDP
 Name StatexDP.finishBurst StatexDP.burst StatexDP.fifoWait StatexDP.idle 
 StatexDP.idle 0 0 0 0 

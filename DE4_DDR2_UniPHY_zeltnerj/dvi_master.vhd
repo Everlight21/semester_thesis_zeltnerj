@@ -17,7 +17,7 @@
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date        Version  Author  Description
--- 2013-05-10  1.0      zeltnerj	Created
+-- 2013-05-10  1.0      zeltnerj    Created
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -30,12 +30,12 @@ library work;
 use work.configuration_pkg.all;
 
 entity dvi_master is
-  
+
   port (
     ClkxCI             : in  std_logic;
     ClkDvixCI          : in  std_logic;
     RstxRBI            : in  std_logic;
-    DviDataOutxDO      : out  std_logic_vector(31 downto 0);
+    DviDataOutxDO      : out std_logic_vector(31 downto 0);
     DviNewLinexDI      : in  std_logic;
     DviNewFramexDI     : in  std_logic;
     DviPixelAvxSI      : in  std_logic;
@@ -52,15 +52,15 @@ architecture behavioral of dvi_master is
 
   component ram_dvi_fifo is
     port (
-      aclr    : IN  STD_LOGIC := '0';
-      data    : IN  STD_LOGIC_VECTOR (31 DOWNTO 0);
-      rdclk   : IN  STD_LOGIC;
-      rdreq   : IN  STD_LOGIC;
-      wrclk   : IN  STD_LOGIC;
-      wrreq   : IN  STD_LOGIC;
-      q       : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
-      rdempty : OUT STD_LOGIC;
-      wrusedw : OUT STD_LOGIC_VECTOR (11 DOWNTO 0));
+      aclr    : in  std_logic := '0';
+      data    : in  std_logic_vector (31 downto 0);
+      rdclk   : in  std_logic;
+      rdreq   : in  std_logic;
+      wrclk   : in  std_logic;
+      wrreq   : in  std_logic;
+      q       : out std_logic_vector (31 downto 0);
+      rdempty : out std_logic;
+      wrusedw : out std_logic_vector (11 downto 0));
   end component ram_dvi_fifo;
 
 
@@ -81,120 +81,127 @@ architecture behavioral of dvi_master is
   signal AmReadDataValidxS : std_logic;
   signal AmBurstCountxD    : std_logic_vector(7 downto 0);
 
-  
+
   -----------------------------------------------------------------------------
   -- buffer signals
   -----------------------------------------------------------------------------
-  signal BufDataInxD : std_logic_vector(31 downto 0);
-  signal BufDataOutxD : std_logic_vector(31 downto 0);
-  signal BufReadReqxS : std_logic;
-  signal BufWriteEnxS : std_logic;
-  signal BufNoOfWordsxS : std_logic_vector(11 downto 0);
-  signal BufEmptyxS : std_logic;
+  signal BufDataInxD              : std_logic_vector(31 downto 0);
+  signal BufDataOutxD             : std_logic_vector(31 downto 0);
+  signal BufReadReqxS             : std_logic;
+  signal BufWriteEnxS             : std_logic;
+  signal BufNoOfWordsxS           : std_logic_vector(11 downto 0);
+  signal BufEmptyxS               : std_logic;
   signal BufClearxSP, BufClearxSN : std_logic;
 
   -----------------------------------------------------------------------------
   -- control signals
   -----------------------------------------------------------------------------
   signal PendingReadOutsxDP, PendingReadOutsxDN : integer range 0 to 4096;
-  signal ReadAddressxDP, ReadAddressxDN : std_logic_vector(31 downto 0);
+  signal ReadAddressxDP, ReadAddressxDN         : std_logic_vector(31 downto 0);
 
   -----------------------------------------------------------------------------
   -- fsm signals
   -----------------------------------------------------------------------------
   type fsmState is (idle, fifoWait, burst, finishBurst);
-  signal StatexDP, StatexDN : fsmState;
+  signal StatexDP, StatexDN       : fsmState;
+  type stateDVI is (init, idle, waitForData, streaming);
+  signal StateDVIxDP, StateDVIxDN : stateDVI;
+
+  -----------------------------------------------------------------------------
+  -- memory signals
+  -----------------------------------------------------------------------------
+  signal FirstPixelRegxDP, FirstPixelRegxDN : std_logic_vector(31 downto 0);
 
   -----------------------------------------------------------------------------
   -- counters
   -----------------------------------------------------------------------------
   signal NoOfBurstCounterxDP, NoOfBurstCounterxDN : integer;
-  signal RowCounterxDP, RowCounterxDN : integer range 0 to 2047;
-  
+  signal RowCounterxDP, RowCounterxDN             : integer range 0 to 2047;
+
 begin  -- architecture behavioral
 
   -----------------------------------------------------------------------------
   -- interconnection
   -----------------------------------------------------------------------------
-  ClkxC <= ClkxCI;
-  ClkDvixC <= ClkDvixCI;
-  RstxRB <= RstxRBI;
-  DviNewLinexD <= DviNewLinexDI;
-  DviNewFramexD <= DviNewFramexDI;
-  DviPixelAvxS <= DviPixelAvxSI;
-  AmWaitReqxS <= AmWaitReqxSI;
-  AmReadDataxD <= AmReadDataxDI;
+  ClkxC             <= ClkxCI;
+  ClkDvixC          <= ClkDvixCI;
+  RstxRB            <= RstxRBI;
+  DviNewLinexD      <= DviNewLinexDI;
+  DviNewFramexD     <= DviNewFramexDI;
+  DviPixelAvxS      <= DviPixelAvxSI;
+  AmWaitReqxS       <= AmWaitReqxSI;
+  AmReadDataxD      <= AmReadDataxDI;
   AmReadDataValidxS <= AmReadDataValidxSI;
-  
-  DviDataOutxDO <= DviDataOutxD;
-  AmAddressxDO <= AmAddressxD;
-  AmReadxSO <= AmReadxS;
+
+  DviDataOutxDO   <= DviDataOutxD;
+  AmAddressxDO    <= AmAddressxD;
+  AmReadxSO       <= AmReadxS;
   AmBurstCountxDO <= AmBurstCountxD;
 
   -----------------------------------------------------------------------------
   -- inputs
   -----------------------------------------------------------------------------
-  BufDataInxD <= AmReadDataxD;
+  BufDataInxD    <= AmReadDataxD;
   -----------------------------------------------------------------------------
   -- outputs
   -----------------------------------------------------------------------------
-  AmAddressxD <= ReadAddressxDP;
+  AmAddressxD    <= ReadAddressxDP;
   AmBurstCountxD <= "10000000";         -- 128d (each channel has 128 pixels
-                                        -- per row
+  -- per row
 
   -----------------------------------------------------------------------------
   -- control
   -----------------------------------------------------------------------------
 
-  
+
   -----------------------------------------------------------------------------
   -- memory processes (sequential)
   -----------------------------------------------------------------------------
-  memory: process (ClkxC, RstxRB) is
+  memory : process (ClkxC, RstxRB) is
   begin  -- process memory
-    if RstxRB = '0' then                -- asynchronous reset (active low)
-      ReadAddressxDP <= (others => '0');
-      StatexDP <= idle;
-      PendingReadOutsxDP <= 0;
-      BufClearxSP <= '1';
+    if RstxRB = '0' then                    -- asynchronous reset (active low)
+      ReadAddressxDP      <= (others => '0');
+      StatexDP            <= idle;
+      PendingReadOutsxDP  <= 0;
+      BufClearxSP         <= '1';
       NoOfBurstCounterxDP <= 0;
-      RowCounterxDP <= 0;
+      RowCounterxDP       <= 0;
     elsif ClkxC'event and ClkxC = '1' then  -- rising clock edge
-      ReadAddressxDP <= ReadAddressxDN;
-      StatexDP <= StatexDN;
-      PendingReadOutsxDP <= PendingReadOutsxDN;
-      BufClearxSP <= BufClearxSN;
+      ReadAddressxDP      <= ReadAddressxDN;
+      StatexDP            <= StatexDN;
+      PendingReadOutsxDP  <= PendingReadOutsxDN;
+      BufClearxSP         <= BufClearxSN;
       NoOfBurstCounterxDP <= NoOfBurstCounterxDN;
-      RowCounterxDP <= RowCounterxDN;
+      RowCounterxDP       <= RowCounterxDN;
     end if;
   end process memory;
 
-  memory_ClkDvi: process (ClkDvixC, RstxRB) is
+  memory_ClkDvi : process (ClkDvixC, RstxRB) is
   begin  -- process memory_ClkDvi
     if RstxRB = '0' then                -- asynchronous reset (active low)
-      
+      StateDVIxDP <= init;
     elsif ClkDvixC'event and ClkDvixC = '1' then  -- rising clock edge
-      
+      StateDVIxDP <= StateDVIxDN;
     end if;
   end process memory_ClkDvi;
-  
+
 
   -----------------------------------------------------------------------------
   -- combinational processes
   -----------------------------------------------------------------------------
-  fsm: process (AmReadDataValidxS, AmWaitReqxS, BufNoOfWordsxS, DviNewFramexD,
-                PendingReadOutsxDP, ReadAddressxDP, StatexDP, NoOfBurstCounterxDP, BufClearxSP, RowCounterxDP) is
+  fsm : process (AmReadDataValidxS, AmWaitReqxS, BufNoOfWordsxS, DviNewFramexD,
+                 PendingReadOutsxDP, ReadAddressxDP, StatexDP, NoOfBurstCounterxDP, BufClearxSP, RowCounterxDP) is
   begin  -- process fsm
-    StatexDN <= StatexDP;
-    ReadAddressxDN <= ReadAddressxDP;
+    StatexDN           <= StatexDP;
+    ReadAddressxDN     <= ReadAddressxDP;
     PendingReadOutsxDN <= PendingReadOutsxDP;
-    AmReadxS <= '0';
-    BufWriteEnxS <= AmReadDataValidxS;
+    AmReadxS           <= '0';
+    BufWriteEnxS       <= AmReadDataValidxS;
 
     BufClearxSN <= BufClearxSP;
 
     NoOfBurstCounterxDN <= NoOfBurstCounterxDP;
-    RowCounterxDN <= RowCounterxDP;
+    RowCounterxDN       <= RowCounterxDP;
 
     --if DviNewFramexD = '0' then
     --  ReadAddressxDN <= (others => '0');
@@ -204,34 +211,34 @@ begin  -- architecture behavioral
       if PendingReadOutsxDP > 0 then
         PendingReadOutsxDN <= PendingReadOutsxDP - 1;
       end if;
-      
+
     end if;
 
-   
+
 
     case StatexDP is
       when idle =>
-        StatexDN <= fifoWait;
+        StatexDN           <= fifoWait;
         PendingReadOutsxDN <= 0;
 
       when fifoWait =>
         if BufNoOfWordsxS < 4096-128 then  -- size of buffer is defined in ram_dvi_fifo.vhd
                                            -- 128 = 4*32 (pixel per row per channel)
-          StatexDN <= burst;
+          StatexDN    <= burst;
           BufClearxSN <= '0';
-          
-          
+
+
           if AmReadDataValidxS = '0' then
-            PendingReadOutsxDN <= PendingReadOutsxDP + 128;  
+            PendingReadOutsxDN <= PendingReadOutsxDP + 128;
           else
             PendingReadOutsxDN <= PendingReadOutsxDP + 127;  -- if datavalid is
-                                                            -- set ???
+                                                             -- set ???
           end if;
         end if;
 
       when burst =>
         AmReadxS <= '1';
-        
+
         if AmWaitReqxS /= '1' then
           StatexDN <= finishBurst;
         end if;
@@ -242,59 +249,87 @@ begin  -- architecture behavioral
             StatexDN <= idle;
             if NoOfBurstCounterxDP = 14 then  -- 1920pixel/128pixel=15bursts
               NoOfBurstCounterxDN <= 0;
-              ReadAddressxDN <= ReadAddressxDP + 128*4 + (2048-1920)*4;  -- pixels per
-                                                                 -- row are
-                                                                 -- 2048, but
-                                                                 -- resolution
-                                                                 -- is only
-                                                                 -- 1920, so
-                                                                 -- skip the
-                                                                 -- remaining pixels
+              ReadAddressxDN      <= ReadAddressxDP + 128*4 + (2048-1920)*4;  -- pixels per
+                                        -- row are
+                                        -- 2048, but
+                                        -- resolution
+                                        -- is only
+                                        -- 1920, so
+                                        -- skip the
+                                        -- remaining pixels
               if RowCounterxDP = 1079 then  -- horizontal resolution of monitor
                                             -- max. 1087 with cmv2000
                                             -- max. 2047 with cmv4000
-                RowCounterxDN <= 0;
+                RowCounterxDN  <= 0;
                 ReadAddressxDN <= (others => '0');
               else
                 RowCounterxDN <= RowCounterxDP + 1;
               end if;
             else
               NoOfBurstCounterxDN <= NoOfBurstCounterxDP + 1;
-              ReadAddressxDN <= ReadAddressxDP + 128*4;  -- 128pixels*4bytes
+              ReadAddressxDN      <= ReadAddressxDP + 128*4;  -- 128pixels*4bytes
             end if;
           end if;
         end if;
-        
+
       when others => null;
     end case;
-    
+
   end process fsm;
 
-  
+
   -- purpose: determines DVI data signal each time a word is read out from ram_dvi_fifo
   -- type   : combinational
   -- inputs : BufDataOutxD
   -- outputs: DviDataOutxD
-  DVI: process (BufDataOutxD, BufEmptyxS, DviNewFramexD, DviNewLinexD,
-                DviPixelAvxS) is
+  DVI : process (BufDataOutxD, BufEmptyxS, DviNewFramexD, DviNewLinexD,
+                 DviPixelAvxS, StateDVIxDP) is
   begin  -- process DVI
+    --DviDataOutxD <= "00000000000000000000000011111111";
+    --BufReadReqxS <= '0';
+
+    --if DviPixelAvxS = '1' and DviNewLinexD = '1' and DviNewFramexD = '1' then
+    --  if BufEmptyxS = '0' then
+    --    BufReadReqxS <= '1';
+    --    DviDataOutxD <= BufDataOutxD;
+    --  else
+    --    DviDataOutxD <= "00000000111111110000000000000000";
+    --  end if;
+    --end if;
+
     DviDataOutxD <= "00000000000000000000000011111111";
     BufReadReqxS <= '0';
+    StateDVIxDN  <= StateDVIxDP;
 
-    if DviPixelAvxS = '1' and DviNewLinexD = '1' and DviNewFramexD = '1' then
-      if BufEmptyxS = '0' then
-        BufReadReqxS <= '1';
-        DviDataOutxD <= BufDataOutxD;
-      else
-        DviDataOutxD <= "00000000111111110000000000000000";
-      end if;
-    end if;
+    case StateDVIxDP is
+      when init =>
+        if BufEmptyxS = '0' then
+          StateDVIxDN <= idle;
+        end if;
+
+      when idle =>
+        if DviNewFramexD = '0' then
+          StateDVIxDN <= streaming;
+        end if;
+
+      when streaming =>
+        if DviPixelAvxS = '1' and DviNewLinexD = '1' and DviNewFramexD = '1' then
+          if BufEmptyxS = '0' then
+            BufReadReqxS <= '1';
+            DviDataOutxD <= BufDataOutxD;
+          else
+            DviDataOutxD <= "00000000111111110000000000000000";
+          end if;
+        end if;
+
+      when others => null;
+    end case;
   end process DVI;
 
   -----------------------------------------------------------------------------
   -- instances
   -----------------------------------------------------------------------------
-  ram_dvi_fifo_1: ram_dvi_fifo
+  ram_dvi_fifo_1 : ram_dvi_fifo
     port map (
       aclr    => BufClearxSP,
       data    => BufDataInxD,

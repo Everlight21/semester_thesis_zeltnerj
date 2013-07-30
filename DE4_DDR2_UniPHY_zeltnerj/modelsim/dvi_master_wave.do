@@ -64,6 +64,8 @@ add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/ReadAddressxDP
 add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/ReadAddressxDN
 add wave -noupdate /dvi_master_tb/dvi_master_1/StatexDP
 add wave -noupdate /dvi_master_tb/dvi_master_1/StatexDN
+add wave -noupdate /dvi_master_tb/dvi_master_1/StateDVIxDP
+add wave -noupdate /dvi_master_tb/dvi_master_1/StateDVIxDN
 add wave -noupdate -divider fifo
 add wave -noupdate /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/aclr
 add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/data
@@ -75,7 +77,7 @@ add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/q
 add wave -noupdate /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/rdempty
 add wave -noupdate -radix decimal /dvi_master_tb/dvi_master_1/ram_dvi_fifo_1/wrusedw
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {745000 ps} 0}
+WaveRestoreCursors {{Cursor 1} {140000 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 176
 configure wave -valuecolwidth 58
@@ -91,9 +93,10 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {581395 ps} {1003495 ps}
-bookmark add wave {bookmark12} {{28269980 ps} {28691292 ps}} 26
-bookmark add wave {bookmark13} {{10169190 ps} {10357990 ps}} 4
-bookmark add wave {bookmark14} {{27852789360 ps} {27853210673 ps}} 0
-bookmark add wave {bookmark15} {{27975089 ps} {29660337 ps}} 26
-bookmark add wave {bookmark16} {{27906516425 ps} {27908201673 ps}} 0
+WaveRestoreZoom {0 ps} {422100 ps}
+bookmark add wave {bookmark5} {{27975089 ps} {29660337 ps}} 26
+bookmark add wave {bookmark6} {{27906516425 ps} {27908201673 ps}} 0
+bookmark add wave {bookmark7} {{28269980 ps} {28691292 ps}} 26
+bookmark add wave {bookmark8} {{10169190 ps} {10357990 ps}} 4
+bookmark add wave {bookmark9} {{27852789360 ps} {27853210673 ps}} 0
+bookmark add wave {bookmark10} {{27912168655 ps} {27913511703 ps}} 28
