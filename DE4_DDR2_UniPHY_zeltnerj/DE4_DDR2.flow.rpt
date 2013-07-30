@@ -1,5 +1,5 @@
 Flow report for DE4_DDR2
-Mon Jul 29 17:47:13 2013
+Mon Jul 29 18:08:45 2013
 Quartus II 32-bit Version 12.1 Build 243 01/31/2013 Service Pack 1 SJ Full Version
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +------------------------------------------------------------------------------------+
 ; Flow Summary                                                                       ;
 +-----------------------------------+------------------------------------------------+
-; Flow Status                       ; Successful - Mon Jul 29 17:45:54 2013          ;
+; Flow Status                       ; Successful - Mon Jul 29 18:07:31 2013          ;
 ; Quartus II 32-bit Version         ; 12.1 Build 243 01/31/2013 SP 1 SJ Full Version ;
 ; Revision Name                     ; DE4_DDR2                                       ;
 ; Top-level Entity Name             ; cmv4000design                                  ;
@@ -46,10 +46,10 @@ applicable agreement for further details.
 ; Device                            ; EP4SGX230KF40C2                                ;
 ; Timing Models                     ; Final                                          ;
 ; Logic utilization                 ; 11 %                                           ;
-;     Combinational ALUTs           ; 12,329 / 182,400 ( 7 % )                       ;
+;     Combinational ALUTs           ; 12,348 / 182,400 ( 7 % )                       ;
 ;     Memory ALUTs                  ; 183 / 91,200 ( < 1 % )                         ;
-;     Dedicated logic registers     ; 13,696 / 182,400 ( 8 % )                       ;
-; Total registers                   ; 14334                                          ;
+;     Dedicated logic registers     ; 13,702 / 182,400 ( 8 % )                       ;
+; Total registers                   ; 14340                                          ;
 ; Total pins                        ; 302 / 888 ( 34 % )                             ;
 ; Total virtual pins                ; 0                                              ;
 ; Total block memory bits           ; 2,526,620 / 14,625,792 ( 17 % )                ;
@@ -68,7 +68,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 07/29/2013 17:31:12 ;
+; Start date & time ; 07/29/2013 17:53:24 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE4_DDR2            ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ applicable agreement for further details.
 +-------------------------------------+------------------------------------------------------------+---------------+------------------------------------------+------------+
 ; Assignment Name                     ; Value                                                      ; Default Value ; Entity Name                              ; Section Id ;
 +-------------------------------------+------------------------------------------------------------+---------------+------------------------------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 116526678098.137511187203752                               ; --            ; --                                       ; --         ;
+; COMPILER_SIGNATURE_ID               ; 116526678098.137511320305460                               ; --            ; --                                       ; --         ;
 ; ECO_REGENERATE_REPORT               ; On                                                         ; Off           ; --                                       ; --         ;
 ; FITTER_EFFORT                       ; Fast Fit                                                   ; Auto Fit      ; --                                       ; --         ;
 ; IP_TOOL_ENV                         ; qsys                                                       ; --            ; DE4_QSYS                                 ; --         ;
@@ -294,11 +294,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:04:17     ; 1.0                     ; 907 MB              ; 00:04:09                           ;
-; Fitter                    ; 00:09:07     ; 2.0                     ; 1245 MB             ; 00:10:34                           ;
-; Assembler                 ; 00:00:42     ; 1.0                     ; 624 MB              ; 00:00:40                           ;
-; TimeQuest Timing Analyzer ; 00:01:15     ; 1.8                     ; 853 MB              ; 00:01:27                           ;
-; Total                     ; 00:15:21     ; --                      ; --                  ; 00:16:50                           ;
+; Analysis & Synthesis      ; 00:03:56     ; 1.0                     ; 903 MB              ; 00:03:54                           ;
+; Fitter                    ; 00:08:54     ; 2.0                     ; 1240 MB             ; 00:10:28                           ;
+; Assembler                 ; 00:00:42     ; 1.0                     ; 620 MB              ; 00:00:40                           ;
+; TimeQuest Timing Analyzer ; 00:01:10     ; 1.7                     ; 864 MB              ; 00:01:23                           ;
+; Total                     ; 00:14:42     ; --                      ; --                  ; 00:16:25                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
