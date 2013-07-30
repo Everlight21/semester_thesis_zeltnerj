@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-22
--- Last update: 2013-07-29
+-- Last update: 2013-07-30
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -107,7 +107,7 @@ architecture behavioral of cmv_master is
   type bufferNoOfWords is array (1 to noOfDataChannels) of std_logic_vector(7 downto 0);
   signal BufNoOfWordsxS : bufferNoOfWords;
 
- 
+
   signal BufFullxS : std_logic_vector(noOfDataChannels downto 1);
 
 
@@ -193,8 +193,8 @@ begin
 
 
 
-    StateCmvxDN <= StateCmvxDP;
-    BufClearxS <= '0';
+    StateCmvxDN  <= StateCmvxDP;
+    BufClearxS   <= '0';
     BufWriteEnxS <= (others => '0');
 
     for i in 1 to noOfDataChannels loop
@@ -220,7 +220,7 @@ begin
       --  if PixelValidxS = '1' and RowValidxS = '1' and FrameValidxS = '1' then
 
       --    StateCmvxDN <= writeDataToBuffer;
-          
+
       --    for i in 1 to noOfDataChannels loop
       --      if BufFullxS(i) /= '1' then
       --        BufWriteEnxS(i) <= '1';
@@ -289,11 +289,11 @@ begin
   memory_ClkLvdsRxxD : process (ClkLvdsRxxC, RstxRB) is
   begin  -- process memory_ClkLvdsRxxD
     if RstxRB = '0' then                -- asynchronous reset (active low)
-      FrameRunningxSP    <= '0';
-      StateCmvxDP <= writeDataToBuffer;
+      FrameRunningxSP <= '0';
+      StateCmvxDP     <= writeDataToBuffer;
     elsif ClkLvdsRxxC'event and ClkLvdsRxxC = '1' then  -- rising clock edge
-      FrameRunningxSP    <= FrameRunningxSN;
-      StateCmvxDP <= StateCmvxDN;
+      FrameRunningxSP <= FrameRunningxSN;
+      StateCmvxDP     <= StateCmvxDN;
     end if;
   end process memory_ClkLvdsRxxD;
 
@@ -337,7 +337,7 @@ begin
                                            -- rdwuse counts 128bit words. After
                                            -- 8*128=1024bit or 8*4pixel=32pixel
                                            -- a read-out should be performed
-              StatexDN        <= fifoWait;
+              StatexDN <= fifoWait;
 
             end if;
 
@@ -350,24 +350,28 @@ begin
 
           if AMWaitReqxS = '0' and ChannelSelectxSP = i then
             BufReadReqxS(i) <= '1';
-            StatexDN <= burst;
+            StatexDN        <= burst;
           else
             BufReadReqxS(i) <= '0';
           end if;
         end loop;  -- i
+
+
 
       when burst =>
 
         AMWritexS <= '1';
+        
+        if AMWaitReqxS /= '1' then
+          
+          for i in 1 to noOfDataChannels loop
+            if ChannelSelectxSP = i then
+              BufReadReqxS(i) <= '1';
+            else
+              BufReadReqxS(i) <= '0';
+            end if;
+          end loop;  -- i
 
-        for i in 1 to noOfDataChannels loop
-
-          if AMWaitReqxS = '0' and ChannelSelectxSP = i then
-            BufReadReqxS(i) <= '1';
-          else
-            BufReadReqxS(i) <= '0';
-          end if;
-        end loop;  -- i
 
         ---------------------------------------------------------------------
         -- This section needs to be adjusted according to the no of channels.
@@ -378,9 +382,8 @@ begin
         --  4 channels: 4 * 128 pixels = 16 * 32 pixels
         --  2 channels: 8 * 128 pixels
         ---------------------------------------------------------------------
-        if AMWaitReqxS /= '1' then
 
-          
+
           if BurstWordCountxDP = 7 then  -- for each burstcount 4pixels are
                                          -- read out. After 8 read-outs, a
                                          -- packet of 32pixels have been read
@@ -430,7 +433,7 @@ begin
           else
             BurstWordCountxDN <= BurstWordCountxDP + 1;
           end if;
-          
+
         end if;
 
 
@@ -462,7 +465,7 @@ begin
 
   end generate fifo_instances;
 
-  
+
 
 
 end architecture behavioral;

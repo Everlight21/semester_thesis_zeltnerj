@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-03
--- Last update: 2013-07-26
+-- Last update: 2013-07-30
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -197,18 +197,24 @@ begin  --behavoural
 
     StatexDN <= StatexDP;
 
+    --PixelValidxS <= '1';
+        --RowValidxS <= '1';
+        --FrameValidxS <= '1';
+        AMWaitReqxS <= '0';
+        DataRegxDN  <= (others => '0');
+
     case StatexDP is
       when init =>
-        PixelValidxS <= '1';
-        RowValidxS   <= '1';
-        FrameValidxS <= '1';
+        PixelValidxS <= '0';
+        RowValidxS   <= '0';
+        FrameValidxS <= '0';
         StatexDN <= idle;
 
 
       when idle =>
-        PixelValidxS <= '1';
-        RowValidxS   <= '1';
-        FrameValidxS <= '1';
+        PixelValidxS <= '0';
+        RowValidxS   <= '0';
+        FrameValidxS <= '0';
         StatexDN <= running;
 
       when running =>
@@ -224,6 +230,11 @@ begin  --behavoural
           end if;
 
         else
+
+          if PixelValidCounterxDP = 144 then  -- to test amwaitreq during buf
+                                              -- read out
+            AMWaitReqxS <= '1';
+          end if;
           PixelValidxS <= '1';
           RowValidxS   <= '1';
           FrameValidxS <= '1';
@@ -242,11 +253,7 @@ begin  --behavoural
         end if;
 
 
-        --PixelValidxS <= '1';
-        --RowValidxS <= '1';
-        --FrameValidxS <= '1';
-        AMWaitReqxS <= '0';
-        DataRegxDN  <= (others => '0');
+        
         if TogglexDP = 2 then
           TogglexDN <= 0;
         else

@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-05-10
--- Last update: 2013-07-29
+-- Last update: 2013-07-30
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -183,7 +183,7 @@ begin  -- architecture behavioral
   -- combinational processes
   -----------------------------------------------------------------------------
   fsm: process (AmReadDataValidxS, AmWaitReqxS, BufNoOfWordsxS, DviNewFramexD,
-                PendingReadOutsxDP, ReadAddressxDP, StatexDP, NoOfBurstCounterxDP) is
+                PendingReadOutsxDP, ReadAddressxDP, StatexDP, NoOfBurstCounterxDP, BufClearxSP, RowCounterxDP) is
   begin  -- process fsm
     StatexDN <= StatexDP;
     ReadAddressxDN <= ReadAddressxDP;
