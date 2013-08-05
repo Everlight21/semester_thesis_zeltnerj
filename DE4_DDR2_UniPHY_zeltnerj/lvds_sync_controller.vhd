@@ -6,7 +6,7 @@
 -- Author     : Joscha Zeltner
 -- Company    : Computer Vision and Geometry Group, Pixhawk, ETH Zurich
 -- Created    : 2013-03-15
--- Last update: 2013-07-29
+-- Last update: 2013-08-05
 -- Platform   : Quartus II, NIOS II 12.1sp1
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -201,8 +201,12 @@ begin  -- architecture behavioral
   LedxS(0) <= PixelChannelxD(0)(0);
   LedxS(1) <= PixelChannelxD(0)(1);
   LedxS(2) <= PixelChannelxD(0)(2);
-  LedxS(3) <= PixelChannelxD(0)(3);
-  LedxS(4) <= PixelChannelxD(0)(4);
+  --LedxS(3) <= PixelChannelxD(0)(3);
+  LedxS(3) <= '1' when StatexDP = pulseChannelDataAlign else
+              '0';
+  --LedxS(4) <= PixelChannelxD(0)(4);
+  LedxS(4) <= '1' when StatexDP = initCtr else
+              '0';
   --LedxS(5) <= PixelChannelxD(0)(5);
   LedxS(5) <= '1' when StatexDP = idle else
               '0';
